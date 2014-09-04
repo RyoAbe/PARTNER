@@ -3,7 +3,8 @@ platform :ios, "8.0"
 inhibit_all_warnings!
 
 target :PARTNER, :exclusive => true do
-
+	pod "AFNetworking", "~> 2.0"
+	pod 'Parse-iOS-SDK'
 end
 
 # Testing framework for Test target.
