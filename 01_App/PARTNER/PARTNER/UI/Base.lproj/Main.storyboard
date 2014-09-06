@@ -84,16 +84,95 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="PARTNER" id="Wqm-vl-bND"/>
+                    <navigationItem key="navigationItem" title="PARTNER" id="Wqm-vl-bND">
+                        <barButtonItem key="leftBarButtonItem" title="Registration" style="plain" id="MHX-ew-TWI">
+                            <connections>
+                                <action selector="register:" destination="vXZ-lx-hvc" id="sE2-3d-aXh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="D6g-bL-jsG" id="xuq-UJ-jGu"/>
                         <outlet property="myStatusView" destination="zMq-AU-nJF" id="hT4-fJ-0p8"/>
                         <outlet property="partnersStatusView" destination="OLA-RU-xEL" id="P0t-0k-wxY"/>
+                        <segue destination="hKO-1M-ASj" kind="presentation" identifier="AccountRegistrationSegue" id="8Tg-E3-Fes"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1002" y="517"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="G2F-bY-jhQ">
+            <objects>
+                <navigationController id="hKO-1M-ASj" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xu0-9Z-Sed">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="xIx-IW-dU4" kind="relationship" relationship="rootViewController" id="zEu-p0-u7S"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U7h-7f-iRG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1795" y="517"/>
+        </scene>
+        <!--Account Registration Table View Controller-->
+        <scene sceneID="3YY-xU-WWc">
+            <objects>
+                <tableViewController id="xIx-IW-dU4" customClass="AccountRegistrationTableViewController" customModule="PARTNER" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="kCH-PA-boT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="YOUR Profile" id="2y3-bL-LNe">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="gvx-2f-buS">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gvx-2f-buS" id="8P6-ip-1YS">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="jDv-1g-mTI" style="IBUITableViewCellStyleDefault" id="7hT-nd-hNB">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7hT-nd-hNB" id="VfF-IG-TBk">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Profile image" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jDv-1g-mTI">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="xIx-IW-dU4" id="V8Z-Wg-P8c"/>
+                            <outlet property="delegate" destination="xIx-IW-dU4" id="He1-M2-39n"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="mIK-JO-Asz">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="M7n-PC-D7c">
+                            <connections>
+                                <action selector="cancel:" destination="xIx-IW-dU4" id="CzF-Id-sM1"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="fBr-4h-Fkg">
+                            <connections>
+                                <action selector="done:" destination="xIx-IW-dU4" id="NU4-SM-VZh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0iI-Hh-Cae" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2570" y="517"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="W4f-AH-k7b">

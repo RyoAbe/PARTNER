@@ -41,5 +41,14 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             cell.backgroundColor = UIColor.whiteColor()
         })
     }
+
+    @IBAction func register(sender: UIBarButtonItem) {
+//        self.shouldPerformSegueWithIdentifier("AccountRegistrationSegue", sender: self)
+        self.performSegueWithIdentifier("AccountRegistrationSegue", sender: self)
+//        [self performSegueWithIdentifier:@"identifier名" sender:self];
+//        let vc = UIViewController();
+//        self.navigationController!.pushViewController(vc, animated: true)
+//        self.navigationController?.presentViewController(vc, animated: true, completion: nil)
+    }
 }
 
