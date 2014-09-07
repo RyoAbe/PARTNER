@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         self.setupAppearance();
         self.setupParse();
+        application.registerForRemoteNotificationTypes(UIRemoteNotificationType.Badge|UIRemoteNotificationType.Alert|UIRemoteNotificationType.Sound)
         return true
     }
 
@@ -30,6 +31,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupParse() {
         Parse.setApplicationId("Wq5i73uv70sYS1tI9anCe4WE9Iz5YVQtWof988EJ", clientKey: "9o1GdrDNpDfCN0eTkWYEsENAoftTkZgC7EQpeghc")
         PFUser.enableAutomaticUser()
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation.setDeviceTokenFromData(deviceToken)
+        currentInstallation.saveInBackground()
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        PFPush.handlePush(userInfo)
     }
 
     func applicationWillResignActive(application: UIApplication!) {
