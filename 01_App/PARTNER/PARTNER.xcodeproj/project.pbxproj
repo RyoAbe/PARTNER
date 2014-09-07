@@ -20,7 +20,8 @@
 		324FE53419B4CED1000AF85E /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324FE53219B4CED1000AF85E /* StatusView.swift */; };
 		324FE53519B4CED1000AF85E /* StatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324FE53319B4CED1000AF85E /* StatusView.xib */; };
 		324FE53919B4CFDA000AF85E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324FE53819B4CFDA000AF85E /* Profile.swift */; };
-		32F74BEB19BB30110032C9AC /* AccountRegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F74BEA19BB30110032C9AC /* AccountRegistrationTableViewController.swift */; };
+		32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */; };
+		32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F74BEA19BB30110032C9AC /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +51,9 @@
 		324FE53219B4CED1000AF85E /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		324FE53319B4CED1000AF85E /* StatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusView.xib; sourceTree = "<group>"; };
 		324FE53819B4CFDA000AF85E /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		32F74BEA19BB30110032C9AC /* AccountRegistrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRegistrationTableViewController.swift; sourceTree = "<group>"; };
+		32E1BE0519BB4E5400EBE7F7 /* PARTNER-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PARTNER-Bridging-Header.h"; sourceTree = "<group>"; };
+		32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserOperation.swift; sourceTree = "<group>"; };
+		32F74BEA19BB30110032C9AC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		54338561A2B9490D922E571D /* Pods-PARTNER.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARTNER.xcconfig"; path = "Pods/Pods-PARTNER.xcconfig"; sourceTree = "<group>"; };
 		D9B64D5061C642D792FC3A9A /* libPods-PARTNER.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PARTNER.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -103,6 +106,7 @@
 				3230098F1997374800B4FE5E /* Images.xcassets */,
 				323009871997374800B4FE5E /* PARTNER.xcdatamodeld */,
 				323009831997374800B4FE5E /* Supporting Files */,
+				32E1BE0519BB4E5400EBE7F7 /* PARTNER-Bridging-Header.h */,
 			);
 			path = PARTNER;
 			sourceTree = "<group>";
@@ -137,7 +141,7 @@
 			children = (
 				324FE52019B4CD7F000AF85E /* Main.storyboard */,
 				324FE52219B4CD7F000AF85E /* MainViewController.swift */,
-				32F74BEA19BB30110032C9AC /* AccountRegistrationTableViewController.swift */,
+				32F74BEA19BB30110032C9AC /* SettingsViewController.swift */,
 				324FE52619B4CD7F000AF85E /* StatusBaseView.swift */,
 				324FE53119B4CED1000AF85E /* StatusView */,
 				324FE52319B4CD7F000AF85E /* MessageMenuCell */,
@@ -166,6 +170,7 @@
 		324FE53619B4CFBB000AF85E /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				32E1BE0719BC2F7F00EBE7F7 /* Operation */,
 				324FE53719B4CFBB000AF85E /* Model */,
 			);
 			path = Core;
@@ -177,6 +182,14 @@
 				324FE53819B4CFDA000AF85E /* Profile.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		32E1BE0719BC2F7F00EBE7F7 /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */,
+			);
+			path = Operation;
 			sourceTree = "<group>";
 		};
 		899953D064E749BDBBCA6AAD /* Frameworks */ = {
@@ -325,9 +338,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				324FE52B19B4CD7F000AF85E /* MainViewController.swift in Sources */,
+				32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */,
 				324FE52E19B4CD7F000AF85E /* StatusBaseView.swift in Sources */,
 				324FE53419B4CED1000AF85E /* StatusView.swift in Sources */,
-				32F74BEB19BB30110032C9AC /* AccountRegistrationTableViewController.swift in Sources */,
+				32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */,
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,
 				324FE52C19B4CD7F000AF85E /* MessageMenuCell.swift in Sources */,
@@ -448,12 +462,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = PARTNER/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PARTNER/PARTNER-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -463,6 +480,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -472,6 +490,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PARTNER/PARTNER-Bridging-Header.h";
 			};
 			name = Release;
 		};

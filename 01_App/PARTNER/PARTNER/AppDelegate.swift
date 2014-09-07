@@ -16,9 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
-        
-        UIBarButtonItem.appearance().tintColor = UIColor.blackColor()
+        self.setupAppearance();
+        self.setupParse();
         return true
+    }
+
+    func setupAppearance() {
+        UIBarButtonItem.appearance().tintColor = UIColor.blackColor()
+        UISwitch.appearance().onTintColor = UIColor.darkGrayColor()
+        UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
+    }
+
+    func setupParse() {
+        Parse.setApplicationId("Wq5i73uv70sYS1tI9anCe4WE9Iz5YVQtWof988EJ", clientKey: "9o1GdrDNpDfCN0eTkWYEsENAoftTkZgC7EQpeghc")
+        PFUser.enableAutomaticUser()
     }
 
     func applicationWillResignActive(application: UIApplication!) {
