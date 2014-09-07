@@ -18,6 +18,7 @@ class SettingsViewController: UITableViewController {
 
     enum FirstSection : Int {
         case username
+        case addPartner
     }
 
     enum SecondSection : Int {
@@ -30,7 +31,7 @@ class SettingsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView .registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
         self.usernameTextField = UITextField(frame: CGRectZero)
         self.usernameTextField.placeholder = "Nickname"
@@ -45,8 +46,7 @@ class SettingsViewController: UITableViewController {
 
     @IBAction func done(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
-            let op = UpdateUserOperation(username: self.usernameTextField.text)
-            op.save()
+            UpdateUserOperation(username: self.usernameTextField.text).save()
         })
     }
 
@@ -61,6 +61,8 @@ class SettingsViewController: UITableViewController {
                 frame.size = cell.frame.size
                 self.usernameTextField.frame = CGRectInset(frame, 16, 0)
                 cell.addSubview(self.usernameTextField)
+                break
+            case .addPartner:
                 break
             }
             break

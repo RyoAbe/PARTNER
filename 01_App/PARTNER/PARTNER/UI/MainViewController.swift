@@ -17,7 +17,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell");
-        self.partnersStatusView.profile = Profile .createWithName("Sophia", imageName:"women");
+        self.partnersStatusView.profile = Profile.createWithName("Sophia", imageName:"women");
         self.myStatusView.profile = Profile.createWithName("Ethan", imageName:"men");
     }
 
@@ -31,24 +31,19 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }
     
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView .cellForItemAtIndexPath(indexPath) as MessageMenuCell
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
         cell.backgroundColor = UIColor(white: 0.9, alpha: 1)
     }
     
     func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView .cellForItemAtIndexPath(indexPath) as MessageMenuCell
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             cell.backgroundColor = UIColor.whiteColor()
         })
     }
 
-    @IBAction func register(sender: UIBarButtonItem) {
-//        self.shouldPerformSegueWithIdentifier("AccountRegistrationSegue", sender: self)
+    @IBAction func settings(sender: UIBarButtonItem) {
         self.performSegueWithIdentifier("AccountRegistrationSegue", sender: self)
-//        [self performSegueWithIdentifier:@"identifier名" sender:self];
-//        let vc = UIViewController();
-//        self.navigationController!.pushViewController(vc, animated: true)
-//        self.navigationController?.presentViewController(vc, animated: true, completion: nil)
     }
 }
 

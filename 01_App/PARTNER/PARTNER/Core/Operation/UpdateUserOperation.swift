@@ -11,9 +11,15 @@ import UIKit
 class UpdateUserOperation: NSObject {
     
     var username: NSString!
+    var partner: PFObject!
 
     init(username: NSString){
         self.username = username
+        super.init()
+    }
+
+    init(partner: PFObject){
+        self.partner = partner
         super.init()
     }
 
@@ -21,7 +27,8 @@ class UpdateUserOperation: NSObject {
         var user = PFUser.currentUser()
         // FIXME: 仮
         user.password = "password"
-        user.username = self.username
+        user["partner"] = self.partner == nil ? user["partner"] : self.partner
+        user.username = self.username == nil ? user.username : self.username
         user.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
             if(error == nil){
                 return

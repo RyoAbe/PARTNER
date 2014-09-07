@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func setupAppearance() {
-        UIBarButtonItem.appearance().tintColor = UIColor.blackColor()
+        UINavigationBar.appearance().tintColor = UIColor.blackColor()
         UISwitch.appearance().onTintColor = UIColor.darkGrayColor()
         UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
     }
