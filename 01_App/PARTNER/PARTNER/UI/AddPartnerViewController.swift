@@ -10,12 +10,9 @@ import UIKit
 
 class AddPartnerViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
+    // TODO: QRコードでどうやって友達になるかを検討（とりあえずQRコードにみにしてLocationのやつはなしにする？）
+    // TODO: 友達追加が成功したらCoreDataに保存
+    
     @IBAction func useLocation(sender: UIButton) {
 
         var query = PFQuery(className:PFUser.parseClassName())

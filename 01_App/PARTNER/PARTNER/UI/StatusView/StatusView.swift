@@ -10,6 +10,7 @@ import UIKit
 
 class StatusView: UIView {
 
+    // TODO: モデルをObserveして状態が更新されたらView側をstatusアイコンと日付を更新する
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var atLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!

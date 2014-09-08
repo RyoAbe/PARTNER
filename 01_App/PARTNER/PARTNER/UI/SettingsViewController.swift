@@ -10,6 +10,9 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
+    // TODO: 【まだいい】他に設定項目がないか検討
+    // TODO: 【まだいい】設定項目がすべての項目が一緒くたんになってるかわそれぞれ分裂する
+    
     enum Section : Int {
         case First
         case Second
@@ -46,6 +49,7 @@ class SettingsViewController: UITableViewController {
 
     @IBAction func done(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
+            // TODO: 自分の名前をUserDefault or CoreDataに保存 http://somtd.hatenablog.com/entry/2013/12/07/230851
             UpdateUserOperation(username: self.usernameTextField.text).save()
         })
     }
