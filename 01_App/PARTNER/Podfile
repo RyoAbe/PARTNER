@@ -6,6 +6,7 @@ target :PARTNER, :exclusive => true do
 	pod "AFNetworking", "~> 2.0"
 	pod 'Parse-iOS-SDK'
 	pod 'ParseFacebookUtils'
+	pod 'MRProgress', '~> 0.7.0'
 end
 
 # Testing framework for Test target.
