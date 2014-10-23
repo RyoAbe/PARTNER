@@ -8,7 +8,7 @@
 
 import UIKit
 
-// TODO: 本当は本Viewはいらないはず
+// ???: 【次にやる！！！】本当は本Viewはいらないはず
 public class StatusBaseView: UIView {
 
     var statusView: StatusView!;

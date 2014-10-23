@@ -20,6 +20,7 @@
 		324FE53419B4CED1000AF85E /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324FE53219B4CED1000AF85E /* StatusView.swift */; };
 		324FE53519B4CED1000AF85E /* StatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324FE53319B4CED1000AF85E /* StatusView.xib */; };
 		324FE53919B4CFDA000AF85E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324FE53819B4CFDA000AF85E /* Profile.swift */; };
+		3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */; };
 		32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */; };
 		32E1BE0B19BC37C900EBE7F7 /* AddPartnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0A19BC37C900EBE7F7 /* AddPartnerViewController.swift */; };
 		32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F74BEA19BB30110032C9AC /* SettingsViewController.swift */; };
@@ -52,11 +53,13 @@
 		324FE53219B4CED1000AF85E /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		324FE53319B4CED1000AF85E /* StatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusView.xib; sourceTree = "<group>"; };
 		324FE53819B4CFDA000AF85E /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginToFBOperation.swift; sourceTree = "<group>"; };
 		32E1BE0519BB4E5400EBE7F7 /* PARTNER-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PARTNER-Bridging-Header.h"; sourceTree = "<group>"; };
 		32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserOperation.swift; sourceTree = "<group>"; };
 		32E1BE0A19BC37C900EBE7F7 /* AddPartnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPartnerViewController.swift; sourceTree = "<group>"; };
 		32F74BEA19BB30110032C9AC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		54338561A2B9490D922E571D /* Pods-PARTNER.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARTNER.xcconfig"; path = "Pods/Pods-PARTNER.xcconfig"; sourceTree = "<group>"; };
+		5AEEFDF16C49165167AD0C9C /* Pods-PARTNER.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARTNER.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PARTNER/Pods-PARTNER.debug.xcconfig"; sourceTree = "<group>"; };
+		B40DFF861AFF3EE1B50D737A /* Pods-PARTNER.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARTNER.release.xcconfig"; path = "Pods/Target Support Files/Pods-PARTNER/Pods-PARTNER.release.xcconfig"; sourceTree = "<group>"; };
 		D9B64D5061C642D792FC3A9A /* libPods-PARTNER.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PARTNER.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -85,8 +88,8 @@
 				323009821997374800B4FE5E /* PARTNER */,
 				323009981997374800B4FE5E /* PARTNERTests */,
 				323009811997374800B4FE5E /* Products */,
-				54338561A2B9490D922E571D /* Pods-PARTNER.xcconfig */,
 				899953D064E749BDBBCA6AAD /* Frameworks */,
+				C67341F0C1948FCF66C7F797 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -191,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */,
+				3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */,
 			);
 			path = Operation;
 			sourceTree = "<group>";
@@ -201,6 +205,15 @@
 				D9B64D5061C642D792FC3A9A /* libPods-PARTNER.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C67341F0C1948FCF66C7F797 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5AEEFDF16C49165167AD0C9C /* Pods-PARTNER.debug.xcconfig */,
+				B40DFF861AFF3EE1B50D737A /* Pods-PARTNER.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,7 +328,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-PARTNER-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PARTNER/Pods-PARTNER-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AA4B75C6B736418E93734BE4 /* Check Pods Manifest.lock */ = {
@@ -345,6 +358,7 @@
 				32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */,
 				324FE52E19B4CD7F000AF85E /* StatusBaseView.swift in Sources */,
 				324FE53419B4CED1000AF85E /* StatusView.swift in Sources */,
+				3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */,
 				32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */,
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,
@@ -462,19 +476,19 @@
 		};
 		323009A01997374800B4FE5E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54338561A2B9490D922E571D /* Pods-PARTNER.xcconfig */;
+			baseConfigurationReference = 5AEEFDF16C49165167AD0C9C /* Pods-PARTNER.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ryo abe (GDTVC9S2V5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: com.ryoabe.PARTNER";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = PARTNER/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2ad3c344-779c-4baf-8519-74c6bab8f4bb";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PARTNER/PARTNER-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -482,7 +496,7 @@
 		};
 		323009A11997374800B4FE5E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54338561A2B9490D922E571D /* Pods-PARTNER.xcconfig */;
+			baseConfigurationReference = B40DFF861AFF3EE1B50D737A /* Pods-PARTNER.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -494,10 +508,10 @@
 					"$(PROJECT_DIR)/PARTNER/Frameworks",
 				);
 				INFOPLIST_FILE = PARTNER/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2ad3c344-779c-4baf-8519-74c6bab8f4bb";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PARTNER/PARTNER-Bridging-Header.h";
 			};
 			name = Release;

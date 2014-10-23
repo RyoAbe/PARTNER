@@ -25,7 +25,7 @@ class UpdateUserOperation: NSObject {
 
     func save(){
         var user = PFUser.currentUser()
-        // TODO: 仮でpasswordをセットしてるけどいらないだろうから他のを検討（ってかFB連携でいっか？）
+        // ???: 仮でpasswordをセットしてるけどいらないだろうから他のを検討（ってかFB連携でいっか？）
         user.password = "password"
         user["partner"] = self.partner == nil ? user["partner"] : self.partner
         user.username = self.username == nil ? user.username : self.username

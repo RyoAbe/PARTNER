@@ -24,9 +24,16 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell");
-        self.partnersStatusView.profile = Profile.createWithName("Sophia", imageName:"women");
-        self.myStatusView.profile = Profile.createWithName("Ethan", imageName:"men");
+        self.collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
+        self.partnersStatusView.profile = Profile.createWithName("Sophia", imageName:"women")
+        self.myStatusView.profile = Profile.createWithName("Ethan", imageName:"men")
+        
+        let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+            LoginToFBOperation().start()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
@@ -34,7 +41,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
         // ???: 【CoreData】Menu項目はCoreDataから取得する
         // ???: 【保留】Menu項目のアイコンの再考
-        
+        // ???: 【次にやる！！！】ベタ書きになってるからDataSourceを作る
         var labelText:NSString? = nil
         var imageName:NSString? = nil
         if(indexPath.row == 0){
@@ -90,9 +97,9 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
         let push = PFPush()
-        // TODO: TestChanelを削除して指定したユーザにpushされるように
+        // ???: TestChanelを削除して指定したユーザにpushされるように
         // ???: 【CoreData】pushが成功したらCoreDataに保存。
-        // TODO: 一旦メニューの項目は定数で持つようにしよう（将来的にはCoreDataから引っ張ってくるように）
+        // ???: 【次にやる！！！】一旦メニューの項目は定数で持つようにしよう（将来的にはCoreDataから引っ張ってくるように）
         push.setChannel("TestChanel")
         push.setMessage("Sophia:「" + cell.menuLabel.text! + "」")
         push .sendPushInBackground()

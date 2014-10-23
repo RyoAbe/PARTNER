@@ -7,6 +7,7 @@ target :PARTNER, :exclusive => true do
 	pod 'Parse-iOS-SDK'
 	pod 'ParseFacebookUtils'
 	pod 'MRProgress', '~> 0.7.0'
+	pod 'Toast', '~> 2.4’
 end
 
 # Testing framework for Test target.
