@@ -8,7 +8,7 @@
 
 import UIKit
 
-// FIXME: 本当はいらないはず
+// TODO: 本当は本Viewはいらないはず
 public class StatusBaseView: UIView {
 
     var statusView: StatusView!;

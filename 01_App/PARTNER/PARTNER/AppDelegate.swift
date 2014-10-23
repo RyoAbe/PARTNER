@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.setupParse();
         application.registerForRemoteNotificationTypes(UIRemoteNotificationType.Badge|UIRemoteNotificationType.Alert|UIRemoteNotificationType.Sound)
         
-        // TODO: 【保留】Menu項目をCoreDataに保存したいけど
+        // ???: 【保留】Menu項目をCoreDataに保存したいけど
 
         return true
     }
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        // TODO: 受け取ったnotificationをCoreDataに保存（historyが見れるようにいつかやる）
+        // ???: 【CoreData】受け取ったnotificationをCoreDataに保存（historyが見れるようにいつかやる）
         PFPush.handlePush(userInfo)
     }
 

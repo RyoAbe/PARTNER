@@ -10,8 +10,8 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
-    // TODO: 【まだいい】他に設定項目がないか検討
-    // TODO: 【まだいい】設定項目がすべての項目が一緒くたんになってるかわそれぞれ分裂する
+    // ???: 【まだいい】他に設定項目がないか検討
+    // ???: 【まだいい】設定項目がすべての項目が一緒くたんになってるかわそれぞれ分裂する
     
     enum Section : Int {
         case First

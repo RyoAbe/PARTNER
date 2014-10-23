@@ -16,7 +16,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         case Third
     }
     
-    // TODO: 【まだいい】初回のパートナーがいない状態のとき、即座にモーダルかかんかでパートナーの追加画面を表示する
+    // ???: 【保留】初回のパートナーがいない状態のとき、即座にモーダルかかんかでパートナーの追加画面を表示する
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var partnersStatusView: StatusBaseView!
@@ -32,8 +32,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as MessageMenuCell
 
-        // TODO: 【保留】Menu項目はCoreDataから取得する
-        // TODO: 【まだいい】Menu項目のアイコンの再考
+        // ???: 【CoreData】Menu項目はCoreDataから取得する
+        // ???: 【保留】Menu項目のアイコンの再考
         
         var labelText:NSString? = nil
         var imageName:NSString? = nil
@@ -91,7 +91,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
         let push = PFPush()
         // TODO: TestChanelを削除して指定したユーザにpushされるように
-        // TODO: pushが成功したらCoreDataに保存。
+        // ???: 【CoreData】pushが成功したらCoreDataに保存。
+        // TODO: 一旦メニューの項目は定数で持つようにしよう（将来的にはCoreDataから引っ張ってくるように）
         push.setChannel("TestChanel")
         push.setMessage("Sophia:「" + cell.menuLabel.text! + "」")
         push .sendPushInBackground()

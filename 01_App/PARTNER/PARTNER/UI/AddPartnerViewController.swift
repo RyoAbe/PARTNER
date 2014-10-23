@@ -10,9 +10,9 @@ import UIKit
 
 class AddPartnerViewController: UIViewController {
 
-    // TODO: QRコードでどうやって友達になるかを検討（とりあえずQRコードにみにしてLocationのやつはなしにする？）
-    // TODO: 友達追加が成功したらCoreDataに保存
-    
+    // ???: 【保留】QRコードでどうやって友達になるかを検討（とりあえずQRコードにみにしてLocationのやつはなしにする？）
+    // ???: 【保留】友達追加が成功したらCoreDataに保存
+
     @IBAction func useLocation(sender: UIButton) {
 
         var query = PFQuery(className:PFUser.parseClassName())
