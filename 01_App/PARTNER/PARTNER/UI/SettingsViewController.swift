@@ -57,9 +57,9 @@ class SettingsViewController: UITableViewController {
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.selectionStyle = UITableViewCellSelectionStyle.None
 
-        switch Section.fromRaw(indexPath.section)! {
+        switch Section(rawValue: indexPath.section)! {
         case .First:
-            switch FirstSection.fromRaw(indexPath.row)! {
+            switch FirstSection(rawValue: indexPath.row)! {
             case .username:
                 var frame = self.usernameTextField.frame
                 frame.size = cell.frame.size
@@ -71,7 +71,7 @@ class SettingsViewController: UITableViewController {
             }
             break
         case .Second:
-            switch SecondSection.fromRaw(indexPath.row)! {
+            switch SecondSection(rawValue: indexPath.row)! {
             case .pushNotification:
                 cell.accessoryView = self.pushNotificationSwitch
                 break
