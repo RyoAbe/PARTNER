@@ -12,6 +12,8 @@
 		323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 323009871997374800B4FE5E /* PARTNER.xcdatamodeld */; };
 		323009901997374800B4FE5E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3230098F1997374800B4FE5E /* Images.xcassets */; };
 		3230099C1997374800B4FE5E /* PARTNERTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230099B1997374800B4FE5E /* PARTNERTests.swift */; };
+		32494D5419FBBF5A0002EF8A /* Partner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32494D5319FBBF5A0002EF8A /* Partner.swift */; };
+		32494D5619FBBF750002EF8A /* MyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32494D5519FBBF750002EF8A /* MyProfile.swift */; };
 		324FE52A19B4CD7F000AF85E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 324FE52019B4CD7F000AF85E /* Main.storyboard */; };
 		324FE52B19B4CD7F000AF85E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324FE52219B4CD7F000AF85E /* MainViewController.swift */; };
 		324FE52C19B4CD7F000AF85E /* MessageMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324FE52419B4CD7F000AF85E /* MessageMenuCell.swift */; };
@@ -45,6 +47,8 @@
 		323009951997374800B4FE5E /* PARTNERTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PARTNERTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3230099A1997374800B4FE5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3230099B1997374800B4FE5E /* PARTNERTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PARTNERTests.swift; sourceTree = "<group>"; };
+		32494D5319FBBF5A0002EF8A /* Partner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Partner.swift; sourceTree = "<group>"; };
+		32494D5519FBBF750002EF8A /* MyProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfile.swift; sourceTree = "<group>"; };
 		324FE52119B4CD7F000AF85E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		324FE52219B4CD7F000AF85E /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		324FE52419B4CD7F000AF85E /* MessageMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageMenuCell.swift; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				324FE53819B4CFDA000AF85E /* Profile.swift */,
+				32494D5319FBBF5A0002EF8A /* Partner.swift */,
+				32494D5519FBBF750002EF8A /* MyProfile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -354,11 +360,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				324FE52B19B4CD7F000AF85E /* MainViewController.swift in Sources */,
+				32494D5619FBBF750002EF8A /* MyProfile.swift in Sources */,
 				32E1BE0B19BC37C900EBE7F7 /* AddPartnerViewController.swift in Sources */,
 				32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */,
 				324FE52E19B4CD7F000AF85E /* StatusBaseView.swift in Sources */,
 				324FE53419B4CED1000AF85E /* StatusView.swift in Sources */,
 				3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */,
+				32494D5419FBBF5A0002EF8A /* Partner.swift in Sources */,
 				32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */,
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,

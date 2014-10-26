@@ -10,45 +10,27 @@ import UIKit
 
 class LoginToFBOperation: NSOperation {
     override func main() {
-        login()
-    }
-    
-    func login() {
-        // パーミッションを指定してログイン
         PFFacebookUtils.logInWithPermissions(["user_about_me", "user_birthday"], {(user: PFUser!, error: NSError!) -> Void in
-            // キャンセルしたとき
             if (user == nil) {
+                // ???:キャンセル時、UI側でエラートースト
                 return
             }
-            // 初めてのログイン
-            if (user.isNew) {
-                self.requestForMe()
-                return
-            }
-            // ログイン済み
-            self.requestForProfileImage()
+            self.requestForMe()
         })
     }
-    
-    func requestForMe() {
-        // 自分についての情報を入手
+
+    private func requestForMe() {
         FBRequestConnection.startForMeWithCompletionHandler({ (connection, result:AnyObject!, error:NSError!) -> Void in
             if (error != nil) {
                 return
             }
-            // TODO: 受け取ったProfile情報をcoreDataもしくはuserDefaultsに保存。
-            let userData:FBGraphObject = result as FBGraphObject
-            let username:NSString = userData["name"] as NSString
-            self.requestForProfileImage()
-        })
-    }
-    
-    func requestForProfileImage() {
-        // プロフィール画像を取得
-        FBRequestConnection.startWithGraphPath("me?fields=picture.width(398).height(398)", completionHandler: { (connection, result:AnyObject!, error:NSError!) -> Void in
-            let userData:FBGraphObject = result as FBGraphObject
-            NSLog("userData:%@",userData)
-            // TODO: 受け取ったProfile情報をcoreDataもしくはuserDefaultsに保存。kvo経由でstatusViewのimageや氏名が書き換わり、Succeedとアラートがでる
+            let userData = result as FBGraphObject
+            let name = userData["name"] as NSString
+            let id = userData["id"] as NSString
+            let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=398&height=398")!
+            let image = UIImage(data:NSData(contentsOfURL:url)!)!
+            MyProfile.save(name, image: image)
+            // ???:UI側でログイン出来たことをトースト
         })
     }
 }
