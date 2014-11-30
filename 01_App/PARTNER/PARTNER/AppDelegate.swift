@@ -26,9 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func setupAppearance() {
+        // ???: 画像のtemplate化+pdf化
         UINavigationBar.appearance().tintColor = UIColor.blackColor()
         UISwitch.appearance().onTintColor = UIColor.darkGrayColor()
         UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
+        UIBarButtonItem.appearance().tintColor = UIColor(white: 0.15, alpha: 1)
     }
 
     func setupParse() {

@@ -28,7 +28,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         // ???: Partnerはdefault空だよ画像と「No Partner」にする
         self.partnersStatusView.profile = Partner.read()
 
-        let myProfile = MyProfile.read()!
+        let myProfile = MyProfile.read()
         self.myStatusView.profile = myProfile
         if(!myProfile.isAuthenticated){
             showSignInFacebookAlert()

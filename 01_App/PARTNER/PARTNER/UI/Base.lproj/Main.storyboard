@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="F7w-78-f5H">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="F7w-78-f5H">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6246"/>
     </dependencies>
     <scenes>
         <!--PARTNER-->
@@ -83,14 +83,14 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="PARTNER" id="Wqm-vl-bND">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" id="MHX-ew-TWI">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="h8E-bx-JgH">
                             <connections>
-                                <action selector="settings:" destination="vXZ-lx-hvc" id="qEr-Zk-egW"/>
+                                <segue destination="Pwc-LC-vtd" kind="presentation" id="Wsa-Vv-6Kw"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0u8-v3-qxf">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="MHX-ew-TWI">
                             <connections>
-                                <segue destination="Pwc-LC-vtd" kind="presentation" id="88C-dA-avI"/>
+                                <action selector="settings:" destination="vXZ-lx-hvc" id="qEr-Zk-egW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -114,61 +114,61 @@
                         <viewControllerLayoutGuide type="bottom" id="lJI-zn-Pdo"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="TaN-y0-9Nm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ok-2f-Ad9">
-                                <rect key="frame" x="0.0" y="214" width="600" height="58"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="58" id="x81-AT-IHu"/>
-                                </constraints>
-                                <state key="normal" title="Use location">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="useLocation:" destination="u03-Fy-b0c" eventType="touchUpInside" id="5ga-98-ctM"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pou-GR-Q2y">
-                                <rect key="frame" x="0.0" y="312" width="600" height="58"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="58" id="Kfb-eU-DBk"/>
-                                </constraints>
-                                <state key="normal" title="Use QR code">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="pou-GR-Q2y" firstAttribute="leading" secondItem="TaN-y0-9Nm" secondAttribute="leading" id="MOV-QW-TXi"/>
-                            <constraint firstAttribute="centerY" secondItem="pou-GR-Q2y" secondAttribute="centerY" constant="-41" id="N88-TU-B1q"/>
-                            <constraint firstItem="4Ok-2f-Ad9" firstAttribute="leading" secondItem="TaN-y0-9Nm" secondAttribute="leading" id="RHk-3b-agT"/>
-                            <constraint firstAttribute="trailing" secondItem="pou-GR-Q2y" secondAttribute="trailing" id="dmg-kI-BNh"/>
-                            <constraint firstAttribute="trailing" secondItem="4Ok-2f-Ad9" secondAttribute="trailing" id="mhs-Yp-oLE"/>
-                            <constraint firstAttribute="centerY" secondItem="4Ok-2f-Ad9" secondAttribute="centerY" constant="57" id="y6i-R4-yE7"/>
-                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <toolbarItems>
+                        <barButtonItem title="My QR code" id="qg4-HS-Q0A">
+                            <connections>
+                                <segue destination="FL5-UQ-nvC" kind="show" id="HAf-4X-AjG"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Add Partner" id="tHE-bs-W0n">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="jaY-m0-f7n">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="jaY-m0-f7n">
                             <connections>
                                 <action selector="done:" destination="u03-Fy-b0c" id="DjF-xq-tXG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="31J-Js-cTB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3539" y="51"/>
         </scene>
+        <!--My QR code-->
+        <scene sceneID="VGP-1R-vCf">
+            <objects>
+                <viewController title="My QR code" id="FL5-UQ-nvC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iFv-P9-NwA"/>
+                        <viewControllerLayoutGuide type="bottom" id="zUd-fQ-dXN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="44C-u7-6um">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yWE-GO-dt4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4273" y="51"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="BKD-fo-hQR">
             <objects>
-                <navigationController id="Pwc-LC-vtd" sceneMemberID="viewController">
+                <navigationController toolbarHidden="NO" id="Pwc-LC-vtd" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MJ3-Qe-rfr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="8Qe-Ee-lNC">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="u03-Fy-b0c" kind="relationship" relationship="rootViewController" id="uJ9-oW-c2q"/>
                     </connections>
@@ -374,7 +374,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editProfileImageButton" destination="bRC-7R-Lyn" id="jVh-19-uxP"/>
                         <outlet property="profileBaseView" destination="DQ4-Oi-jJL" id="XK9-D5-1hA"/>
+                        <outlet property="profileImageView" destination="LN5-KC-N6z" id="3HX-KP-9ew"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0iI-Hh-Cae" userLabel="First Responder" sceneMemberID="firstResponder"/>

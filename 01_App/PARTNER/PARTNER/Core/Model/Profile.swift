@@ -57,7 +57,7 @@ class Profile: NSObject, NSCoding{
         return profile
     }
 
-    class func read() -> Profile?{
+    class func read() -> Profile! {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let data = userDefaults.dataForKey(key)
         return data == nil ? self.sharedInstance : NSKeyedUnarchiver.unarchiveObjectWithData(data!) as? Profile

@@ -29,6 +29,9 @@ class SettingsViewController: UITableViewController {
     }
 
     @IBOutlet weak var profileBaseView: UIView!
+    @IBOutlet weak var editProfileImageButton: UIButton!
+    @IBOutlet weak var profileImageView: UIImageView!
+
     var usernameTextField: UITextField!
     var pushNotificationSwitch: UISwitch!
 
@@ -36,11 +39,15 @@ class SettingsViewController: UITableViewController {
         super.viewDidLoad()
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
-        self.usernameTextField = UITextField(frame: CGRectZero)
-        self.usernameTextField.placeholder = "Nickname"
-        self.pushNotificationSwitch = UISwitch();
-        self.pushNotificationSwitch.on = true
-        self.profileBaseView.layer.cornerRadius = self.profileBaseView.frame.width * 0.5
+        let myProfile = MyProfile.read()
+        usernameTextField = UITextField(frame: CGRectZero)
+        usernameTextField.placeholder = "Nickname"
+        usernameTextField.text = myProfile.name
+        pushNotificationSwitch = UISwitch();
+        pushNotificationSwitch.on = true
+        profileBaseView.layer.cornerRadius = profileBaseView.frame.width * 0.5
+        editProfileImageButton.setImage(myProfile.image, forState: UIControlState.Normal)
+        profileImageView.image = myProfile.image
     }
 
     @IBAction func cancel(sender: UIBarButtonItem) {
@@ -50,7 +57,7 @@ class SettingsViewController: UITableViewController {
     @IBAction func done(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             // ???: 【保留】自分の名前をUserDefault or CoreDataに保存 http://somtd.hatenablog.com/entry/2013/12/07/230851
-            UpdateUserOperation(username: self.usernameTextField.text).save()
+//            UpdateUserOperation(username: self.usernameTextField.text).save()
         })
     }
 

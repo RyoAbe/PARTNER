@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		25CFD8FF38CC4948ACB1FFF1 /* libPods-PARTNER.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B64D5061C642D792FC3A9A /* libPods-PARTNER.a */; };
+		3220BEEA1A2B5026006F281A /* MyQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220BEE91A2B5026006F281A /* MyQRCodeViewController.swift */; };
 		323009861997374800B4FE5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323009851997374800B4FE5E /* AppDelegate.swift */; };
 		323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 323009871997374800B4FE5E /* PARTNER.xcdatamodeld */; };
 		323009901997374800B4FE5E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3230098F1997374800B4FE5E /* Images.xcassets */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3220BEE91A2B5026006F281A /* MyQRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRCodeViewController.swift; sourceTree = "<group>"; };
 		323009801997374800B4FE5E /* PARTNER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PARTNER.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		323009841997374800B4FE5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		323009851997374800B4FE5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				32F74BEA19BB30110032C9AC /* SettingsViewController.swift */,
 				324FE52619B4CD7F000AF85E /* StatusBaseView.swift */,
 				32E1BE0A19BC37C900EBE7F7 /* AddPartnerViewController.swift */,
+				3220BEE91A2B5026006F281A /* MyQRCodeViewController.swift */,
 				324FE53119B4CED1000AF85E /* StatusView */,
 				324FE52319B4CD7F000AF85E /* MessageMenuCell */,
 			);
@@ -409,6 +412,7 @@
 				32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */,
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,
+				3220BEEA1A2B5026006F281A /* MyQRCodeViewController.swift in Sources */,
 				324FE52C19B4CD7F000AF85E /* MessageMenuCell.swift in Sources */,
 				323009861997374800B4FE5E /* AppDelegate.swift in Sources */,
 				32592FB01A2AF918008E7021 /* UIUtil.m in Sources */,
