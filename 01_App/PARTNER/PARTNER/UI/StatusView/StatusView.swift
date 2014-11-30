@@ -32,7 +32,7 @@ class StatusView: UIView {
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if(object as? NSObject == self.profile && keyPath == "name"){
+        if(object as NSObject == self.profile && keyPath == "name"){
             self.nameLabel.text = self.profile.name;
             return
         }

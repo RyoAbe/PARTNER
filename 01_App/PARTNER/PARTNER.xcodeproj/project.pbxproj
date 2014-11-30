@@ -23,6 +23,10 @@
 		324FE53519B4CED1000AF85E /* StatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324FE53319B4CED1000AF85E /* StatusView.xib */; };
 		324FE53919B4CFDA000AF85E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324FE53819B4CFDA000AF85E /* Profile.swift */; };
 		3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */; };
+		32592FAB1A2AF918008E7021 /* BlockActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592F9F1A2AF918008E7021 /* BlockActivity.m */; };
+		32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FA11A2AF918008E7021 /* UIActivity+Blocks.m */; };
+		32592FAF1A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */; };
+		32592FB01A2AF918008E7021 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FAA1A2AF918008E7021 /* UIUtil.m */; };
 		32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */; };
 		32E1BE0B19BC37C900EBE7F7 /* AddPartnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0A19BC37C900EBE7F7 /* AddPartnerViewController.swift */; };
 		32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F74BEA19BB30110032C9AC /* SettingsViewController.swift */; };
@@ -58,6 +62,14 @@
 		324FE53319B4CED1000AF85E /* StatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusView.xib; sourceTree = "<group>"; };
 		324FE53819B4CFDA000AF85E /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginToFBOperation.swift; sourceTree = "<group>"; };
+		32592F9E1A2AF918008E7021 /* BlockActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActivity.h; sourceTree = "<group>"; };
+		32592F9F1A2AF918008E7021 /* BlockActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockActivity.m; sourceTree = "<group>"; };
+		32592FA01A2AF918008E7021 /* UIActivity+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivity+Blocks.h"; sourceTree = "<group>"; };
+		32592FA11A2AF918008E7021 /* UIActivity+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActivity+Blocks.m"; sourceTree = "<group>"; };
+		32592FA71A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MRProgressOverlayView+RyoAbe.h"; sourceTree = "<group>"; };
+		32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MRProgressOverlayView+RyoAbe.m"; sourceTree = "<group>"; };
+		32592FA91A2AF918008E7021 /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
+		32592FAA1A2AF918008E7021 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
 		32E1BE0519BB4E5400EBE7F7 /* PARTNER-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PARTNER-Bridging-Header.h"; sourceTree = "<group>"; };
 		32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserOperation.swift; sourceTree = "<group>"; };
 		32E1BE0A19BC37C900EBE7F7 /* AddPartnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPartnerViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +123,7 @@
 			children = (
 				323009851997374800B4FE5E /* AppDelegate.swift */,
 				324FE53619B4CFBB000AF85E /* Core */,
+				32592F9C1A2AF918008E7021 /* Utils */,
 				324FE51F19B4CD7F000AF85E /* UI */,
 				3230098F1997374800B4FE5E /* Images.xcassets */,
 				323009871997374800B4FE5E /* PARTNER.xcdatamodeld */,
@@ -194,6 +207,29 @@
 				32494D5519FBBF750002EF8A /* MyProfile.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		32592F9C1A2AF918008E7021 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				32592F9D1A2AF918008E7021 /* BlockActivity */,
+				32592FA71A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.h */,
+				32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */,
+				32592FA91A2AF918008E7021 /* UIUtil.h */,
+				32592FAA1A2AF918008E7021 /* UIUtil.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		32592F9D1A2AF918008E7021 /* BlockActivity */ = {
+			isa = PBXGroup;
+			children = (
+				32592F9E1A2AF918008E7021 /* BlockActivity.h */,
+				32592F9F1A2AF918008E7021 /* BlockActivity.m */,
+				32592FA01A2AF918008E7021 /* UIActivity+Blocks.h */,
+				32592FA11A2AF918008E7021 /* UIActivity+Blocks.m */,
+			);
+			path = BlockActivity;
 			sourceTree = "<group>";
 		};
 		32E1BE0719BC2F7F00EBE7F7 /* Operation */ = {
@@ -362,16 +398,20 @@
 				324FE52B19B4CD7F000AF85E /* MainViewController.swift in Sources */,
 				32494D5619FBBF750002EF8A /* MyProfile.swift in Sources */,
 				32E1BE0B19BC37C900EBE7F7 /* AddPartnerViewController.swift in Sources */,
+				32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */,
 				32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */,
 				324FE52E19B4CD7F000AF85E /* StatusBaseView.swift in Sources */,
 				324FE53419B4CED1000AF85E /* StatusView.swift in Sources */,
 				3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */,
 				32494D5419FBBF5A0002EF8A /* Partner.swift in Sources */,
+				32592FAF1A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m in Sources */,
+				32592FAB1A2AF918008E7021 /* BlockActivity.m in Sources */,
 				32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */,
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,
 				324FE52C19B4CD7F000AF85E /* MessageMenuCell.swift in Sources */,
 				323009861997374800B4FE5E /* AppDelegate.swift in Sources */,
+				32592FB01A2AF918008E7021 /* UIUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

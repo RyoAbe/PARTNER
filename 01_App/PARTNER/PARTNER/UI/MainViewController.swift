@@ -28,11 +28,15 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         // ???: Partnerはdefault空だよ画像と「No Partner」にする
         self.partnersStatusView.profile = Partner.read()
         self.myStatusView.profile = MyProfile.read()
-
+        
         let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
-            LoginToFBOperation().start()
+        alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { alertAction in
+            MRProgressOverlayView.show()
+            let op = LoginToFBOperation()
+            op.start()
+            op.completionBlock = { MRProgressOverlayView.hide() }
         }))
+
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
