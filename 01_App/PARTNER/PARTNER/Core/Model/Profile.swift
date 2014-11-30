@@ -12,6 +12,7 @@ class Profile: NSObject, NSCoding{
     
     dynamic var name: NSString?
     dynamic var image: UIImage?
+    dynamic var isAuthenticated: Bool
 
     class var key: NSString {
         return NSStringFromClass(self).componentsSeparatedByString(".").last!;
@@ -22,29 +23,33 @@ class Profile: NSObject, NSCoding{
         return Profile()
     }
 
-    init(name: NSString?, image: UIImage?){
+    init(name: NSString?, image: UIImage?, isAuthenticated: Bool){
         self.name = name
         self.image = image
+        self.isAuthenticated = isAuthenticated
     }
 
     convenience override init(){
-        self.init(name:nil, image:nil)
+        self.init(name: nil, image: nil, isAuthenticated: false)
     }
     
     required init(coder aDecoder: NSCoder) {
         self.name = aDecoder.decodeObjectForKey("name") as? NSString
         self.image = aDecoder.decodeObjectForKey("image") as? UIImage
+        self.isAuthenticated = aDecoder.decodeObjectForKey("isAuthenticated") as Bool
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(self.name, forKey: "name")
         aCoder.encodeObject(self.image, forKey: "image")
+        aCoder.encodeObject(self.isAuthenticated, forKey: "isAuthenticated")
     }
 
     class func save(name: NSString, image: UIImage) -> Profile {
         let profile = self.sharedInstance
         profile.name = name
         profile.image = image
+        profile.isAuthenticated = true
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let data = NSKeyedArchiver.archivedDataWithRootObject(profile)
         userDefaults.setObject(data, forKey: key)

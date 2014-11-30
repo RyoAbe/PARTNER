@@ -31,7 +31,7 @@ class LoginToFBOperation: NSOperation {
     }
 
     override func main() {
-        PFFacebookUtils.logInWithPermissions(["public_profile"], {user, error in
+        PFFacebookUtils.logInWithPermissions(["public_profile"], {user , error in
             if (user == nil) {
                 self.finished = true
                 return

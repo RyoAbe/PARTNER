@@ -27,8 +27,15 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         self.collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         // ???: Partnerはdefault空だよ画像と「No Partner」にする
         self.partnersStatusView.profile = Partner.read()
-        self.myStatusView.profile = MyProfile.read()
-        
+
+        let myProfile = MyProfile.read()!
+        self.myStatusView.profile = myProfile
+        if(!myProfile.isAuthenticated){
+            showSignInFacebookAlert()
+        }
+    }
+
+    func showSignInFacebookAlert(){
         let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { alertAction in
             MRProgressOverlayView.show()
@@ -36,7 +43,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             op.start()
             op.completionBlock = { MRProgressOverlayView.hide() }
         }))
-
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
