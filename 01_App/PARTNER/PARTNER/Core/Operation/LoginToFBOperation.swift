@@ -10,9 +10,9 @@ import UIKit
 
 class LoginToFBOperation: NSOperation {
     override func main() {
-        PFFacebookUtils.logInWithPermissions(["user_about_me", "user_birthday"], {(user: PFUser!, error: NSError!) -> Void in
+        PFFacebookUtils.logInWithPermissions(["public_profile"], {user, error in
             if (user == nil) {
-                // ???:キャンセル時、UI側でエラートースト
+                // ???: キャンセル時、UI側でエラートースト
                 return
             }
             self.requestForMe()
@@ -20,8 +20,9 @@ class LoginToFBOperation: NSOperation {
     }
 
     private func requestForMe() {
-        FBRequestConnection.startForMeWithCompletionHandler({ (connection, result:AnyObject!, error:NSError!) -> Void in
+        FBRequestConnection.startForMeWithCompletionHandler({connection, result, error in
             if (error != nil) {
+                // ???: UI側でエラートーストを表示
                 return
             }
             let userData = result as FBGraphObject
@@ -30,7 +31,7 @@ class LoginToFBOperation: NSOperation {
             let url = NSURL(string: "https://graph.facebook.com/\(id)/picture?width=398&height=398")!
             let image = UIImage(data:NSData(contentsOfURL:url)!)!
             MyProfile.save(name, image: image)
-            // ???:UI側でログイン出来たことをトースト
+            // ???: UI側でログイン出来たことをトースト
         })
     }
 }

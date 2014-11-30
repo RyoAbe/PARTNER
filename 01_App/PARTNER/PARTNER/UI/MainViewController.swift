@@ -25,10 +25,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
-        // TODO:MyProfileが上手く行ったら、default「no partner」にしてセット
-//        self.partnersStatusView.profile = Partner(name:"no partner", image:nil);
+        // ???: Partnerはdefault空だよ画像と「No Partner」にする
+        self.partnersStatusView.profile = Partner.read()
         self.myStatusView.profile = MyProfile.read()
-        
+
         let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
             LoginToFBOperation().start()

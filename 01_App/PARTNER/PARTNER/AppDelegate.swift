@@ -18,10 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         self.setupAppearance();
         self.setupParse();
-        application.registerForRemoteNotificationTypes(UIRemoteNotificationType.Badge|UIRemoteNotificationType.Alert|UIRemoteNotificationType.Sound)
-        
-        // ???: 【保留】Menu項目をCoreDataに保存したいけど
-
+        let types = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
+        application.registerForRemoteNotifications()
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
+        // ???: 【保留】Menu項目をCoreDataに保存
         return true
     }
 

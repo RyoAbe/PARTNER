@@ -9,5 +9,10 @@
 import UIKit
 
 class MyProfile: Profile{
-    
+    override class var sharedInstance : MyProfile {
+        struct Static {
+            static let instance = MyProfile()
+        }
+        return Static.instance
+    }
 }

@@ -9,5 +9,11 @@
 import UIKit
 
 class Partner: Profile {
-
+    override class var sharedInstance : Partner {
+        // ???: Profileクラスでひとまとめに出来るかも
+        struct Static {
+            static let instance = Partner()
+        }
+        return Static.instance
+    }
 }

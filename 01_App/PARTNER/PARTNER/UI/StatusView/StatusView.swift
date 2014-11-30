@@ -15,7 +15,7 @@ class StatusView: UIView {
     @IBOutlet weak var atLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
 
-    var profile: Profile!{
+    var profile: Profile! {
         willSet{
             if(self.profile == nil){
                 return
