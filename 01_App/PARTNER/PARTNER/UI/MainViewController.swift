@@ -24,12 +24,12 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
+        collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         // ???: Partnerはdefault空だよ画像と「No Partner」にする
-        self.partnersStatusView.profile = Partner.read()
+        partnersStatusView.profile = Partner.read()
 
         let myProfile = MyProfile.read()
-        self.myStatusView.profile = myProfile
+        myStatusView.profile = myProfile
         if(!myProfile.isAuthenticated){
             showSignInFacebookAlert()
         }
@@ -44,7 +44,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             op.completionBlock = { MRProgressOverlayView.hide() }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        presentViewController(alert, animated: true, completion: nil)
     }
 
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
@@ -117,7 +117,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }
 
     @IBAction func settings(sender: UIBarButtonItem) {
-        self.performSegueWithIdentifier("AccountRegistrationSegue", sender: self)
+        performSegueWithIdentifier("AccountRegistrationSegue", sender: self)
     }
 }
 

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		25CFD8FF38CC4948ACB1FFF1 /* libPods-PARTNER.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B64D5061C642D792FC3A9A /* libPods-PARTNER.a */; };
-		3220BEEA1A2B5026006F281A /* MyQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220BEE91A2B5026006F281A /* MyQRCodeViewController.swift */; };
+		3220BEEA1A2B5026006F281A /* MyQRCodePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */; };
 		323009861997374800B4FE5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323009851997374800B4FE5E /* AppDelegate.swift */; };
 		323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 323009871997374800B4FE5E /* PARTNER.xcdatamodeld */; };
 		323009901997374800B4FE5E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3230098F1997374800B4FE5E /* Images.xcassets */; };
@@ -28,8 +28,11 @@
 		32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FA11A2AF918008E7021 /* UIActivity+Blocks.m */; };
 		32592FAF1A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */; };
 		32592FB01A2AF918008E7021 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FAA1A2AF918008E7021 /* UIUtil.m */; };
-		32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */; };
+		327932441A556FCA0030A72F /* GetUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327932431A556FCA0030A72F /* GetUserOperation.swift */; };
+		32E1BE0919BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */; };
 		32E1BE0B19BC37C900EBE7F7 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */; };
+		32F3C9991A55913D0019F3B0 /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F3C9981A55913D0019F3B0 /* BaseOperation.swift */; };
+		32F3C99B1A55923F0019F3B0 /* AddPartnerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F3C99A1A55923F0019F3B0 /* AddPartnerOperation.swift */; };
 		32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F74BEA19BB30110032C9AC /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3220BEE91A2B5026006F281A /* MyQRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyQRCodeViewController.swift; sourceTree = "<group>"; };
+		3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MyQRCodePreviewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		323009801997374800B4FE5E /* PARTNER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PARTNER.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		323009841997374800B4FE5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		323009851997374800B4FE5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,9 +75,12 @@
 		32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MRProgressOverlayView+RyoAbe.m"; sourceTree = "<group>"; };
 		32592FA91A2AF918008E7021 /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
 		32592FAA1A2AF918008E7021 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
+		327932431A556FCA0030A72F /* GetUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserOperation.swift; sourceTree = "<group>"; };
 		32E1BE0519BB4E5400EBE7F7 /* PARTNER-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PARTNER-Bridging-Header.h"; sourceTree = "<group>"; };
-		32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserOperation.swift; sourceTree = "<group>"; };
+		32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateMyProfileOperation.swift; sourceTree = "<group>"; };
 		32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
+		32F3C9981A55913D0019F3B0 /* BaseOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseOperation.swift; sourceTree = "<group>"; };
+		32F3C99A1A55923F0019F3B0 /* AddPartnerOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPartnerOperation.swift; sourceTree = "<group>"; };
 		32F74BEA19BB30110032C9AC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5AEEFDF16C49165167AD0C9C /* Pods-PARTNER.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARTNER.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PARTNER/Pods-PARTNER.debug.xcconfig"; sourceTree = "<group>"; };
 		B40DFF861AFF3EE1B50D737A /* Pods-PARTNER.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARTNER.release.xcconfig"; path = "Pods/Target Support Files/Pods-PARTNER/Pods-PARTNER.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,7 +174,7 @@
 				32F74BEA19BB30110032C9AC /* SettingsViewController.swift */,
 				324FE52619B4CD7F000AF85E /* StatusBaseView.swift */,
 				32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */,
-				3220BEE91A2B5026006F281A /* MyQRCodeViewController.swift */,
+				3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */,
 				324FE53119B4CED1000AF85E /* StatusView */,
 				324FE52319B4CD7F000AF85E /* MessageMenuCell */,
 			);
@@ -238,8 +244,11 @@
 		32E1BE0719BC2F7F00EBE7F7 /* Operation */ = {
 			isa = PBXGroup;
 			children = (
-				32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */,
+				32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */,
 				3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */,
+				327932431A556FCA0030A72F /* GetUserOperation.swift */,
+				32F3C99A1A55923F0019F3B0 /* AddPartnerOperation.swift */,
+				32F3C9981A55913D0019F3B0 /* BaseOperation.swift */,
 			);
 			path = Operation;
 			sourceTree = "<group>";
@@ -402,7 +411,7 @@
 				32494D5619FBBF750002EF8A /* MyProfile.swift in Sources */,
 				32E1BE0B19BC37C900EBE7F7 /* QRReaderViewController.swift in Sources */,
 				32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */,
-				32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */,
+				32E1BE0919BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift in Sources */,
 				324FE52E19B4CD7F000AF85E /* StatusBaseView.swift in Sources */,
 				324FE53419B4CED1000AF85E /* StatusView.swift in Sources */,
 				3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */,
@@ -412,8 +421,11 @@
 				32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */,
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,
-				3220BEEA1A2B5026006F281A /* MyQRCodeViewController.swift in Sources */,
+				32F3C9991A55913D0019F3B0 /* BaseOperation.swift in Sources */,
+				32F3C99B1A55923F0019F3B0 /* AddPartnerOperation.swift in Sources */,
+				3220BEEA1A2B5026006F281A /* MyQRCodePreviewController.swift in Sources */,
 				324FE52C19B4CD7F000AF85E /* MessageMenuCell.swift in Sources */,
+				327932441A556FCA0030A72F /* GetUserOperation.swift in Sources */,
 				323009861997374800B4FE5E /* AppDelegate.swift in Sources */,
 				32592FB01A2AF918008E7021 /* UIUtil.m in Sources */,
 			);

@@ -42,7 +42,7 @@ class QRCodeReaderMaskView: UIView {
     }
 }
 
-class QRReaderViewController: UIViewController {
+class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     // ???: 【保留】QRコードでどうやって友達になるかを検討（とりあえずQRコードにみにしてLocationのやつはなしにする？）
     // ???: 【保留】友達追加が成功したらCoreDataに保存
@@ -74,6 +74,7 @@ class QRReaderViewController: UIViewController {
         }
         maskView = QRCodeReaderMaskView(frame: CGRectZero)
         self.view.addSubview(maskView)
+
         self.view.bringSubviewToFront(backButton)
         backButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
     }
@@ -96,35 +97,77 @@ class QRReaderViewController: UIViewController {
             return false
         }
 
-        let output = AVCaptureStillImageOutput()
-        self.session = AVCaptureSession()
-        self.session.sessionPreset = AVCaptureSessionPresetPhoto
-        self.session.addInput(input)
-        self.session.addOutput(output)
+        let output = AVCaptureMetadataOutput()
+        output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+        session = AVCaptureSession()
+        session.sessionPreset = AVCaptureSessionPresetPhoto
+        session.addInput(input)
+        session.addOutput(output)
 
-        self.previewLayer = AVCaptureVideoPreviewLayer.layerWithSession(self.session) as AVCaptureVideoPreviewLayer
-        self.previewLayer.frame = self.view.bounds
-        self.view.layer.addSublayer(previewLayer)
-        self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-
-        self.session.startRunning()
+        previewLayer = AVCaptureVideoPreviewLayer.layerWithSession(self.session) as AVCaptureVideoPreviewLayer
+        previewLayer.frame = view.bounds
+        view.layer.addSublayer(previewLayer)
+        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        session.startRunning()
+        
+        output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
 
         return true
     }
+    
+    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+        for metadataObject in metadataObjects {
+            if metadataObject.isKindOfClass(AVMetadataMachineReadableCodeObject) || metadataObject.type != AVMetadataObjectTypeQRCode {
+                continue
+            }
+            if !verifyPartnersId(metadataObject as NSString) {
+                // ???: 失敗アラート表示
+                continue
+            }
+            session.stopRunning()
+            return
+        }
+    }
+
+    func verifyPartnersId(id: NSString) -> Bool {
+        if NSURL(string: id) != nil {
+            return false
+        }
+
+        MRProgressOverlayView.show()
+        let op = GetUserOperation(id: id)
+        op.start()
+        op.completionBlock = {
+            MRProgressOverlayView.hide()
+            if let user = op.result {
+                self.showConfirmBecomePartner(user)
+            }
+        }
+
+        return true
+    }
+
+    func showConfirmBecomePartner(user: PFUser){
+
+        let alert = UIAlertController(title: "Confirm", message: "Do you become partner with \(user.username) ?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ action in
+            MRProgressOverlayView.show()
+            let op = UpdateMyProfileOperation(hasPartner:true)
+            op.start()
+            op.completionBlock = { MRProgressOverlayView.hide() }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
+
     @IBAction func didTapBackButton(sender: AnyObject) {
         navigationController!.popViewControllerAnimated(true)
     }
 
     @IBAction func useLocation(sender: UIButton) {
         var query = PFQuery(className:PFUser.parseClassName())
-        query.getObjectInBackgroundWithId("CXqhnscxHF") {
-            (user: PFObject!, error: NSError!) -> Void in
-            if (error == nil) {
-                NSLog("%@", user)
-                UpdateUserOperation(partner: user).save()
-            } else {
-                NSLog("%@", error)
-            }
-        }
     }
 }

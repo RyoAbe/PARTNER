@@ -32,12 +32,12 @@ class StatusView: UIView {
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if(object as NSObject == self.profile && keyPath == "name"){
-            self.nameLabel.text = self.profile.name;
+        if(object as NSObject == profile && keyPath == "name"){
+            nameLabel.text = profile.name;
             return
         }
-        if(object as? NSObject == self.profile && keyPath == "image"){
-            self.profileImageView.image = self.profile.image;
+        if(object as? NSObject == profile && keyPath == "image"){
+            profileImageView.image = profile.image;
             return
         }
         super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
