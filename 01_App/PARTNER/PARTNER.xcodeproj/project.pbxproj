@@ -29,7 +29,7 @@
 		32592FAF1A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */; };
 		32592FB01A2AF918008E7021 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FAA1A2AF918008E7021 /* UIUtil.m */; };
 		32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */; };
-		32E1BE0B19BC37C900EBE7F7 /* AddPartnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0A19BC37C900EBE7F7 /* AddPartnerViewController.swift */; };
+		32E1BE0B19BC37C900EBE7F7 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */; };
 		32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F74BEA19BB30110032C9AC /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,7 +74,7 @@
 		32592FAA1A2AF918008E7021 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
 		32E1BE0519BB4E5400EBE7F7 /* PARTNER-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PARTNER-Bridging-Header.h"; sourceTree = "<group>"; };
 		32E1BE0819BC2FB800EBE7F7 /* UpdateUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserOperation.swift; sourceTree = "<group>"; };
-		32E1BE0A19BC37C900EBE7F7 /* AddPartnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPartnerViewController.swift; sourceTree = "<group>"; };
+		32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
 		32F74BEA19BB30110032C9AC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5AEEFDF16C49165167AD0C9C /* Pods-PARTNER.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARTNER.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PARTNER/Pods-PARTNER.debug.xcconfig"; sourceTree = "<group>"; };
 		B40DFF861AFF3EE1B50D737A /* Pods-PARTNER.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARTNER.release.xcconfig"; path = "Pods/Target Support Files/Pods-PARTNER/Pods-PARTNER.release.xcconfig"; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 				324FE52219B4CD7F000AF85E /* MainViewController.swift */,
 				32F74BEA19BB30110032C9AC /* SettingsViewController.swift */,
 				324FE52619B4CD7F000AF85E /* StatusBaseView.swift */,
-				32E1BE0A19BC37C900EBE7F7 /* AddPartnerViewController.swift */,
+				32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */,
 				3220BEE91A2B5026006F281A /* MyQRCodeViewController.swift */,
 				324FE53119B4CED1000AF85E /* StatusView */,
 				324FE52319B4CD7F000AF85E /* MessageMenuCell */,
@@ -400,7 +400,7 @@
 			files = (
 				324FE52B19B4CD7F000AF85E /* MainViewController.swift in Sources */,
 				32494D5619FBBF750002EF8A /* MyProfile.swift in Sources */,
-				32E1BE0B19BC37C900EBE7F7 /* AddPartnerViewController.swift in Sources */,
+				32E1BE0B19BC37C900EBE7F7 /* QRReaderViewController.swift in Sources */,
 				32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */,
 				32E1BE0919BC2FB800EBE7F7 /* UpdateUserOperation.swift in Sources */,
 				324FE52E19B4CD7F000AF85E /* StatusBaseView.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  AddPartnerViewController.swift
+//  QRReaderViewController.swift
 //  PARTNER
 //
 //  Created by RyoAbe on 2014/09/07.
@@ -42,14 +42,15 @@ class QRCodeReaderMaskView: UIView {
     }
 }
 
-class AddPartnerViewController: UIViewController {
+class QRReaderViewController: UIViewController {
 
     // ???: 【保留】QRコードでどうやって友達になるかを検討（とりあえずQRコードにみにしてLocationのやつはなしにする？）
     // ???: 【保留】友達追加が成功したらCoreDataに保存
     var session: AVCaptureSession!
     var maskView: QRCodeReaderMaskView!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    
+    @IBOutlet weak var backButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // ???: 認証されていないときの処理
@@ -65,7 +66,7 @@ class AddPartnerViewController: UIViewController {
                 if(granted){
                     self.congigCamera()
                 }
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.navigationController!.popViewControllerAnimated(true)
             })
             
         case .Authorized:
@@ -73,6 +74,8 @@ class AddPartnerViewController: UIViewController {
         }
         maskView = QRCodeReaderMaskView(frame: CGRectZero)
         self.view.addSubview(maskView)
+        self.view.bringSubviewToFront(backButton)
+        backButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
     }
     
     override func viewWillLayoutSubviews() {
@@ -108,6 +111,9 @@ class AddPartnerViewController: UIViewController {
 
         return true
     }
+    @IBAction func didTapBackButton(sender: AnyObject) {
+        navigationController!.popViewControllerAnimated(true)
+    }
 
     @IBAction func useLocation(sender: UIButton) {
         var query = PFQuery(className:PFUser.parseClassName())
@@ -120,9 +126,5 @@ class AddPartnerViewController: UIViewController {
                 NSLog("%@", error)
             }
         }
-    }
-
-    @IBAction func done(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion:nil)
     }
 }

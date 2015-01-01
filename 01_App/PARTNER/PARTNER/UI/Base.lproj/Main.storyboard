@@ -85,7 +85,7 @@
                     <navigationItem key="navigationItem" title="PARTNER" id="Wqm-vl-bND">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="h8E-bx-JgH">
                             <connections>
-                                <segue destination="Pwc-LC-vtd" kind="presentation" id="Wsa-Vv-6Kw"/>
+                                <segue destination="zBG-Fn-9aQ" kind="presentation" id="GlJ-Rc-Xf6"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="MHX-ew-TWI">
@@ -105,77 +105,137 @@
             </objects>
             <point key="canvasLocation" x="1002" y="517"/>
         </scene>
-        <!--Add Partner-->
+        <!--Reader View Controller-->
         <scene sceneID="DRc-A7-cOf">
             <objects>
-                <viewController id="u03-Fy-b0c" customClass="AddPartnerViewController" customModule="PARTNER" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="u03-Fy-b0c" customClass="QRReaderViewController" customModule="PARTNER" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jd0-kv-I4q"/>
                         <viewControllerLayoutGuide type="bottom" id="lJI-zn-Pdo"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="TaN-y0-9Nm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ScC-iQ-Iek" userLabel="Back Button">
+                                <rect key="frame" x="15" y="30" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="TM7-yv-g8B"/>
+                                    <constraint firstAttribute="width" constant="44" id="swM-5O-f2W"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapBackButton:" destination="u03-Fy-b0c" eventType="touchUpInside" id="uvi-u5-5es"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_button" translatesAutoresizingMaskIntoConstraints="NO" id="rqF-Wj-ebn">
+                                <rect key="frame" x="27" y="42" width="20" height="20"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rqF-Wj-ebn" firstAttribute="centerY" secondItem="ScC-iQ-Iek" secondAttribute="centerY" id="Eho-hL-amv"/>
+                            <constraint firstItem="rqF-Wj-ebn" firstAttribute="centerX" secondItem="ScC-iQ-Iek" secondAttribute="centerX" id="ErU-TP-XtE"/>
+                            <constraint firstItem="ScC-iQ-Iek" firstAttribute="leading" secondItem="TaN-y0-9Nm" secondAttribute="leading" constant="15" id="NNW-50-hIg"/>
+                            <constraint firstItem="ScC-iQ-Iek" firstAttribute="top" secondItem="jd0-kv-I4q" secondAttribute="bottom" constant="10" id="omc-HH-6Rg"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <toolbarItems>
-                        <barButtonItem title="My QR code" id="qg4-HS-Q0A">
-                            <connections>
-                                <segue destination="FL5-UQ-nvC" kind="show" id="HAf-4X-AjG"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="Add Partner" id="tHE-bs-W0n">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="jaY-m0-f7n">
-                            <connections>
-                                <action selector="done:" destination="u03-Fy-b0c" id="DjF-xq-tXG"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="backButton" destination="ScC-iQ-Iek" id="RLK-VL-GeQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="31J-Js-cTB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3539" y="51"/>
+            <point key="canvasLocation" x="3448" y="45"/>
         </scene>
-        <!--My QR code-->
-        <scene sceneID="VGP-1R-vCf">
+        <!--MyQR Code View Controller-->
+        <scene sceneID="3nd-Sy-ty5">
             <objects>
-                <viewController title="My QR code" id="FL5-UQ-nvC" sceneMemberID="viewController">
+                <viewController id="Dbw-dB-Bzd" customClass="MyQRCodeViewController" customModule="PARTNER" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="iFv-P9-NwA"/>
-                        <viewControllerLayoutGuide type="bottom" id="zUd-fQ-dXN"/>
+                        <viewControllerLayoutGuide type="top" id="j4H-eG-3MS"/>
+                        <viewControllerLayoutGuide type="bottom" id="G3H-LU-kJi"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="44C-u7-6um">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
+                    <view key="view" contentMode="scaleToFill" id="zaK-tP-vqc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read your QR code from partner." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wur-nm-lgT">
+                                <rect key="frame" x="150" y="130" width="300" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Aza-ZL-mPW"/>
+                                    <constraint firstAttribute="width" constant="300" id="Qa9-3W-hzq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zH-dX-j3t">
+                                <rect key="frame" x="180" y="460" width="240" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="dRc-2L-nAh"/>
+                                    <constraint firstAttribute="width" constant="240" id="doo-vf-frs"/>
+                                </constraints>
+                                <state key="normal" title="Read partner’s QR code ">
+                                    <color key="titleColor" white="0.20052939967105265" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="u03-Fy-b0c" kind="show" id="ti7-3c-mXB"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummy_qrcode" translatesAutoresizingMaskIntoConstraints="NO" id="Ibx-MW-qIs">
+                                <rect key="frame" x="205" y="177" width="190" height="190"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="KMc-2i-a9g"/>
+                                    <constraint firstAttribute="width" constant="190" id="U7k-OD-yKJ"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fN2-m8-PdG" userLabel="Close Button">
+                                <rect key="frame" x="2" y="20" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="1ZZ-QS-gwv"/>
+                                    <constraint firstAttribute="height" constant="44" id="mQt-ou-SIi"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapCloseButton:" destination="Dbw-dB-Bzd" eventType="touchUpInside" id="9kA-zt-UhW"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close_button" translatesAutoresizingMaskIntoConstraints="NO" id="oZ2-eW-tKd" userLabel="Close Button Image">
+                                <rect key="frame" x="14" y="32" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Ekh-yb-5Kb"/>
+                                    <constraint firstAttribute="width" constant="20" id="Qo6-Jv-Tgm"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fN2-m8-PdG" firstAttribute="centerX" secondItem="oZ2-eW-tKd" secondAttribute="centerX" id="7Xd-Lv-PTD"/>
+                            <constraint firstItem="Wur-nm-lgT" firstAttribute="top" secondItem="j4H-eG-3MS" secondAttribute="bottom" constant="110" id="BUw-v1-K39"/>
+                            <constraint firstAttribute="centerX" secondItem="Wur-nm-lgT" secondAttribute="centerX" id="FmX-R3-NmH"/>
+                            <constraint firstItem="G3H-LU-kJi" firstAttribute="top" secondItem="0zH-dX-j3t" secondAttribute="bottom" constant="100" id="Vp5-MA-D6H"/>
+                            <constraint firstAttribute="centerX" secondItem="0zH-dX-j3t" secondAttribute="centerX" id="c1o-dI-3cH"/>
+                            <constraint firstItem="fN2-m8-PdG" firstAttribute="centerY" secondItem="oZ2-eW-tKd" secondAttribute="centerY" id="g0g-qF-BTW"/>
+                            <constraint firstItem="fN2-m8-PdG" firstAttribute="top" secondItem="j4H-eG-3MS" secondAttribute="bottom" id="iD1-Mt-uE2"/>
+                            <constraint firstItem="fN2-m8-PdG" firstAttribute="leading" secondItem="zaK-tP-vqc" secondAttribute="leading" constant="2" id="icd-Qb-BWt"/>
+                            <constraint firstAttribute="centerX" secondItem="Ibx-MW-qIs" secondAttribute="centerX" id="q9Y-x2-0li"/>
+                            <constraint firstItem="Ibx-MW-qIs" firstAttribute="top" secondItem="Wur-nm-lgT" secondAttribute="bottom" constant="26" id="qG4-u7-PLS"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="5n6-DG-KXl"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yWE-GO-dt4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AjL-j6-Edi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4273" y="51"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="BKD-fo-hQR">
-            <objects>
-                <navigationController toolbarHidden="NO" id="Pwc-LC-vtd" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MJ3-Qe-rfr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="8Qe-Ee-lNC">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="u03-Fy-b0c" kind="relationship" relationship="rootViewController" id="uJ9-oW-c2q"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7Np-Qk-v2S" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1835" y="51"/>
+            <point key="canvasLocation" x="2607" y="45"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="G2F-bY-jhQ">
@@ -285,9 +345,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="u03-Fy-b0c" kind="show" id="jID-g0-ISZ"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -399,11 +456,29 @@
             </objects>
             <point key="canvasLocation" x="240" y="517"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Q1x-R8-nR5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" navigationBarHidden="YES" id="zBG-Fn-9aQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bcr-gT-c5D">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Dbw-dB-Bzd" kind="relationship" relationship="rootViewController" id="0UW-Tz-RVJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uts-GX-7np" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1795" y="45"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="back_button" width="21" height="37"/>
+        <image name="close_button" width="40" height="39"/>
+        <image name="dummy_qrcode" width="380" height="380"/>
         <image name="women" width="300" height="300"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="jID-g0-ISZ"/>
-    </inferredMetricsTieBreakers>
 </document>

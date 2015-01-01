@@ -10,15 +10,13 @@ import UIKit
 
 class MyQRCodeViewController: UIViewController {
 
+    @IBOutlet weak var closeButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = UIColor(white: 0, alpha: 0.8);
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func didTapCloseButton(sender: AnyObject) {
+        self .dismissViewControllerAnimated(true, completion: nil)
     }
-
 }
