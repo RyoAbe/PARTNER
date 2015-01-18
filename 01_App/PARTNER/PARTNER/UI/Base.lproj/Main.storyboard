@@ -96,8 +96,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="D6g-bL-jsG" id="xuq-UJ-jGu"/>
-                        <outlet property="myStatusView" destination="zMq-AU-nJF" id="hT4-fJ-0p8"/>
-                        <outlet property="partnersStatusView" destination="OLA-RU-xEL" id="P0t-0k-wxY"/>
+                        <outlet property="myStatusView" destination="OLA-RU-xEL" id="nkg-Wh-FlU"/>
+                        <outlet property="partnersStatusView" destination="zMq-AU-nJF" id="2Vh-Nf-c7m"/>
                         <segue destination="hKO-1M-ASj" kind="presentation" identifier="AccountRegistrationSegue" id="8Tg-E3-Fes"/>
                     </connections>
                 </viewController>
@@ -117,35 +117,48 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ScC-iQ-Iek" userLabel="Back Button">
-                                <rect key="frame" x="15" y="30" width="44" height="44"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i4n-kU-9zx" userLabel="Back button View">
+                                <rect key="frame" x="0.0" y="15" width="44" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ScC-iQ-Iek" userLabel="Back Button">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didTapBackButton:" destination="u03-Fy-b0c" eventType="touchUpInside" id="uvi-u5-5es"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_button" translatesAutoresizingMaskIntoConstraints="NO" id="rqF-Wj-ebn">
+                                        <rect key="frame" x="15" y="14" width="11" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="6RR-QL-5mz"/>
+                                            <constraint firstAttribute="width" constant="11" id="BCZ-ur-z4B"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="TM7-yv-g8B"/>
-                                    <constraint firstAttribute="width" constant="44" id="swM-5O-f2W"/>
+                                    <constraint firstItem="ScC-iQ-Iek" firstAttribute="leading" secondItem="i4n-kU-9zx" secondAttribute="leading" id="1gZ-4f-yXE"/>
+                                    <constraint firstAttribute="trailing" secondItem="ScC-iQ-Iek" secondAttribute="trailing" id="3qA-1h-qao"/>
+                                    <constraint firstAttribute="bottom" secondItem="ScC-iQ-Iek" secondAttribute="bottom" id="9EB-Er-ETA"/>
+                                    <constraint firstAttribute="width" constant="44" id="CLC-a9-tiz"/>
+                                    <constraint firstItem="ScC-iQ-Iek" firstAttribute="top" secondItem="i4n-kU-9zx" secondAttribute="top" id="SuD-TO-pFf"/>
+                                    <constraint firstAttribute="height" constant="44" id="UBQ-Ag-626"/>
+                                    <constraint firstItem="ScC-iQ-Iek" firstAttribute="centerY" secondItem="rqF-Wj-ebn" secondAttribute="centerY" constant="-2" id="jZM-ts-q5a"/>
+                                    <constraint firstItem="ScC-iQ-Iek" firstAttribute="centerX" secondItem="rqF-Wj-ebn" secondAttribute="centerX" constant="2" id="v2W-BX-Fxj"/>
                                 </constraints>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="didTapBackButton:" destination="u03-Fy-b0c" eventType="touchUpInside" id="uvi-u5-5es"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_button" translatesAutoresizingMaskIntoConstraints="NO" id="rqF-Wj-ebn">
-                                <rect key="frame" x="26.5" y="33.5" width="21" height="37"/>
-                            </imageView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rqF-Wj-ebn" firstAttribute="centerY" secondItem="ScC-iQ-Iek" secondAttribute="centerY" id="Eho-hL-amv"/>
-                            <constraint firstItem="rqF-Wj-ebn" firstAttribute="centerX" secondItem="ScC-iQ-Iek" secondAttribute="centerX" id="ErU-TP-XtE"/>
-                            <constraint firstItem="ScC-iQ-Iek" firstAttribute="leading" secondItem="TaN-y0-9Nm" secondAttribute="leading" constant="15" id="NNW-50-hIg"/>
-                            <constraint firstItem="ScC-iQ-Iek" firstAttribute="top" secondItem="jd0-kv-I4q" secondAttribute="bottom" constant="10" id="omc-HH-6Rg"/>
+                            <constraint firstItem="i4n-kU-9zx" firstAttribute="leading" secondItem="TaN-y0-9Nm" secondAttribute="leading" id="7NE-of-6hR"/>
+                            <constraint firstItem="i4n-kU-9zx" firstAttribute="top" secondItem="TaN-y0-9Nm" secondAttribute="top" constant="15" id="XCv-oa-UUc"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
                     <connections>
-                        <outlet property="backButton" destination="ScC-iQ-Iek" id="RLK-VL-GeQ"/>
+                        <outlet property="backButtonView" destination="i4n-kU-9zx" id="HOH-vH-t0Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="31J-Js-cTB" userLabel="First Responder" sceneMemberID="firstResponder"/>

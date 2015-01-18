@@ -31,7 +31,7 @@ class QRCodeReaderMaskView: UIView {
         let y =  self.center.y - (width * 0.5) + UIApplication.sharedApplication().statusBarFrame.height
         let frame = CGRectMake(x, y, width, width)
 
-        let lineWidth = CGFloat(1)
+        let lineWidth = CGFloat(2)
         CGContextSetLineWidth(context, lineWidth)
         CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor);
         CGContextStrokeRect(context, CGRectInset(frame, -lineWidth * 0.5, -lineWidth * 0.5))
@@ -44,12 +44,11 @@ class QRCodeReaderMaskView: UIView {
 
 class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
-    // ???: 【保留】QRコードでどうやって友達になるかを検討（とりあえずQRコードにみにしてLocationのやつはなしにする？）
-    // ???: 【保留】友達追加が成功したらCoreDataに保存
+    // ???: Locationで友達になるパターンも実装
     var session: AVCaptureSession!
     var maskView: QRCodeReaderMaskView!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var backButtonView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,21 +61,21 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             println("Denied")
         case .NotDetermined:
             AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { granted in
-                // ???: 逆？
-                if(granted){
-                    self.congigCamera()
-                }
-                self.navigationController!.popViewControllerAnimated(true)
+                dispatch_sync(dispatch_get_main_queue(), {
+                    if(granted){
+                        self.congigCamera()
+                        return
+                    }
+                    self.navigationController!.popViewControllerAnimated(true)
+                });
             })
-            
         case .Authorized:
             congigCamera()
         }
         maskView = QRCodeReaderMaskView(frame: CGRectZero)
         self.view.addSubview(maskView)
 
-        self.view.bringSubviewToFront(backButton)
-        backButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        self.view.bringSubviewToFront(backButtonView)
     }
     
     override func viewWillLayoutSubviews() {
@@ -98,11 +97,11 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         }
 
         let output = AVCaptureMetadataOutput()
-        output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
         session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetPhoto
         session.addInput(input)
         session.addOutput(output)
+        output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
 
         previewLayer = AVCaptureVideoPreviewLayer.layerWithSession(self.session) as AVCaptureVideoPreviewLayer
         previewLayer.frame = view.bounds
@@ -117,10 +116,10 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         for metadataObject in metadataObjects {
-            if metadataObject.isKindOfClass(AVMetadataMachineReadableCodeObject) || metadataObject.type != AVMetadataObjectTypeQRCode {
+            if !metadataObject.isKindOfClass(AVMetadataMachineReadableCodeObject) || metadataObject.type != AVMetadataObjectTypeQRCode {
                 continue
             }
-            if !verifyPartnersId(metadataObject as NSString) {
+            if !verifyPartnersId(metadataObject.stringValue) {
                 // ???: 失敗アラート表示
                 continue
             }
@@ -130,10 +129,9 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     }
 
     func verifyPartnersId(id: NSString) -> Bool {
-        if NSURL(string: id) != nil {
-            return false
-        }
 
+        // ???: ネットにつながってなかった場合は失敗あらーと？他にもあるかも
+        
         MRProgressOverlayView.show()
         let op = GetUserOperation(id: id)
         op.start()
@@ -150,14 +148,18 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     func showConfirmBecomePartner(user: PFUser){
 
         let alert = UIAlertController(title: "Confirm", message: "Do you become partner with \(user.username) ?", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ action in
             MRProgressOverlayView.show()
-            let op = UpdateMyProfileOperation(hasPartner:true)
+
+            let op = AddPartnerOperation(user: user)
             op.start()
-            op.completionBlock = { MRProgressOverlayView.hide() }
+            op.completionBlock = {
+                MRProgressOverlayView.hide()
+                // ???: ok で
+                self.navigationController!.popViewControllerAnimated(true)
+            }
         }))
-        
+
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }

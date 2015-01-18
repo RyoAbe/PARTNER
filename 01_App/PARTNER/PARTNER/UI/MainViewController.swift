@@ -19,8 +19,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     // ???: 【保留】初回のパートナーがいない状態のとき、即座にモーダルかかんかでパートナーの追加画面を表示する
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var partnersStatusView: StatusBaseView!
     @IBOutlet weak var myStatusView: StatusBaseView!
+    @IBOutlet weak var partnersStatusView: StatusBaseView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,13 +107,24 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
-        let push = PFPush()
+
         // ???: TestChanelを削除して指定したユーザにpushされるように
         // ???: 【CoreData】pushが成功したらCoreDataに保存。
         // ???: 【次にやる！！！】一旦メニューの項目は定数で持つようにしよう（将来的にはCoreDataから引っ張ってくるように）
-        push.setChannel("TestChanel")
-        push.setMessage("Sophia:「" + cell.menuLabel.text! + "」")
-        push .sendPushInBackground()
+        // ???: ここもOperationにする
+        let myProfile = MyProfile.read()
+        let partner = Partner.read()
+
+        let userQuery = PFUser.query()
+        userQuery.whereKey("objectId", equalTo: partner.id)
+
+        let pushQuery = PFInstallation.query()
+        pushQuery.whereKey("user", matchesQuery:userQuery)
+
+        let push = PFPush()
+        push.setQuery(pushQuery)
+        push.setMessage("\(myProfile.name):「" + cell.menuLabel.text! + "」")
+        push.sendPushInBackground()
     }
 
     @IBAction func settings(sender: UIBarButtonItem) {

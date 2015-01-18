@@ -19,16 +19,17 @@ class GetUserOperation: BaseOperation {
     }
 
     override func main() {        
-        let query = PFQuery(className: "User")
+        let query = PFUser.query()
         query.whereKey("objectId", equalTo: self.id)
-        query .getFirstObjectInBackgroundWithBlock { object, error in
+        query.getFirstObjectInBackgroundWithBlock { object, error in
             if !object.isKindOfClass(PFUser) {
                 self.finished = true
                 return;
             }
+            // ???: すでにパートナーがいたらエラー
 
             if let hasPartner = object.objectForKey("hasPartner") as? Bool {
-                if hasPartner {
+                if !hasPartner {
                     self.result = object as? PFUser
                 }
             }

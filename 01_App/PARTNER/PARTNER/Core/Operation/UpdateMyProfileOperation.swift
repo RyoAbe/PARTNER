@@ -15,16 +15,10 @@ class UpdateMyProfileOperation: BaseOperation {
     var username: NSString!
     var hasPartner: Bool!
 
-//    init(username: NSString){
-//        self.username = username
-//        super.init()
-//    }
-
     init(hasPartner: Bool){
         self.hasPartner = hasPartner
         super.init()
     }
-    
 
     override func main() {
         let myProfile = MyProfile.read()

@@ -26,24 +26,29 @@ class LoginToFBOperation: BaseOperation {
                 self.finished = true
                 return
             }
+            let query = PFUser.query()
+            query.getObjectInBackgroundWithId(user.objectId, block: { object, error in
+                let fbObject = result as FBGraphObject
+                let fbId = fbObject["id"] as NSString
+                let username = fbObject["name"] as NSString
+                let url = NSURL(string: "https://graph.facebook.com/\(fbId)/picture?width=398&height=398")!
+                let profileImageData = PFFile(data: NSData(contentsOfURL:url)!)
 
-            // ???: ローカルに保存しつつ、fbIdをサーバーにも保存。
-            let myProfile = MyProfile.read()
-            let fbObject = result as FBGraphObject
-
-            myProfile.id = user.objectId
-            myProfile.image = self.fbProfileImageWithId(fbObject)
-            myProfile.name = fbObject["name"] as NSString
-
-            myProfile.save()
-
-            self.finished = true
+                let user = object as PFUser
+                user.username = username
+                user["fbId"] = fbId
+                user["profileImage"] = profileImageData
+                user["hasPartner"] = false
+                object.saveInBackgroundWithBlock{ succeeded, error in
+                    let myProfile = MyProfile.read()
+                    myProfile.id = user.objectId
+                    myProfile.image = UIImage(data: profileImageData.getData())!
+                    myProfile.name = username
+                    myProfile.isAuthenticated = true
+                    myProfile.save()
+                    self.finished = true
+                }
+            })
         })
-    }
-    
-    private func fbProfileImageWithId(object: FBGraphObject) -> UIImage {
-        let fbId = object["id"] as NSString
-        let url = NSURL(string: "https://graph.facebook.com/\(fbId)/picture?width=398&height=398")!
-        return UIImage(data:NSData(contentsOfURL:url)!)!
     }
 }
