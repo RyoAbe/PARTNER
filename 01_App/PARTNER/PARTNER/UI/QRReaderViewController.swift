@@ -75,7 +75,7 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                         return
                     }
                     self.navigationController!.popViewControllerAnimated(true)
-                });
+                })
             })
         case .Authorized:
             congigCamera()

@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        NSLog("ここに来て失敗してる")
+        NSLog("didFailToRegisterForRemoteNotificationsWithError:\(error)")
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -53,9 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // ???: 【CoreData】受け取ったnotificationをCoreDataに保存（historyが見れるようにいつかやる）
         // TODO: notificationTypeがmessageを送るところには入っていないからクラッシュする
         PFPush.handlePush(userInfo)
-        
-        let notificationType = userInfo["notificationType"]! as NSString
-        if(notificationType.isEqualToString("AddedPartner")){
+
+        if (userInfo["notificationType"]! as NSString).isEqualToString("AddedPartner") {
             let objectId = userInfo["objectId"] as NSString
             let op = AddPartnerOperation(objectId: objectId)
             op.start()

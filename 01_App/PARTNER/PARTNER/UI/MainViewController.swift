@@ -39,6 +39,25 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         if(!myProfile.isAuthenticated){
             showSignInFacebookAlert()
         }
+    
+        if !UIUtil.isSimulator() || myProfile.hasPartner {
+            return
+        }
+
+        MRProgressOverlayView.show()
+        let op = GetUserOperation(objectId: "QZzLuebvHZ")
+        op.start()
+        op.completionBlock = {
+            if let user = op.result {
+                let op = AddPartnerOperation(user: user)
+                op.start()
+                op.completionBlock = {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        MRProgressOverlayView.hide()
+                    })
+                }
+            }
+        }
     }
 
     func showSignInFacebookAlert(){
@@ -53,7 +72,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             op.completionBlock = {
                 dispatch_async(dispatch_get_main_queue(), {
                     MRProgressOverlayView.hide()
-                });
+                })
             }
         }))
         presentViewController(alert, animated: true, completion: nil)
@@ -137,9 +156,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
         let push = PFPush()
         push.setQuery(pushQuery)
-        push.setMessage("\(myProfile.name):「" + cell.menuLabel.text! + "」")
-        // TODO: notoficationTypeを入れる
-//        push.setData(["alert": "\(myProfile.name):「" + cell.menuLabel.text! + "」", "notificationType": "Message"])
+        push.setData(["alert": "\(myProfile.name):「" + cell.menuLabel.text! + "」", "notificationType": "Message"])
         push.sendPushInBackground()
     }
 

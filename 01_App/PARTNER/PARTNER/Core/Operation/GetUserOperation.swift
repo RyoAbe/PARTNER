@@ -22,7 +22,7 @@ class GetUserOperation: BaseOperation {
         let query = PFUser.query()
         query.whereKey("objectId", equalTo: self.objectId)
         query.getFirstObjectInBackgroundWithBlock { object, error in
-            if !object.isKindOfClass(PFUser) {
+            if object == nil  {
                 self.finished = true
                 return;
             }

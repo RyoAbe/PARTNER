@@ -81,6 +81,11 @@ static NSString * const kGoogleChromeCallbackScheme = @"googlechrome-x-callback:
     return [[UIImage alloc] initWithCGImage:scaledImage];
 }
 
++ (BOOL)isSimulator
+{
+    return [[UIDevice currentDevice].model isEqualToString:@"iPhone Simulator"];
+}
+
 #pragma mark - Open In Chrome
 
 /**

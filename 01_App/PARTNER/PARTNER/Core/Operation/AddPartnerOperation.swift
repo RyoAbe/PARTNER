@@ -48,11 +48,12 @@ class AddPartnerOperation: BaseOperation {
             pushQuery.whereKey("user", matchesQuery:userQuery)
             let push = PFPush()
             push.setQuery(pushQuery)
-            push.setMessage("Added partner「\(myProfile.name)」")
-            push.setData(["notificationType": "AddedPartner", "objectId": myProfile.id])
+            push.setData(["alert": "Added partner「\(myProfile.name)」", "notificationType": "Message"])
             push.sendPushInBackgroundWithBlock{ succeeded, error in
                 
                 object["partner"] = self.user
+                object["hasPartner"] = true
+                
                 object.saveInBackgroundWithBlock{ succeeded, error in
                     let partner = Partner.read()
                     let data = (self.user["profileImage"] as PFFile).getData()
@@ -61,8 +62,10 @@ class AddPartnerOperation: BaseOperation {
                     partner.image = UIImage(data: data)
                     partner.name = self.user.username
                     partner.isAuthenticated = true
-                    
                     partner.save()
+
+                    myProfile.hasPartner = true
+                    myProfile.save()
                     
                     self.finished = true
                 }
