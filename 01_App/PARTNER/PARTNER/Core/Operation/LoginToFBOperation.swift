@@ -35,18 +35,23 @@ class LoginToFBOperation: BaseOperation {
                 let profileImageData = PFFile(data: NSData(contentsOfURL:url)!)
 
                 let user = object as PFUser
-                user.username = username
-                user["fbId"] = fbId
-                user["profileImage"] = profileImageData
-                user["hasPartner"] = false
-                object.saveInBackgroundWithBlock{ succeeded, error in
-                    let myProfile = MyProfile.read()
-                    myProfile.id = user.objectId
-                    myProfile.image = UIImage(data: profileImageData.getData())!
-                    myProfile.name = username
-                    myProfile.isAuthenticated = true
-                    myProfile.save()
-                    self.finished = true
+                
+                let installation = PFInstallation.currentInstallation()
+                installation.setObject(PFUser.currentUser(), forKey: "user")
+                installation.saveInBackgroundWithBlock{ succeeded, error in
+                    user.username = username
+                    user["fbId"] = fbId
+                    user["profileImage"] = profileImageData
+                    user["hasPartner"] = false
+                    object.saveInBackgroundWithBlock{ succeeded, error in
+                        let myProfile = MyProfile.read()
+                        myProfile.id = user.objectId
+                        myProfile.image = UIImage(data: profileImageData.getData())!
+                        myProfile.name = username
+                        myProfile.isAuthenticated = true
+                        myProfile.save()
+                        self.finished = true
+                    }
                 }
             })
         })

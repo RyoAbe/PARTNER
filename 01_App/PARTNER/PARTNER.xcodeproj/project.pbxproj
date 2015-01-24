@@ -322,6 +322,11 @@
 					3230097F1997374800B4FE5E = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 73VBXUT85B;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					323009941997374800B4FE5E = {
 						CreatedOnToolsVersion = 6.0;
@@ -552,7 +557,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9662fcae-39fe-443b-a23f-1b62cfb94661";
 				SWIFT_OBJC_BRIDGING_HEADER = "PARTNER/PARTNER-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -575,7 +580,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9662fcae-39fe-443b-a23f-1b62cfb94661";
 				SWIFT_OBJC_BRIDGING_HEADER = "PARTNER/PARTNER-Bridging-Header.h";
 			};
 			name = Release;

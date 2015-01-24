@@ -25,10 +25,16 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
-        // ???: Partnerはdefault空だよ画像と「No Partner」にする
-        partnersStatusView.profile = Partner.read()
 
         let myProfile = MyProfile.read()
+        let partner = Partner.read()
+        let currentUser = PFUser.currentUser()
+        NSLog("currentUser: \(currentUser)")
+        NSLog("myProfile: \(myProfile)")
+        NSLog("partner: \(partner)")
+        NSLog("~~~~~~~~~")
+
+        partnersStatusView.profile = partner
         myStatusView.profile = myProfile
         if(!myProfile.isAuthenticated){
             showSignInFacebookAlert()
@@ -37,13 +43,19 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
     func showSignInFacebookAlert(){
         let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        // ???: キャンセルしたら画面上のどこかで改めて Sign in 出来るようにする
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { alertAction in
             MRProgressOverlayView.show()
             let op = LoginToFBOperation()
             op.start()
-            op.completionBlock = { MRProgressOverlayView.hide() }
+            op.completionBlock = {
+                dispatch_async(dispatch_get_main_queue(), {
+                    MRProgressOverlayView.hide()
+                });
+            }
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }
 
@@ -108,10 +120,12 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
 
-        // ???: TestChanelを削除して指定したユーザにpushされるように
         // ???: 【CoreData】pushが成功したらCoreDataに保存。
         // ???: 【次にやる！！！】一旦メニューの項目は定数で持つようにしよう（将来的にはCoreDataから引っ張ってくるように）
         // ???: ここもOperationにする
+        // ???: Locatioで現在地を遅れるように
+        // ???: 着く時間を設定出来るように
+        // TODO: 時間も送る
         let myProfile = MyProfile.read()
         let partner = Partner.read()
 
@@ -124,6 +138,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         let push = PFPush()
         push.setQuery(pushQuery)
         push.setMessage("\(myProfile.name):「" + cell.menuLabel.text! + "」")
+        // TODO: notoficationTypeを入れる
+//        push.setData(["alert": "\(myProfile.name):「" + cell.menuLabel.text! + "」", "notificationType": "Message"])
         push.sendPushInBackground()
     }
 

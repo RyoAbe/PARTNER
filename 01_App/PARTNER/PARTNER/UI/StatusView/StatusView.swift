@@ -10,7 +10,8 @@ import UIKit
 
 class StatusView: UIView {
 
-    // ???: 【CoreData > KVO】モデルをObserveして状態が更新されたらView側をstatusアイコンと日付を更新する
+    // ???: 空の人型アイコンと「no partner」を入れる
+    // TODO: 状態が更新されたらその状態のアイコンを入れる。日付も入れる
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var atLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!

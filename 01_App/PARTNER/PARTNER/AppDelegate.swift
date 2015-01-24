@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let types = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
+
         // ???: 【保留】Menu項目をCoreDataに保存
         return true
     }
@@ -38,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebook()
     }
     
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        NSLog("ここに来て失敗してる")
+    }
+    
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let currentInstallation = PFInstallation.currentInstallation()
         currentInstallation.setDeviceTokenFromData(deviceToken)
@@ -46,12 +51,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         // ???: 【CoreData】受け取ったnotificationをCoreDataに保存（historyが見れるようにいつかやる）
+        // TODO: notificationTypeがmessageを送るところには入っていないからクラッシュする
         PFPush.handlePush(userInfo)
+        
+        let notificationType = userInfo["notificationType"]! as NSString
+        if(notificationType.isEqualToString("AddedPartner")){
+            let objectId = userInfo["objectId"] as NSString
+            let op = AddPartnerOperation(objectId: objectId)
+            op.start()
+            op.completionBlock = {
+                dispatch_async(dispatch_get_main_queue(), {
+                    NSLog("Suceeded")
+                })
+            }
+        }
     }
 
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject?) -> Bool {
-            return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session())
+        return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session())
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

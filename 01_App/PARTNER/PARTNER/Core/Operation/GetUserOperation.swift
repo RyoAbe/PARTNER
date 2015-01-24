@@ -10,23 +10,23 @@ import UIKit
 
 class GetUserOperation: BaseOperation {
     
-    var id: NSString!
+    var objectId: NSString!
     var result: PFUser?
 
-    init(id : NSString){
+    init(objectId : NSString){
         super.init()
-        self.id = id
+        self.objectId = objectId
     }
 
     override func main() {        
         let query = PFUser.query()
-        query.whereKey("objectId", equalTo: self.id)
+        query.whereKey("objectId", equalTo: self.objectId)
         query.getFirstObjectInBackgroundWithBlock { object, error in
             if !object.isKindOfClass(PFUser) {
                 self.finished = true
                 return;
             }
-            // ???: すでにパートナーがいたらエラー
+            // ???: すでにパートナーがいたらエラー（エラー系全体的に見直し）
 
             if let hasPartner = object.objectForKey("hasPartner") as? Bool {
                 if !hasPartner {

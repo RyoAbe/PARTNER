@@ -52,7 +52,15 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // ???: 認証されていないときの処理
+        
+
+        if(!UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
+            verifyPartnersId("Z1A3nEIY9P")
+//            self.navigationController!.popViewControllerAnimated(true)
+            return
+        }
+        
+        // ???: 認証されていないときは設定画面への誘導を入れる（scheme入れよう）
         let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
         switch status {
         case .Restricted:
@@ -80,6 +88,9 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        if(maskView == nil){
+            return
+        }
         maskView.frame = self.view.bounds
         previewLayer.frame = self.view.bounds
     }
@@ -120,7 +131,7 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                 continue
             }
             if !verifyPartnersId(metadataObject.stringValue) {
-                // ???: 失敗アラート表示
+                // ???: 読み取ったのがobjectIdはじゃなければエラーのトースト or アラートを表示（全体的に列挙が必要？）
                 continue
             }
             session.stopRunning()
@@ -133,34 +144,35 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         // ???: ネットにつながってなかった場合は失敗あらーと？他にもあるかも
         
         MRProgressOverlayView.show()
-        let op = GetUserOperation(id: id)
+        let op = GetUserOperation(objectId: id)
         op.start()
         op.completionBlock = {
-            MRProgressOverlayView.hide()
-            if let user = op.result {
-                self.showConfirmBecomePartner(user)
-            }
+            dispatch_async(dispatch_get_main_queue(), {
+                MRProgressOverlayView.hide()
+                if let user = op.result {
+                    self.showConfirmBecomePartner(user)
+                }
+            })
         }
-
         return true
     }
 
     func showConfirmBecomePartner(user: PFUser){
 
-        let alert = UIAlertController(title: "Confirm", message: "Do you become partner with \(user.username) ?", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ action in
+        let alert = UIAlertController(title: "Confirm", message: "Do you become partner with \"\(user.username)\"?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
             MRProgressOverlayView.show()
-
             let op = AddPartnerOperation(user: user)
             op.start()
             op.completionBlock = {
-                MRProgressOverlayView.hide()
-                // ???: ok で
-                self.navigationController!.popViewControllerAnimated(true)
+                dispatch_async(dispatch_get_main_queue(), {
+                    MRProgressOverlayView.hide()
+                    // ???: アラートで友達になったよ的なのを出す。それでからpop
+                    self.navigationController!.popViewControllerAnimated(true)
+                })
             }
         }))
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }
 

@@ -10,6 +10,7 @@ import UIKit
 
 class MyQRCodePreviewController: UIViewController {
 
+    // TODO: ここblurにしよう
     @IBOutlet weak var qrCodeImageView: UIImageView!
 
     override func viewDidLoad() {

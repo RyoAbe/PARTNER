@@ -14,7 +14,7 @@ class MyProfile: Profile{
         return NSStringFromClass(MyProfile).componentsSeparatedByString(".").last!
     }
 
-    // ???: PFUser.currentUser()でいいかも
+    // ???: PFUser.currentUser()でいいかも。もしくはcurrentUSer拡張
     override class var sharedInstance : MyProfile {
         struct Static {
             static let instance = MyProfile()

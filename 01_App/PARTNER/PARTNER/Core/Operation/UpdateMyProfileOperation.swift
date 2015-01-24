@@ -8,31 +8,24 @@
 
 import UIKit
 
-// ???: LoginToFBOperationの処理をこっち持ってこれるんじゃね？
-
 class UpdateMyProfileOperation: BaseOperation {
-    
-    var username: NSString!
-    var hasPartner: Bool!
-
-    init(hasPartner: Bool){
-        self.hasPartner = hasPartner
-        super.init()
-    }
 
     override func main() {
         let myProfile = MyProfile.read()
-        let op = GetUserOperation(id: myProfile.id)
-        op.start()
-        op.completionBlock = {
-            let user = op.result!
-            user["hasPartner"] = self.hasPartner
-            user.saveInBackgroundWithBlock{ success, error in
-                if(success){
-                    myProfile.hasPartner = self.hasPartner
-                    myProfile.save()
+        let getUserOp = GetUserOperation(objectId: myProfile.id)
+        getUserOp.start()
+        getUserOp.completionBlock = {
+            let myUser = getUserOp.result!
+            
+            if((myUser.allKeys() as NSArray).containsObject("partner")){
+                let partner = myUser["partner"]
+                NSLog("partner\(partner)")
+                let partnerUser = myUser["partner"] as PFUser
+                let op = AddPartnerOperation(user: partnerUser)
+                op.start()
+                op.completionBlock = {
+                    self.finished = true
                 }
-                self.finished = true
             }
         }
     }
