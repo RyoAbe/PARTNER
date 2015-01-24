@@ -29,6 +29,8 @@
 		32592FAF1A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */; };
 		32592FB01A2AF918008E7021 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FAA1A2AF918008E7021 /* UIUtil.m */; };
 		327932441A556FCA0030A72F /* GetUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327932431A556FCA0030A72F /* GetUserOperation.swift */; };
+		32D6C9391A738624001AC7DF /* StatusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D6C9381A738624001AC7DF /* StatusType.swift */; };
+		32D6C93B1A7386F9001AC7DF /* StatusTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D6C93A1A7386F9001AC7DF /* StatusTypes.swift */; };
 		32E1BE0919BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */; };
 		32E1BE0B19BC37C900EBE7F7 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */; };
 		32F3C9991A55913D0019F3B0 /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F3C9981A55913D0019F3B0 /* BaseOperation.swift */; };
@@ -62,7 +64,7 @@
 		324FE52219B4CD7F000AF85E /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		324FE52419B4CD7F000AF85E /* MessageMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageMenuCell.swift; sourceTree = "<group>"; };
 		324FE52519B4CD7F000AF85E /* MessageMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageMenuCell.xib; sourceTree = "<group>"; };
-		324FE52619B4CD7F000AF85E /* StatusBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBaseView.swift; sourceTree = "<group>"; };
+		324FE52619B4CD7F000AF85E /* StatusBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatusBaseView.swift; path = ../StatusBaseView.swift; sourceTree = "<group>"; };
 		324FE53219B4CED1000AF85E /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		324FE53319B4CED1000AF85E /* StatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusView.xib; sourceTree = "<group>"; };
 		324FE53819B4CFDA000AF85E /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -76,6 +78,8 @@
 		32592FA91A2AF918008E7021 /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
 		32592FAA1A2AF918008E7021 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
 		327932431A556FCA0030A72F /* GetUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserOperation.swift; sourceTree = "<group>"; };
+		32D6C9381A738624001AC7DF /* StatusType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusType.swift; sourceTree = "<group>"; };
+		32D6C93A1A7386F9001AC7DF /* StatusTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusTypes.swift; sourceTree = "<group>"; };
 		32E1BE0519BB4E5400EBE7F7 /* PARTNER-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PARTNER-Bridging-Header.h"; sourceTree = "<group>"; };
 		32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateMyProfileOperation.swift; sourceTree = "<group>"; };
 		32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
@@ -172,7 +176,6 @@
 				324FE52019B4CD7F000AF85E /* Main.storyboard */,
 				324FE52219B4CD7F000AF85E /* MainViewController.swift */,
 				32F74BEA19BB30110032C9AC /* SettingsViewController.swift */,
-				324FE52619B4CD7F000AF85E /* StatusBaseView.swift */,
 				32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */,
 				3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */,
 				324FE53119B4CED1000AF85E /* StatusView */,
@@ -193,6 +196,7 @@
 		324FE53119B4CED1000AF85E /* StatusView */ = {
 			isa = PBXGroup;
 			children = (
+				324FE52619B4CD7F000AF85E /* StatusBaseView.swift */,
 				324FE53219B4CED1000AF85E /* StatusView.swift */,
 				324FE53319B4CED1000AF85E /* StatusView.xib */,
 			);
@@ -214,6 +218,8 @@
 				324FE53819B4CFDA000AF85E /* Profile.swift */,
 				32494D5319FBBF5A0002EF8A /* Partner.swift */,
 				32494D5519FBBF750002EF8A /* MyProfile.swift */,
+				32D6C9381A738624001AC7DF /* StatusType.swift */,
+				32D6C93A1A7386F9001AC7DF /* StatusTypes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -418,6 +424,7 @@
 				32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */,
 				32E1BE0919BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift in Sources */,
 				324FE52E19B4CD7F000AF85E /* StatusBaseView.swift in Sources */,
+				32D6C93B1A7386F9001AC7DF /* StatusTypes.swift in Sources */,
 				324FE53419B4CED1000AF85E /* StatusView.swift in Sources */,
 				3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */,
 				32494D5419FBBF5A0002EF8A /* Partner.swift in Sources */,
@@ -427,6 +434,7 @@
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,
 				32F3C9991A55913D0019F3B0 /* BaseOperation.swift in Sources */,
+				32D6C9391A738624001AC7DF /* StatusType.swift in Sources */,
 				32F3C99B1A55923F0019F3B0 /* AddPartnerOperation.swift in Sources */,
 				3220BEEA1A2B5026006F281A /* MyQRCodePreviewController.swift in Sources */,
 				324FE52C19B4CD7F000AF85E /* MessageMenuCell.swift in Sources */,

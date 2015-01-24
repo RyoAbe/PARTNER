@@ -77,6 +77,26 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         }))
         presentViewController(alert, animated: true, completion: nil)
     }
+    
+    func partnersStatus(statusTypeId: NSInteger, date: NSDate){
+        partnersStatusView.statusType = self.statusTypes[statusTypeId] as StatusType
+        partnersStatusView.date = date
+    }
+
+    // ???: なんとかしたい
+    var statusTypes : NSArray {
+        return [
+            StatusType(id: 1, iconImageName: "good_morning", name: "Good morning."),
+            StatusType(id: 2, iconImageName: "going_home", name: "I’m going home."),
+            StatusType(id: 3, iconImageName: "left_home", name: "I left home."),
+            StatusType(id: 4, iconImageName: "have_dinner", name: "I have dinner."),
+            StatusType(id: 5, iconImageName: "there", name: "I’m almost there."),
+            StatusType(id: 6, iconImageName: "god_it", name: "Got it."),
+            StatusType(id: 7, iconImageName: "good_night", name: "Good night."),
+            StatusType(id: 8, iconImageName: "location", name: "Location"),
+            StatusType(id: 9, iconImageName: "love", name: "I Love you.")
+        ]
+    }
 
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as MessageMenuCell
@@ -84,39 +104,9 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         // ???: 【CoreData】Menu項目はCoreDataから取得する
         // ???: 【保留】Menu項目のアイコンの再考
         // ???: 【次にやる！！！】ベタ書きになってるからDataSourceを作る
-        var labelText:NSString? = nil
-        var imageName:NSString? = nil
-        if(indexPath.row == 0){
-            labelText = "Good morning."
-            imageName = "good_morning"
-        }else if(indexPath.row == 1){
-            labelText = "I’m going home."
-            imageName = "going_home"
-        }else if(indexPath.row == 2){
-            labelText = "I left home."
-            imageName = "left_home"
-        }else if(indexPath.row == 3){
-            labelText = "I have dinner."
-            imageName = "have_dinner"
-        }else if(indexPath.row == 4){
-            labelText = "I’m almost there."
-            imageName = "there"
-        }else if(indexPath.row == 5){
-            labelText = "Got it."
-            imageName = "god_it"
-        }else if(indexPath.row == 6){
-            labelText = "Good night."
-            imageName = "good_night"
-        }else if(indexPath.row == 7){
-            labelText = "Location"
-            imageName = "location"
-        }else if(indexPath.row == 8){
-            labelText = "I Love you."
-            imageName = "love"
-        }
-        cell.menuLabel.text = labelText
-        cell.menuIcon.image = UIImage(named: imageName!)
-
+        let statusType = self.statusTypes[indexPath.row] as StatusType
+        cell.menuLabel.text = statusType.name
+        cell.menuIcon.image = UIImage(named: statusType.iconImageName)
         return cell;
     }
 
@@ -156,7 +146,12 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
         let push = PFPush()
         push.setQuery(pushQuery)
-        push.setData(["alert": "\(myProfile.name):「" + cell.menuLabel.text! + "」", "notificationType": "Message"])
+        
+        let data = ["alert"           : "\(myProfile.name):「\(cell.menuLabel.text!)」",
+                    "notificationType": "Status",
+                    "id"              : indexPath.row,
+                    "date"            : "\(NSDate().timeIntervalSince1970)"]
+        push.setData(data)
         push.sendPushInBackground()
     }
 

@@ -11,10 +11,20 @@ import UIKit
 // ???: 【次にやる！！！】本当は本Viewはいらないはず
 public class StatusBaseView: UIView {
 
-    var statusView: StatusView!;
-    var profile: Profile!{
-        didSet{
+    var statusView: StatusView!
+    var profile: Profile! {
+        didSet {
             self.statusView.profile = profile
+        }
+    }
+    var statusType: StatusType! {
+        didSet {
+            self.statusView.statusType = statusType
+        }
+    }
+    var date: NSDate! {
+        didSet {
+            self.statusView.date = date
         }
     }
 

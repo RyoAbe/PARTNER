@@ -53,17 +53,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // ???: 【CoreData】受け取ったnotificationをCoreDataに保存（historyが見れるようにいつかやる）
         // TODO: notificationTypeがmessageを送るところには入っていないからクラッシュする
         PFPush.handlePush(userInfo)
-
-        if (userInfo["notificationType"]! as NSString).isEqualToString("AddedPartner") {
-            let objectId = userInfo["objectId"] as NSString
-            let op = AddPartnerOperation(objectId: objectId)
-            op.start()
-            op.completionBlock = {
-                dispatch_async(dispatch_get_main_queue(), {
-                    NSLog("Suceeded")
-                })
-            }
+        
+        // ???: 本当はいやだ
+        let notificationType = userInfo["notificationType"]! as NSString
+        switch notificationType {
+            case "Status":
+                let date = NSDate(timeIntervalSince1970:(userInfo["date"] as NSString).doubleValue)
+                let id = userInfo["id"] as NSInteger
+                let rootVC = (self.window!.rootViewController as UINavigationController).viewControllers[0] as MainViewController
+                rootVC.partnersStatus(id, date: date)
+                break
+            case "AddedPartner":
+                AddPartnerOperation(objectId: userInfo["objectId"] as NSString).start()
+                break
+            default:
+                break
         }
+        
     }
 
     
