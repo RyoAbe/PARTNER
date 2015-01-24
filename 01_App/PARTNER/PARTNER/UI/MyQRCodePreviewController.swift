@@ -12,19 +12,21 @@ class MyQRCodePreviewController: UIViewController {
 
     // TODO: ここblurにしよう
     @IBOutlet weak var qrCodeImageView: UIImageView!
+    @IBOutlet weak var qrReaderButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(white: 0, alpha: 0.8);
+        view.backgroundColor = UIColor(white: 0.0, alpha: 0.0);
 
-        let myProfile = MyProfile.read()
-        qrCodeImageView.image = qrCodeImageForString(myProfile.id, size: qrCodeImageView.frame.size)
+        // ???: 背景がclearColorにならない
+        qrCodeImageView.image = qrCodeImageForString(MyProfile.read().id, size: qrCodeImageView.frame.size)
+//        qrCodeImageView.image = UIUtil.createQRImageForString(MyProfile.read().id, backgroundColor: UIColor.clearColor(), foregroundColor: UIColor.whiteColor(), size: qrCodeImageView.frame.size)
     }
 
     @IBAction func didTapCloseButton(sender: AnyObject) {
         self .dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
     func qrCodeImageForString(string: String!, size: CGSize) -> UIImage? {
         let filter = CIFilter(name: "CIQRCodeGenerator")
         filter.setValue(string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false), forKey: "inputMessage")

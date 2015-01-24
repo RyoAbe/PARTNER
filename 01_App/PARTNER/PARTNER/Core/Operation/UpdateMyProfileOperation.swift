@@ -18,7 +18,7 @@ class UpdateMyProfileOperation: BaseOperation {
             let myUser = getUserOp.result!
             
             if((myUser.allKeys() as NSArray).containsObject("partner")){
-                let partner = myUser["partner"]
+                let partner = myUser["partner"] as PFUser
                 NSLog("partner\(partner)")
                 let partnerUser = myUser["partner"] as PFUser
                 let op = AddPartnerOperation(user: partnerUser)

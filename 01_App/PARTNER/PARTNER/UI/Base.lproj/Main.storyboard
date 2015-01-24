@@ -177,6 +177,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yl6-hz-yUw">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GXa-1g-vk6">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read your QR code from partner." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wur-nm-lgT">
                                 <rect key="frame" x="150" y="130" width="300" height="21"/>
                                 <constraints>
@@ -187,17 +195,23 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zH-dX-j3t">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zH-dX-j3t">
                                 <rect key="frame" x="180" y="460" width="240" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="dRc-2L-nAh"/>
                                     <constraint firstAttribute="width" constant="240" id="doo-vf-frs"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Read partner’s QR code ">
                                     <color key="titleColor" white="0.20052939967105265" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="u03-Fy-b0c" kind="show" id="ti7-3c-mXB"/>
                                 </connections>
@@ -233,8 +247,11 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fN2-m8-PdG" firstAttribute="centerX" secondItem="oZ2-eW-tKd" secondAttribute="centerX" id="7Xd-Lv-PTD"/>
+                            <constraint firstAttribute="trailing" secondItem="yl6-hz-yUw" secondAttribute="trailing" id="A3d-OX-GsB"/>
                             <constraint firstItem="Wur-nm-lgT" firstAttribute="top" secondItem="j4H-eG-3MS" secondAttribute="bottom" constant="110" id="BUw-v1-K39"/>
                             <constraint firstAttribute="centerX" secondItem="Wur-nm-lgT" secondAttribute="centerX" id="FmX-R3-NmH"/>
+                            <constraint firstItem="yl6-hz-yUw" firstAttribute="top" secondItem="zaK-tP-vqc" secondAttribute="top" id="MII-EP-gzk"/>
+                            <constraint firstItem="yl6-hz-yUw" firstAttribute="leading" secondItem="zaK-tP-vqc" secondAttribute="leading" id="Nr6-fh-dnF"/>
                             <constraint firstItem="G3H-LU-kJi" firstAttribute="top" secondItem="0zH-dX-j3t" secondAttribute="bottom" constant="100" id="Vp5-MA-D6H"/>
                             <constraint firstAttribute="centerX" secondItem="0zH-dX-j3t" secondAttribute="centerX" id="c1o-dI-3cH"/>
                             <constraint firstItem="fN2-m8-PdG" firstAttribute="centerY" secondItem="oZ2-eW-tKd" secondAttribute="centerY" id="g0g-qF-BTW"/>
@@ -242,11 +259,13 @@
                             <constraint firstItem="fN2-m8-PdG" firstAttribute="leading" secondItem="zaK-tP-vqc" secondAttribute="leading" constant="2" id="icd-Qb-BWt"/>
                             <constraint firstAttribute="centerX" secondItem="Ibx-MW-qIs" secondAttribute="centerX" id="q9Y-x2-0li"/>
                             <constraint firstItem="Ibx-MW-qIs" firstAttribute="top" secondItem="Wur-nm-lgT" secondAttribute="bottom" constant="26" id="qG4-u7-PLS"/>
+                            <constraint firstItem="G3H-LU-kJi" firstAttribute="top" secondItem="yl6-hz-yUw" secondAttribute="bottom" id="uAz-lZ-E23"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5n6-DG-KXl"/>
                     <connections>
                         <outlet property="qrCodeImageView" destination="Ibx-MW-qIs" id="F09-A6-Rr5"/>
+                        <outlet property="qrReaderButton" destination="0zH-dX-j3t" id="JLb-1T-j3Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AjL-j6-Edi" userLabel="First Responder" sceneMemberID="firstResponder"/>
