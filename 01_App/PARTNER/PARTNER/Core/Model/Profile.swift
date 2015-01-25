@@ -15,6 +15,8 @@ class Profile: NSObject, NSCoding{
     dynamic var image: UIImage!
     dynamic var isAuthenticated: Bool
     dynamic var hasPartner: Bool
+    dynamic var statusType: StatusType?
+    dynamic var statusDate: NSDate?
 
     var key: NSString {
         assert(false, "overrideして下さい")
@@ -26,16 +28,18 @@ class Profile: NSObject, NSCoding{
         return Profile()
     }
 
-    init(id: NSString?, name: NSString?, image: UIImage?, isAuthenticated: Bool, hasPartner: Bool){
+    init(id: NSString?, name: NSString?, image: UIImage?, isAuthenticated: Bool, hasPartner: Bool, statusType: StatusType?, statusDate: NSDate?) {
         self.id = id
         self.name = name
         self.image = image
         self.isAuthenticated = isAuthenticated
         self.hasPartner = hasPartner
+        self.statusType = statusType
+        self.statusDate = statusDate
     }
 
     convenience override init(){
-        self.init(id: nil, name: nil, image: nil, isAuthenticated: false, hasPartner: false)
+        self.init(id: nil, name: nil, image: nil, isAuthenticated: false, hasPartner: false, statusType: nil, statusDate: nil)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -44,6 +48,8 @@ class Profile: NSObject, NSCoding{
         self.image = aDecoder.decodeObjectForKey("image") as? UIImage
         self.isAuthenticated = aDecoder.decodeObjectForKey("isAuthenticated") as Bool
         self.hasPartner = aDecoder.decodeObjectForKey("hasPartner") as Bool
+        self.statusType = aDecoder.decodeObjectForKey("statusType") as StatusType?
+        self.statusDate = aDecoder.decodeObjectForKey("statusDate") as NSDate?
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
@@ -52,6 +58,8 @@ class Profile: NSObject, NSCoding{
         aCoder.encodeObject(self.image, forKey: "image")
         aCoder.encodeObject(self.isAuthenticated, forKey: "isAuthenticated")
         aCoder.encodeObject(self.hasPartner, forKey: "hasPartner")
+        aCoder.encodeObject(self.statusType, forKey: "statusType")
+        aCoder.encodeObject(self.statusDate, forKey: "statusDate")
     }
 
     func save() -> Profile {

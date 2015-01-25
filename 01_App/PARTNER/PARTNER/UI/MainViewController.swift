@@ -38,6 +38,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         myStatusView.profile = myProfile
         if(!myProfile.isAuthenticated){
             showSignInFacebookAlert()
+            return
         }
     
         if !UIUtil.isSimulator() || myProfile.hasPartner {
@@ -79,8 +80,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }
     
     func partnersStatus(statusTypeId: NSInteger, date: NSDate){
-        partnersStatusView.statusType = self.statusTypes[statusTypeId] as StatusType
-        partnersStatusView.date = date
+        let partner = Partner.read()
+        partner.statusType = self.statusTypes[statusTypeId] as? StatusType
+        partner.statusDate = date
+        partner.save()
     }
 
     // ???: なんとかしたい
@@ -146,13 +149,19 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
         let push = PFPush()
         push.setQuery(pushQuery)
-        
+
+        let date = NSDate()
         let data = ["alert"           : "\(myProfile.name):「\(cell.menuLabel.text!)」",
                     "notificationType": "Status",
                     "id"              : indexPath.row,
-                    "date"            : "\(NSDate().timeIntervalSince1970)"]
+                    "date"            : "\(date.timeIntervalSince1970)"]
         push.setData(data)
         push.sendPushInBackground()
+
+        // TODO: kvoで発火しない。なぜならinstanceが違うから。unarchiveする仕組み自体見直し
+//        myProfile.statusType = self.statusTypes[indexPath.row] as? StatusType
+        myProfile.statusDate = date
+        myProfile.save()
     }
 
     @IBAction func settings(sender: UIBarButtonItem) {

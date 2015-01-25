@@ -18,12 +18,12 @@
                             <constraint firstAttribute="height" constant="12" id="MzX-cf-NwG"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <color key="textColor" white="0.14999999999999999" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.25" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="going_home_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Bw1-Yg-6Lx">
+                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Bw1-Yg-6Lx">
                         <rect key="frame" x="33" y="29" width="40" height="40"/>
-                        <color key="tintColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="0.25" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="KmS-uJ-2rO"/>
                             <constraint firstAttribute="width" constant="40" id="Ru2-fp-Rmp"/>
@@ -46,7 +46,4 @@
             </connections>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="going_home_icon" width="80" height="80"/>
-    </resources>
 </document>
