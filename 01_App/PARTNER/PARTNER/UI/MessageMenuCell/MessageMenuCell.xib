@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6246"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,19 +12,34 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="I’m going home." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixx-kE-91T">
-                        <rect key="frame" x="0.0" y="65" width="106" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I’m going home." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixx-kE-91T">
+                        <rect key="frame" x="8" y="69" width="90" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="MzX-cf-NwG"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" white="0.14999999999999999" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="going_home" translatesAutoresizingMaskIntoConstraints="NO" id="Bw1-Yg-6Lx">
-                        <rect key="frame" x="0.0" y="25" width="106" height="42"/>
+                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="going_home_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Bw1-Yg-6Lx">
+                        <rect key="frame" x="33" y="29" width="40" height="40"/>
+                        <color key="tintColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="KmS-uJ-2rO"/>
+                            <constraint firstAttribute="width" constant="40" id="Ru2-fp-Rmp"/>
+                        </constraints>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Ixx-kE-91T" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="L21-dG-9tG"/>
+                <constraint firstItem="Ixx-kE-91T" firstAttribute="top" secondItem="Bw1-Yg-6Lx" secondAttribute="bottom" id="SCs-CS-njD"/>
+                <constraint firstAttribute="trailing" secondItem="Ixx-kE-91T" secondAttribute="trailing" constant="8" id="U8P-YP-Q3h"/>
+                <constraint firstAttribute="centerY" secondItem="Bw1-Yg-6Lx" secondAttribute="centerY" constant="4" id="oha-aN-D04"/>
+                <constraint firstAttribute="centerX" secondItem="Bw1-Yg-6Lx" secondAttribute="centerX" id="xAF-DY-QTa"/>
+            </constraints>
             <connections>
                 <outlet property="menuIcon" destination="Bw1-Yg-6Lx" id="HxV-Ir-BOT"/>
                 <outlet property="menuLabel" destination="Ixx-kE-91T" id="Esg-3o-ygA"/>
@@ -32,6 +47,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="going_home" width="40" height="40"/>
+        <image name="going_home_icon" width="80" height="80"/>
     </resources>
 </document>

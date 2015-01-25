@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
-        self.setupAppearance();
+        self.applayAppearance();
         self.setupParse();
         let types = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
         application.registerForRemoteNotifications()
@@ -26,8 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func setupAppearance() {
-        // ???: 画像のtemplate化+pdf化
+    func applayAppearance() {
         UINavigationBar.appearance().tintColor = UIColor.blackColor()
         UISwitch.appearance().onTintColor = UIColor.darkGrayColor()
         UINavigationBar.appearance().barTintColor = UIColor.whiteColor()

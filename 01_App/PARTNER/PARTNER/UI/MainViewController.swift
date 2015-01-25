@@ -86,15 +86,15 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     // ???: なんとかしたい
     var statusTypes : NSArray {
         return [
-            StatusType(id: 1, iconImageName: "good_morning", name: "Good morning."),
-            StatusType(id: 2, iconImageName: "going_home", name: "I’m going home."),
-            StatusType(id: 3, iconImageName: "left_home", name: "I left home."),
-            StatusType(id: 4, iconImageName: "have_dinner", name: "I have dinner."),
-            StatusType(id: 5, iconImageName: "there", name: "I’m almost there."),
-            StatusType(id: 6, iconImageName: "god_it", name: "Got it."),
-            StatusType(id: 7, iconImageName: "good_night", name: "Good night."),
-            StatusType(id: 8, iconImageName: "location", name: "Location"),
-            StatusType(id: 9, iconImageName: "love", name: "I Love you.")
+            StatusType(id: 1, iconImageName: "good_morning_icon", name: "Good morning."),
+            StatusType(id: 2, iconImageName: "going_home_icon", name: "I’m going home."),
+            StatusType(id: 3, iconImageName: "thank_you_icon", name: "Thank You!"),
+            StatusType(id: 4, iconImageName: "have_dinner_icon", name: "I have dinner."),
+            StatusType(id: 5, iconImageName: "there_icon", name: "I’m almost there."),
+            StatusType(id: 6, iconImageName: "god_it_icon", name: "Got it."),
+            StatusType(id: 7, iconImageName: "good_night_icon", name: "Good night."),
+            StatusType(id: 8, iconImageName: "location_icon", name: "Location"),
+            StatusType(id: 9, iconImageName: "love_icon", name: "I Love you.")
         ]
     }
 

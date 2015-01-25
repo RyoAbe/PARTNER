@@ -50,10 +50,15 @@ class StatusView: UIView {
             atLabel.text = fmt.stringFromDate(date)
         }
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        statusIcon.tintColor = UIColor.whiteColor()
+    }
 
     override func updateConstraints() {
         super.updateConstraints()
-        let iconSize = self.frame.width * 0.4
+        let iconSize = CGFloat(40)
         statusIconHeight.constant = iconSize
         statusIconWidth.constant = iconSize
     }
