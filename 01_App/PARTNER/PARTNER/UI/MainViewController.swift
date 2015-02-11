@@ -41,12 +41,15 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             return
         }
     
-        if !UIUtil.isSimulator() || myProfile.hasPartner {
+        if UIUtil.isSimulator() && !myProfile.hasPartner {
+//            addPartnerForDebug("c7iNlweYhk")
             return
         }
-
+    }
+    
+    func addPartnerForDebug(id: NSString) {
         MRProgressOverlayView.show()
-        let op = GetUserOperation(objectId: "QZzLuebvHZ")
+        let op = GetUserOperation(objectId: id)
         op.start()
         op.completionBlock = {
             if let user = op.result {
@@ -78,7 +81,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         }))
         presentViewController(alert, animated: true, completion: nil)
     }
-    
+
     func partnersStatus(statusTypeId: NSInteger, date: NSDate){
         let partner = Partner.read()
         partner.statusType = self.statusTypes[statusTypeId] as? StatusType
@@ -116,28 +119,28 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
         return 9;
     }
-    
+
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
         cell.backgroundColor = UIColor(white: 0.9, alpha: 1)
     }
-    
+
     func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             cell.backgroundColor = UIColor.whiteColor()
         })
     }
-    
+
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
 
         // ???: 【CoreData】pushが成功したらCoreDataに保存。
-        // ???: 【次にやる！！！】一旦メニューの項目は定数で持つようにしよう（将来的にはCoreDataから引っ張ってくるように）
+        // ???: 一旦メニューの項目は定数で持つようにしている（将来的にはCoreDataから引っ張ってくるように）
         // ???: ここもOperationにする
         // ???: Locatioで現在地を遅れるように
         // ???: 着く時間を設定出来るように
-        // TODO: 時間も送る
+
         let myProfile = MyProfile.read()
         let partner = Partner.read()
 
@@ -158,8 +161,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         push.setData(data)
         push.sendPushInBackground()
 
-        // TODO: kvoで発火しない。なぜならinstanceが違うから。unarchiveする仕組み自体見直し
-//        myProfile.statusType = self.statusTypes[indexPath.row] as? StatusType
+        myProfile.statusType = self.statusTypes[indexPath.row] as? StatusType
         myProfile.statusDate = date
         myProfile.save()
     }

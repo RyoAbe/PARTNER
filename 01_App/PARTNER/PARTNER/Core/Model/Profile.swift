@@ -71,14 +71,10 @@ class Profile: NSObject, NSCoding{
     }
 
     class func read() -> Profile! {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        var instance = self.sharedInstance
-        if let data = userDefaults.dataForKey(self.key) {
-            instance = createWithData(data)
-        } else {
-            instance.save()
+        if let data = NSUserDefaults.standardUserDefaults().dataForKey(self.key) {
+            return createWithData(data)
         }
-        return instance
+        return self.sharedInstance.save()
     }
     
     class func createWithData(data: NSData) -> Profile! {

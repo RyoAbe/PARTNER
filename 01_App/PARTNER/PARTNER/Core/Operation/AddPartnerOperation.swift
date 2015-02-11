@@ -41,32 +41,38 @@ class AddPartnerOperation: BaseOperation {
         
         let query = PFUser.query()
         query.getObjectInBackgroundWithId(myProfile.id, block: { object, error in
-            
-            let userQuery = PFUser.query()
-            userQuery.whereKey("objectId", equalTo: self.user.objectId)
-            let pushQuery = PFInstallation.query()
-            pushQuery.whereKey("user", matchesQuery:userQuery)
-            let push = PFPush()
-            push.setQuery(pushQuery)
-            push.setData(["alert": "Added partner「\(myProfile.name)」", "notificationType": "Message"])
-            push.sendPushInBackgroundWithBlock{ succeeded, error in
-                
-                object["partner"] = self.user
-                object["hasPartner"] = true
-                
-                object.saveInBackgroundWithBlock{ succeeded, error in
-                    let partner = Partner.read()
-                    let data = (self.user["profileImage"] as PFFile).getData()
-                    
-                    partner.id = self.user.objectId
-                    partner.image = UIImage(data: data)
-                    partner.name = self.user.username
-                    partner.isAuthenticated = true
-                    partner.save()
 
-                    myProfile.hasPartner = true
-                    myProfile.save()
-                    
+            object["partner"] = self.user
+            object["hasPartner"] = true
+            
+            object.saveInBackgroundWithBlock{ succeeded, error in
+                let partner = Partner.read()
+
+                partner.id = self.user.objectId
+                partner.image = UIImage(data: (self.user["profileImage"] as PFFile).getData())
+                partner.name = self.user.username
+                partner.isAuthenticated = true
+                partner.save()
+                
+                myProfile.hasPartner = true
+                myProfile.save()
+
+                let userQuery = PFUser.query()
+                userQuery.whereKey("objectId", equalTo: self.user.objectId)
+
+                let pushQuery = PFInstallation.query()
+                pushQuery.whereKey("user", matchesQuery:userQuery)
+
+                let push = PFPush()
+                push.setQuery(pushQuery)
+                let data = ["alert"            : "Added partner「\(myProfile.name)」",
+                            "objectId"         : myProfile.id,
+                            "notificationType" : "AddedPartner" ]
+                let notificationType = data["notificationType"]
+
+                NSLog("notificationType:\(notificationType)")
+                push.setData(data)
+                push.sendPushInBackgroundWithBlock{ succeeded, error in
                     self.finished = true
                 }
             }

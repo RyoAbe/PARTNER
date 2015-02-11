@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StatusType: NSObject {
+class StatusType: NSObject, NSCoding {
     var id : NSInteger!
     var iconImageName : NSString!
     var name : NSString!
@@ -17,5 +17,18 @@ class StatusType: NSObject {
         self.id = id
         self.iconImageName = iconImageName
         self.name = name
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        id = aDecoder.decodeObjectForKey("id") as NSInteger
+        iconImageName = aDecoder.decodeObjectForKey("iconImageName") as NSString
+        name = aDecoder.decodeObjectForKey("name") as NSString
+        super.init()
+    }
+
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(id, forKey: "id")
+        aCoder.encodeObject(iconImageName, forKey: "iconImageName")
+        aCoder.encodeObject(name, forKey: "name")
     }
 }

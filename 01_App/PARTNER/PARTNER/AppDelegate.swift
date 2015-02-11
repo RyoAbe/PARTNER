@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
 
-
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         self.applayAppearance();
         self.setupParse();
@@ -52,25 +51,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // ???: 【CoreData】受け取ったnotificationをCoreDataに保存（historyが見れるようにいつかやる）
         // TODO: notificationTypeがmessageを送るところには入っていないからクラッシュする
         PFPush.handlePush(userInfo)
-        
-        // ???: 本当はいやだ
-        let notificationType = userInfo["notificationType"]! as NSString
-        switch notificationType {
-            case "Status":
-                let date = NSDate(timeIntervalSince1970:(userInfo["date"] as NSString).doubleValue)
-                let id = userInfo["id"] as NSInteger
-                let rootVC = (self.window!.rootViewController as UINavigationController).viewControllers[0] as MainViewController
-                rootVC.partnersStatus(id, date: date)
-                break
+        notify(userInfo)
+    }
+    
+    var mainViewController: MainViewController {
+        return (self.window!.rootViewController as UINavigationController).viewControllers[0] as MainViewController
+    }
+
+    func notify(userInfo: [NSObject : AnyObject]) {
+        NSLog("userInfo:\(userInfo)")
+
+        switch userInfo["notificationType"] as NSString {
             case "AddedPartner":
                 AddPartnerOperation(objectId: userInfo["objectId"] as NSString).start()
                 break
+
+            case "Status":
+                let date = NSDate(timeIntervalSince1970:(userInfo["date"] as NSString).doubleValue)
+                let id = userInfo["id"] as NSInteger
+                self.mainViewController.partnersStatus(id, date: date)
+                break
+
             default:
                 break
         }
-        
     }
-
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject?) -> Bool {
         return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session())

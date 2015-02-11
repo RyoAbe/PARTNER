@@ -32,10 +32,8 @@ class StatusView: UIView {
             self.profile.removeObserver(self, forKeyPath: "statusDate")
         }
         didSet{
-
             profileNameLabel.text = profile.name
             if profile.name == nil {
-                profileNameLabel.textColor = UIColor(white: 0.7, alpha: 1)
                 profileNameLabel.text = "Partnerless"
             }
             profileImageView.image = profile.image
