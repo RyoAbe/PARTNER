@@ -139,7 +139,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
                     "type"            : myProfile.statusType!.type.rawValue,
                     "date"            : "\(myProfile.statusDate!.timeIntervalSince1970)"]
         push.setData(data)
-        push.sendPushInBackground()
+        // ???: errorのハンドリング
+        push.sendPush(nil)
     }
 
     @IBAction func settings(sender: UIBarButtonItem) {

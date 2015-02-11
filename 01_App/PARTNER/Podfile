@@ -4,11 +4,13 @@ inhibit_all_warnings!
 
 target :PARTNER, :exclusive => true do
 	pod "AFNetworking", "~> 2.0"
-	pod 'Parse-iOS-SDK'
+	pod 'Parse', '~> 1.6.2'
 	pod 'ParseFacebookUtils'
-	pod 'MRProgress', '~> 0.7.0'
-	pod 'Toast', '~> 2.4’
+	pod 'MRProgress', '~> 0.8.1'
+	pod 'Toast', '~> 2.4'
+	pod 'FXBlurView', '~> 1.6.3'
 end
+
 
 # Testing framework for Test target.
 target :PARTNERTests, :exclusive => true do
