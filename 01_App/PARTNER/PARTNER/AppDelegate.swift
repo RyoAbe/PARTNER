@@ -67,9 +67,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 break
 
             case "Status":
-                let date = NSDate(timeIntervalSince1970:(userInfo["date"] as NSString).doubleValue)
-                let id = userInfo["id"] as NSInteger
-                self.mainViewController.partnersStatus(id, date: date)
+                let partner = Partner.read()
+                partner.statusType = StatusTypes(rawValue: userInfo["type"] as NSInteger)!.status()
+                partner.statusDate = NSDate(timeIntervalSince1970:(userInfo["date"] as NSString).doubleValue)
+                partner.save()
                 break
 
             default:

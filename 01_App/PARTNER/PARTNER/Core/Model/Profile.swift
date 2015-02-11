@@ -15,6 +15,7 @@ class Profile: NSObject, NSCoding{
     dynamic var image: UIImage!
     dynamic var isAuthenticated: Bool
     dynamic var hasPartner: Bool
+    // ???: 本当はenumだけでよい
     dynamic var statusType: StatusType?
     dynamic var statusDate: NSDate?
 
@@ -43,13 +44,13 @@ class Profile: NSObject, NSCoding{
     }
 
     required init(coder aDecoder: NSCoder) {
-        self.id = aDecoder.decodeObjectForKey("id") as? NSString
-        self.name = aDecoder.decodeObjectForKey("name") as? NSString
-        self.image = aDecoder.decodeObjectForKey("image") as? UIImage
-        self.isAuthenticated = aDecoder.decodeObjectForKey("isAuthenticated") as Bool
-        self.hasPartner = aDecoder.decodeObjectForKey("hasPartner") as Bool
-        self.statusType = aDecoder.decodeObjectForKey("statusType") as StatusType?
-        self.statusDate = aDecoder.decodeObjectForKey("statusDate") as NSDate?
+        id = aDecoder.decodeObjectForKey("id") as? NSString
+        name = aDecoder.decodeObjectForKey("name") as? NSString
+        image = aDecoder.decodeObjectForKey("image") as? UIImage
+        isAuthenticated = aDecoder.decodeObjectForKey("isAuthenticated") as Bool
+        hasPartner = aDecoder.decodeObjectForKey("hasPartner") as Bool
+        statusType = aDecoder.decodeObjectForKey("statusType") as StatusType?
+        statusDate = aDecoder.decodeObjectForKey("statusDate") as NSDate?
     }
 
     func encodeWithCoder(aCoder: NSCoder) {

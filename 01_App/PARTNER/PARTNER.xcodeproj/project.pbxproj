@@ -30,7 +30,6 @@
 		32592FB01A2AF918008E7021 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FAA1A2AF918008E7021 /* UIUtil.m */; };
 		327932441A556FCA0030A72F /* GetUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327932431A556FCA0030A72F /* GetUserOperation.swift */; };
 		32D6C9391A738624001AC7DF /* StatusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D6C9381A738624001AC7DF /* StatusType.swift */; };
-		32D6C93B1A7386F9001AC7DF /* StatusTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D6C93A1A7386F9001AC7DF /* StatusTypes.swift */; };
 		32E1BE0919BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */; };
 		32E1BE0B19BC37C900EBE7F7 /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */; };
 		32F3C9991A55913D0019F3B0 /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F3C9981A55913D0019F3B0 /* BaseOperation.swift */; };
@@ -79,7 +78,6 @@
 		32592FAA1A2AF918008E7021 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
 		327932431A556FCA0030A72F /* GetUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserOperation.swift; sourceTree = "<group>"; };
 		32D6C9381A738624001AC7DF /* StatusType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusType.swift; sourceTree = "<group>"; };
-		32D6C93A1A7386F9001AC7DF /* StatusTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusTypes.swift; sourceTree = "<group>"; };
 		32E1BE0519BB4E5400EBE7F7 /* PARTNER-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PARTNER-Bridging-Header.h"; sourceTree = "<group>"; };
 		32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateMyProfileOperation.swift; sourceTree = "<group>"; };
 		32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
@@ -219,7 +217,6 @@
 				32494D5319FBBF5A0002EF8A /* Partner.swift */,
 				32494D5519FBBF750002EF8A /* MyProfile.swift */,
 				32D6C9381A738624001AC7DF /* StatusType.swift */,
-				32D6C93A1A7386F9001AC7DF /* StatusTypes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -424,7 +421,6 @@
 				32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */,
 				32E1BE0919BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift in Sources */,
 				324FE52E19B4CD7F000AF85E /* StatusBaseView.swift in Sources */,
-				32D6C93B1A7386F9001AC7DF /* StatusTypes.swift in Sources */,
 				324FE53419B4CED1000AF85E /* StatusView.swift in Sources */,
 				3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */,
 				32494D5419FBBF5A0002EF8A /* Partner.swift in Sources */,
