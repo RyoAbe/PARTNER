@@ -18,16 +18,16 @@ class Profile: NSObject, NSCoding{
     dynamic var statusType: StatusType?
     dynamic var statusDate: NSDate?
 
-    var key: NSString {
+    class var key : NSString {
         assert(false, "overrideして下さい")
         return "Profile"
     }
-
+    
     class var sharedInstance : Profile {
         assert(false, "overrideして下さい")
         return Profile()
     }
-
+    
     init(id: NSString?, name: NSString?, image: UIImage?, isAuthenticated: Bool, hasPartner: Bool, statusType: StatusType?, statusDate: NSDate?) {
         self.id = id
         self.name = name
@@ -65,13 +65,44 @@ class Profile: NSObject, NSCoding{
     func save() -> Profile {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
-        userDefaults.setObject(data, forKey: self.key)
+        userDefaults.setObject(data, forKey: self.dynamicType.key)
         userDefaults.synchronize()
         return self
     }
 
     class func read() -> Profile! {
-        assert(false, "overrideして下さい")
-        return Profile()
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        var instance = self.sharedInstance
+        if let data = userDefaults.dataForKey(self.key) {
+            instance = createWithData(data)
+        } else {
+            instance.save()
+        }
+        return instance
+    }
+    
+    class func createWithData(data: NSData) -> Profile! {
+        let instance = self.sharedInstance
+
+        let unarchivedProfile = NSKeyedUnarchiver.unarchiveObjectWithData(data) as Profile
+        instance.isAuthenticated = unarchivedProfile.isAuthenticated
+        instance.hasPartner = unarchivedProfile.hasPartner
+        
+        if unarchivedProfile.id != nil {
+            instance.id = unarchivedProfile.id
+        }
+        if unarchivedProfile.name != nil {
+            instance.name = unarchivedProfile.name
+        }
+        if unarchivedProfile.image != nil {
+            instance.image = unarchivedProfile.image
+        }
+        if unarchivedProfile.statusType != nil {
+            instance.statusType = unarchivedProfile.statusType
+        }
+        if unarchivedProfile.statusDate != nil {
+            instance.statusDate = unarchivedProfile.statusDate
+        }
+        return instance
     }
 }
