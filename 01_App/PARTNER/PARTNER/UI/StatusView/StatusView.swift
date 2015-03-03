@@ -53,13 +53,13 @@ class StatusView: UIView {
         didSet {
             baseView.hidden = false
             statusNameLabel.text = statusType.name?
-            statusIcon.image = UIImage(named: statusType.iconImageName)
+            let name = statusType.iconImageName.stringByReplacingOccurrencesOfString("_icon", withString: "_large_icon")
+            statusIcon.image = UIImage(named: name)
         }
     }
 
     var date: NSDate! {
         didSet {
-            baseView.hidden = false
             let fmt = NSDateFormatter()
             fmt.dateFormat = "HH:mm";
             atLabel.text = fmt.stringFromDate(date)
@@ -68,28 +68,10 @@ class StatusView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        layer.borderColor = UIColor(white: 0.7, alpha: 1).CGColor
-        layer.borderWidth = 0.5
-        
-        statusIcon.tintColor = UIColor.whiteColor()
-
-        baseView.layer.borderColor = UIColor.whiteColor().CGColor
-        baseView.layer.borderWidth = 0.5
-        baseView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        baseView.hidden = true
-
         atLabel.text = nil
         statusIcon.image = nil
         statusNameLabel.text = nil
-    }
-
-    override func updateConstraints() {
-        super.updateConstraints()
-        let iconSize = CGFloat(40)
-        statusIconHeight.constant = iconSize
-        statusIconWidth.constant = iconSize
-        baseView.layer.cornerRadius = baseView.frame.width * 0.5
+        profileImageView.image = nil
     }
 
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
