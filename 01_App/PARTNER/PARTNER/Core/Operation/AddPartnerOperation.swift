@@ -92,6 +92,6 @@ class AddPartnerOperation: BaseOperation {
         NSLog("notificationType:\(notificationType)")
         push.setData(data)
         // ???: errorのハンドリング
-        push.sendPush(nil)
+        push.sendPushInBackgroundWithBlock(nil)
     }
 }
