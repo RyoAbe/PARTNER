@@ -29,10 +29,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
         let currentUser = PFUser.currentUser()
-        NSLog("currentUser: \(currentUser)")
-        NSLog("myProfile: \(myProfile)")
-        NSLog("partner: \(partner)")
-        NSLog("~~~~~~~~~")
+        NSLog("currentUser: \(currentUser), myProfile: \(myProfile), partner: \(partner)")
 
         partnersStatusView.profile = partner
         myStatusView.profile = myProfile
@@ -42,7 +39,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         }
     
         if UIUtil.isSimulator() && !myProfile.hasPartner {
-//            addPartnerForDebug("c7iNlweYhk")
+            addPartnerForDebug("d6ETdsGxqj")
             return
         }
     }

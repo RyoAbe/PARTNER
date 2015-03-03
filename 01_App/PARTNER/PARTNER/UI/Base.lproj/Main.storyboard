@@ -91,7 +91,7 @@
                                 <segue destination="zBG-Fn-9aQ" kind="presentation" id="GlJ-Rc-Xf6"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="MHX-ew-TWI">
+                        <barButtonItem key="rightBarButtonItem" image="gear_icon" id="MHX-ew-TWI">
                             <connections>
                                 <action selector="settings:" destination="vXZ-lx-hvc" id="qEr-Zk-egW"/>
                             </connections>
@@ -482,7 +482,7 @@
         <scene sceneID="W4f-AH-k7b">
             <objects>
                 <navigationController id="F7w-78-f5H" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uxo-gk-O3i">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="uxo-gk-O3i">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -517,6 +517,7 @@
         <image name="back_button" width="21" height="37"/>
         <image name="close_button" width="40" height="39"/>
         <image name="dummy_qrcode" width="380" height="380"/>
+        <image name="gear_icon" width="20" height="19"/>
         <image name="women" width="300" height="300"/>
     </resources>
 </document>
