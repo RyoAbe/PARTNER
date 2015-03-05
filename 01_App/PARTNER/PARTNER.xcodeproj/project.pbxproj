@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		25CFD8FF38CC4948ACB1FFF1 /* libPods-PARTNER.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B64D5061C642D792FC3A9A /* libPods-PARTNER.a */; };
 		3220BEEA1A2B5026006F281A /* MyQRCodePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */; };
+		3229B2FD1AA7276200312D60 /* SendMyStatusOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3229B2FC1AA7276200312D60 /* SendMyStatusOperation.swift */; };
+		3229B2FF1AA74B2E00312D60 /* UpdatePartnerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3229B2FE1AA74B2E00312D60 /* UpdatePartnerOperation.swift */; };
 		323009861997374800B4FE5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323009851997374800B4FE5E /* AppDelegate.swift */; };
 		323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 323009871997374800B4FE5E /* PARTNER.xcdatamodeld */; };
 		323009901997374800B4FE5E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3230098F1997374800B4FE5E /* Images.xcassets */; };
@@ -49,6 +51,8 @@
 
 /* Begin PBXFileReference section */
 		3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MyQRCodePreviewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		3229B2FC1AA7276200312D60 /* SendMyStatusOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMyStatusOperation.swift; sourceTree = "<group>"; };
+		3229B2FE1AA74B2E00312D60 /* UpdatePartnerOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePartnerOperation.swift; sourceTree = "<group>"; };
 		323009801997374800B4FE5E /* PARTNER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PARTNER.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		323009841997374800B4FE5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		323009851997374800B4FE5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -247,10 +251,12 @@
 		32E1BE0719BC2F7F00EBE7F7 /* Operation */ = {
 			isa = PBXGroup;
 			children = (
+				3229B2FE1AA74B2E00312D60 /* UpdatePartnerOperation.swift */,
 				32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */,
 				3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */,
 				327932431A556FCA0030A72F /* GetUserOperation.swift */,
 				32F3C99A1A55923F0019F3B0 /* AddPartnerOperation.swift */,
+				3229B2FC1AA7276200312D60 /* SendMyStatusOperation.swift */,
 				32F3C9981A55913D0019F3B0 /* BaseOperation.swift */,
 			);
 			path = Operation;
@@ -428,7 +434,9 @@
 				32592FAB1A2AF918008E7021 /* BlockActivity.m in Sources */,
 				32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */,
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
+				3229B2FD1AA7276200312D60 /* SendMyStatusOperation.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,
+				3229B2FF1AA74B2E00312D60 /* UpdatePartnerOperation.swift in Sources */,
 				32F3C9991A55913D0019F3B0 /* BaseOperation.swift in Sources */,
 				32D6C9391A738624001AC7DF /* StatusType.swift in Sources */,
 				32F3C99B1A55923F0019F3B0 /* AddPartnerOperation.swift in Sources */,

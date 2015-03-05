@@ -47,7 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // ???: error handling
         currentInstallation.save(nil)
     }
-    
+
+    // TODO: Background Fetchを実装
+    // @see http://www.gaprot.jp/pickup/ios7/vol1/
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         // ???: 【CoreData】受け取ったnotificationをCoreDataに保存（historyが見れるようにいつかやる）
         // TODO: notificationTypeがmessageを送るところには入っていないからクラッシュする
@@ -85,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
+        UpdatePartnerOperation().start()
     }
     
     func applicationWillResignActive(application: UIApplication!) {
@@ -99,10 +102,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication!) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(application: UIApplication!) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
     func applicationWillTerminate(application: UIApplication!) {

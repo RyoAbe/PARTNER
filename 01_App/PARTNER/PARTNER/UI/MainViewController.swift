@@ -15,9 +15,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         case Second
         case Third
     }
-    
     // ???: 【保留】初回のパートナーがいない状態のとき、即座にモーダルかかんかでパートナーの追加画面を表示する
-
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var myStatusView: StatusBaseView!
     @IBOutlet weak var partnersStatusView: StatusBaseView!
@@ -41,23 +39,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         if UIUtil.isSimulator() && !myProfile.hasPartner {
             addPartnerForDebug("d6ETdsGxqj")
             return
-        }
-    }
-    
-    func addPartnerForDebug(id: NSString) {
-        MRProgressOverlayView.show()
-        let op = GetUserOperation(objectId: id)
-        op.start()
-        op.completionBlock = {
-            if let user = op.result {
-                let op = AddPartnerOperation(user: user)
-                op.start()
-                op.completionBlock = {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        MRProgressOverlayView.hide()
-                    })
-                }
-            }
         }
     }
 
@@ -119,29 +100,36 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             // ???: まだパートナーがいないことをalertで表示
             return
         }
-
-        myProfile.statusType = StatusTypes(rawValue: indexPath.row)?.status()
-        myProfile.statusDate = NSDate()
-        myProfile.save()
-
-        let userQuery = PFUser.query()
-        userQuery.whereKey("objectId", equalTo: Partner.read().id)
-        let pushQuery = PFInstallation.query()
-        pushQuery.whereKey("user", matchesQuery:userQuery)
-        let push = PFPush()
-        push.setQuery(pushQuery)
-
-        let data = ["alert"           : "\(myProfile.name):「\(myProfile.statusType!.name)」",
-                    "notificationType": "Status",
-                    "type"            : myProfile.statusType!.type.rawValue,
-                    "date"            : "\(myProfile.statusDate!.timeIntervalSince1970)"]
-        push.setData(data)
-        // ???: errorのハンドリング
-        push.sendPushInBackgroundWithBlock(nil)
+        let type = StatusTypes(rawValue: indexPath.row)?.status() as StatusType!
+        let op = SendMyStatusOperation(statusType: type)
+        MRProgressOverlayView.show()
+        op.start()
+        op.completionBlock = {
+            dispatch_async(dispatch_get_main_queue(), {
+                MRProgressOverlayView.hide()
+            })
+        }
     }
 
     @IBAction func settings(sender: UIBarButtonItem) {
         performSegueWithIdentifier("AccountRegistrationSegue", sender: self)
+    }
+
+    func addPartnerForDebug(id: NSString) {
+        MRProgressOverlayView.show()
+        let op = GetUserOperation(objectId: id)
+        op.start()
+        op.completionBlock = {
+            if let user = op.result {
+                let op = AddPartnerOperation(user: user)
+                op.start()
+                op.completionBlock = {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        MRProgressOverlayView.hide()
+                    })
+                }
+            }
+        }
     }
 }
 
