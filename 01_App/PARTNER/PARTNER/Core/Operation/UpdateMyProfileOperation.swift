@@ -11,6 +11,8 @@ import UIKit
 class UpdateMyProfileOperation: BaseOperation {
 
     override func main() {
+        super.main()
+
         let myProfile = MyProfile.read()
         let getUserOp = GetUserOperation(objectId: myProfile.id)
         getUserOp.start()

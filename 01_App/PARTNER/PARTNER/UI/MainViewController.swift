@@ -36,10 +36,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             return
         }
     
-//        if UIUtil.isSimulator() && !myProfile.hasPartner {
+        if UIUtil.isSimulator() && !myProfile.hasPartner {
             addPartnerForDebug("d6ETdsGxqj")
-//            return
-//        }
+            return
+        }
     }
 
     func showSignInFacebookAlert(){
@@ -116,18 +116,11 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }
 
     func addPartnerForDebug(id: NSString) {
-        MRProgressOverlayView.show()
         let op = GetUserOperation(objectId: id)
         op.start()
         op.completionBlock = {
             if let user = op.result {
-                let op = AddPartnerOperation(user: user)
-                op.start()
-                op.completionBlock = {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        MRProgressOverlayView.hide()
-                    })
-                }
+                AddPartnerOperation(user: user).start()
             }
         }
     }

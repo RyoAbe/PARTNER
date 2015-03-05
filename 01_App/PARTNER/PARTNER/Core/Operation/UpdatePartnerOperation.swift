@@ -11,6 +11,8 @@ import UIKit
 class UpdatePartnerOperation: BaseOperation {
 
     override func main() {
+        super.main()
+
         let partner = Partner.read()
         PFUser.query().getObjectInBackgroundWithId(partner.id, block: { object, error in
 

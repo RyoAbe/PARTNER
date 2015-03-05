@@ -19,6 +19,7 @@ class GetUserOperation: BaseOperation {
     }
 
     override func main() {
+        super.main()
         PFUser.query().getObjectInBackgroundWithId(self.objectId, block: { object, error in
             if object == nil  {
                 self.finished = true

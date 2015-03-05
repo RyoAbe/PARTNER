@@ -142,13 +142,10 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     func verifyPartnersId(id: NSString) -> Bool {
 
         // ???: ネットにつながってなかった場合は失敗あらーと？他にもあるかも
-        
-        MRProgressOverlayView.show()
         let op = GetUserOperation(objectId: id)
         op.start()
         op.completionBlock = {
             dispatch_async(dispatch_get_main_queue(), {
-                MRProgressOverlayView.hide()
                 if let user = op.result {
                     self.showConfirmBecomePartner(user)
                 }
@@ -162,14 +159,13 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         let alert = UIAlertController(title: "Confirm", message: "Do you become partner with \"\(user.username)\"?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
-            MRProgressOverlayView.show()
             let op = AddPartnerOperation(user: user)
             op.start()
             op.completionBlock = {
                 dispatch_async(dispatch_get_main_queue(), {
-                    MRProgressOverlayView.hide()
                     // ???: アラートで友達になったよ的なのを出す。それでからpop
                     self.navigationController!.popViewControllerAnimated(true)
+                    return
                 })
             }
         }))

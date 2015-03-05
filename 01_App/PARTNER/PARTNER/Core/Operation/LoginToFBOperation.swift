@@ -21,6 +21,8 @@ class LoginToFBOperation: BaseOperation {
     }
 
     private func requestForMe(user: PFUser) {
+        super.main()
+
         FBRequestConnection.startForMeWithCompletionHandler({connection, result, error in
             if (error != nil) {
                 self.finished = true

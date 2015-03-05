@@ -24,6 +24,7 @@ class AddPartnerOperation: BaseOperation {
     }
 
     override func main() {
+        super.main()
         if self.user != nil {
             becomePartner()
             return

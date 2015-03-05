@@ -18,6 +18,8 @@ class SendMyStatusOperation: BaseOperation {
     }
 
     override func main() {
+        super.main()
+
         let myProfile = MyProfile.read()
         let statusDate = NSDate()
         PFUser.query().getObjectInBackgroundWithId(myProfile.id, block: { object, error in
