@@ -9,6 +9,9 @@
 import UIKit
 
 class BaseOperation: NSOperation {
+    
+    // TODO: くるくる表示できるように
+    // TODO: completionに dispatch_async(dispatch_get_main_queue(), { }) を入れましょう
     private var _executing = false
     override var executing : Bool {
         get { return _executing }

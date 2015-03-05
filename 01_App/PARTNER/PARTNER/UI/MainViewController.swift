@@ -36,10 +36,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             return
         }
     
-        if UIUtil.isSimulator() && !myProfile.hasPartner {
+//        if UIUtil.isSimulator() && !myProfile.hasPartner {
             addPartnerForDebug("d6ETdsGxqj")
-            return
-        }
+//            return
+//        }
     }
 
     func showSignInFacebookAlert(){

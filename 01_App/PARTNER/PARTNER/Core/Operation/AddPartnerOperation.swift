@@ -37,10 +37,7 @@ class AddPartnerOperation: BaseOperation {
     }
     
     func becomePartner() {
-        let myProfile = MyProfile.read()
-        
-        let query = PFUser.query()
-        query.getObjectInBackgroundWithId(myProfile.id, block: { object, error in
+        PFUser.query().getObjectInBackgroundWithId(MyProfile.read().id, block: { object, error in
             let hasPartner = object["hasPartner"] as Bool
 
             if hasPartner {

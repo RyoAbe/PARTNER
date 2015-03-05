@@ -26,8 +26,7 @@ class LoginToFBOperation: BaseOperation {
                 self.finished = true
                 return
             }
-            let query = PFUser.query()
-            query.getObjectInBackgroundWithId(user.objectId, block: { object, error in
+            PFUser.query().getObjectInBackgroundWithId(user.objectId, block: { object, error in
                 let fbObject = result as FBGraphObject
                 let fbId = fbObject["id"] as NSString
                 let username = fbObject["name"] as NSString
