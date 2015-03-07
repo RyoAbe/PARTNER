@@ -42,7 +42,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         }
     }
 
-    func showSignInFacebookAlert(){
+    func showSignInFacebookAlert() {
         let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 
         // TODO: キャンセルしたら画面上のどこかで改めて Sign in 出来るようにする（そもそもログイン画面を作る？）
@@ -98,18 +98,15 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             return
         }
         let type = StatusTypes(rawValue: indexPath.row)?.status() as StatusType!
-        let op = SendMyStatusOperation(statusType: type)
-        MRProgressOverlayView.show()
-        op.start()
-        op.completionBlock = {
-            dispatch_async(dispatch_get_main_queue(), {
-                MRProgressOverlayView.hide()
-            })
-        }
+        SendMyStatusOperation(statusType: type).start()
     }
 
-    @IBAction func settings(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("AccountRegistrationSegue", sender: self)
+    @IBAction func didSelectMyStatusView(sender: AnyObject) {
+        performSegueWithIdentifier("HistoryViewSegue", sender: self)
+    }
+
+    @IBAction func didSelectParterStatusView(sender: AnyObject) {
+        performSegueWithIdentifier("HistoryViewSegue", sender: self)
     }
 
     func addPartnerForDebug(id: NSString) {

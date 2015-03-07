@@ -9,7 +9,7 @@
 import UIKit
 
 // ???: 【次にやる！！！】本当は本Viewはいらないはず
-public class StatusBaseView: UIView {
+public class StatusBaseView: UIButton {
 
     var statusView: StatusView!
     var profile: Profile! {
@@ -30,8 +30,8 @@ public class StatusBaseView: UIView {
 
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.statusView = NSBundle.mainBundle().loadNibNamed("StatusView", owner: nil, options: nil)[0] as StatusView;
-        self.statusView.frame = self.bounds
-        self.addSubview(self.statusView)
+        statusView = NSBundle.mainBundle().loadNibNamed("StatusView", owner: nil, options: nil)[0] as StatusView;
+        statusView.frame = self.bounds
+        addSubview(self.statusView)
     }
 }

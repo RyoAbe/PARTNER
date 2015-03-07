@@ -54,8 +54,7 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         super.viewDidLoad()
 
         if !UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            verifyPartnersId("Z1A3nEIY9P")
-//            self.navigationController!.popViewControllerAnimated(true)
+            self.navigationController!.popViewControllerAnimated(true)
             return
         }
 
