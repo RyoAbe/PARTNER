@@ -32,12 +32,21 @@ class BaseOperation: NSOperation {
         }
     }
 
+    private var needShowHUD = true
+
+    func enableHUD(enable: Bool) -> BaseOperation {
+        needShowHUD = enable
+        return self
+    }
+
     // ???: あまりカッコよくはない
     func filterCompletionBlock () {
         let block = self.completionBlock
         self.completionBlock = {
             dispatch_async(dispatch_get_main_queue(), {
-                MRProgressOverlayView.hide()
+                if self.needShowHUD {
+                    MRProgressOverlayView.hide()
+                }
                 block?()
             })
         }
@@ -45,6 +54,9 @@ class BaseOperation: NSOperation {
 
     override func main() {
         super.main()
+        if !needShowHUD {
+            return
+        }
         dispatch_async(dispatch_get_main_queue(), {
             MRProgressOverlayView.show()
             return

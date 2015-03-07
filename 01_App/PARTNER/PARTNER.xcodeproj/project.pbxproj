@@ -10,6 +10,9 @@
 		25CFD8FF38CC4948ACB1FFF1 /* libPods-PARTNER.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B64D5061C642D792FC3A9A /* libPods-PARTNER.a */; };
 		3220BEEA1A2B5026006F281A /* MyQRCodePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */; };
 		322237821AAA99940069F0DD /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322237811AAA99940069F0DD /* AboutViewController.swift */; };
+		322237891AAAA4920069F0DD /* LicenseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 322237851AAAA4920069F0DD /* LicenseCell.m */; };
+		3222378A1AAAA4920069F0DD /* LicenseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 322237861AAAA4920069F0DD /* LicenseCell.xib */; };
+		3222378B1AAAA4920069F0DD /* LicenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 322237881AAAA4920069F0DD /* LicenseViewController.m */; };
 		3229B2FD1AA7276200312D60 /* SendMyStatusOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3229B2FC1AA7276200312D60 /* SendMyStatusOperation.swift */; };
 		3229B2FF1AA74B2E00312D60 /* UpdatePartnerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3229B2FE1AA74B2E00312D60 /* UpdatePartnerOperation.swift */; };
 		323009861997374800B4FE5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323009851997374800B4FE5E /* AppDelegate.swift */; };
@@ -53,6 +56,11 @@
 /* Begin PBXFileReference section */
 		3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MyQRCodePreviewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		322237811AAA99940069F0DD /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		322237841AAAA4920069F0DD /* LicenseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseCell.h; sourceTree = "<group>"; };
+		322237851AAAA4920069F0DD /* LicenseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseCell.m; sourceTree = "<group>"; };
+		322237861AAAA4920069F0DD /* LicenseCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LicenseCell.xib; sourceTree = "<group>"; };
+		322237871AAAA4920069F0DD /* LicenseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseViewController.h; sourceTree = "<group>"; };
+		322237881AAAA4920069F0DD /* LicenseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseViewController.m; sourceTree = "<group>"; };
 		3229B2FC1AA7276200312D60 /* SendMyStatusOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMyStatusOperation.swift; sourceTree = "<group>"; };
 		3229B2FE1AA74B2E00312D60 /* UpdatePartnerOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePartnerOperation.swift; sourceTree = "<group>"; };
 		323009801997374800B4FE5E /* PARTNER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PARTNER.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +122,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		322237831AAAA4920069F0DD /* License */ = {
+			isa = PBXGroup;
+			children = (
+				322237841AAAA4920069F0DD /* LicenseCell.h */,
+				322237851AAAA4920069F0DD /* LicenseCell.m */,
+				322237861AAAA4920069F0DD /* LicenseCell.xib */,
+				322237871AAAA4920069F0DD /* LicenseViewController.h */,
+				322237881AAAA4920069F0DD /* LicenseViewController.m */,
+			);
+			path = License;
+			sourceTree = "<group>";
+		};
 		323009771997374800B4FE5E = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +203,7 @@
 				32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */,
 				3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */,
 				322237811AAA99940069F0DD /* AboutViewController.swift */,
+				322237831AAAA4920069F0DD /* License */,
 				324FE53119B4CED1000AF85E /* StatusView */,
 				324FE52319B4CD7F000AF85E /* MessageMenuCell */,
 			);
@@ -372,6 +393,7 @@
 			files = (
 				323009901997374800B4FE5E /* Images.xcassets in Resources */,
 				324FE52D19B4CD7F000AF85E /* MessageMenuCell.xib in Resources */,
+				3222378A1AAAA4920069F0DD /* LicenseCell.xib in Resources */,
 				324FE53519B4CED1000AF85E /* StatusView.xib in Resources */,
 				324FE52A19B4CD7F000AF85E /* Main.storyboard in Resources */,
 			);
@@ -429,10 +451,12 @@
 				32E1BE0B19BC37C900EBE7F7 /* QRReaderViewController.swift in Sources */,
 				32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */,
 				32E1BE0919BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift in Sources */,
+				3222378B1AAAA4920069F0DD /* LicenseViewController.m in Sources */,
 				324FE52E19B4CD7F000AF85E /* StatusBaseView.swift in Sources */,
 				324FE53419B4CED1000AF85E /* StatusView.swift in Sources */,
 				3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */,
 				32494D5419FBBF5A0002EF8A /* Partner.swift in Sources */,
+				322237891AAAA4920069F0DD /* LicenseCell.m in Sources */,
 				32592FAF1A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m in Sources */,
 				32592FAB1A2AF918008E7021 /* BlockActivity.m in Sources */,
 				32F74BEB19BB30110032C9AC /* SettingsViewController.swift in Sources */,

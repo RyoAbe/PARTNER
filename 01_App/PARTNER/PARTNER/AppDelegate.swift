@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
         if MyProfile.read().hasPartner {
-            UpdatePartnerOperation().start()
+            UpdatePartnerOperation().enableHUD(false).start()
         }
     }
     

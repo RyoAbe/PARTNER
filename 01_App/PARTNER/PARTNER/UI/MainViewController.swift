@@ -19,7 +19,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var myStatusView: StatusBaseView!
     @IBOutlet weak var partnersStatusView: StatusBaseView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
