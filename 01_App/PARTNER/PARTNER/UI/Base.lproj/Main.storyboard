@@ -303,10 +303,10 @@
                             <rect key="frame" x="0.0" y="64" width="600" height="120"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="women" translatesAutoresizingMaskIntoConstraints="NO" id="LN5-KC-N6z">
+                                <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="women" translatesAutoresizingMaskIntoConstraints="NO" id="LN5-KC-N6z">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                                 </imageView>
-                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v08-cP-w2A">
+                                <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v08-cP-w2A">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="AgI-7d-nVT">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
@@ -315,16 +315,16 @@
                                     <blurEffect style="light"/>
                                 </visualEffectView>
                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQ4-Oi-jJL">
-                                    <rect key="frame" x="260" y="20" width="80" height="80"/>
+                                    <rect key="frame" x="255" y="15" width="90" height="90"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRC-7R-Lyn">
-                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                             <state key="normal" image="women">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcI-v0-eqA">
-                                            <rect key="frame" x="0.0" y="65" width="80" height="15"/>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcI-v0-eqA">
+                                            <rect key="frame" x="0.0" y="75" width="90" height="15"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="15" id="fho-BR-mu7"/>
@@ -342,8 +342,8 @@
                                         <constraint firstAttribute="trailing" secondItem="kcI-v0-eqA" secondAttribute="trailing" id="Qhn-mT-2An"/>
                                         <constraint firstAttribute="trailing" secondItem="bRC-7R-Lyn" secondAttribute="trailing" id="fnW-eM-o3W"/>
                                         <constraint firstItem="bRC-7R-Lyn" firstAttribute="leading" secondItem="DQ4-Oi-jJL" secondAttribute="leading" id="gPe-cn-sDR"/>
-                                        <constraint firstAttribute="height" constant="80" id="j2g-ui-CRY"/>
-                                        <constraint firstAttribute="width" constant="80" id="nIg-jd-kpN"/>
+                                        <constraint firstAttribute="height" constant="90" id="j2g-ui-CRY"/>
+                                        <constraint firstAttribute="width" constant="90" id="nIg-jd-kpN"/>
                                         <constraint firstAttribute="bottom" secondItem="kcI-v0-eqA" secondAttribute="bottom" id="sWo-yQ-mPH"/>
                                     </constraints>
                                 </view>
@@ -451,11 +451,6 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="M7n-PC-D7c">
                             <connections>
                                 <action selector="cancel:" destination="xIx-IW-dU4" id="CzF-Id-sM1"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="fBr-4h-Fkg">
-                            <connections>
-                                <action selector="done:" destination="xIx-IW-dU4" id="NU4-SM-VZh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -619,6 +614,6 @@
         <image name="women" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GlJ-Rc-Xf6"/>
+        <segue reference="q5t-1c-mU6"/>
     </inferredMetricsTieBreakers>
 </document>

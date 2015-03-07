@@ -73,10 +73,11 @@ class SettingsViewController: UITableViewController {
         case .First:
             switch SettingsFirstSection(rawValue: indexPath.row)! {
             case .username:
-                var frame = self.usernameTextField.frame
+                var frame = usernameTextField.frame
                 frame.size = cell.frame.size
-                self.usernameTextField.frame = CGRectInset(frame, 16, 0)
-                cell.addSubview(self.usernameTextField)
+                usernameTextField.frame = CGRectInset(frame, 16, 0)
+                usernameTextField.enabled = false
+                cell.addSubview(usernameTextField)
                 break
             case .addPartner:
                 break
