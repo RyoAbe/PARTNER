@@ -89,7 +89,7 @@ class AddPartnerOperation: BaseOperation {
         
         NSLog("notificationType:\(notificationType)")
         push.setData(data)
-        // ???: errorのハンドリング
+        // TODO: errorのハンドリング（ネットワークつながってない系とか全部見る）
         push.sendPushInBackgroundWithBlock(nil)
     }
 }

@@ -99,7 +99,7 @@ class SettingsViewController: UITableViewController {
 
         if (SettingsSection(rawValue: indexPath.section) == SettingsSection.Third &&
             SettingsThirdSection(rawValue: indexPath.row) == SettingsThirdSection.ReviewOnAppStore) {
-            // ???: App StoreのURL
+            // !!!: App StoreのURL
         }
     }
 }

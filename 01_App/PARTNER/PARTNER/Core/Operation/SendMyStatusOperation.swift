@@ -48,7 +48,7 @@ class SendMyStatusOperation: BaseOperation {
                       "type"            : myProfile.statusType!.type.rawValue,
                       "date"            : "\(myProfile.statusDate!.timeIntervalSince1970)"])
 
-        // ???: errorのハンドリング
+        // TODO: errorのハンドリング
         push.sendPushInBackgroundWithBlock(nil)
         self.finished = true
     }

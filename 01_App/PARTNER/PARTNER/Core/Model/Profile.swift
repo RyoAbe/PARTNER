@@ -13,9 +13,9 @@ class Profile: NSObject, NSCoding{
     dynamic var id: NSString!
     dynamic var name: NSString!
     dynamic var image: UIImage!
+    // ???: nameとisAuthenticatedはPFUserから持ってくれば良い。またisAuthenticatedはMyProgileのみが持てば良い
     dynamic var isAuthenticated: Bool
     dynamic var hasPartner: Bool
-    // ???: 本当はenumだけでよい
     dynamic var statusType: StatusType?
     dynamic var statusDate: NSDate?
 

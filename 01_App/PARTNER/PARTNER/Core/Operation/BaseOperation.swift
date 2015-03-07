@@ -10,7 +10,6 @@ import UIKit
 
 class BaseOperation: NSOperation {
 
-    // TODO: 必要ならHUDを表示するように修正する
     private var _executing = false
     override var executing : Bool {
         get { return _executing }

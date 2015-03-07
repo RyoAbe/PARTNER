@@ -10,7 +10,7 @@ import UIKit
 
 class StatusView: UIView {
 
-    // ???: 空の人型アイコンと「no partner」を入れる
+    // TODO: 空の人型アイコンと「no partner」を入れる
     // ???: もうちょいかっこよく書けるはず
     @IBOutlet private weak var profileImageView: UIImageView!
     @IBOutlet private weak var statusIcon: UIImageView!

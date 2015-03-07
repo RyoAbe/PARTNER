@@ -44,8 +44,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
     func showSignInFacebookAlert(){
         let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        
-        // ???: キャンセルしたら画面上のどこかで改めて Sign in 出来るようにする
+
+        // TODO: キャンセルしたら画面上のどこかで改めて Sign in 出来るようにする（そもそもログイン画面を作る？）
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { alertAction in
             MRProgressOverlayView.show()
@@ -64,8 +64,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as MessageMenuCell
 
         // ???: 【CoreData】Menu項目はCoreDataから取得する
-        // ???: 【保留】Menu項目のアイコンの再考
-        // ???: 【次にやる！！！】ベタ書きになってるからDataSourceを作る
         let type = StatusTypes(rawValue: indexPath.row)!.status()
         cell.menuLabel.text = type.name
         cell.menuIcon.image = UIImage(named: type.iconImageName)
@@ -91,13 +89,12 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // ???: 【CoreData】pushが成功したらCoreDataに保存。
         // ???: 一旦メニューの項目は定数で持つようにしている（将来的にはCoreDataから引っ張ってくるように）
-        // ???: ここもOperationにする
-        // ???: Locatioで現在地を遅れるように
+        // TODO: Locatioで現在地を遅れるように
         // ???: 着く時間を設定出来るように
 
         let myProfile = MyProfile.read()
         if !myProfile.hasPartner {
-            // ???: まだパートナーがいないことをalertで表示
+            // TODO: まだパートナーがいないことをalertで表示
             return
         }
         let type = StatusTypes(rawValue: indexPath.row)?.status() as StatusType!

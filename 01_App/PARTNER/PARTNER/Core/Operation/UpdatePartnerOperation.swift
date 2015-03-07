@@ -17,7 +17,7 @@ class UpdatePartnerOperation: BaseOperation {
         let partner = Partner.read()
         PFUser.query().getObjectInBackgroundWithId(partner.id, block: { object, error in
 
-            // TODO: あったほうがいいかなー？
+            // ???: あったほうがいいかなー？
 //            partner.name = object["name"] as NSString
 //            partner.image = UIImage(data: (object["profileImage"] as PFFile).getData())
             if let type = object["statusType"] as? NSInteger {

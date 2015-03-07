@@ -52,15 +52,14 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
-        if(!UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
+        if !UIImagePickerController.isSourceTypeAvailable(.Camera) {
             verifyPartnersId("Z1A3nEIY9P")
 //            self.navigationController!.popViewControllerAnimated(true)
             return
         }
-        
-        // ???: 認証されていないときは設定画面への誘導を入れる（scheme入れよう）
+
+        // TODO: 認証されていないときはログイン画面への誘導を入れる（scheme入れよう）
         let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
         switch status {
         case .Restricted:
@@ -97,12 +96,15 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
 
     func congigCamera() -> Bool {
         let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+
+        // TODO: error
         if(device == nil){
             return false
         }
 
         var error: NSErrorPointer = nil
         var input = AVCaptureDeviceInput.deviceInputWithDevice(device, error: error) as AVCaptureInput
+        // TODO: error
         if(error != nil){
             return false
         }
@@ -131,7 +133,7 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                 continue
             }
             if !verifyPartnersId(metadataObject.stringValue) {
-                // ???: 読み取ったのがobjectIdはじゃなければエラーのトースト or アラートを表示（全体的に列挙が必要？）
+                // TODO: 読み取ったのがobjectIdはじゃなければエラーのトースト or アラートを表示（全体的に列挙が必要？）
                 continue
             }
             session.stopRunning()
@@ -140,8 +142,7 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     }
 
     func verifyPartnersId(id: NSString) -> Bool {
-
-        // ???: ネットにつながってなかった場合は失敗あらーと？他にもあるかも
+        // TODO: ネットにつながってなかった場合は失敗あらーと？他にもあるかも
         let op = GetUserOperation(objectId: id)
         op.start()
         op.completionBlock = {
@@ -163,7 +164,7 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             op.start()
             op.completionBlock = {
                 dispatch_async(dispatch_get_main_queue(), {
-                    // ???: アラートで友達になったよ的なのを出す。それでからpop
+                    // TODO: アラートで友達になったよ的なのを出す。それでからpop
                     self.navigationController!.popViewControllerAnimated(true)
                     return
                 })

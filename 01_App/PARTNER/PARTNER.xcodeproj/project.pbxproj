@@ -126,8 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				3222378D1AAAC6260069F0DD /* MainViewController.swift */,
-				3222378E1AAAC6260069F0DD /* MessageMenuCell */,
 				322237911AAAC6260069F0DD /* StatusBaseView.swift */,
+				3222378E1AAAC6260069F0DD /* MessageMenuCell */,
 				322237921AAAC6260069F0DD /* StatusView */,
 			);
 			path = MainView;
