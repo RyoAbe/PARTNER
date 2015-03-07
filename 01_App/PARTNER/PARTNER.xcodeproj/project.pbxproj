@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		25CFD8FF38CC4948ACB1FFF1 /* libPods-PARTNER.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B64D5061C642D792FC3A9A /* libPods-PARTNER.a */; };
 		3220BEEA1A2B5026006F281A /* MyQRCodePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */; };
+		322237821AAA99940069F0DD /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322237811AAA99940069F0DD /* AboutViewController.swift */; };
 		3229B2FD1AA7276200312D60 /* SendMyStatusOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3229B2FC1AA7276200312D60 /* SendMyStatusOperation.swift */; };
 		3229B2FF1AA74B2E00312D60 /* UpdatePartnerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3229B2FE1AA74B2E00312D60 /* UpdatePartnerOperation.swift */; };
 		323009861997374800B4FE5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323009851997374800B4FE5E /* AppDelegate.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MyQRCodePreviewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		322237811AAA99940069F0DD /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		3229B2FC1AA7276200312D60 /* SendMyStatusOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMyStatusOperation.swift; sourceTree = "<group>"; };
 		3229B2FE1AA74B2E00312D60 /* UpdatePartnerOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePartnerOperation.swift; sourceTree = "<group>"; };
 		323009801997374800B4FE5E /* PARTNER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PARTNER.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,6 +182,7 @@
 				32F74BEA19BB30110032C9AC /* SettingsViewController.swift */,
 				32E1BE0A19BC37C900EBE7F7 /* QRReaderViewController.swift */,
 				3220BEE91A2B5026006F281A /* MyQRCodePreviewController.swift */,
+				322237811AAA99940069F0DD /* AboutViewController.swift */,
 				324FE53119B4CED1000AF85E /* StatusView */,
 				324FE52319B4CD7F000AF85E /* MessageMenuCell */,
 			);
@@ -439,6 +442,7 @@
 				3229B2FF1AA74B2E00312D60 /* UpdatePartnerOperation.swift in Sources */,
 				32F3C9991A55913D0019F3B0 /* BaseOperation.swift in Sources */,
 				32D6C9391A738624001AC7DF /* StatusType.swift in Sources */,
+				322237821AAA99940069F0DD /* AboutViewController.swift in Sources */,
 				32F3C99B1A55923F0019F3B0 /* AddPartnerOperation.swift in Sources */,
 				3220BEEA1A2B5026006F281A /* MyQRCodePreviewController.swift in Sources */,
 				324FE52C19B4CD7F000AF85E /* MessageMenuCell.swift in Sources */,
@@ -572,6 +576,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PARTNER/PARTNER-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -594,6 +599,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PARTNER/PARTNER-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

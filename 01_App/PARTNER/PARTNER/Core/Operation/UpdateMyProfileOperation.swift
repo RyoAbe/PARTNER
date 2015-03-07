@@ -12,18 +12,16 @@ class UpdateMyProfileOperation: BaseOperation {
 
     override func main() {
         super.main()
+        assert(MyProfile.read().isAuthenticated, "ログインしていない")
 
         let myProfile = MyProfile.read()
         let getUserOp = GetUserOperation(objectId: myProfile.id)
         getUserOp.start()
         getUserOp.completionBlock = {
             let myUser = getUserOp.result!
-            
             if((myUser.allKeys() as NSArray).containsObject("partner")){
                 let partner = myUser["partner"] as PFUser
-                NSLog("partner\(partner)")
-                let partnerUser = myUser["partner"] as PFUser
-                let op = AddPartnerOperation(user: partnerUser)
+                let op = AddPartnerOperation(user: partner)
                 op.start()
                 op.completionBlock = {
                     self.finished = true

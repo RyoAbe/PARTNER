@@ -52,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // @see http://www.gaprot.jp/pickup/ios7/vol1/
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         // ???: 【CoreData】受け取ったnotificationをCoreDataに保存（historyが見れるようにいつかやる）
-        // TODO: notificationTypeがmessageを送るところには入っていないからクラッシュする
         PFPush.handlePush(userInfo)
         notify(userInfo)
     }
@@ -87,7 +86,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
-        UpdatePartnerOperation().start()
+        if MyProfile.read().hasPartner {
+            UpdatePartnerOperation().start()
+        }
     }
     
     func applicationWillResignActive(application: UIApplication!) {

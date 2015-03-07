@@ -11,6 +11,9 @@ import UIKit
 class LoginToFBOperation: BaseOperation {
 
     override func main() {
+        super.main()
+        assert(!MyProfile.read().isAuthenticated, "既にログイン済み")
+
         PFFacebookUtils.logInWithPermissions(["public_profile"], {user , error in
             if (user == nil) {
                 self.finished = true
@@ -21,7 +24,6 @@ class LoginToFBOperation: BaseOperation {
     }
 
     private func requestForMe(user: PFUser) {
-        super.main()
 
         FBRequestConnection.startForMeWithCompletionHandler({connection, result, error in
             if (error != nil) {

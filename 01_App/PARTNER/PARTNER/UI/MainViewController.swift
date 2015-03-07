@@ -35,8 +35,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             showSignInFacebookAlert()
             return
         }
-    
-        if UIUtil.isSimulator() && !myProfile.hasPartner {
+
+        if myProfile.isAuthenticated && UIUtil.isSimulator() && !myProfile.hasPartner {
             addPartnerForDebug("d6ETdsGxqj")
             return
         }

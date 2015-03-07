@@ -19,6 +19,7 @@ class SendMyStatusOperation: BaseOperation {
 
     override func main() {
         super.main()
+        assert(MyProfile.read().isAuthenticated && MyProfile.read().hasPartner, "ログイン出来てないし、パートナーもいない")
 
         let myProfile = MyProfile.read()
         let statusDate = NSDate()

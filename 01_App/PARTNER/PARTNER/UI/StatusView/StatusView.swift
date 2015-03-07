@@ -11,7 +11,7 @@ import UIKit
 class StatusView: UIView {
 
     // ???: 空の人型アイコンと「no partner」を入れる
-    // TODO: 状態が更新されたらその状態のアイコンを入れる。日付も入れる
+    // ???: もうちょいかっこよく書けるはず
     @IBOutlet private weak var profileImageView: UIImageView!
     @IBOutlet private weak var statusIcon: UIImageView!
     @IBOutlet private weak var atLabel: UILabel!
@@ -49,6 +49,7 @@ class StatusView: UIView {
             profile.addObserver(self, forKeyPath:"statusDate", options: NSKeyValueObservingOptions.New, context: nil)
         }
     }
+
     var statusType: StatusType! {
         didSet {
             baseView.hidden = false

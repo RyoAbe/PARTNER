@@ -10,7 +10,6 @@ import UIKit
 
 class MyQRCodePreviewController: UIViewController {
 
-    // TODO: ここblurにしよう
     @IBOutlet weak var qrCodeImageView: UIImageView!
     @IBOutlet weak var qrReaderButton: UIButton!
 

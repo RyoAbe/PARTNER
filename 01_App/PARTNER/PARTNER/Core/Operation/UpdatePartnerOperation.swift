@@ -12,6 +12,7 @@ class UpdatePartnerOperation: BaseOperation {
 
     override func main() {
         super.main()
+        assert(MyProfile.read().hasPartner, "パートナーがいません")
 
         let partner = Partner.read()
         PFUser.query().getObjectInBackgroundWithId(partner.id, block: { object, error in
