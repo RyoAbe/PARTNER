@@ -13,19 +13,24 @@ class SettingsViewController: UITableViewController {
     // ???: 【まだいい】他に設定項目がないか検討
     // ???: 【まだいい】設定項目がすべての項目が一緒くたんになってるかわそれぞれ分裂する
     
-    enum Section : Int {
+    enum SettingsSection : Int {
         case First
         case Second
         case Third
     }
 
-    enum FirstSection : Int {
+    enum SettingsFirstSection : Int {
         case username
         case addPartner
     }
 
-    enum SecondSection : Int {
+    enum SettingsSecondSection : Int {
         case pushNotification
+    }
+
+    enum SettingsThirdSection : Int {
+        case ReviewOnAppStore
+        case About
     }
 
     @IBOutlet weak var profileBaseView: UIView!
@@ -64,9 +69,9 @@ class SettingsViewController: UITableViewController {
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.selectionStyle = UITableViewCellSelectionStyle.None
 
-        switch Section(rawValue: indexPath.section)! {
+        switch SettingsSection(rawValue: indexPath.section)! {
         case .First:
-            switch FirstSection(rawValue: indexPath.row)! {
+            switch SettingsFirstSection(rawValue: indexPath.row)! {
             case .username:
                 var frame = self.usernameTextField.frame
                 frame.size = cell.frame.size
@@ -78,7 +83,7 @@ class SettingsViewController: UITableViewController {
             }
             break
         case .Second:
-            switch SecondSection(rawValue: indexPath.row)! {
+            switch SettingsSecondSection(rawValue: indexPath.row)! {
             case .pushNotification:
                 cell.accessoryView = self.pushNotificationSwitch
                 break
@@ -86,6 +91,14 @@ class SettingsViewController: UITableViewController {
             break
         case .Third:
             break
+        }
+    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+        if (SettingsSection(rawValue: indexPath.section) == SettingsSection.Third &&
+            SettingsThirdSection(rawValue: indexPath.row) == SettingsThirdSection.ReviewOnAppStore) {
+            // ???: App StoreのURL
         }
     }
 }

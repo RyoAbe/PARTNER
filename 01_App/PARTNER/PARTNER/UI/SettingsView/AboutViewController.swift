@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum Rows : NSInteger {
+enum AboutRows : NSInteger {
     case AboutDeveloper = 0
     case License
     func selected() {
@@ -25,6 +25,6 @@ enum Rows : NSInteger {
 class AboutViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        Rows(rawValue: indexPath.row)!.selected()
+        AboutRows(rawValue: indexPath.row)!.selected()
     }
 }
