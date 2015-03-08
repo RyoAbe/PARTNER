@@ -22,7 +22,7 @@ class HistoryViewController: UIViewController {
         historyViewDataSource = HistoryViewDataSource()
         historyViewDelegate = HistoryViewDelegate()
 
-        tableView.registerClass(HistoryCell.self, forCellReuseIdentifier: "HistoryCell")
+        tableView.registerNib(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         tableView.dataSource = historyViewDataSource
         tableView.delegate = historyViewDelegate
 

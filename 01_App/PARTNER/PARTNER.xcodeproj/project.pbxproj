@@ -12,6 +12,8 @@
 		321058C51AAAF59F001EA3D7 /* HistoryViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321058C41AAAF59F001EA3D7 /* HistoryViewDelegate.swift */; };
 		321058C71AAAF6F5001EA3D7 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321058C61AAAF6F5001EA3D7 /* HistoryCell.swift */; };
 		3210A3251AAADF870081C0C0 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210A3241AAADF870081C0C0 /* HistoryViewController.swift */; };
+		321B08241AABEAEC002BA177 /* Reachability+RyoAbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321B08231AABEAEC002BA177 /* Reachability+RyoAbe.swift */; };
+		321B08261AABF736002BA177 /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 321B08251AABF736002BA177 /* HistoryCell.xib */; };
 		322237951AAAC6260069F0DD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3222378D1AAAC6260069F0DD /* MainViewController.swift */; };
 		322237961AAAC6260069F0DD /* MessageMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3222378F1AAAC6260069F0DD /* MessageMenuCell.swift */; };
 		322237971AAAC6260069F0DD /* MessageMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 322237901AAAC6260069F0DD /* MessageMenuCell.xib */; };
@@ -62,6 +64,8 @@
 		321058C41AAAF59F001EA3D7 /* HistoryViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewDelegate.swift; sourceTree = "<group>"; };
 		321058C61AAAF6F5001EA3D7 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		3210A3241AAADF870081C0C0 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		321B08231AABEAEC002BA177 /* Reachability+RyoAbe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reachability+RyoAbe.swift"; sourceTree = "<group>"; };
+		321B08251AABF736002BA177 /* HistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
 		3222378D1AAAC6260069F0DD /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3222378F1AAAC6260069F0DD /* MessageMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageMenuCell.swift; sourceTree = "<group>"; };
 		322237901AAAC6260069F0DD /* MessageMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageMenuCell.xib; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 				321058C21AAAF579001EA3D7 /* HistoryViewDataSource.swift */,
 				321058C41AAAF59F001EA3D7 /* HistoryViewDelegate.swift */,
 				321058C61AAAF6F5001EA3D7 /* HistoryCell.swift */,
+				321B08251AABF736002BA177 /* HistoryCell.xib */,
 			);
 			path = HistoryView;
 			sourceTree = "<group>";
@@ -301,6 +306,7 @@
 				32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */,
 				32592FA91A2AF918008E7021 /* UIUtil.h */,
 				32592FAA1A2AF918008E7021 /* UIUtil.m */,
+				321B08231AABEAEC002BA177 /* Reachability+RyoAbe.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -439,6 +445,7 @@
 				3222379A1AAAC6260069F0DD /* StatusView.xib in Resources */,
 				322237A61AAAC6550069F0DD /* LicenseCell.xib in Resources */,
 				322237971AAAC6260069F0DD /* MessageMenuCell.xib in Resources */,
+				321B08261AABF736002BA177 /* HistoryCell.xib in Resources */,
 				324FE52A19B4CD7F000AF85E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,6 +515,7 @@
 				322237961AAAC6260069F0DD /* MessageMenuCell.swift in Sources */,
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
 				322237AC1AAAC6700069F0DD /* MyQRCodePreviewController.swift in Sources */,
+				321B08241AABEAEC002BA177 /* Reachability+RyoAbe.swift in Sources */,
 				3229B2FD1AA7276200312D60 /* SendMyStatusOperation.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,
 				3229B2FF1AA74B2E00312D60 /* UpdatePartnerOperation.swift in Sources */,

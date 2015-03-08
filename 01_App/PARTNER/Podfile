@@ -9,6 +9,7 @@ target :PARTNER, :exclusive => true do
 	pod 'MRProgress', '~> 0.8.1'
 	pod 'Toast', '~> 2.4'
 	pod 'FXBlurView', '~> 1.6.3'
+	pod 'Reachability', '~> 3.2'
 end
 
 

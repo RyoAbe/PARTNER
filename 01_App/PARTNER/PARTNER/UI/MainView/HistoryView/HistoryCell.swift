@@ -10,24 +10,30 @@ import UIKit
 
 class HistoryCell: UITableViewCell {
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setup()
+    }
+    
+    func setup() {
         self.backgroundColor = UIColor.clearColor()
         
         if let textLabel = self.textLabel {
             textLabel.textColor = UIColor.blackColor()
             textLabel.font = UIFont.systemFontOfSize(12)
         }
+
+        if let detailTextLabel = self.detailTextLabel {
+            detailTextLabel.textColor = UIColor.blackColor()
+            detailTextLabel.font = UIFont.systemFontOfSize(10)
+        }
+
         if let imageView = self.imageView {
             imageView.tintColor = UIColor.blackColor()
             var f = imageView.frame
             f.size = CGSizeMake(20, 20)
             imageView.frame = f
         }
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     override func layoutSubviews() {
