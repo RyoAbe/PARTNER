@@ -34,7 +34,7 @@
                                         </connections>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.80000000000000004" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.70000000000000007" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="zMq-AU-nJF" firstAttribute="leading" secondItem="OLA-RU-xEL" secondAttribute="trailing" constant="1" id="0gE-UL-qv1"/>
                                     <constraint firstItem="OLA-RU-xEL" firstAttribute="leading" secondItem="tc8-Ef-KWk" secondAttribute="leading" id="7jF-4E-tLb"/>

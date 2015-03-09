@@ -13,19 +13,10 @@ public class StatusBaseView: UIButton {
 
     var statusView: StatusView!
     var profile: Profile! {
-        didSet {
-            self.statusView.profile = profile
-        }
+        didSet { statusView.profile = profile }
     }
-    var statusType: StatusType! {
-        didSet {
-            self.statusView.statusType = statusType
-        }
-    }
-    var date: NSDate! {
-        didSet {
-            self.statusView.date = date
-        }
+    var statusViewType: StatusViewType! {
+        didSet { statusView.statusViewType = statusViewType }
     }
 
     required public init(coder aDecoder: NSCoder) {

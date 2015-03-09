@@ -30,7 +30,9 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         NSLog("currentUser: \(currentUser), myProfile: \(myProfile), partner: \(partner)")
 
         partnersStatusView.profile = partner
+        partnersStatusView.statusViewType = .PartnersStatus
         myStatusView.profile = myProfile
+        myStatusView.statusViewType = .MyStatus
         
         if showSignInFacebookAlertIfNeeded() {
             return
@@ -55,6 +57,14 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             self.dispatchAsyncOperation(LoginToFBOperation())
         }))
         presentViewController(alert, animated: true, completion: nil)
+        return true
+    }
+    
+    func showMyQRCodeViewIfNeeded() -> Bool {
+        if MyProfile.read().hasPartner {
+           return false
+        }
+        performSegueWithIdentifier("MyQRCodeViewSegue", sender: self)
         return true
     }
 
@@ -85,13 +95,12 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if showSignInFacebookAlertIfNeeded() {
+        if !canPerformSegue {
             return
         }
 
         // TODO: Locatioで現在地を遅れるように
         // ???: 着く時間を設定出来るように
-
         let myProfile = MyProfile.read()
         if !myProfile.hasPartner {
             // TODO: まだパートナーがいないことをalertで表示
@@ -103,31 +112,38 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
     // MARK: - IBAction
     @IBAction func didSelectSettingsButton(sender: AnyObject) {
-        if showSignInFacebookAlertIfNeeded() {
-            return
-        }
-        performSegueWithIdentifier("SettingViewSegue", sender: self)
+        performSegueWithIdentifierIfCan("SettingViewSegue")
     }
 
     @IBAction func didSelectAddPartnerButton(sender: AnyObject) {
-        if showSignInFacebookAlertIfNeeded() {
-            return
-        }
-        performSegueWithIdentifier("MyQRCodeViewSegue", sender: self)
+        performSegueWithIdentifierIfCan("MyQRCodeViewSegue")
     }
 
     @IBAction func didSelectMyStatusView(sender: AnyObject) {
-        if showSignInFacebookAlertIfNeeded() {
-            return
-        }
-        performSegueWithIdentifier("HistoryViewSegue", sender: self)
+        performSegueWithIdentifierIfCan("HistoryViewSegue")
     }
 
     @IBAction func didSelectParterStatusView(sender: AnyObject) {
-        if showSignInFacebookAlertIfNeeded() {
+        performSegueWithIdentifierIfCan("HistoryViewSegue")
+    }
+
+    func performSegueWithIdentifierIfCan(identifier: String) {
+        if !canPerformSegue {
             return
         }
-        performSegueWithIdentifier("HistoryViewSegue", sender: self)
+        performSegueWithIdentifier(identifier, sender: self)
+    }
+
+    var canPerformSegue: Bool {
+        if showSignInFacebookAlertIfNeeded() {
+            toastWithMessage("Please sign in with Fasebook.")
+            return false
+        }
+        if showMyQRCodeViewIfNeeded() {
+            toastWithMessage("You have no partner.")
+            return false
+        }
+        return true
     }
 }
 

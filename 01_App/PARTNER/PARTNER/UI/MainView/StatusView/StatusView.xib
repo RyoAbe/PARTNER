@@ -12,6 +12,7 @@
             <subviews>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="men" translatesAutoresizingMaskIntoConstraints="NO" id="1nN-wC-Xlg" userLabel="Profile - Image View">
                     <rect key="frame" x="0.0" y="0.0" width="160" height="185"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qT3-u7-XbH" customClass="FXBlurView">
                     <rect key="frame" x="0.0" y="0.0" width="160" height="185"/>
@@ -23,7 +24,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ryx-6i-D8g" userLabel="Base View">
+                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_icon" translatesAutoresizingMaskIntoConstraints="NO" id="1KO-ET-k0J" userLabel="Profile Icon - Image View">
+                    <rect key="frame" x="0.0" y="0.0" width="160" height="185"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ryx-6i-D8g" userLabel="Base - View">
                     <rect key="frame" x="20" y="28" width="120" height="120"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="going_home_large_icon" translatesAutoresizingMaskIntoConstraints="NO" id="hfn-Yj-HZ3" userLabel="Status Icon - Image View">
@@ -74,14 +79,18 @@
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.80000000000000004" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerY" secondItem="ryx-6i-D8g" secondAttribute="centerY" constant="5" id="1Xg-El-WeN"/>
                 <constraint firstAttribute="bottom" secondItem="iDv-UY-GbD" secondAttribute="bottom" constant="10" id="BD2-hJ-zga"/>
+                <constraint firstItem="1KO-ET-k0J" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Ms2-WC-2vs"/>
+                <constraint firstItem="1KO-ET-k0J" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="QjK-mC-wdb"/>
+                <constraint firstAttribute="bottom" secondItem="1KO-ET-k0J" secondAttribute="bottom" id="Upy-Xg-pfO"/>
                 <constraint firstItem="1nN-wC-Xlg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Xcj-9w-4Ps"/>
                 <constraint firstAttribute="centerX" secondItem="iDv-UY-GbD" secondAttribute="centerX" id="a7w-B9-ii2"/>
                 <constraint firstAttribute="trailing" secondItem="iDv-UY-GbD" secondAttribute="trailing" constant="10" id="e9n-7c-LkL"/>
                 <constraint firstAttribute="bottom" secondItem="1nN-wC-Xlg" secondAttribute="bottom" id="gCU-BC-3hq"/>
+                <constraint firstAttribute="trailing" secondItem="1KO-ET-k0J" secondAttribute="trailing" id="np8-P1-iJ7"/>
                 <constraint firstItem="iDv-UY-GbD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="om2-kW-7Dk"/>
                 <constraint firstAttribute="trailing" secondItem="1nN-wC-Xlg" secondAttribute="trailing" id="pe1-mE-VQp"/>
                 <constraint firstAttribute="centerX" secondItem="ryx-6i-D8g" secondAttribute="centerX" id="q6T-ts-dnE"/>
@@ -92,6 +101,7 @@
             <connections>
                 <outlet property="atLabel" destination="9Yk-jA-q4t" id="qN5-DH-Jws"/>
                 <outlet property="baseView" destination="ryx-6i-D8g" id="Ngh-oI-WE5"/>
+                <outlet property="profileIcon" destination="1KO-ET-k0J" id="A2S-ua-vxs"/>
                 <outlet property="profileImageView" destination="1nN-wC-Xlg" id="gJS-Q5-4C8"/>
                 <outlet property="profileNameLabel" destination="iDv-UY-GbD" id="aey-M3-NYg"/>
                 <outlet property="statusIcon" destination="hfn-Yj-HZ3" id="TTF-Zw-riD"/>
@@ -104,5 +114,6 @@
     <resources>
         <image name="going_home_large_icon" width="162" height="161"/>
         <image name="men" width="300" height="300"/>
+        <image name="profile_icon" width="86" height="86"/>
     </resources>
 </document>

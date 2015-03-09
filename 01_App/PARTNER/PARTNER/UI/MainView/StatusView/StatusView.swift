@@ -8,6 +8,18 @@
 
 import UIKit
 
+enum StatusViewType {
+    case MyStatus, PartnersStatus
+    var nameLabelPlaceholder : NSString {
+        switch self {
+        case .MyStatus:
+            return "Not yet sign in"
+        case .PartnersStatus:
+            return "No partner"
+        }
+    }
+}
+
 class StatusView: UIView {
 
     // TODO: 空の人型アイコンと「no partner」を入れる
@@ -20,76 +32,72 @@ class StatusView: UIView {
     @IBOutlet private weak var statusIconHeight: NSLayoutConstraint!
     @IBOutlet private weak var statusIconWidth: NSLayoutConstraint!
     @IBOutlet private weak var baseView: UIView!
+    @IBOutlet weak var profileIcon: UIImageView!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        baseView.hidden = true
+        atLabel.text = nil
+        statusIcon.image = nil
+        statusNameLabel.text = nil
+        profileNameLabel.text = nil
+        profileImageView.image = nil
+    }
 
     var profile: Profile! {
-        willSet{
-            if(self.profile == nil){
+        willSet {
+            if self.profile == nil {
                 return
             }
             self.profile.removeObserver(self, forKeyPath: "name")
             self.profile.removeObserver(self, forKeyPath: "image")
             self.profile.removeObserver(self, forKeyPath: "statusType")
             self.profile.removeObserver(self, forKeyPath: "statusDate")
+            self.profile.removeObserver(self, forKeyPath: "isAuthenticated")
         }
-        didSet{
+        didSet {
+            profileIcon.hidden = profile.isAuthenticated
             profileNameLabel.text = profile.name
-            if profile.name == nil {
-                profileNameLabel.text = "Partnerless"
-            }
             profileImageView.image = profile.image
-            if let type = profile.statusType {
-                statusType = type
-            }
-            if let d = profile.statusDate {
-                date = d
-            }
+            statusType = profile.statusType
+            statusDate = profile.statusDate
             profile.addObserver(self, forKeyPath:"name", options: NSKeyValueObservingOptions.New, context: nil)
             profile.addObserver(self, forKeyPath:"image", options: NSKeyValueObservingOptions.New, context: nil)
             profile.addObserver(self, forKeyPath:"statusType", options: NSKeyValueObservingOptions.New, context: nil)
             profile.addObserver(self, forKeyPath:"statusDate", options: NSKeyValueObservingOptions.New, context: nil)
+            profile.addObserver(self, forKeyPath:"isAuthenticated", options: NSKeyValueObservingOptions.New, context: nil)
         }
     }
 
-    var statusType: StatusType! {
+    var statusViewType: StatusViewType! {
         didSet {
-            baseView.hidden = false
-            statusNameLabel.text = statusType.name?
-            let name = statusType.iconImageName.stringByReplacingOccurrencesOfString("_icon", withString: "_large_icon")
-            statusIcon.image = UIImage(named: name)
+            profileNameLabel.text = statusViewType.nameLabelPlaceholder
         }
     }
 
-    var date: NSDate! {
+    private var statusType: StatusType? {
         didSet {
-            let fmt = NSDateFormatter()
-            fmt.dateFormat = "HH:mm";
-            atLabel.text = fmt.stringFromDate(date)
+            if let type = statusType {
+                baseView.hidden = false
+                statusNameLabel.text = type.name
+                statusIcon.image = UIImage(named: statusType!.iconImageName.stringByReplacingOccurrencesOfString("_icon", withString: "_large_icon"))
+            }
         }
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        atLabel.text = nil
-        statusIcon.image = nil
-        statusNameLabel.text = nil
-        profileImageView.image = nil
+
+    private var statusDate: NSDate? {
+        didSet {
+            if let date = statusDate {
+                let fmt = NSDateFormatter()
+                fmt.dateFormat = "HH:mm"
+                atLabel.text = fmt.stringFromDate(date)
+            }
+        }
     }
 
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if(object as NSObject == profile && keyPath == "name"){
-            profileNameLabel.text = profile.name
-            return
-        }
-        if(object as? NSObject == profile && keyPath == "image"){
-            profileImageView.image = profile.image
-            return
-        }
-        if(object as? NSObject == profile && keyPath == "statusType"){
-            statusType = profile.statusType
-            return
-        }
-        if(object as? NSObject == profile && keyPath == "statusDate"){
-            date = profile.statusDate
+        if object as NSObject == profile {
+            profile = object as Profile
             return
         }
         super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)

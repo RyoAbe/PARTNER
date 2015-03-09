@@ -55,7 +55,7 @@ class LoginToFBOperation: BaseOperation {
 
         let fbId = fbObject!["id"] as NSString
         let username = fbObject!["name"] as NSString
-        let profileImageData = PFFile(data: NSData(contentsOfURL:NSURL(string: "https://graph.facebook.com/\(fbId)/picture?width=398&height=398")!)!)
+        let profileImageFile = PFFile(data: NSData(contentsOfURL:NSURL(string: "https://graph.facebook.com/\(fbId)/picture?width=398&height=398")!)!)
         
         var error: NSError?
         let installation = PFInstallation.currentInstallation()
@@ -68,7 +68,7 @@ class LoginToFBOperation: BaseOperation {
 
         pfMyProfile.username = username
         pfMyProfile["fbId"] = fbId
-        pfMyProfile["profileImage"] = profileImageData
+        pfMyProfile["profileImage"] = profileImageFile
         pfMyProfile["hasPartner"] = false
         pfMyProfile.save(&error)
 
@@ -76,11 +76,12 @@ class LoginToFBOperation: BaseOperation {
             finish(NSError.code(.NetworkOffline))
             return
         }
-
+        
+        let profileImageData = profileImageFile.getData()
         self.dispatchAsyncMainThread({
             let myProfile = MyProfile.read()
             myProfile.id = pfMyProfile.objectId
-            myProfile.image = UIImage(data: profileImageData.getData())!
+            myProfile.image = UIImage(data: profileImageData)!
             myProfile.name = username
             myProfile.isAuthenticated = true
             myProfile.save()
