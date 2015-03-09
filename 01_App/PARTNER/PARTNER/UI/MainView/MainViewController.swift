@@ -27,7 +27,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
         let currentUser = PFUser.currentUser()
-        NSLog("currentUser: \(currentUser), myProfile: \(myProfile), partner: \(partner)")
+        NSLog("\(currentUser),\n\(myProfile),\n\(partner)")
 
         partnersStatusView.profile = partner
         partnersStatusView.statusViewType = .PartnersStatus
@@ -95,7 +95,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if !canPerformSegue {
+        if !canSendStatus {
             return
         }
 
@@ -110,31 +110,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         dispatchAsyncOperation(SendMyStatusOperation(statusType: type))
     }
 
-    // MARK: - IBAction
-    @IBAction func didSelectSettingsButton(sender: AnyObject) {
-        performSegueWithIdentifierIfCan("SettingViewSegue")
-    }
-
-    @IBAction func didSelectAddPartnerButton(sender: AnyObject) {
-        performSegueWithIdentifierIfCan("MyQRCodeViewSegue")
-    }
-
-    @IBAction func didSelectMyStatusView(sender: AnyObject) {
-        performSegueWithIdentifierIfCan("HistoryViewSegue")
-    }
-
-    @IBAction func didSelectParterStatusView(sender: AnyObject) {
-        performSegueWithIdentifierIfCan("HistoryViewSegue")
-    }
-
-    func performSegueWithIdentifierIfCan(identifier: String) {
-        if !canPerformSegue {
-            return
-        }
-        performSegueWithIdentifier(identifier, sender: self)
-    }
-
-    var canPerformSegue: Bool {
+    // MARK: -
+    var canSendStatus: Bool {
         if showSignInFacebookAlertIfNeeded() {
             toastWithMessage("Please sign in with Fasebook.")
             return false
@@ -144,6 +121,45 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             return false
         }
         return true
+    }
+    
+    var isAuthenticated: Bool {
+        if showSignInFacebookAlertIfNeeded() {
+            toastWithMessage("Please sign in with Fasebook.")
+            return false
+        }
+        return true
+    }
+    
+    func performSegueForSendStatus(identifier: String) {
+        if !canSendStatus {
+            return
+        }
+        performSegueWithIdentifier(identifier, sender: self)
+    }
+    
+    func performSegueForNoPartner(identifier: String) {
+        if !isAuthenticated {
+            return
+        }
+        performSegueWithIdentifier(identifier, sender: self)
+    }
+    
+    // MARK: - IBAction
+    @IBAction func didSelectSettingsButton(sender: AnyObject) {
+        performSegueForNoPartner("SettingViewSegue")
+    }
+
+    @IBAction func didSelectAddPartnerButton(sender: AnyObject) {
+        performSegueForNoPartner("MyQRCodeViewSegue")
+    }
+
+    @IBAction func didSelectMyStatusView(sender: AnyObject) {
+        performSegueForSendStatus("HistoryViewSegue")
+    }
+
+    @IBAction func didSelectParterStatusView(sender: AnyObject) {
+        performSegueForSendStatus("HistoryViewSegue")
     }
 }
 

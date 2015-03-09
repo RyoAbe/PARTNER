@@ -10,20 +10,19 @@ import UIKit
 
 enum StatusViewType {
     case MyStatus, PartnersStatus
-    var nameLabelPlaceholder : NSString {
+    var namePlaceholder : NSString {
         switch self {
         case .MyStatus:
-            return "Not yet sign in"
+            return "Not yet sign in."
         case .PartnersStatus:
-            return "No partner"
+            return "No partner."
         }
     }
 }
 
 class StatusView: UIView {
 
-    // TODO: 空の人型アイコンと「no partner」を入れる
-    // ???: もうちょいかっこよく書けるはず
+    @IBOutlet private weak var overlayView: UIView!
     @IBOutlet private weak var profileImageView: UIImageView!
     @IBOutlet private weak var statusIcon: UIImageView!
     @IBOutlet private weak var atLabel: UILabel!
@@ -56,8 +55,9 @@ class StatusView: UIView {
             self.profile.removeObserver(self, forKeyPath: "isAuthenticated")
         }
         didSet {
+            overlayView.hidden = profile.image == nil
             profileIcon.hidden = profile.isAuthenticated
-            profileNameLabel.text = profile.name
+            profileNameLabel.text = profile.isAuthenticated ? profile.name : statusViewType?.namePlaceholder
             profileImageView.image = profile.image
             statusType = profile.statusType
             statusDate = profile.statusDate
@@ -71,21 +71,24 @@ class StatusView: UIView {
 
     var statusViewType: StatusViewType! {
         didSet {
-            profileNameLabel.text = statusViewType.nameLabelPlaceholder
+            profileNameLabel.text = statusViewType.namePlaceholder
         }
     }
 
-    private var statusType: StatusType? {
+    private var statusType: StatusType! {
         didSet {
             if let type = statusType {
                 baseView.hidden = false
                 statusNameLabel.text = type.name
                 statusIcon.image = UIImage(named: statusType!.iconImageName.stringByReplacingOccurrencesOfString("_icon", withString: "_large_icon"))
+                overlayView.alpha = 0.6
+                return
             }
+            overlayView.alpha = 0.3
         }
     }
 
-    private var statusDate: NSDate? {
+    private var statusDate: NSDate! {
         didSet {
             if let date = statusDate {
                 let fmt = NSDateFormatter()

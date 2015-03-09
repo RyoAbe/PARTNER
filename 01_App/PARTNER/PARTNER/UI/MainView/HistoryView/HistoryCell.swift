@@ -51,10 +51,11 @@ class HistoryCell: UITableViewCell {
 
         let f = self.imageView!.frame
         let c = self.imageView!.center
+        let lineWidth = 1.0 / UIScreen.mainScreen().scale
 
         var circle = UIBezierPath(ovalInRect:CGRectInset(f, -3, -3))
         UIColor.blackColor().setStroke()
-        circle.lineWidth = 1
+        circle.lineWidth = lineWidth
         circle.stroke()
         
         let margin = 10 as CGFloat
@@ -63,14 +64,14 @@ class HistoryCell: UITableViewCell {
         topLine.moveToPoint(CGPointMake(c.x,  0));
         topLine.addLineToPoint(CGPointMake(c.x, CGRectGetMinY(f) - margin));
         UIColor.blackColor().setStroke()
-        topLine.lineWidth = 1
+        topLine.lineWidth = lineWidth
         topLine.stroke();
 
         var bottomLine = UIBezierPath();
         bottomLine.moveToPoint(CGPointMake(c.x, CGRectGetMaxY(f) + margin));
         bottomLine.addLineToPoint(CGPointMake(c.x, frame.size.height));
         UIColor.blackColor().setStroke()
-        bottomLine.lineWidth = 1
+        bottomLine.lineWidth = lineWidth
         bottomLine.stroke();
     }
 }

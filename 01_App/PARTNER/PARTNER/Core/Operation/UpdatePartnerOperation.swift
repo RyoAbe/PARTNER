@@ -24,10 +24,11 @@ class UpdatePartnerOperation: BaseOperation {
                 return .Failure(NSError.code(.NotFoundUser))
             }
 
+            let profileImageData = (pfParter["profileImage"] as PFFile).getData()
             self.dispatchAsyncMainThread({
                 // ???: なくていいかも
                 partner.name = pfParter["username"] as NSString
-                partner.image = UIImage(data: (pfParter["profileImage"] as PFFile).getData())
+                partner.image = UIImage(data: profileImageData)
                 if let type = pfParter["statusType"] as? NSInteger {
                     partner.statusType = StatusTypes(rawValue: type)!.statusType
                 }

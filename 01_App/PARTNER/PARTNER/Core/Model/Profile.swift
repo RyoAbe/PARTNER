@@ -107,6 +107,6 @@ class Profile: NSObject, NSCoding{
     }
 
     func description() -> NSString {
-        return NSString(format: "-----------------\n class = \(self.dynamicType),\n id = \(id),\n isAuthenticated = \(isAuthenticated),\n hasPartner = \(hasPartner),\n name = \(name),\n image = \(image),\n statusType = \(statusType),\n statusDate = \(statusDate)\n-----------------\n")
+        return NSString(format: "-----------------\n class = \(NSStringFromClass(self.dynamicType)),\n id = \(id),\n isAuthenticated = \(isAuthenticated),\n hasPartner = \(hasPartner),\n name = \(name),\n image = \(image),\n statusType = \(statusType),\n statusDate = \(statusDate)\n-----------------\n")
     }
 }

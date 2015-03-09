@@ -153,9 +153,11 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             if let candidatePartner = op.result as PFUser! {
 
                 // 自分のパートナーと読み取ったidが一致している場合
-                if candidatePartner.objectId == Partner.read().id {
-                    self.toastWithMessage("Already partner.")
-                    return
+                if let partnerId = Partner.read().id {
+                    if candidatePartner.objectId == partnerId {
+                        self.toastWithMessage("Already partner.")
+                        return
+                    }
                 }
 
                 let candidatePartnerHasPartner = candidatePartner["hasPartner"] as Bool

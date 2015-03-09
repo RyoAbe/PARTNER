@@ -61,10 +61,11 @@ class AddPartnerOperation: BaseOperation {
     }
     
     func savePartner() -> BaseOperationResult {
+        let profileImageData = (self.candidatePartner["profileImage"] as PFFile).getData()
         self.dispatchAsyncMainThread({
             let partner = Partner.read()
             partner.id = self.candidatePartner.objectId
-            partner.image = UIImage(data: (self.candidatePartner["profileImage"] as PFFile).getData())
+            partner.image = UIImage(data: profileImageData)
             partner.name = self.candidatePartner.username
             partner.isAuthenticated = true
             partner.save()
