@@ -9,16 +9,13 @@
 import UIKit
 
 class GetUserOperation: BaseOperation {
-    
-    // TODO: userIdに変更したい
-    var objectId: NSString!
-
-    init(objectId : NSString){
+    var userId: NSString!
+    init(userId : NSString){
         super.init()
-        self.objectId = objectId
+        self.userId = userId
         self.executeSerialBlock = {
             var error: NSError?
-            if let user = PFUser.query().getObjectWithId(objectId, error: &error) {
+            if let user = PFUser.query().getObjectWithId(userId, error: &error) {
                 return .Success(user)
             }
             return .Failure(NSError.code(.NetworkOffline))

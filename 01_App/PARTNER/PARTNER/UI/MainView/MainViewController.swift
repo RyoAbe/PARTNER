@@ -85,8 +85,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // ???: 【CoreData】pushが成功したらCoreDataに保存。
-        // ???: 一旦メニューの項目は定数で持つようにしている（将来的にはCoreDataから引っ張ってくるように）
+        if showSignInFacebookAlertIfNeeded() {
+            return
+        }
+
         // TODO: Locatioで現在地を遅れるように
         // ???: 着く時間を設定出来るように
 
@@ -99,11 +101,32 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         dispatchAsyncOperation(SendMyStatusOperation(statusType: type))
     }
 
+    // MARK: - IBAction
+    @IBAction func didSelectSettingsButton(sender: AnyObject) {
+        if showSignInFacebookAlertIfNeeded() {
+            return
+        }
+        performSegueWithIdentifier("SettingViewSegue", sender: self)
+    }
+
+    @IBAction func didSelectAddPartnerButton(sender: AnyObject) {
+        if showSignInFacebookAlertIfNeeded() {
+            return
+        }
+        performSegueWithIdentifier("MyQRCodeViewSegue", sender: self)
+    }
+
     @IBAction func didSelectMyStatusView(sender: AnyObject) {
+        if showSignInFacebookAlertIfNeeded() {
+            return
+        }
         performSegueWithIdentifier("HistoryViewSegue", sender: self)
     }
 
     @IBAction func didSelectParterStatusView(sender: AnyObject) {
+        if showSignInFacebookAlertIfNeeded() {
+            return
+        }
         performSegueWithIdentifier("HistoryViewSegue", sender: self)
     }
 }

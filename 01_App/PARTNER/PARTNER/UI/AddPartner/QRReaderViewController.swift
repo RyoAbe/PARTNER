@@ -58,13 +58,21 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             return
         }
 
-        // TODO: 認証されていないときはログイン画面への誘導を入れる（scheme入れよう）
+        if !MyProfile.read().isAuthenticated {
+            showAlert("", okBlock: { () -> Void in
+                
+            })
+            return
+        }
+
         let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
         switch status {
         case .Restricted:
-            println("Restricted")
+            showErrorAlert(NSError.code(.Unknown))
+            return
         case .Denied:
-            println("Denied")
+            showErrorAlert(NSError.code(.Unknown))
+            return
         case .NotDetermined:
             AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { granted in
                 dispatch_sync(dispatch_get_main_queue(), {
@@ -80,10 +88,9 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         }
         maskView = QRCodeReaderMaskView(frame: CGRectZero)
         self.view.addSubview(maskView)
-
         self.view.bringSubviewToFront(backButtonView)
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if(maskView == nil){
@@ -95,15 +102,15 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
 
     func congigCamera() -> Bool {
         let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        // TODO: error
         if(device == nil){
+            showErrorAlert(NSError.code(.Unknown))
             return false
         }
 
         var error: NSErrorPointer = nil
         var input = AVCaptureDeviceInput.deviceInputWithDevice(device, error: error) as AVCaptureInput
-        // TODO: error
         if(error != nil){
+            showErrorAlert(NSError.code(.Unknown))
             return false
         }
 
@@ -131,7 +138,6 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                 continue
             }
             if !verifyPartnersId(metadataObject.stringValue) {
-                // TODO: 読み取ったのがobjectIdはじゃなければエラーのトースト or アラートを表示
                 continue
             }
             session.stopRunning()
@@ -139,26 +145,38 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         }
     }
 
-    // TODO: PFUser拡張したほうがいいわ
+    // ???: PFUser拡張したほうがいいわ
     func verifyPartnersId(id: NSString) -> Bool {
         
-        let op = GetUserOperation(objectId: id)
+        let op = GetUserOperation(userId: id)
         op.completionBlock = {
-            if let user = op.result as PFUser! {
-                if (user["hasPartner"] as Bool) {
-                    // TODO: パートナーがいた場合のパターン考慮
+            if let candidatePartner = op.result as PFUser! {
+
+                // 自分のパートナーと読み取ったidが一致している場合
+                if candidatePartner.objectId == Partner.read().id {
+                    self.toastWithMessage("Already partner.")
                     return
                 }
-                self.showConfirmBecomePartner(user)
+
+                let candidatePartnerHasPartner = candidatePartner["hasPartner"] as Bool
+                let hasPartner = MyProfile.read().hasPartner
+
+                // どちらかにパートナーがいる
+                if candidatePartnerHasPartner || hasPartner {
+                    self.becomePartner(candidatePartner, message: "You or partner already have a partner. Do you swith from \"\(Partner.read().name)\" to \"\(candidatePartner.username)\"?")
+                    return
+                }
+
+                // 両方共パートナーなし
+                self.becomePartner(candidatePartner, message: "Do you become partner with \"\(candidatePartner.username)\"?")
             }
         }
         dispatchAsyncOperation(op)
         return true
     }
 
-    func showConfirmBecomePartner(user: PFUser){
-        // ???: 既にパートナーがいる場合は、チェンジしたいいか確認
-        let alert = UIAlertController(title: "Confirm", message: "Do you become partner with \"\(user.username)\"?", preferredStyle: UIAlertControllerStyle.Alert)
+    func becomePartner(user: PFUser, message: NSString) {
+        let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
             let op = AddPartnerOperation(candidatePartner: user)
@@ -171,7 +189,6 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         }))
         presentViewController(alert, animated: true, completion: nil)
     }
-
 
     @IBAction func didTapBackButton(sender: AnyObject) {
         navigationController!.popViewControllerAnimated(true)

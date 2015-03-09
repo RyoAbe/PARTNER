@@ -25,7 +25,7 @@ class UpdatePartnerOperation: BaseOperation {
             }
 
             self.dispatchAsyncMainThread({
-                // TODO: なくていいかも
+                // ???: なくていいかも
                 partner.name = pfParter["username"] as NSString
                 partner.image = UIImage(data: (pfParter["profileImage"] as PFFile).getData())
                 if let type = pfParter["statusType"] as? NSInteger {

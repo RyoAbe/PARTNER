@@ -15,7 +15,7 @@ enum PartnerErrorCode: NSInteger {
     case NotFoundUser = 4040
     var description : NSString {
         switch self {
-        case .Unknown: return "Unknown error.";
+        case .Unknown: return "Cccurrence of an error.";
         case .NetworkOffline: return "Can't connect to Internet.";
         case .NotFoundUser: return "Not found user.";
         }
@@ -27,7 +27,7 @@ extension NSError {
         return NSError(domain: "com.ryoabe.partner", code: code.rawValue, userInfo: [NSLocalizedDescriptionKey : code.description])
     }
     func toast(){
-        UIUtil.toastWithError(self)
+        toastWithError(self)
     }
 }
 
