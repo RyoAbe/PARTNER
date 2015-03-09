@@ -16,7 +16,7 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell") as HistoryCell
 
-        let type = StatusTypes(rawValue: indexPath.row % 9)!.status()
+        let type = StatusTypes(rawValue: indexPath.row % 9)!.statusType
         cell.textLabel!.text = type.name
         cell.imageView!.image = UIImage(named: type.iconImageName)
         

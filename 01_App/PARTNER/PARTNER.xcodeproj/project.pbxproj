@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		25CFD8FF38CC4948ACB1FFF1 /* libPods-PARTNER.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B64D5061C642D792FC3A9A /* libPods-PARTNER.a */; };
+		320770951AAD45F800AA76BD /* NSObject+RyoAbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320770941AAD45F800AA76BD /* NSObject+RyoAbe.swift */; };
 		321058C31AAAF579001EA3D7 /* HistoryViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321058C21AAAF579001EA3D7 /* HistoryViewDataSource.swift */; };
 		321058C51AAAF59F001EA3D7 /* HistoryViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321058C41AAAF59F001EA3D7 /* HistoryViewDelegate.swift */; };
 		321058C71AAAF6F5001EA3D7 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321058C61AAAF6F5001EA3D7 /* HistoryCell.swift */; };
@@ -29,6 +30,7 @@
 		322237AD1AAAC6700069F0DD /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322237AB1AAAC6700069F0DD /* QRReaderViewController.swift */; };
 		3229B2FD1AA7276200312D60 /* SendMyStatusOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3229B2FC1AA7276200312D60 /* SendMyStatusOperation.swift */; };
 		3229B2FF1AA74B2E00312D60 /* UpdatePartnerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3229B2FE1AA74B2E00312D60 /* UpdatePartnerOperation.swift */; };
+		322A09C61AACBDFF0023CA61 /* NSError+Partner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322A09C51AACBDFF0023CA61 /* NSError+Partner.swift */; };
 		323009861997374800B4FE5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323009851997374800B4FE5E /* AppDelegate.swift */; };
 		323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 323009871997374800B4FE5E /* PARTNER.xcdatamodeld */; };
 		323009901997374800B4FE5E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3230098F1997374800B4FE5E /* Images.xcassets */; };
@@ -60,6 +62,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		320770941AAD45F800AA76BD /* NSObject+RyoAbe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+RyoAbe.swift"; sourceTree = "<group>"; };
 		321058C21AAAF579001EA3D7 /* HistoryViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewDataSource.swift; sourceTree = "<group>"; };
 		321058C41AAAF59F001EA3D7 /* HistoryViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewDelegate.swift; sourceTree = "<group>"; };
 		321058C61AAAF6F5001EA3D7 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
@@ -83,6 +86,7 @@
 		322237AB1AAAC6700069F0DD /* QRReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRReaderViewController.swift; sourceTree = "<group>"; };
 		3229B2FC1AA7276200312D60 /* SendMyStatusOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMyStatusOperation.swift; sourceTree = "<group>"; };
 		3229B2FE1AA74B2E00312D60 /* UpdatePartnerOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePartnerOperation.swift; sourceTree = "<group>"; };
+		322A09C51AACBDFF0023CA61 /* NSError+Partner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Partner.swift"; sourceTree = "<group>"; };
 		323009801997374800B4FE5E /* PARTNER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PARTNER.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		323009841997374800B4FE5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		323009851997374800B4FE5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -180,8 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				3222379C1AAAC6550069F0DD /* AboutViewController.swift */,
-				3222379D1AAAC6550069F0DD /* License */,
 				322237A31AAAC6550069F0DD /* SettingsViewController.swift */,
+				3222379D1AAAC6550069F0DD /* License */,
 			);
 			path = SettingsView;
 			sourceTree = "<group>";
@@ -281,6 +285,7 @@
 		324FE53619B4CFBB000AF85E /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				322A09C51AACBDFF0023CA61 /* NSError+Partner.swift */,
 				32E1BE0719BC2F7F00EBE7F7 /* Operation */,
 				324FE53719B4CFBB000AF85E /* Model */,
 			);
@@ -307,6 +312,7 @@
 				32592FA91A2AF918008E7021 /* UIUtil.h */,
 				32592FAA1A2AF918008E7021 /* UIUtil.m */,
 				321B08231AABEAEC002BA177 /* Reachability+RyoAbe.swift */,
+				320770941AAD45F800AA76BD /* NSObject+RyoAbe.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -512,12 +518,14 @@
 				32592FAF1A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m in Sources */,
 				322237981AAAC6260069F0DD /* StatusBaseView.swift in Sources */,
 				32592FAB1A2AF918008E7021 /* BlockActivity.m in Sources */,
+				322A09C61AACBDFF0023CA61 /* NSError+Partner.swift in Sources */,
 				322237961AAAC6260069F0DD /* MessageMenuCell.swift in Sources */,
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
 				322237AC1AAAC6700069F0DD /* MyQRCodePreviewController.swift in Sources */,
 				321B08241AABEAEC002BA177 /* Reachability+RyoAbe.swift in Sources */,
 				3229B2FD1AA7276200312D60 /* SendMyStatusOperation.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,
+				320770951AAD45F800AA76BD /* NSObject+RyoAbe.swift in Sources */,
 				3229B2FF1AA74B2E00312D60 /* UpdatePartnerOperation.swift in Sources */,
 				3210A3251AAADF870081C0C0 /* HistoryViewController.swift in Sources */,
 				322237951AAAC6260069F0DD /* MainViewController.swift in Sources */,

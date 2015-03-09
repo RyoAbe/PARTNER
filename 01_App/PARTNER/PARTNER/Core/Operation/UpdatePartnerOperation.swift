@@ -9,25 +9,34 @@
 import UIKit
 
 class UpdatePartnerOperation: BaseOperation {
-
-    override func main() {
-        super.main()
-        assert(MyProfile.read().hasPartner, "パートナーがいません")
-
-        let partner = Partner.read()
-        PFUser.query().getObjectInBackgroundWithId(partner.id, block: { object, error in
-
-            // ???: あったほうがいいかなー？
-//            partner.name = object["name"] as NSString
-//            partner.image = UIImage(data: (object["profileImage"] as PFFile).getData())
-            if let type = object["statusType"] as? NSInteger {
-                partner.statusType = StatusTypes(rawValue: type)?.status() as StatusType!
+    override init() {
+        super.init()
+        self.executeSerialBlock = {
+            assert(MyProfile.read().hasPartner, "パートナーがいません")
+            let partner = Partner.read()
+            var error: NSError?
+            let pfParter = PFUser.query().getObjectWithId(partner.id, error: &error)
+            if let err = error {
+                return .Failure(NSError.code(.NetworkOffline))
             }
-            if let date = object["statusDate"] as? NSDate {
-                partner.statusDate = date
+
+            if pfParter == nil {
+                return .Failure(NSError.code(.NotFoundUser))
             }
-            partner.save()
-            self.finished = true
-        })
+
+            self.dispatchAsyncMainThread({
+                // TODO: なくていいかも
+                partner.name = pfParter["username"] as NSString
+                partner.image = UIImage(data: (pfParter["profileImage"] as PFFile).getData())
+                if let type = pfParter["statusType"] as? NSInteger {
+                    partner.statusType = StatusTypes(rawValue: type)!.statusType
+                }
+                if let date = pfParter["statusDate"] as? NSDate {
+                    partner.statusDate = date
+                }
+                partner.save()
+            })
+            return .Success(nil)
+        }
     }
 }

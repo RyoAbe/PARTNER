@@ -9,6 +9,8 @@
 import UIKit
 
 extension Reachability {
+
+    // ???: こうじゃない感じ
     class func isReachable() -> Bool {
         return Reachability.reachabilityForInternetConnection().isReachable()
     }

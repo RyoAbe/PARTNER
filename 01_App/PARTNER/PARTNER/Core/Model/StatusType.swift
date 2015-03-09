@@ -19,7 +19,7 @@ enum StatusTypes : NSInteger {
     case Location
     case Love
     
-    func status() -> StatusType {
+    var statusType : StatusType {
         switch self {
         case GoodMoning:
             return StatusType(type:self, iconImageName: "good_morning_icon", name: "Good morning.")

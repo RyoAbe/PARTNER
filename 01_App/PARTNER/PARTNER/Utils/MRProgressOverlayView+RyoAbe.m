@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, PartnerViewTag) {
 
 + (instancetype)show
 {
-    return [self showWithTitle:nil mode:MRProgressOverlayViewModeIndeterminate];
+    return [self showWithTitle:@"" mode:MRProgressOverlayViewModeIndeterminate];
 }
 
 + (instancetype)showWithTitle:(NSString*)title

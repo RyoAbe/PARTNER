@@ -10,86 +10,91 @@ import UIKit
 
 class AddPartnerOperation: BaseOperation {
 
-    var user: PFUser!
-    var objectId: NSString!
+    var candidatePartner: PFUser!
+    var candidatePartnerId: NSString!
     
-    init(objectId : NSString){
+    override init() {
         super.init()
-        self.objectId = objectId
-    }
-
-    init(user: PFUser){
-        self.user = user
-        super.init()
-    }
-
-    override func main() {
-        super.main()
-        if self.user != nil {
-            becomePartner()
-            return
-        }
-        let op = GetUserOperation(objectId: self.objectId)
-        op.start()
-        op.completionBlock = {
-            self.user = op.result
-            self.becomePartner()
+        self.executeSerialBlock = {
+            if self.candidatePartner != nil {
+                return self.becomePartner()
+            }
+            var error: NSError?
+            if let user = PFUser.query().getObjectWithId(self.candidatePartnerId, error: &error) as? PFUser {
+                if error != nil {
+                    return .Failure(NSError.code(.NetworkOffline))
+                }
+                self.candidatePartner = user
+                return self.becomePartner()
+            }
+            return .Failure(NSError.code(.NotFoundUser))
         }
     }
-    
-    func becomePartner() {
-        PFUser.query().getObjectInBackgroundWithId(MyProfile.read().id, block: { object, error in
-            let hasPartner = object["hasPartner"] as Bool
 
+    convenience init(candidatePartnerId : NSString){
+        self.init()
+        self.candidatePartnerId = candidatePartnerId
+    }
+
+    convenience init(candidatePartner: PFUser){
+        self.init()
+        self.candidatePartner = candidatePartner
+    }
+    
+    func becomePartner() -> BaseOperationResult {
+        var error: NSError?
+        if let pfMyProfile = PFUser.query().getObjectWithId(MyProfile.read().id, error: &error) as? PFUser {
+            let hasPartner = pfMyProfile["hasPartner"] as Bool
             if hasPartner {
+                // ???: 既にパートナーがいる場合は、更新してよいかかくにんする
                 self.savePartner()
-                return
+                return .Success(nil)
             }
 
-            object["partner"] = self.user
-            object["hasPartner"] = true
-            object.saveInBackgroundWithBlock{ succeeded, error in
-                self.notify()
-                self.savePartner()
-            }
+            pfMyProfile["partner"] = self.candidatePartner
+            pfMyProfile["hasPartner"] = true
+            pfMyProfile.save(&error)
+
+            return self.savePartner()
+        }
+        return .Failure(NSError.code(.NotFoundUser))
+    }
+    
+    func savePartner() -> BaseOperationResult {
+        self.dispatchAsyncMainThread({
+            let partner = Partner.read()
+            partner.id = self.candidatePartner.objectId
+            partner.image = UIImage(data: (self.candidatePartner["profileImage"] as PFFile).getData())
+            partner.name = self.candidatePartner.username
+            partner.isAuthenticated = true
+            partner.save()
+
+            let myProfile = MyProfile.read()
+            myProfile.hasPartner = true
+            myProfile.save()
         })
+        return self.notify()
     }
     
-    func savePartner() {
-        let partner = Partner.read()
-        
-        partner.id = self.user.objectId
-        partner.image = UIImage(data: (self.user["profileImage"] as PFFile).getData())
-        partner.name = self.user.username
-        partner.isAuthenticated = true
-        partner.save()
-
-        let myProfile = MyProfile.read()
-        myProfile.hasPartner = true
-        myProfile.save()
-        self.finished = true
-    }
-    
-    func notify() {
-        
+    func notify() -> BaseOperationResult {
         let myProfile = MyProfile.read()
 
-        let userQuery = PFUser.query()
-        userQuery.whereKey("objectId", equalTo: self.user.objectId)
-        
-        let pushQuery = PFInstallation.query()
-        pushQuery.whereKey("user", matchesQuery:userQuery)
-        
+        let userQuery = PFUser.query().whereKey("objectId", equalTo: candidatePartner.objectId)
+        let pushQuery = PFInstallation.query().whereKey("user", matchesQuery:userQuery)
+
         let push = PFPush()
         push.setQuery(pushQuery)
-        let data = ["alert"            : "Added partner「\(myProfile.name)」",
-            "objectId"         : myProfile.id,
-            "notificationType" : "AddedPartner" ]
-        let notificationType = data["notificationType"]
-        
-        NSLog("notificationType:\(notificationType)")
-        push.setData(data)
-        // TODO: errorのハンドリング（ネットワークつながってない系とか全部見る）
-        push.sendPushInBackgroundWithBlock(nil)
+        push.setData(
+            ["alert"            : "Added partner「\(myProfile.name)」",
+             "objectId"         : myProfile.id,
+             "notificationType" : "AddedPartner" ]
+        )
+
+        var error: NSError?
+        push.sendPush(&error)
+        if error != nil {
+            return .Failure(NSError.code(.NetworkOffline))
+        }
+        return .Success(nil)
     }
 }

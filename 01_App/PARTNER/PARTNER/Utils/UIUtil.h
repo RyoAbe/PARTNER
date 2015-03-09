@@ -14,4 +14,6 @@
 + (void)openInChrome:(NSURL*)url;
 + (UIImage *)createQRImageForString:(NSString *)string backgroundColor:(UIColor*)backgroundColor foregroundColor:(UIColor*)foregroundColor size:(CGSize)size;
 + (BOOL)isSimulator;
++ (void)toast:(NSString*)message;
++ (void)toastWithError:(NSError*)error;
 @end

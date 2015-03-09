@@ -95,7 +95,6 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
 
     func congigCamera() -> Bool {
         let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-
         // TODO: error
         if(device == nil){
             return false
@@ -132,7 +131,7 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                 continue
             }
             if !verifyPartnersId(metadataObject.stringValue) {
-                // TODO: 読み取ったのがobjectIdはじゃなければエラーのトースト or アラートを表示（全体的に列挙が必要？）
+                // TODO: 読み取ったのがobjectIdはじゃなければエラーのトースト or アラートを表示
                 continue
             }
             session.stopRunning()
@@ -140,34 +139,35 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         }
     }
 
+    // TODO: PFUser拡張したほうがいいわ
     func verifyPartnersId(id: NSString) -> Bool {
-        // TODO: ネットにつながってなかった場合は失敗あらーと？他にもあるかも
+        
         let op = GetUserOperation(objectId: id)
-        op.start()
         op.completionBlock = {
-            dispatch_async(dispatch_get_main_queue(), {
-                if let user = op.result {
-                    self.showConfirmBecomePartner(user)
+            if let user = op.result as PFUser! {
+                if (user["hasPartner"] as Bool) {
+                    // TODO: パートナーがいた場合のパターン考慮
+                    return
                 }
-            })
+                self.showConfirmBecomePartner(user)
+            }
         }
+        dispatchAsyncOperation(op)
         return true
     }
 
     func showConfirmBecomePartner(user: PFUser){
-
+        // ???: 既にパートナーがいる場合は、チェンジしたいいか確認
         let alert = UIAlertController(title: "Confirm", message: "Do you become partner with \"\(user.username)\"?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
-            let op = AddPartnerOperation(user: user)
-            op.start()
+            let op = AddPartnerOperation(candidatePartner: user)
             op.completionBlock = {
-                dispatch_async(dispatch_get_main_queue(), {
-                    // TODO: アラートで友達になったよ的なのを出す。それでからpop
-                    self.navigationController!.popViewControllerAnimated(true)
-                    return
-                })
+                // TODO: アラートで友達になったよ的なのを出す。それでからpop
+                self.navigationController!.popViewControllerAnimated(true)
+                return
             }
+            self.dispatchAsyncOperation(op)
         }))
         presentViewController(alert, animated: true, completion: nil)
     }

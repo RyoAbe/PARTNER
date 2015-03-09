@@ -130,4 +130,15 @@ static NSString * encodeByAddingPercentEscapes(NSString *input)
     return  [[UIApplication sharedApplication] canOpenURL:simpleURL] || [[UIApplication sharedApplication] canOpenURL:callbackURL];
 }
 
++ (void)toast:(NSString*)message
+{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window makeToast:message];
+}
+
++ (void)toastWithError:(NSError*)error
+{
+    [self toast:error.userInfo[NSLocalizedDescriptionKey]];
+}
+
 @end

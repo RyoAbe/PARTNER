@@ -8,6 +8,7 @@
 
 import UIKit
 
+// ???: Parseから返ってくるエラーをちゃんと拾いたいかも
 class SendMyStatusOperation: BaseOperation {
 
     let statusType: StatusType!
@@ -15,41 +16,51 @@ class SendMyStatusOperation: BaseOperation {
     init(statusType : StatusType){
         super.init()
         self.statusType = statusType
-    }
+        self.executeSerialBlock = {
+            assert(MyProfile.read().isAuthenticated && MyProfile.read().hasPartner, "ログイン出来てないし、パートナーもいない")
+            let myProfile = MyProfile.read()
+            let statusDate = NSDate()
 
-    override func main() {
-        super.main()
-        assert(MyProfile.read().isAuthenticated && MyProfile.read().hasPartner, "ログイン出来てないし、パートナーもいない")
+            var error: NSError?
+            let pfMyProfile = PFUser.query().getObjectWithId(myProfile.id, error: &error)
+            if let err = error {
+                return .Failure(NSError.code(.NetworkOffline))
+            }
 
-        let myProfile = MyProfile.read()
-        let statusDate = NSDate()
-        PFUser.query().getObjectInBackgroundWithId(myProfile.id, block: { object, error in
-            object["statusType"] = self.statusType.type.rawValue
-            object["statusDate"] = statusDate
-            object.saveInBackgroundWithBlock{ succeeded, error in
-                myProfile.statusType = self.statusType
+            pfMyProfile["statusType"] = statusType.type.rawValue
+            pfMyProfile["statusDate"] = statusDate
+            pfMyProfile.save(&error)
+
+            if let err = error {
+                return .Failure(NSError.code(.NetworkOffline))
+            }
+            self.dispatchAsyncMainThread({
+                myProfile.statusType = statusType
                 myProfile.statusDate = statusDate
                 myProfile.save()
-                self.notify()
-            }
-        })
+            })
+            let data = ["alert"           : "\(myProfile.name):「\(statusType.name)」",
+                        "notificationType": "Status",
+                        "type"            : statusType.type.rawValue,
+                        "date"            : "\(statusDate.timeIntervalSince1970)"]
+            return self.notify(data)
+        }
     }
 
-    func notify() {
+    func notify(data: [NSObject : AnyObject]!) -> BaseOperationResult {
         let myProfile = MyProfile.read()
 
         let userQuery = PFUser.query().whereKey("objectId", equalTo: Partner.read().id)
         let pushQuery = PFInstallation.query().whereKey("user", matchesQuery:userQuery)
-
         let push = PFPush()
         push.setQuery(pushQuery)
-        push.setData(["alert"           : "\(myProfile.name):「\(myProfile.statusType!.name)」",
-                      "notificationType": "Status",
-                      "type"            : myProfile.statusType!.type.rawValue,
-                      "date"            : "\(myProfile.statusDate!.timeIntervalSince1970)"])
+        push.setData(data)
 
-        // TODO: errorのハンドリング
-        push.sendPushInBackgroundWithBlock(nil)
-        self.finished = true
+        var error: NSError?
+        push.sendPush(&error)
+        if let err = error {
+            return .Failure(NSError.code(.NetworkOffline))
+        }
+        return .Success(nil)
     }
 }

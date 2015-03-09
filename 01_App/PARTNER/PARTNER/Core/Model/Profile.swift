@@ -10,6 +10,7 @@ import UIKit
 
 class Profile: NSObject, NSCoding{
 
+    // ???: fbId持たせてもいいかもね
     dynamic var id: NSString!
     dynamic var name: NSString!
     dynamic var image: UIImage!
@@ -64,6 +65,8 @@ class Profile: NSObject, NSCoding{
     }
 
     func save() -> Profile {
+        assert(NSThread.currentThread().isMainThread, "call from main thread")
+
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         userDefaults.setObject(data, forKey: self.dynamicType.key)
@@ -101,5 +104,9 @@ class Profile: NSObject, NSCoding{
             instance.statusDate = unarchivedProfile.statusDate
         }
         return instance
+    }
+
+    func description() -> NSString {
+        return NSString(format: "-----------------\n class = \(self.dynamicType),\n id = \(id),\n isAuthenticated = \(isAuthenticated),\n hasPartner = \(hasPartner),\n name = \(name),\n image = \(image),\n statusType = \(statusType),\n statusDate = \(statusDate)\n-----------------\n")
     }
 }

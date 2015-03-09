@@ -10,28 +10,18 @@ import UIKit
 
 class GetUserOperation: BaseOperation {
     
+    // TODO: userIdに変更したい
     var objectId: NSString!
-    var result: PFUser?
 
     init(objectId : NSString){
         super.init()
         self.objectId = objectId
-    }
-
-    override func main() {
-        super.main()
-        PFUser.query().getObjectInBackgroundWithId(self.objectId, block: { object, error in
-            if object == nil  {
-                self.finished = true
-                return;
+        self.executeSerialBlock = {
+            var error: NSError?
+            if let user = PFUser.query().getObjectWithId(objectId, error: &error) {
+                return .Success(user)
             }
-            if let hasPartner = object.objectForKey("hasPartner") as? Bool {
-                if !hasPartner {
-                    self.result = object as? PFUser
-                }
-            }
-            self.finished = true
-        })
-
+            return .Failure(NSError.code(.NetworkOffline))
+        }
     }
 }

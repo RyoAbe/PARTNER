@@ -42,10 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        let currentInstallation = PFInstallation.currentInstallation()
-        currentInstallation.setDeviceTokenFromData(deviceToken)
-        // TODO: error handling（保存でエラー系）
-        currentInstallation.save(nil)
+        let installation = PFInstallation.currentInstallation()
+        installation.setDeviceTokenFromData(deviceToken)
+        dispatchAsyncMultiThread({
+            if !installation.save() { self.dispatchAsyncMainThread({ NSError.code(.Unknown).toast() }) }
+        })
     }
 
     // TODO: Background Fetchを実装
@@ -65,12 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         switch userInfo["notificationType"] as NSString {
             case "AddedPartner":
-                AddPartnerOperation(objectId: userInfo["objectId"] as NSString).start()
+                dispatchAsyncOperation(AddPartnerOperation(candidatePartnerId: userInfo["objectId"] as NSString))
                 break
 
             case "Status":
                 let partner = Partner.read()
-                partner.statusType = StatusTypes(rawValue: userInfo["type"] as NSInteger)!.status()
+                partner.statusType = StatusTypes(rawValue: userInfo["type"] as NSInteger)!.statusType
                 partner.statusDate = NSDate(timeIntervalSince1970:(userInfo["date"] as NSString).doubleValue)
                 partner.save()
                 break
@@ -87,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
         if MyProfile.read().hasPartner {
-            UpdatePartnerOperation().enableHUD(false).start()
+            dispatchAsyncOperation(UpdatePartnerOperation().enableHUD(false))
         }
     }
     

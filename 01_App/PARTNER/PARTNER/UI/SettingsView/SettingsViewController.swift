@@ -12,6 +12,7 @@ class SettingsViewController: UITableViewController {
 
     // ???: 【まだいい】他に設定項目がないか検討
     // ???: 【まだいい】設定項目がすべての項目が一緒くたんになってるかわそれぞれ分裂する
+    // ???: 電話かける機能を追加
     
     enum SettingsSection : Int {
         case First

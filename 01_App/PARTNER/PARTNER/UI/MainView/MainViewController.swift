@@ -31,40 +31,38 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
         partnersStatusView.profile = partner
         myStatusView.profile = myProfile
-        if(!myProfile.isAuthenticated){
-            showSignInFacebookAlert()
+        
+        if showSignInFacebookAlertIfNeeded() {
             return
         }
 
         if myProfile.isAuthenticated && UIUtil.isSimulator() && !myProfile.hasPartner {
-            addPartnerForDebug("d6ETdsGxqj")
+            dispatchAsyncOperation(AddPartnerOperation(candidatePartnerId:"1nqjqaIqwW"))
             return
         }
     }
 
-    func showSignInFacebookAlert() {
+    func showSignInFacebookAlertIfNeeded() -> Bool {
+        if MyProfile.read().isAuthenticated {
+            return false
+        }
+
         let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 
         // TODO: キャンセルしたら画面上のどこかで改めて Sign in 出来るようにする（そもそもログイン画面を作る？）
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { alertAction in
-            MRProgressOverlayView.show()
-            let op = LoginToFBOperation()
-            op.start()
-            op.completionBlock = {
-                dispatch_async(dispatch_get_main_queue(), {
-                    MRProgressOverlayView.hide()
-                })
-            }
+            self.dispatchAsyncOperation(LoginToFBOperation())
         }))
         presentViewController(alert, animated: true, completion: nil)
+        return true
     }
 
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as MessageMenuCell
 
         // ???: 【CoreData】Menu項目はCoreDataから取得する
-        let type = StatusTypes(rawValue: indexPath.row)!.status()
+        let type = StatusTypes(rawValue: indexPath.row)!.statusType
         cell.menuLabel.text = type.name
         cell.menuIcon.image = UIImage(named: type.iconImageName)
         return cell;
@@ -97,8 +95,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             // TODO: まだパートナーがいないことをalertで表示
             return
         }
-        let type = StatusTypes(rawValue: indexPath.row)?.status() as StatusType!
-        SendMyStatusOperation(statusType: type).start()
+        let type = StatusTypes(rawValue: indexPath.row)!.statusType
+        dispatchAsyncOperation(SendMyStatusOperation(statusType: type))
     }
 
     @IBAction func didSelectMyStatusView(sender: AnyObject) {
@@ -107,16 +105,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
     @IBAction func didSelectParterStatusView(sender: AnyObject) {
         performSegueWithIdentifier("HistoryViewSegue", sender: self)
-    }
-
-    func addPartnerForDebug(id: NSString) {
-        let op = GetUserOperation(objectId: id)
-        op.start()
-        op.completionBlock = {
-            if let user = op.result {
-                AddPartnerOperation(user: user).start()
-            }
-        }
     }
 }
 
