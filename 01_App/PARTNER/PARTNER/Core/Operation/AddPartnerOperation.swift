@@ -20,14 +20,11 @@ class AddPartnerOperation: BaseOperation {
                 return self.becomePartner()
             }
             var error: NSError?
-            if let user = PFUser.query().getObjectWithId(self.candidatePartnerId, error: &error) as? PFUser {
-                if error != nil {
-                    return .Failure(NSError.code(.NetworkOffline))
-                }
-                self.candidatePartner = user
+            if let candidatePartner = PFUser.query().getObjectWithId(self.candidatePartnerId, error: &error) as? PFUser {
+                self.candidatePartner = candidatePartner
                 return self.becomePartner()
             }
-            return .Failure(NSError.code(.NotFoundUser))
+            return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
         }
     }
 
@@ -44,20 +41,38 @@ class AddPartnerOperation: BaseOperation {
     func becomePartner() -> BaseOperationResult {
         var error: NSError?
         if let pfMyProfile = PFUser.query().getObjectWithId(MyProfile.read().id, error: &error) as? PFUser {
-            let hasPartner = pfMyProfile["hasPartner"] as Bool
-            if hasPartner {
-                // ???: 既にパートナーがいる場合は、更新してよいかかくにんする
-                self.savePartner()
-                return .Success(nil)
-            }
 
-            pfMyProfile["partner"] = self.candidatePartner
+            if let partner = pfMyProfile["partner"] as? PFUser {
+                
+            }
+            
+
+            /* TODO: 保留
+            let myPartnerRelation = pfMyProfile.relationForKey("partner")
+            myPartnerRelation.addObject(self.candidatePartner)
+            */
             pfMyProfile["hasPartner"] = true
             pfMyProfile.save(&error)
+            if error != nil {
+                return .Failure(error)
+            }
+
+            
+            /* TODO: 保留
+            *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'User cannot be saved unless they have been authenticated via logIn or signUp'
+            let partnersPartnerRelation = self.candidatePartner.relationForKey("partner")
+            partnersPartnerRelation.addObject(pfMyProfile)
+            self.candidatePartner["hasPartner"] = true
+            */
+
+            self.candidatePartner.save(&error)
+            if error != nil {
+                return .Failure(error)
+            }
 
             return self.savePartner()
         }
-        return .Failure(NSError.code(.NotFoundUser))
+        return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
     }
     
     func savePartner() -> BaseOperationResult {
@@ -94,7 +109,7 @@ class AddPartnerOperation: BaseOperation {
         var error: NSError?
         push.sendPush(&error)
         if error != nil {
-            return .Failure(NSError.code(.NetworkOffline))
+            return .Failure(error)
         }
         return .Success(nil)
     }

@@ -27,7 +27,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
         let currentUser = PFUser.currentUser()
-        NSLog("\(currentUser),\n\(myProfile),\n\(partner)")
+        Logger.debug("\(currentUser),\n\(myProfile),\n\(partner)")
 
         partnersStatusView.profile = partner
         partnersStatusView.statusViewType = .PartnersStatus
@@ -35,11 +35,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         myStatusView.statusViewType = .MyStatus
         
         if showSignInFacebookAlertIfNeeded() {
-            return
-        }
-
-        if myProfile.isAuthenticated && UIUtil.isSimulator() && !myProfile.hasPartner {
-            dispatchAsyncOperation(AddPartnerOperation(candidatePartnerId:"1nqjqaIqwW"))
             return
         }
     }
@@ -159,6 +154,12 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }
 
     @IBAction func didSelectParterStatusView(sender: AnyObject) {
+        #if DEBUG
+        if MyProfile.read().isAuthenticated && UIUtil.isSimulator() && !MyProfile.read().hasPartner {
+            dispatchAsyncOperation(AddPartnerOperation(candidatePartnerId:"XEMneE0Vks"))
+            return
+        }
+        #endif
         performSegueForSendStatus("HistoryViewSegue")
     }
 }

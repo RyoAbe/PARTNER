@@ -86,7 +86,7 @@ class BaseOperation: NSOperation {
 
     // ???: executeAsyncBlockとexecuteSerialBlockを分断
     override func main() {
-        NSLog("execute operation - \(NSStringFromClass(self.dynamicType))")
+        Logger.debug("execute operation - \(NSStringFromClass(self.dynamicType))")
 
         assert(!NSThread.currentThread().isMainThread, "call from main thread")
 
@@ -113,6 +113,7 @@ class BaseOperation: NSOperation {
     // MARK: -
     func finish(error: NSError) {
         self.error = error
+        Logger.debug("\(self.error)")
         dispatchAsyncMainThread({ self.error!.toast() })
         state = .Finished
     }
@@ -133,6 +134,6 @@ class BaseOperation: NSOperation {
     }
 
     deinit {
-        NSLog("\(self.dynamicType) - deinit")
+        Logger.debug("\(self.dynamicType) - deinit")
     }
 }

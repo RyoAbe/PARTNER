@@ -18,7 +18,8 @@ class GetUserOperation: BaseOperation {
             if let user = PFUser.query().getObjectWithId(userId, error: &error) {
                 return .Success(user)
             }
-            return .Failure(NSError.code(.NetworkOffline))
+            // TODO: errorを返しておいて表示するときにnotfoundだったらそれ、それ以外はエラーとか判別
+            return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
         }
     }
 }

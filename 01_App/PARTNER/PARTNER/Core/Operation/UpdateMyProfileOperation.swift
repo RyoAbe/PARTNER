@@ -11,9 +11,38 @@ import UIKit
 class UpdateMyProfileOperation: BaseOperation {
     override init() {
         super.init()
-        assert(MyProfile.read().isAuthenticated, "ログインしていない")
-        self.executeSerialBlock = {
-            return .Success(nil)
+        let myProfile = MyProfile.read()
+        assert(myProfile.isAuthenticated, "ログインしていない")
+        self.executeAsyncBlock = {
+            var error: NSError?
+            if let pfMyProfile = PFUser.query().getObjectWithId(myProfile.id, error: &error) as? PFUser {
+                self.updateMyProfile(pfMyProfile)
+                self.addPartnerIfEixst(pfMyProfile)
+                return
+            }
+            self.finish(error == nil ? NSError.code(.NotFoundUser) : error)
+        }
+    }
+    
+    func updateMyProfile(pfMyProfile: PFUser) {
+        let profileImageData = (pfMyProfile["profileImage"] as PFFile).getData()
+        self.dispatchAsyncMainThread({
+            let myProfile = MyProfile.read()
+            myProfile.id = pfMyProfile.objectId
+            myProfile.image = UIImage(data: profileImageData)!
+            myProfile.name = pfMyProfile.username
+            myProfile.hasPartner = pfMyProfile["hasPartner"] as Bool
+            myProfile.save()
+        })
+    }
+    
+    func addPartnerIfEixst(pfMyProfile: PFUser) {
+        if let pfPartner = pfMyProfile["partner"] as? PFUser {
+            let op = AddPartnerOperation(candidatePartner: pfPartner)
+            op.completionBlock = {
+                let r: AnyObject? = op.error != nil ? op.error : op.result
+                self.finish(r)
+            }
         }
     }
 }

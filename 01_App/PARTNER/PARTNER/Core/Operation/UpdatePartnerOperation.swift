@@ -15,29 +15,23 @@ class UpdatePartnerOperation: BaseOperation {
             assert(MyProfile.read().hasPartner, "パートナーがいません")
             let partner = Partner.read()
             var error: NSError?
-            let pfParter = PFUser.query().getObjectWithId(partner.id, error: &error)
-            if let err = error {
-                return .Failure(NSError.code(.NetworkOffline))
+            if let pfParter = PFUser.query().getObjectWithId(partner.id, error: &error) {
+                let profileImageData = (pfParter["profileImage"] as PFFile).getData()
+                self.dispatchAsyncMainThread({
+                    // ???: なくていいかも
+                    partner.name = pfParter["username"] as NSString
+                    partner.image = UIImage(data: profileImageData)
+                    if let type = pfParter["statusType"] as? NSInteger {
+                        partner.statusType = StatusTypes(rawValue: type)!.statusType
+                    }
+                    if let date = pfParter["statusDate"] as? NSDate {
+                        partner.statusDate = date
+                    }
+                    partner.save()
+                })
+                return .Success(nil)
             }
-
-            if pfParter == nil {
-                return .Failure(NSError.code(.NotFoundUser))
-            }
-
-            let profileImageData = (pfParter["profileImage"] as PFFile).getData()
-            self.dispatchAsyncMainThread({
-                // ???: なくていいかも
-                partner.name = pfParter["username"] as NSString
-                partner.image = UIImage(data: profileImageData)
-                if let type = pfParter["statusType"] as? NSInteger {
-                    partner.statusType = StatusTypes(rawValue: type)!.statusType
-                }
-                if let date = pfParter["statusDate"] as? NSDate {
-                    partner.statusDate = date
-                }
-                partner.save()
-            })
-            return .Success(nil)
+            return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
         }
     }
 }

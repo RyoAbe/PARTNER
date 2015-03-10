@@ -22,28 +22,26 @@ class SendMyStatusOperation: BaseOperation {
             let statusDate = NSDate()
 
             var error: NSError?
-            let pfMyProfile = PFUser.query().getObjectWithId(myProfile.id, error: &error)
-            if let err = error {
-                return .Failure(NSError.code(.NetworkOffline))
-            }
+            if let pfMyProfile = PFUser.query().getObjectWithId(myProfile.id, error: &error) {
+                pfMyProfile["statusType"] = statusType.type.rawValue
+                pfMyProfile["statusDate"] = statusDate
+                pfMyProfile.save(&error)
+                if error != nil {
+                    return .Failure(error)
+                }
 
-            pfMyProfile["statusType"] = statusType.type.rawValue
-            pfMyProfile["statusDate"] = statusDate
-            pfMyProfile.save(&error)
-
-            if let err = error {
-                return .Failure(NSError.code(.NetworkOffline))
+                self.dispatchAsyncMainThread({
+                    myProfile.statusType = statusType
+                    myProfile.statusDate = statusDate
+                    myProfile.save()
+                })
+                let data = ["alert"           : "\(myProfile.name):「\(statusType.name)」",
+                    "notificationType": "Status",
+                    "type"            : statusType.type.rawValue,
+                    "date"            : "\(statusDate.timeIntervalSince1970)"]
+                return self.notify(data)
             }
-            self.dispatchAsyncMainThread({
-                myProfile.statusType = statusType
-                myProfile.statusDate = statusDate
-                myProfile.save()
-            })
-            let data = ["alert"           : "\(myProfile.name):「\(statusType.name)」",
-                        "notificationType": "Status",
-                        "type"            : statusType.type.rawValue,
-                        "date"            : "\(statusDate.timeIntervalSince1970)"]
-            return self.notify(data)
+            return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
         }
     }
 
@@ -58,8 +56,8 @@ class SendMyStatusOperation: BaseOperation {
 
         var error: NSError?
         push.sendPush(&error)
-        if let err = error {
-            return .Failure(NSError.code(.NetworkOffline))
+        if error != nil {
+            return .Failure(error)
         }
         return .Success(nil)
     }

@@ -15,7 +15,7 @@ enum PartnerErrorCode: NSInteger {
     case NotFoundUser = 4040
     var description : NSString {
         switch self {
-        case .Unknown: return "Cccurrence of an error.";
+        case .Unknown: return "Cccurrence of an unexplained error.";
         case .NetworkOffline: return "Can't connect to Internet.";
         case .NotFoundUser: return "Not found user.";
         }

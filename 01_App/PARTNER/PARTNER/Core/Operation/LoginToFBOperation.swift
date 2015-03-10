@@ -21,8 +21,8 @@ class LoginToFBOperation: BaseOperation {
     }
     
     private func loginCompletion(pfMyProfile: PFUser?, error: NSError?) {
-        if let err = error {
-            self.finish(NSError.code(.NetworkOffline))
+        if error != nil {
+            self.finish(error)
             return
         }
         if let myProfile = pfMyProfile {
@@ -34,7 +34,7 @@ class LoginToFBOperation: BaseOperation {
 
     private func startForMe(pfMyProfile: PFUser) {
         FBRequestConnection.startForMeWithCompletionHandler({connection, result, error in
-            if let err = error {
+            if error != nil {
                 self.finish(NSError.code(.NetworkOffline))
                 return
             }
@@ -43,7 +43,7 @@ class LoginToFBOperation: BaseOperation {
     }
 
     private func startForMeWithCompletion(pfMyProfile: PFUser, fbObject: FBGraphObject?, error: NSError?) {
-        if let err = error {
+        if error != nil {
             finish(NSError.code(.NetworkOffline))
             return
         }
@@ -61,7 +61,7 @@ class LoginToFBOperation: BaseOperation {
         let installation = PFInstallation.currentInstallation()
         installation.setObject(PFUser.currentUser(), forKey: "user")
         installation.save(&error)
-        if let err = error {
+        if error != nil {
             finish(NSError.code(.NetworkOffline))
             return
         }
@@ -72,7 +72,7 @@ class LoginToFBOperation: BaseOperation {
         pfMyProfile["hasPartner"] = false
         pfMyProfile.save(&error)
 
-        if let err = error {
+        if error != nil {
             finish(NSError.code(.NetworkOffline))
             return
         }
