@@ -90,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let myProfile = MyProfile.read()
         if myProfile.hasPartner {
-            dispatchAsyncOperation(UpdatePartnerOperation().enableHUD(false))
+            dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
         }
         if myProfile.isAuthenticated {
             dispatchAsyncOperation(UpdateMyProfileOperation().enableHUD(false))

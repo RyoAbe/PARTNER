@@ -28,7 +28,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         let partner = Partner.read()
         let currentUser = PFUser.currentUser()
         Logger.debug("\(currentUser),\n\(myProfile),\n\(partner)")
-
         partnersStatusView.profile = partner
         partnersStatusView.statusViewType = .PartnersStatus
         myStatusView.profile = myProfile
@@ -101,8 +100,8 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             // TODO: まだパートナーがいないことをalertで表示
             return
         }
-        let type = StatusTypes(rawValue: indexPath.row)!.statusType
-        dispatchAsyncOperation(SendMyStatusOperation(statusType: type))
+        let types = StatusTypes(rawValue: indexPath.row)!
+        dispatchAsyncOperation(SendMyStatusOperation(partnerId: Partner.read().id, statusTypes: types))
     }
 
     // MARK: -

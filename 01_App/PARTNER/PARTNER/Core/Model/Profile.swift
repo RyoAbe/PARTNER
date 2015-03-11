@@ -19,6 +19,7 @@ class Profile: NSObject, NSCoding{
     dynamic var hasPartner: Bool
     dynamic var statusType: StatusType?
     dynamic var statusDate: NSDate?
+    dynamic var statuses: NSArray?
 
     class var key : NSString {
         assert(false, "overrideして下さい")
@@ -30,7 +31,7 @@ class Profile: NSObject, NSCoding{
         return Profile()
     }
     
-    init(id: NSString?, name: NSString?, image: UIImage?, isAuthenticated: Bool, hasPartner: Bool, statusType: StatusType?, statusDate: NSDate?) {
+    init(id: NSString?, name: NSString?, image: UIImage?, isAuthenticated: Bool, hasPartner: Bool, statusType: StatusType?, statusDate: NSDate?, statuses: NSArray?) {
         self.id = id
         self.name = name
         self.image = image
@@ -38,10 +39,12 @@ class Profile: NSObject, NSCoding{
         self.hasPartner = hasPartner
         self.statusType = statusType
         self.statusDate = statusDate
+        self.statuses = statuses
     }
 
     convenience override init(){
-        self.init(id: nil, name: nil, image: nil, isAuthenticated: false, hasPartner: false, statusType: nil, statusDate: nil)
+//        self.init(id: nil, name: nil, image: nil, isAuthenticated: false, hasPartner: false, statusType: nil, statusDate: nil, statuses: NSMutableArray())
+        self.init(id: nil, name: nil, image: nil, isAuthenticated: false, hasPartner: false, statusType: nil, statusDate: nil, statuses: nil)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -52,6 +55,7 @@ class Profile: NSObject, NSCoding{
         hasPartner = aDecoder.decodeObjectForKey("hasPartner") as Bool
         statusType = aDecoder.decodeObjectForKey("statusType") as StatusType?
         statusDate = aDecoder.decodeObjectForKey("statusDate") as NSDate?
+        statuses = aDecoder.decodeObjectForKey("statuses") as NSArray?
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
@@ -62,6 +66,7 @@ class Profile: NSObject, NSCoding{
         aCoder.encodeObject(self.hasPartner, forKey: "hasPartner")
         aCoder.encodeObject(self.statusType, forKey: "statusType")
         aCoder.encodeObject(self.statusDate, forKey: "statusDate")
+        aCoder.encodeObject(self.statuses, forKey: "statuses")
     }
 
     func save() -> Profile {
@@ -75,6 +80,8 @@ class Profile: NSObject, NSCoding{
     }
 
     class func read() -> Profile! {
+        assert(NSThread.currentThread().isMainThread, "call from main thread")
+
         if let data = NSUserDefaults.standardUserDefaults().dataForKey(self.key) {
             return createWithData(data)
         }
@@ -102,6 +109,10 @@ class Profile: NSObject, NSCoding{
         }
         if unarchivedProfile.statusDate != nil {
             instance.statusDate = unarchivedProfile.statusDate
+        }
+        if unarchivedProfile.statuses != nil {
+            
+            instance.statuses = unarchivedProfile.statuses
         }
         return instance
     }

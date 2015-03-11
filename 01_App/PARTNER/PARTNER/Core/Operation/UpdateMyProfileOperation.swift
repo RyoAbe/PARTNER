@@ -15,7 +15,7 @@ class UpdateMyProfileOperation: BaseOperation {
         assert(myProfile.isAuthenticated, "ログインしていない")
         self.executeAsyncBlock = {
             var error: NSError?
-            if let pfMyProfile = PFUser.query().getObjectWithId(myProfile.id, error: &error) as? PFUser {
+            if let pfMyProfile = PFUser.currentUser() {
                 self.updateMyProfile(pfMyProfile)
                 self.addPartnerIfEixst(pfMyProfile)
                 return
@@ -37,12 +37,18 @@ class UpdateMyProfileOperation: BaseOperation {
     }
     
     func addPartnerIfEixst(pfMyProfile: PFUser) {
+        if let hasPartner = pfMyProfile["hasPartner"] as? PFUser {
+            self.finish()
+            return
+        }
         if let pfPartner = pfMyProfile["partner"] as? PFUser {
             let op = AddPartnerOperation(candidatePartner: pfPartner)
             op.completionBlock = {
                 let r: AnyObject? = op.error != nil ? op.error : op.result
                 self.finish(r)
             }
+            return
         }
+        self.finish()
     }
 }

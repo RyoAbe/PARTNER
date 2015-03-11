@@ -11,34 +11,49 @@ import UIKit
 // ???: Parseから返ってくるエラーをちゃんと拾いたいかも
 class SendMyStatusOperation: BaseOperation {
 
-    let statusType: StatusType!
+    let partnerId: NSString!
+    let statusTypes: StatusTypes!
 
-    init(statusType : StatusType){
+    init(partnerId: NSString, statusTypes: StatusTypes){
         super.init()
-        self.statusType = statusType
+        self.partnerId = partnerId
+        self.statusTypes = statusTypes
         self.executeSerialBlock = {
-            assert(MyProfile.read().isAuthenticated && MyProfile.read().hasPartner, "ログイン出来てないし、パートナーもいない")
-            let myProfile = MyProfile.read()
-            let statusDate = NSDate()
 
             var error: NSError?
-            if let pfMyProfile = PFUser.query().getObjectWithId(myProfile.id, error: &error) {
-                pfMyProfile["statusType"] = statusType.type.rawValue
-                pfMyProfile["statusDate"] = statusDate
+            // ???: myProfileはcurrentUserから持ってくればいいのでは
+            if let pfMyProfile = PFUser.currentUser() {
+                assert(pfMyProfile.isAuthenticated() && pfMyProfile["hasPartner"] as Bool, "ログイン出来てないし、パートナーもいない")
+
+                let status = Status(types: statusTypes, date: NSDate())
+
+                let pfStatus = PFObject(className: "Status")
+                pfStatus.setObject(NSNumber(integer: status.types.rawValue), forKey: "type")
+                pfStatus.setObject(status.date, forKey: "date")
+                pfStatus.save(&error)
+                if error != nil {
+                    return .Failure(error)
+                }
+
+                pfMyProfile.addObjectsFromArray([pfStatus], forKey: "statuses")
+                pfMyProfile["statusType"] = status.types.rawValue
+                pfMyProfile["statusDate"] = status.date
                 pfMyProfile.save(&error)
                 if error != nil {
                     return .Failure(error)
                 }
 
                 self.dispatchAsyncMainThread({
-                    myProfile.statusType = statusType
-                    myProfile.statusDate = statusDate
+                    let myProfile = MyProfile.read()
+                    myProfile.statusType = status.types.statusType
+                    myProfile.statusDate = status.date
+//                    myProfile.statuses?.addObject(status)
                     myProfile.save()
                 })
-                let data = ["alert"           : "\(myProfile.name):「\(statusType.name)」",
-                    "notificationType": "Status",
-                    "type"            : statusType.type.rawValue,
-                    "date"            : "\(statusDate.timeIntervalSince1970)"]
+                let data = ["alert"           : "\(pfMyProfile.username):「\(status.types.statusType.name)」",
+                            "notificationType": "Status",
+                            "type"            : status.types.rawValue,
+                            "date"            : "\(status.date.timeIntervalSince1970)"]
                 return self.notify(data)
             }
             return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
@@ -46,9 +61,8 @@ class SendMyStatusOperation: BaseOperation {
     }
 
     func notify(data: [NSObject : AnyObject]!) -> BaseOperationResult {
-        let myProfile = MyProfile.read()
 
-        let userQuery = PFUser.query().whereKey("objectId", equalTo: Partner.read().id)
+        let userQuery = PFUser.query().whereKey("objectId", equalTo: partnerId)
         let pushQuery = PFInstallation.query().whereKey("user", matchesQuery:userQuery)
         let push = PFPush()
         push.setQuery(pushQuery)

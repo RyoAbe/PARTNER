@@ -9,16 +9,15 @@
 import UIKit
 
 class UpdatePartnerOperation: BaseOperation {
-    override init() {
-        super.init()
+    convenience init(partnerId: NSString) {
+        self.init()
         self.executeSerialBlock = {
-            assert(MyProfile.read().hasPartner, "パートナーがいません")
-            let partner = Partner.read()
             var error: NSError?
-            if let pfParter = PFUser.query().getObjectWithId(partner.id, error: &error) {
+            if let pfParter = PFUser.query().getObjectWithId(partnerId, error: &error) {
                 let profileImageData = (pfParter["profileImage"] as PFFile).getData()
                 self.dispatchAsyncMainThread({
                     // ???: なくていいかも
+                    let partner = Partner.read()
                     partner.name = pfParter["username"] as NSString
                     partner.image = UIImage(data: profileImageData)
                     if let type = pfParter["statusType"] as? NSInteger {

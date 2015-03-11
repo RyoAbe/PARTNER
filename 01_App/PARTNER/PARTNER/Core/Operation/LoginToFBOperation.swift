@@ -13,7 +13,7 @@ class LoginToFBOperation: BaseOperation {
     override init() {
         super.init()
         self.executeAsyncBlock = {
-            assert(!MyProfile.read().isAuthenticated, "既にログイン済み")
+//            assert(!MyProfile.read().isAuthenticated, "既にログイン済み")
             PFFacebookUtils.logInWithPermissions(["public_profile"], {pfMyProfile , error in
                 self.dispatchAsyncMultiThread({ self.loginCompletion(pfMyProfile, error: error) })
             })

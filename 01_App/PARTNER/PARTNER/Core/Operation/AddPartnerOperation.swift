@@ -8,6 +8,7 @@
 
 import UIKit
 
+// ???: ロールバックの仕組みを作りたい
 class AddPartnerOperation: BaseOperation {
 
     var candidatePartner: PFUser!
@@ -40,17 +41,13 @@ class AddPartnerOperation: BaseOperation {
     
     func becomePartner() -> BaseOperationResult {
         var error: NSError?
-        if let pfMyProfile = PFUser.query().getObjectWithId(MyProfile.read().id, error: &error) as? PFUser {
-
-            if let partner = pfMyProfile["partner"] as? PFUser {
-                
-            }
-            
+        if let pfMyProfile = PFUser.currentUser() {
 
             /* TODO: 保留
             let myPartnerRelation = pfMyProfile.relationForKey("partner")
             myPartnerRelation.addObject(self.candidatePartner)
             */
+            pfMyProfile["partner"] = self.candidatePartner
             pfMyProfile["hasPartner"] = true
             pfMyProfile.save(&error)
             if error != nil {
@@ -64,7 +61,6 @@ class AddPartnerOperation: BaseOperation {
             partnersPartnerRelation.addObject(pfMyProfile)
             self.candidatePartner["hasPartner"] = true
             */
-
             self.candidatePartner.save(&error)
             if error != nil {
                 return .Failure(error)
@@ -93,16 +89,17 @@ class AddPartnerOperation: BaseOperation {
     }
     
     func notify() -> BaseOperationResult {
-        let myProfile = MyProfile.read()
+        let pfMyProfile = PFUser.currentUser()
 
         let userQuery = PFUser.query().whereKey("objectId", equalTo: candidatePartner.objectId)
+        // ???: ponter使えばいいかも
         let pushQuery = PFInstallation.query().whereKey("user", matchesQuery:userQuery)
 
         let push = PFPush()
         push.setQuery(pushQuery)
         push.setData(
-            ["alert"            : "Added partner「\(myProfile.name)」",
-             "objectId"         : myProfile.id,
+            ["alert"            : "Added partner「\(pfMyProfile.username)」",
+             "objectId"         : pfMyProfile.objectId,
              "notificationType" : "AddedPartner" ]
         )
 
