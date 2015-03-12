@@ -47,7 +47,8 @@ class SendMyStatusOperation: BaseOperation {
                     let myProfile = MyProfile.read()
                     myProfile.statusType = status.types.statusType
                     myProfile.statusDate = status.date
-//                    myProfile.statuses?.addObject(status)
+//                    myProfile.statuses!.addObject(status)
+//                    myProfile.statuses = [status]
                     myProfile.save()
                 })
                 let data = ["alert"           : "\(pfMyProfile.username):「\(status.types.statusType.name)」",

@@ -22,22 +22,22 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell") as HistoryCell
-        
+
         let type = StatusTypes(rawValue: indexPath.row % 9)!.statusType
         cell.textLabel!.text = type.name
         cell.imageView!.image = UIImage(named: type.iconImageName)
-        
+
         let fmt = NSDateFormatter()
-        fmt.dateFormat = "HH:mm";
+        fmt.dateFormat = "MM/dd HH:mm";
         cell.detailTextLabel?.text = fmt.stringFromDate(NSDate())
-        
+
         return cell
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 18
     }
-    
+
 //    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 //        return statuses.numberOfSections
 //    }

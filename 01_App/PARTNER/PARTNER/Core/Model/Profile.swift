@@ -30,7 +30,7 @@ class Profile: NSObject, NSCoding{
         assert(false, "overrideして下さい")
         return Profile()
     }
-    
+
     init(id: NSString?, name: NSString?, image: UIImage?, isAuthenticated: Bool, hasPartner: Bool, statusType: StatusType?, statusDate: NSDate?, statuses: NSArray?) {
         self.id = id
         self.name = name
@@ -43,7 +43,6 @@ class Profile: NSObject, NSCoding{
     }
 
     convenience override init(){
-//        self.init(id: nil, name: nil, image: nil, isAuthenticated: false, hasPartner: false, statusType: nil, statusDate: nil, statuses: NSMutableArray())
         self.init(id: nil, name: nil, image: nil, isAuthenticated: false, hasPartner: false, statusType: nil, statusDate: nil, statuses: nil)
     }
 
@@ -59,14 +58,14 @@ class Profile: NSObject, NSCoding{
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.id, forKey: "id")
-        aCoder.encodeObject(self.name, forKey: "name")
-        aCoder.encodeObject(self.image, forKey: "image")
-        aCoder.encodeObject(self.isAuthenticated, forKey: "isAuthenticated")
-        aCoder.encodeObject(self.hasPartner, forKey: "hasPartner")
-        aCoder.encodeObject(self.statusType, forKey: "statusType")
-        aCoder.encodeObject(self.statusDate, forKey: "statusDate")
-        aCoder.encodeObject(self.statuses, forKey: "statuses")
+        aCoder.encodeObject(id, forKey: "id")
+        aCoder.encodeObject(name, forKey: "name")
+        aCoder.encodeObject(image, forKey: "image")
+        aCoder.encodeObject(isAuthenticated, forKey: "isAuthenticated")
+        aCoder.encodeObject(hasPartner, forKey: "hasPartner")
+        aCoder.encodeObject(statusType, forKey: "statusType")
+        aCoder.encodeObject(statusDate, forKey: "statusDate")
+        aCoder.encodeObject(statuses, forKey: "statuses")
     }
 
     func save() -> Profile {
@@ -111,7 +110,6 @@ class Profile: NSObject, NSCoding{
             instance.statusDate = unarchivedProfile.statusDate
         }
         if unarchivedProfile.statuses != nil {
-            
             instance.statuses = unarchivedProfile.statuses
         }
         return instance
