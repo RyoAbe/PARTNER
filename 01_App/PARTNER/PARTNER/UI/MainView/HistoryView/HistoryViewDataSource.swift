@@ -14,6 +14,7 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
         super.init()
         // TODO: 外から渡せるように
 //        statuses = MyStatuses()
+        
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -21,7 +22,7 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell") as HistoryCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("MyHistoryCell") as MyHistoryCell
 
         let type = StatusTypes(rawValue: indexPath.row % 9)!.statusType
         cell.textLabel!.text = type.name
@@ -47,7 +48,7 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
 //    }
 //    
 //    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell") as HistoryCell
+//        let cell = tableView.dequeueReusableCellWithIdentifier("MyHistoryCell") as MyHistoryCell
 //        
 //        let status = statuses.objectAtRow(indexPath.row) as Status!
 //        cell.textLabel!.text = status.type.name

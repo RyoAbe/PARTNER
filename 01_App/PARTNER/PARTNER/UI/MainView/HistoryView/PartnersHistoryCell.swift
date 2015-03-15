@@ -1,5 +1,5 @@
 //
-//  HistoryCell.swift
+//  PartnersHistoryCell.swift
 //  PARTNER
 //
 //  Created by RyoAbe on 2015/03/07.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HistoryCell: UITableViewCell {
+class PartnersHistoryCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

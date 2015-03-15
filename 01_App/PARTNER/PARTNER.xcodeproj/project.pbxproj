@@ -12,13 +12,11 @@
 		320870901AAEBAAB009CA2DA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3208708F1AAEBAAB009CA2DA /* Logger.swift */; };
 		321058C31AAAF579001EA3D7 /* HistoryViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321058C21AAAF579001EA3D7 /* HistoryViewDataSource.swift */; };
 		321058C51AAAF59F001EA3D7 /* HistoryViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321058C41AAAF59F001EA3D7 /* HistoryViewDelegate.swift */; };
-		321058C71AAAF6F5001EA3D7 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321058C61AAAF6F5001EA3D7 /* HistoryCell.swift */; };
 		3210A3251AAADF870081C0C0 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210A3241AAADF870081C0C0 /* HistoryViewController.swift */; };
 		3213076E1AAF4B0900ED6589 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213076D1AAF4B0900ED6589 /* Status.swift */; };
 		321307701AAF4B1E00ED6589 /* MyStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213076F1AAF4B1E00ED6589 /* MyStatuses.swift */; };
 		321307721AAF4B2D00ED6589 /* PartnersStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321307711AAF4B2D00ED6589 /* PartnersStatuses.swift */; };
 		321307741AAF605C00ED6589 /* Statuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321307731AAF605C00ED6589 /* Statuses.swift */; };
-		321B08261AABF736002BA177 /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 321B08251AABF736002BA177 /* HistoryCell.xib */; };
 		322237951AAAC6260069F0DD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3222378D1AAAC6260069F0DD /* MainViewController.swift */; };
 		322237961AAAC6260069F0DD /* MessageMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3222378F1AAAC6260069F0DD /* MessageMenuCell.swift */; };
 		322237971AAAC6260069F0DD /* MessageMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 322237901AAAC6260069F0DD /* MessageMenuCell.xib */; };
@@ -49,6 +47,12 @@
 		32592FAF1A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */; };
 		32592FB01A2AF918008E7021 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FAA1A2AF918008E7021 /* UIUtil.m */; };
 		327932441A556FCA0030A72F /* GetUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327932431A556FCA0030A72F /* GetUserOperation.swift */; };
+		32D162E21AB52B3500DB48E0 /* MyStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D162E11AB52B3500DB48E0 /* MyStatus.swift */; };
+		32D162E41AB52B4E00DB48E0 /* PartnersStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D162E31AB52B4E00DB48E0 /* PartnersStatus.swift */; };
+		32D162E91AB532AE00DB48E0 /* MyHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D162E51AB532AE00DB48E0 /* MyHistoryCell.swift */; };
+		32D162EA1AB532AE00DB48E0 /* MyHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32D162E61AB532AE00DB48E0 /* MyHistoryCell.xib */; };
+		32D162EB1AB532AE00DB48E0 /* PartnersHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D162E71AB532AE00DB48E0 /* PartnersHistoryCell.swift */; };
+		32D162EC1AB532AE00DB48E0 /* PartnersHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32D162E81AB532AE00DB48E0 /* PartnersHistoryCell.xib */; };
 		32D6C9391A738624001AC7DF /* StatusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D6C9381A738624001AC7DF /* StatusType.swift */; };
 		32E1BE0919BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */; };
 		32F3C9991A55913D0019F3B0 /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F3C9981A55913D0019F3B0 /* BaseOperation.swift */; };
@@ -70,13 +74,11 @@
 		3208708F1AAEBAAB009CA2DA /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		321058C21AAAF579001EA3D7 /* HistoryViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewDataSource.swift; sourceTree = "<group>"; };
 		321058C41AAAF59F001EA3D7 /* HistoryViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewDelegate.swift; sourceTree = "<group>"; };
-		321058C61AAAF6F5001EA3D7 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		3210A3241AAADF870081C0C0 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		3213076D1AAF4B0900ED6589 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		3213076F1AAF4B1E00ED6589 /* MyStatuses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStatuses.swift; sourceTree = "<group>"; };
 		321307711AAF4B2D00ED6589 /* PartnersStatuses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnersStatuses.swift; sourceTree = "<group>"; };
 		321307731AAF605C00ED6589 /* Statuses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statuses.swift; sourceTree = "<group>"; };
-		321B08251AABF736002BA177 /* HistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
 		3222378D1AAAC6260069F0DD /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3222378F1AAAC6260069F0DD /* MessageMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageMenuCell.swift; sourceTree = "<group>"; };
 		322237901AAAC6260069F0DD /* MessageMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageMenuCell.xib; sourceTree = "<group>"; };
@@ -117,6 +119,12 @@
 		32592FA91A2AF918008E7021 /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
 		32592FAA1A2AF918008E7021 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
 		327932431A556FCA0030A72F /* GetUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserOperation.swift; sourceTree = "<group>"; };
+		32D162E11AB52B3500DB48E0 /* MyStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStatus.swift; sourceTree = "<group>"; };
+		32D162E31AB52B4E00DB48E0 /* PartnersStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnersStatus.swift; sourceTree = "<group>"; };
+		32D162E51AB532AE00DB48E0 /* MyHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHistoryCell.swift; sourceTree = "<group>"; };
+		32D162E61AB532AE00DB48E0 /* MyHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyHistoryCell.xib; sourceTree = "<group>"; };
+		32D162E71AB532AE00DB48E0 /* PartnersHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnersHistoryCell.swift; sourceTree = "<group>"; };
+		32D162E81AB532AE00DB48E0 /* PartnersHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PartnersHistoryCell.xib; sourceTree = "<group>"; };
 		32D6C9381A738624001AC7DF /* StatusType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusType.swift; sourceTree = "<group>"; };
 		32E1BE0519BB4E5400EBE7F7 /* PARTNER-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PARTNER-Bridging-Header.h"; sourceTree = "<group>"; };
 		32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateMyProfileOperation.swift; sourceTree = "<group>"; };
@@ -152,8 +160,10 @@
 				3210A3241AAADF870081C0C0 /* HistoryViewController.swift */,
 				321058C21AAAF579001EA3D7 /* HistoryViewDataSource.swift */,
 				321058C41AAAF59F001EA3D7 /* HistoryViewDelegate.swift */,
-				321058C61AAAF6F5001EA3D7 /* HistoryCell.swift */,
-				321B08251AABF736002BA177 /* HistoryCell.xib */,
+				32D162E51AB532AE00DB48E0 /* MyHistoryCell.swift */,
+				32D162E61AB532AE00DB48E0 /* MyHistoryCell.xib */,
+				32D162E71AB532AE00DB48E0 /* PartnersHistoryCell.swift */,
+				32D162E81AB532AE00DB48E0 /* PartnersHistoryCell.xib */,
 			);
 			path = HistoryView;
 			sourceTree = "<group>";
@@ -308,9 +318,11 @@
 				32494D5519FBBF750002EF8A /* MyProfile.swift */,
 				32D6C9381A738624001AC7DF /* StatusType.swift */,
 				3213076D1AAF4B0900ED6589 /* Status.swift */,
+				32D162E11AB52B3500DB48E0 /* MyStatus.swift */,
+				32D162E31AB52B4E00DB48E0 /* PartnersStatus.swift */,
+				321307731AAF605C00ED6589 /* Statuses.swift */,
 				3213076F1AAF4B1E00ED6589 /* MyStatuses.swift */,
 				321307711AAF4B2D00ED6589 /* PartnersStatuses.swift */,
-				321307731AAF605C00ED6589 /* Statuses.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -459,11 +471,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32D162EA1AB532AE00DB48E0 /* MyHistoryCell.xib in Resources */,
 				323009901997374800B4FE5E /* Images.xcassets in Resources */,
+				32D162EC1AB532AE00DB48E0 /* PartnersHistoryCell.xib in Resources */,
 				3222379A1AAAC6260069F0DD /* StatusView.xib in Resources */,
 				322237A61AAAC6550069F0DD /* LicenseCell.xib in Resources */,
 				322237971AAAC6260069F0DD /* MessageMenuCell.xib in Resources */,
-				321B08261AABF736002BA177 /* HistoryCell.xib in Resources */,
 				324FE52A19B4CD7F000AF85E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,7 +533,7 @@
 				322237AD1AAAC6700069F0DD /* QRReaderViewController.swift in Sources */,
 				32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */,
 				322237A71AAAC6550069F0DD /* LicenseViewController.m in Sources */,
-				321058C71AAAF6F5001EA3D7 /* HistoryCell.swift in Sources */,
+				32D162EB1AB532AE00DB48E0 /* PartnersHistoryCell.swift in Sources */,
 				321307721AAF4B2D00ED6589 /* PartnersStatuses.swift in Sources */,
 				32E1BE0919BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift in Sources */,
 				322237A51AAAC6550069F0DD /* LicenseCell.m in Sources */,
@@ -533,6 +546,7 @@
 				32592FAB1A2AF918008E7021 /* BlockActivity.m in Sources */,
 				322A09C61AACBDFF0023CA61 /* NSError+Partner.swift in Sources */,
 				3213076E1AAF4B0900ED6589 /* Status.swift in Sources */,
+				32D162E41AB52B4E00DB48E0 /* PartnersStatus.swift in Sources */,
 				322237961AAAC6260069F0DD /* MessageMenuCell.swift in Sources */,
 				324FE53919B4CFDA000AF85E /* Profile.swift in Sources */,
 				322237AC1AAAC6700069F0DD /* MyQRCodePreviewController.swift in Sources */,
@@ -542,6 +556,7 @@
 				320770951AAD45F800AA76BD /* Extentions+RyoAbe.swift in Sources */,
 				3229B2FF1AA74B2E00312D60 /* UpdatePartnerOperation.swift in Sources */,
 				3210A3251AAADF870081C0C0 /* HistoryViewController.swift in Sources */,
+				32D162E21AB52B3500DB48E0 /* MyStatus.swift in Sources */,
 				322237951AAAC6260069F0DD /* MainViewController.swift in Sources */,
 				320870901AAEBAAB009CA2DA /* Logger.swift in Sources */,
 				32F3C9991A55913D0019F3B0 /* BaseOperation.swift in Sources */,
@@ -552,6 +567,7 @@
 				32592FB01A2AF918008E7021 /* UIUtil.m in Sources */,
 				321307701AAF4B1E00ED6589 /* MyStatuses.swift in Sources */,
 				322237A81AAAC6550069F0DD /* SettingsViewController.swift in Sources */,
+				32D162E91AB532AE00DB48E0 /* MyHistoryCell.swift in Sources */,
 				321058C31AAAF579001EA3D7 /* HistoryViewDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
