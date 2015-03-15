@@ -14,12 +14,17 @@ class Statuses {
     var numberOfSections: NSInteger {
         return 1
     }
+
     var numberOfRows: NSInteger {
         return statuses.count
     }
 
-    init(pfUser: PFUser){
+    init (){
         statuses = []
+    }
+    
+    convenience init(pfUser: PFUser){
+        self.init()
         for pfStatusPointer in pfUser["statuses"] as NSArray {
             let pfStatus = PFQuery.getObjectOfClass("Status", objectId: pfStatusPointer.objectId)
             statuses.append(pfStatus)

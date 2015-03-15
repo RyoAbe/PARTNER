@@ -12,52 +12,29 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
     let statuses: Statuses!
     override init() {
         super.init()
-        // TODO: 外から渡せるように
-//        statuses = MyStatuses()
-        
+        statuses = DummyStatuses()
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MyHistoryCell") as MyHistoryCell
-
-        let type = StatusTypes(rawValue: indexPath.row % 9)!.statusType
-        cell.textLabel!.text = type.name
-        cell.imageView!.image = UIImage(named: type.iconImageName)
-
-        let fmt = NSDateFormatter()
-        fmt.dateFormat = "MM/dd HH:mm";
-        cell.detailTextLabel?.text = fmt.stringFromDate(NSDate())
-
-        return cell
+        return statuses.numberOfSections
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 18
+        return statuses.numberOfRows
     }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let row = indexPath.row
+        let currentStatus = statuses.objectAtRow(row) as Status!
 
-//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return statuses.numberOfSections
-//    }
-//
-//    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return statuses.numberOfRows
-//    }
-//    
-//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("MyHistoryCell") as MyHistoryCell
-//        
-//        let status = statuses.objectAtRow(indexPath.row) as Status!
-//        cell.textLabel!.text = status.type.name
-//        cell.imageView!.image = UIImage(named: status.type.iconImageName)
-//
-//        let fmt = NSDateFormatter()
-//        fmt.dateFormat = "HH:mm"
-//        cell.detailTextLabel?.text = fmt.stringFromDate(status.date)
-//
-//        return cell
-//    }
+        let cell = currentStatus is MyStatus ? tableView.dequeueReusableCellWithIdentifier("MyHistoryCell") as MyHistoryCell
+                                             : tableView.dequeueReusableCellWithIdentifier("PartnersHistoryCell") as PartnersHistoryCell
+        cell.currentStatus = currentStatus
+        cell.prevStatus = row == 0 ? nil : statuses.objectAtRow(row - 1) as Status!
+        cell.nextStatus = row + 1 == statuses.numberOfRows ? nil : statuses.objectAtRow(row + 1) as Status!
+        cell.layoutMargins = UIEdgeInsetsZero
+        cell.preservesSuperviewLayoutMargins = false
+
+        return cell
+    }
 }

@@ -27,7 +27,8 @@ class HistoryViewController: UIViewController {
         tableView.dataSource = historyViewDataSource
         tableView.delegate = historyViewDelegate
 
-        tableView.separatorColor = UIColor.blackColor()
+        tableView.separatorInset = UIEdgeInsetsZero
+        tableView.separatorEffect = UIBlurEffect(style: .Light)
         closeButtonImageView.tintColor = UIColor.blackColor()
     }
 

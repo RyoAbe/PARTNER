@@ -9,7 +9,7 @@
 import Foundation
 
 class MyStatuses: Statuses {
-    init(){
-        super.init(pfUser: PFUser.currentUser())
+    override convenience init(){
+        self.init(pfUser: PFUser.currentUser())
     }
 }

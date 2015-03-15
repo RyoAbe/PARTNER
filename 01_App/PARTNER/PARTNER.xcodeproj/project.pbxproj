@@ -46,13 +46,15 @@
 		32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FA11A2AF918008E7021 /* UIActivity+Blocks.m */; };
 		32592FAF1A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */; };
 		32592FB01A2AF918008E7021 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FAA1A2AF918008E7021 /* UIUtil.m */; };
+		325BFC3A1AB53B900052B725 /* PartnersHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 325BFC391AB53B900052B725 /* PartnersHistoryCell.xib */; };
+		325BFC3C1AB53BBD0052B725 /* HistoryBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325BFC3B1AB53BBD0052B725 /* HistoryBaseCell.swift */; };
+		325BFC3E1AB540140052B725 /* DummyStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325BFC3D1AB540140052B725 /* DummyStatuses.swift */; };
 		327932441A556FCA0030A72F /* GetUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327932431A556FCA0030A72F /* GetUserOperation.swift */; };
 		32D162E21AB52B3500DB48E0 /* MyStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D162E11AB52B3500DB48E0 /* MyStatus.swift */; };
 		32D162E41AB52B4E00DB48E0 /* PartnersStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D162E31AB52B4E00DB48E0 /* PartnersStatus.swift */; };
 		32D162E91AB532AE00DB48E0 /* MyHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D162E51AB532AE00DB48E0 /* MyHistoryCell.swift */; };
 		32D162EA1AB532AE00DB48E0 /* MyHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32D162E61AB532AE00DB48E0 /* MyHistoryCell.xib */; };
 		32D162EB1AB532AE00DB48E0 /* PartnersHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D162E71AB532AE00DB48E0 /* PartnersHistoryCell.swift */; };
-		32D162EC1AB532AE00DB48E0 /* PartnersHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32D162E81AB532AE00DB48E0 /* PartnersHistoryCell.xib */; };
 		32D6C9391A738624001AC7DF /* StatusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D6C9381A738624001AC7DF /* StatusType.swift */; };
 		32E1BE0919BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */; };
 		32F3C9991A55913D0019F3B0 /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F3C9981A55913D0019F3B0 /* BaseOperation.swift */; };
@@ -118,13 +120,15 @@
 		32592FA81A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MRProgressOverlayView+RyoAbe.m"; sourceTree = "<group>"; };
 		32592FA91A2AF918008E7021 /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
 		32592FAA1A2AF918008E7021 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
+		325BFC391AB53B900052B725 /* PartnersHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PartnersHistoryCell.xib; sourceTree = "<group>"; };
+		325BFC3B1AB53BBD0052B725 /* HistoryBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryBaseCell.swift; sourceTree = "<group>"; };
+		325BFC3D1AB540140052B725 /* DummyStatuses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyStatuses.swift; sourceTree = "<group>"; };
 		327932431A556FCA0030A72F /* GetUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserOperation.swift; sourceTree = "<group>"; };
 		32D162E11AB52B3500DB48E0 /* MyStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStatus.swift; sourceTree = "<group>"; };
 		32D162E31AB52B4E00DB48E0 /* PartnersStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnersStatus.swift; sourceTree = "<group>"; };
 		32D162E51AB532AE00DB48E0 /* MyHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHistoryCell.swift; sourceTree = "<group>"; };
 		32D162E61AB532AE00DB48E0 /* MyHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyHistoryCell.xib; sourceTree = "<group>"; };
 		32D162E71AB532AE00DB48E0 /* PartnersHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnersHistoryCell.swift; sourceTree = "<group>"; };
-		32D162E81AB532AE00DB48E0 /* PartnersHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PartnersHistoryCell.xib; sourceTree = "<group>"; };
 		32D6C9381A738624001AC7DF /* StatusType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusType.swift; sourceTree = "<group>"; };
 		32E1BE0519BB4E5400EBE7F7 /* PARTNER-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PARTNER-Bridging-Header.h"; sourceTree = "<group>"; };
 		32E1BE0819BC2FB800EBE7F7 /* UpdateMyProfileOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateMyProfileOperation.swift; sourceTree = "<group>"; };
@@ -163,7 +167,8 @@
 				32D162E51AB532AE00DB48E0 /* MyHistoryCell.swift */,
 				32D162E61AB532AE00DB48E0 /* MyHistoryCell.xib */,
 				32D162E71AB532AE00DB48E0 /* PartnersHistoryCell.swift */,
-				32D162E81AB532AE00DB48E0 /* PartnersHistoryCell.xib */,
+				325BFC391AB53B900052B725 /* PartnersHistoryCell.xib */,
+				325BFC3B1AB53BBD0052B725 /* HistoryBaseCell.swift */,
 			);
 			path = HistoryView;
 			sourceTree = "<group>";
@@ -323,6 +328,7 @@
 				321307731AAF605C00ED6589 /* Statuses.swift */,
 				3213076F1AAF4B1E00ED6589 /* MyStatuses.swift */,
 				321307711AAF4B2D00ED6589 /* PartnersStatuses.swift */,
+				325BFC3D1AB540140052B725 /* DummyStatuses.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -473,7 +479,7 @@
 			files = (
 				32D162EA1AB532AE00DB48E0 /* MyHistoryCell.xib in Resources */,
 				323009901997374800B4FE5E /* Images.xcassets in Resources */,
-				32D162EC1AB532AE00DB48E0 /* PartnersHistoryCell.xib in Resources */,
+				325BFC3A1AB53B900052B725 /* PartnersHistoryCell.xib in Resources */,
 				3222379A1AAAC6260069F0DD /* StatusView.xib in Resources */,
 				322237A61AAAC6550069F0DD /* LicenseCell.xib in Resources */,
 				322237971AAAC6260069F0DD /* MessageMenuCell.xib in Resources */,
@@ -530,6 +536,7 @@
 			files = (
 				32494D5619FBBF750002EF8A /* MyProfile.swift in Sources */,
 				322237991AAAC6260069F0DD /* StatusView.swift in Sources */,
+				325BFC3E1AB540140052B725 /* DummyStatuses.swift in Sources */,
 				322237AD1AAAC6700069F0DD /* QRReaderViewController.swift in Sources */,
 				32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */,
 				322237A71AAAC6550069F0DD /* LicenseViewController.m in Sources */,
@@ -564,6 +571,7 @@
 				32F3C99B1A55923F0019F3B0 /* AddPartnerOperation.swift in Sources */,
 				327932441A556FCA0030A72F /* GetUserOperation.swift in Sources */,
 				323009861997374800B4FE5E /* AppDelegate.swift in Sources */,
+				325BFC3C1AB53BBD0052B725 /* HistoryBaseCell.swift in Sources */,
 				32592FB01A2AF918008E7021 /* UIUtil.m in Sources */,
 				321307701AAF4B1E00ED6589 /* MyStatuses.swift in Sources */,
 				322237A81AAAC6550069F0DD /* SettingsViewController.swift in Sources */,
