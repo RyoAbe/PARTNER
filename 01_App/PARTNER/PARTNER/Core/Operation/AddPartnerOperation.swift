@@ -85,7 +85,11 @@ class AddPartnerOperation: BaseOperation {
             myProfile.hasPartner = true
             myProfile.save()
         })
-        return self.notify()
+
+        if (candidatePartner["hasPartner"] as Bool) == true {
+            return .Success(nil)
+        }
+        return notify()
     }
     
     func notify() -> BaseOperationResult {
@@ -94,7 +98,6 @@ class AddPartnerOperation: BaseOperation {
         let userQuery = PFUser.query().whereKey("objectId", equalTo: candidatePartner.objectId)
         // ???: ponter使えばいいかも
         let pushQuery = PFInstallation.query().whereKey("user", matchesQuery:userQuery)
-
         let push = PFPush()
         push.setQuery(pushQuery)
         push.setData(
@@ -102,7 +105,6 @@ class AddPartnerOperation: BaseOperation {
              "objectId"         : pfMyProfile.objectId,
              "notificationType" : "AddedPartner" ]
         )
-
         var error: NSError?
         push.sendPush(&error)
         if error != nil {

@@ -70,10 +70,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 break
 
             case "Status":
-                let partner = Partner.read()
-                partner.statusType = StatusTypes(rawValue: userInfo["type"] as NSInteger)!.statusType
-                partner.statusDate = NSDate(timeIntervalSince1970:(userInfo["date"] as NSString).doubleValue)
-                partner.save()
+                if MyProfile.read().hasPartner {
+                    dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
+                }
                 break
 
             default:
