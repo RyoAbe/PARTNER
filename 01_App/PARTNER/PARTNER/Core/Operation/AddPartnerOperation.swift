@@ -9,6 +9,7 @@
 import UIKit
 
 // ???: ロールバックの仕組みを作りたい
+// TODO: パートナーが変わったらStatuesを削除
 class AddPartnerOperation: BaseOperation {
 
     var candidatePartner: PFUser!

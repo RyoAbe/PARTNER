@@ -156,7 +156,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         #if DEBUG
         if MyProfile.read().isAuthenticated && UIUtil.isSimulator() {
             if !MyProfile.read().hasPartner {
-                let op = AddPartnerOperation(candidatePartnerId:"XEMneE0Vks")
+                let op = AddPartnerOperation(candidatePartnerId:"GBibZFJ4LW")
                 op.completionBlock = {
                     self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
                 }

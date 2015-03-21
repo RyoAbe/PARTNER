@@ -15,6 +15,18 @@ class UpdatePartnerOperation: BaseOperation {
             var error: NSError?
             if let pfParter = PFUser.query().getObjectWithId(partnerId, error: &error) {
                 let profileImageData = (pfParter["profileImage"] as PFFile).getData()
+
+                var statuses: Array<Status> = []
+                for pointer in pfParter["statuses"] as NSArray {
+                    let pfStatus = PFQuery.getObjectOfClass("Status", objectId: pointer.objectId)
+                    let types = pfStatus["type"] as? NSInteger
+                    let date = pfStatus["date"] as? NSDate
+                    if types != nil && date != nil {
+                        let status = PartnersStatus(types: StatusTypes(rawValue: types!)!, date: date!)
+                        statuses.append(status)
+                    }
+                }
+
                 self.dispatchAsyncMainThread({
                     // ???: なくていいかも
                     let partner = Partner.read()
@@ -28,9 +40,8 @@ class UpdatePartnerOperation: BaseOperation {
                     }
                     let types = pfParter["statusType"] as? NSInteger
                     let date = pfParter["statusDate"] as? NSDate
-                    if types != nil && date != nil {
-                        let t = StatusTypes(rawValue: types!)
-                        let status = PartnersStatus(types: t!, date: date!)
+
+                    for status in statuses {
                         partner.statuses.append(status)
                     }
                     partner.save()
