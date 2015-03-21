@@ -47,6 +47,7 @@ class SendMyStatusOperation: BaseOperation {
                     let myProfile = MyProfile.read()
                     myProfile.statusType = status.types.statusType
                     myProfile.statusDate = status.date
+                    // TODO: MAXを決めたほうがいいと思う
                     myProfile.statuses.append(status)
                     myProfile.save()
                 })
