@@ -9,8 +9,8 @@
 import Foundation
 
 class PartnersStatuses: Statuses {
-    override convenience init(){
-        let partner = PFUser.currentUser()["Partner"] as PFUser
-        self.init(pfUser: partner)
+    override init(){
+        super.init()
+        statuses = Partner.read().statuses
     }
 }

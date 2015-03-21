@@ -9,7 +9,8 @@
 import Foundation
 
 class MyStatuses: Statuses {
-    override convenience init(){
-        self.init(pfUser: PFUser.currentUser())
+    override init(){
+        super.init()
+        statuses = MyProfile.read().statuses
     }
 }

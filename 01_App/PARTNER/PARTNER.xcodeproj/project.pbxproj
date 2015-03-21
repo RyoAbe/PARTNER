@@ -164,11 +164,11 @@
 				3210A3241AAADF870081C0C0 /* HistoryViewController.swift */,
 				321058C21AAAF579001EA3D7 /* HistoryViewDataSource.swift */,
 				321058C41AAAF59F001EA3D7 /* HistoryViewDelegate.swift */,
+				325BFC3B1AB53BBD0052B725 /* HistoryBaseCell.swift */,
 				32D162E51AB532AE00DB48E0 /* MyHistoryCell.swift */,
 				32D162E61AB532AE00DB48E0 /* MyHistoryCell.xib */,
 				32D162E71AB532AE00DB48E0 /* PartnersHistoryCell.swift */,
 				325BFC391AB53B900052B725 /* PartnersHistoryCell.xib */,
-				325BFC3B1AB53BBD0052B725 /* HistoryBaseCell.swift */,
 			);
 			path = HistoryView;
 			sourceTree = "<group>";

@@ -25,7 +25,7 @@ class SendMyStatusOperation: BaseOperation {
             if let pfMyProfile = PFUser.currentUser() {
                 assert(pfMyProfile.isAuthenticated() && pfMyProfile["hasPartner"] as Bool, "ログイン出来てないし、パートナーもいない")
 
-                let status = Status(types: statusTypes, date: NSDate())
+                let status = MyStatus(types: statusTypes, date: NSDate())
 
                 let pfStatus = PFObject(className: "Status")
                 pfStatus.setObject(NSNumber(integer: status.types.rawValue), forKey: "type")
@@ -47,8 +47,7 @@ class SendMyStatusOperation: BaseOperation {
                     let myProfile = MyProfile.read()
                     myProfile.statusType = status.types.statusType
                     myProfile.statusDate = status.date
-//                    myProfile.statuses!.addObject(status)
-//                    myProfile.statuses = [status]
+                    myProfile.statuses.append(status)
                     myProfile.save()
                 })
                 let data = ["alert"           : "\(pfMyProfile.username):「\(status.types.statusType.name)」",

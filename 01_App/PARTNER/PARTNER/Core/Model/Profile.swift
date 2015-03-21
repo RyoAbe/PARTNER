@@ -17,9 +17,10 @@ class Profile: NSObject, NSCoding{
     // ???: nameとisAuthenticatedはPFUserから持ってくれば良い。またisAuthenticatedはMyProgileのみが持てば良い
     dynamic var isAuthenticated: Bool
     dynamic var hasPartner: Bool
+    // ???: いらなくなる
     dynamic var statusType: StatusType?
     dynamic var statusDate: NSDate?
-    dynamic var statuses: NSArray?
+    dynamic var statuses: Array<Status>
 
     class var key : NSString {
         assert(false, "overrideして下さい")
@@ -31,7 +32,7 @@ class Profile: NSObject, NSCoding{
         return Profile()
     }
 
-    init(id: NSString?, name: NSString?, image: UIImage?, isAuthenticated: Bool, hasPartner: Bool, statusType: StatusType?, statusDate: NSDate?, statuses: NSArray?) {
+    init(id: NSString?, name: NSString?, image: UIImage?, isAuthenticated: Bool, hasPartner: Bool, statusType: StatusType?, statusDate: NSDate?, statuses: Array<Status>) {
         self.id = id
         self.name = name
         self.image = image
@@ -43,7 +44,7 @@ class Profile: NSObject, NSCoding{
     }
 
     convenience override init(){
-        self.init(id: nil, name: nil, image: nil, isAuthenticated: false, hasPartner: false, statusType: nil, statusDate: nil, statuses: nil)
+        self.init(id: nil, name: nil, image: nil, isAuthenticated: false, hasPartner: false, statusType: nil, statusDate: nil, statuses: [])
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -54,7 +55,7 @@ class Profile: NSObject, NSCoding{
         hasPartner = aDecoder.decodeObjectForKey("hasPartner") as Bool
         statusType = aDecoder.decodeObjectForKey("statusType") as StatusType?
         statusDate = aDecoder.decodeObjectForKey("statusDate") as NSDate?
-        statuses = aDecoder.decodeObjectForKey("statuses") as NSArray?
+        statuses = aDecoder.decodeObjectForKey("statuses") as Array<Status>
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
@@ -109,9 +110,8 @@ class Profile: NSObject, NSCoding{
         if unarchivedProfile.statusDate != nil {
             instance.statusDate = unarchivedProfile.statusDate
         }
-        if unarchivedProfile.statuses != nil {
-            instance.statuses = unarchivedProfile.statuses
-        }
+        instance.statuses = unarchivedProfile.statuses
+
         return instance
     }
 

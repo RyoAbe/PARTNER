@@ -9,8 +9,8 @@
 import UIKit
 
 class UpdatePartnerOperation: BaseOperation {
-    convenience init(partnerId: NSString) {
-        self.init()
+    init(partnerId: NSString) {
+        super.init()
         self.executeSerialBlock = {
             var error: NSError?
             if let pfParter = PFUser.query().getObjectWithId(partnerId, error: &error) {
@@ -25,6 +25,13 @@ class UpdatePartnerOperation: BaseOperation {
                     }
                     if let date = pfParter["statusDate"] as? NSDate {
                         partner.statusDate = date
+                    }
+                    let types = pfParter["statusType"] as? NSInteger
+                    let date = pfParter["statusDate"] as? NSDate
+                    if types != nil && date != nil {
+                        let t = StatusTypes(rawValue: types!)
+                        let status = PartnersStatus(types: t!, date: date!)
+                        partner.statuses.append(status)
                     }
                     partner.save()
                 })

@@ -21,7 +21,8 @@ class DummyStatuses: Statuses {
         for i in 0...100 {
             let date = NSDate()
             let type = Int(arc4random_uniform(9))
-            let status = arc4random_uniform(2) == 0 ? MyStatus(types: StatusTypes(rawValue: type)!, date: date) : PartnersStatus(types: StatusTypes(rawValue: type)!, date: date)
+            let status = arc4random_uniform(2) == 0 ? MyStatus(types: StatusTypes(rawValue: type)!, date: date)
+                                                    : PartnersStatus(types: StatusTypes(rawValue: type)!, date: date)
             dummyStatuses.append(status)
         }
     }

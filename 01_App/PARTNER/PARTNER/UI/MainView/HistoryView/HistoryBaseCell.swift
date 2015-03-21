@@ -43,13 +43,13 @@ class HistoryBaseCell: UITableViewCell {
         }
     }
 
-    var iconDiameter: CGFloat { return 30 }
-    var iconRadius: CGFloat { return iconDiameter * 0.5 }
-    var lineWidth: CGFloat { return 2.0 / UIScreen.mainScreen().scale }
-    var lineColor: UIColor { return UIColor.blackColor() }
-    var iconMargin: CGFloat { return 10 }
-    var marginPointX: CGFloat { return 20 }
-    var marginPointY: CGFloat { return 18 }
+    var iconDiameter : CGFloat { return 30 }
+    var iconRadius   : CGFloat { return iconDiameter * 0.5 }
+    var lineWidth    : CGFloat { return 1 / UIScreen.mainScreen().scale }
+    var lineColor    : UIColor { return UIColor.blackColor() }
+    var iconMargin   : CGFloat { return 10 }
+    var marginPointX : CGFloat { return 20 }
+    var marginPointY : CGFloat { return 18 }
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -111,7 +111,7 @@ class HistoryBaseCell: UITableViewCell {
         var startPoint = CGPointMake(imageView!.center.x, startPointY)
         let endPoint = CGPointMake(endPointX, frame.size.height)
 
-        if !isSameState{
+        if !isSameState {
             if currentStatus is MyStatus {
                 startPoint = CGPointMake(startPoint.x + marginPointX, startPoint.y + marginPointY)
             } else if currentStatus is PartnersStatus {

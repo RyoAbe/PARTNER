@@ -154,8 +154,16 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
     @IBAction func didSelectParterStatusView(sender: AnyObject) {
         #if DEBUG
-        if MyProfile.read().isAuthenticated && UIUtil.isSimulator() && !MyProfile.read().hasPartner {
-            dispatchAsyncOperation(AddPartnerOperation(candidatePartnerId:"XEMneE0Vks"))
+        if MyProfile.read().isAuthenticated && UIUtil.isSimulator() {
+            if !MyProfile.read().hasPartner {
+                let op = AddPartnerOperation(candidatePartnerId:"XEMneE0Vks")
+                op.completionBlock = {
+                    self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
+                }
+                dispatchAsyncOperation(op)
+                return
+            }
+            dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
             return
         }
         #endif
