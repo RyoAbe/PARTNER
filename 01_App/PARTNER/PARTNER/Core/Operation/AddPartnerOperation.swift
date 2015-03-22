@@ -44,26 +44,16 @@ class AddPartnerOperation: BaseOperation {
         var error: NSError?
         let pfMyProfile = PFUser.currentMyProfile()
 
-        /* TODO: 保留
-        let myPartnerRelation = pfMyProfile.relationForKey("partner")
-        myPartnerRelation.addObject(self.candidatePartner)
-        */
-//        pfMyProfile.partner = self.candidatePartner.pfUser
+        pfMyProfile.partner = self.candidatePartner.pfUser
         pfMyProfile.hasPartner = true
         pfMyProfile.save(&error)
         if error != nil {
             return .Failure(error)
         }
-        
-        
-        /* TODO: 保留
-        *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'User cannot be saved unless they have been authenticated via logIn or signUp'
-        let partnersPartnerRelation = self.candidatePartner.relationForKey("partner")
-        partnersPartnerRelation.addObject(pfMyProfile)
-        self.candidatePartner["hasPartner"] = true
-        */
+
+        // TODO: 仕様で出来ないらしい
 //        self.candidatePartner.partner = pfMyProfile.pfUser
-        self.candidatePartner.save(&error)
+//        self.candidatePartner.save(&error)
         if error != nil {
             return .Failure(error)
         }

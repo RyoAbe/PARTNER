@@ -65,9 +65,18 @@ class LoginToFBOperation: BaseOperation {
         pfMyProfile!.fbId = fbId
         pfMyProfile!.profileImage = profileImageFile
         pfMyProfile!.hasPartner = false
-        pfMyProfile!.save(&error)
-        
 
+        // TODO: ACLは仕様により変更出来ない模様
+        // https://www.parse.com/questions/cant-update-user-acl-on-the-dashboard-cloud-code-w-master-key
+//        let acl = PFACL()
+//        acl.setPublicWriteAccess(true)
+//        acl.setPublicReadAccess(true)
+//        pfMyProfile!.pfUser.ACL = acl
+
+
+        pfMyProfile!.save(&error)
+
+        // TODO: errorログはすべて出るようにしておきたい
         if error != nil {
             finish(NSError.code(.NetworkOffline))
             return

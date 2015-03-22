@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: Analytics入れる（tracker）
 class MainViewController: UIViewController, UICollectionViewDelegate {
 
     enum Menus : Int {
@@ -32,7 +33,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         partnersStatusView.statusViewType = .PartnersStatus
         myStatusView.profile = myProfile
         myStatusView.statusViewType = .MyStatus
-        
+
         if showSignInFacebookAlertIfNeeded() {
             return
         }
@@ -44,12 +45,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         }
 
         let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-
-        // TODO: キャンセルしたら画面上のどこかで改めて Sign in 出来るようにする（そもそもログイン画面を作る？）
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { alertAction in
             self.dispatchAsyncOperation(LoginToFBOperation())
         }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
         return true
     }

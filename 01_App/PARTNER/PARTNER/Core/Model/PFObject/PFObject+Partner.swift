@@ -83,8 +83,7 @@ class PFProfile: PFObjectBase {
             return pfUser["partner"] as PFUser
         }
         set {
-//            pfUser["partner"] = newValue
-            pfUser.setObject(newValue, forKey: "partner")
+            pfUser["partner"] = newValue
         }
     }
     var statuses: Array<PFStatus>? {
