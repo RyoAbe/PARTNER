@@ -9,46 +9,29 @@
 import UIKit
 
 class UpdateMyProfileOperation: BaseOperation {
+    var pfMyProfile: PFMyProfile!
+    var needAddPartner = false
     override init() {
         super.init()
         let myProfile = MyProfile.read()
         assert(myProfile.isAuthenticated, "ログインしていない")
+
         self.executeAsyncBlock = {
             var error: NSError?
-            if let pfMyProfile = PFUser.currentUser() {
-                self.updateMyProfile(pfMyProfile)
-                self.addPartnerIfEixst(pfMyProfile)
-                return
-            }
-            self.finish(error == nil ? NSError.code(.NotFoundUser) : error)
+            self.pfMyProfile = PFUser.currentMyProfile()
+            self.updateMyProfile()
         }
     }
-    
-    func updateMyProfile(pfMyProfile: PFUser) {
-        let profileImageData = (pfMyProfile["profileImage"] as PFFile).getData()
+
+    func updateMyProfile() {
+        let profileImageData = self.pfMyProfile.profileImage.getData()
         self.dispatchAsyncMainThread({
             let myProfile = MyProfile.read()
-            myProfile.id = pfMyProfile.objectId
+            myProfile.id = self.pfMyProfile.objectId
             myProfile.image = UIImage(data: profileImageData)!
-            myProfile.name = pfMyProfile.username
-            myProfile.hasPartner = pfMyProfile["hasPartner"] as Bool
+            myProfile.name = self.pfMyProfile.username
+            myProfile.hasPartner = self.pfMyProfile.hasPartner
             myProfile.save()
         })
-    }
-    
-    func addPartnerIfEixst(pfMyProfile: PFUser) {
-        if let hasPartner = pfMyProfile["hasPartner"] as? PFUser {
-            self.finish()
-            return
-        }
-        if let pfPartner = pfMyProfile["partner"] as? PFUser {
-            let op = AddPartnerOperation(candidatePartner: pfPartner)
-            op.completionBlock = {
-                let r: AnyObject? = op.error != nil ? op.error : op.result
-                self.finish(r)
-            }
-            return
-        }
-        self.finish()
     }
 }

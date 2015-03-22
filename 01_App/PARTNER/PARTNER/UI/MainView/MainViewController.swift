@@ -156,11 +156,14 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         #if DEBUG
         if MyProfile.read().isAuthenticated && UIUtil.isSimulator() {
             if !MyProfile.read().hasPartner {
-                let op = AddPartnerOperation(candidatePartnerId:"GBibZFJ4LW")
-                op.completionBlock = {
-                    self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
+                let userQuery = PFUser.query().whereKey("username", equalTo: "Ryo Abe")
+                if let user = userQuery.getFirstObject() as? PFUser {
+                    let op = AddPartnerOperation(candidatePartnerId:user.objectId)
+                    op.completionBlock = {
+                        self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
+                    }
+                    dispatchAsyncOperation(op)
                 }
-                dispatchAsyncOperation(op)
                 return
             }
             dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))

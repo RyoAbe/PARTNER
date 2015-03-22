@@ -145,7 +145,6 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         }
     }
 
-    // ???: PFUser拡張したほうがいいわ
     func verifyPartnersId(id: NSString) -> Bool {
         
         let op = GetUserOperation(userId: id)

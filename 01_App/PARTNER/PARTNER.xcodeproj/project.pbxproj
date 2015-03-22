@@ -42,6 +42,7 @@
 		325BFC3A1AB53B900052B725 /* PartnersHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 325BFC391AB53B900052B725 /* PartnersHistoryCell.xib */; };
 		325BFC3C1AB53BBD0052B725 /* HistoryBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325BFC3B1AB53BBD0052B725 /* HistoryBaseCell.swift */; };
 		327932441A556FCA0030A72F /* GetUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327932431A556FCA0030A72F /* GetUserOperation.swift */; };
+		32C82CD31ABDA56500B6CCA7 /* PFObject+Partner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C82CD21ABDA56500B6CCA7 /* PFObject+Partner.swift */; };
 		32D162E91AB532AE00DB48E0 /* MyHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D162E51AB532AE00DB48E0 /* MyHistoryCell.swift */; };
 		32D162EA1AB532AE00DB48E0 /* MyHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32D162E61AB532AE00DB48E0 /* MyHistoryCell.xib */; };
 		32D162EB1AB532AE00DB48E0 /* PartnersHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D162E71AB532AE00DB48E0 /* PartnersHistoryCell.swift */; };
@@ -116,6 +117,7 @@
 		325BFC391AB53B900052B725 /* PartnersHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PartnersHistoryCell.xib; sourceTree = "<group>"; };
 		325BFC3B1AB53BBD0052B725 /* HistoryBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryBaseCell.swift; sourceTree = "<group>"; };
 		327932431A556FCA0030A72F /* GetUserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserOperation.swift; sourceTree = "<group>"; };
+		32C82CD21ABDA56500B6CCA7 /* PFObject+Partner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PFObject+Partner.swift"; sourceTree = "<group>"; };
 		32D162E51AB532AE00DB48E0 /* MyHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHistoryCell.swift; sourceTree = "<group>"; };
 		32D162E61AB532AE00DB48E0 /* MyHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyHistoryCell.xib; sourceTree = "<group>"; };
 		32D162E71AB532AE00DB48E0 /* PartnersHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnersHistoryCell.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 		324FE53719B4CFBB000AF85E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				32C82CD11ABDA52B00B6CCA7 /* PFObject */,
 				32F6045D1ABD74300097BB9A /* Profile */,
 				32F604611ABD74300097BB9A /* Status */,
 				32F604661ABD74300097BB9A /* Statuses */,
@@ -348,6 +351,14 @@
 				32592FA11A2AF918008E7021 /* UIActivity+Blocks.m */,
 			);
 			path = BlockActivity;
+			sourceTree = "<group>";
+		};
+		32C82CD11ABDA52B00B6CCA7 /* PFObject */ = {
+			isa = PBXGroup;
+			children = (
+				32C82CD21ABDA56500B6CCA7 /* PFObject+Partner.swift */,
+			);
+			path = PFObject;
 			sourceTree = "<group>";
 		};
 		32E1BE0719BC2F7F00EBE7F7 /* Operation */ = {
@@ -581,6 +592,7 @@
 				322237961AAAC6260069F0DD /* MessageMenuCell.swift in Sources */,
 				322237AC1AAAC6700069F0DD /* MyQRCodePreviewController.swift in Sources */,
 				3229B2FD1AA7276200312D60 /* SendMyStatusOperation.swift in Sources */,
+				32C82CD31ABDA56500B6CCA7 /* PFObject+Partner.swift in Sources */,
 				32F604791ABD74B80097BB9A /* Statuses.swift in Sources */,
 				32F604721ABD74300097BB9A /* DummyStatuses.swift in Sources */,
 				323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */,

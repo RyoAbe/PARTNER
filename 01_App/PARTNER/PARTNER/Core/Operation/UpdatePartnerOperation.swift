@@ -12,43 +12,32 @@ class UpdatePartnerOperation: BaseOperation {
     init(partnerId: NSString) {
         super.init()
         self.executeSerialBlock = {
-            var error: NSError?
-            if let pfParter = PFUser.query().getObjectWithId(partnerId, error: &error) {
-                let profileImageData = (pfParter["profileImage"] as PFFile).getData()
+            let pfParter = PFUser.currentPartner(partnerId)
 
-                var statuses: Array<Status> = []
-                for pointer in pfParter["statuses"] as NSArray {
-                    let pfStatus = PFQuery.getObjectOfClass("Status", objectId: pointer.objectId)
-                    let types = pfStatus["type"] as? NSInteger
-                    let date = pfStatus["date"] as? NSDate
-                    if types != nil && date != nil {
-                        let status = PartnersStatus(types: StatusTypes(rawValue: types!)!, date: date!)
-                        statuses.append(status)
-                    }
-                }
+            // ???: なくていいかも
+            let profileImageData = pfParter.profileImage.getData()
+            let pfStatuses = pfParter.statuses
 
-                self.dispatchAsyncMainThread({
-                    // ???: なくていいかも
-                    let partner = Partner.read()
-                    partner.name = pfParter["username"] as NSString
-                    partner.image = UIImage(data: profileImageData)
-                    if let type = pfParter["statusType"] as? NSInteger {
-                        partner.statusType = StatusTypes(rawValue: type)!.statusType
-                    }
-                    if let date = pfParter["statusDate"] as? NSDate {
-                        partner.statusDate = date
-                    }
-                    let types = pfParter["statusType"] as? NSInteger
-                    let date = pfParter["statusDate"] as? NSDate
+            self.dispatchAsyncMainThread({
+                let partner = Partner.read()
+                partner.name = pfParter.username
+                partner.image = UIImage(data: profileImageData)
 
-                    for status in statuses {
+                if let pfStatuses = pfStatuses {
+                    let pfStatus = pfStatuses[0]
+                    let status = PartnersStatus(types: pfStatus.types, date: pfStatus.date)
+                    partner.statusDate = status.date
+                    partner.statusType = status.types.statusType
+                    
+                    for pfStatus in pfStatuses {
+                        let status = PartnersStatus(types: pfStatus.types, date: pfStatus.date)
                         partner.statuses.append(status)
                     }
-                    partner.save()
-                })
-                return .Success(nil)
-            }
-            return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
+                }
+                partner.save()
+            })
+            return .Success(nil)
+
         }
     }
 }

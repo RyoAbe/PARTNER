@@ -10,39 +10,34 @@ import UIKit
 
 class LoginToFBOperation: BaseOperation {
 
+    var pfMyProfile: PFMyProfile?
     override init() {
         super.init()
+        assert(!MyProfile.read().isAuthenticated, "既にログイン済み")
+
         self.executeAsyncBlock = {
-//            assert(!MyProfile.read().isAuthenticated, "既にログイン済み")
             PFFacebookUtils.logInWithPermissions(["public_profile"], {pfMyProfile , error in
-                self.dispatchAsyncMultiThread({ self.loginCompletion(pfMyProfile, error: error) })
+                if error != nil {
+                    self.finish(error)
+                    return
+                }
+                self.pfMyProfile = PFMyProfile(user: pfMyProfile)
+                self.dispatchAsyncMainThread({ self.startForMe() })
             })
         }
     }
-    
-    private func loginCompletion(pfMyProfile: PFUser?, error: NSError?) {
-        if error != nil {
-            self.finish(error)
-            return
-        }
-        if let myProfile = pfMyProfile {
-            self.dispatchAsyncMainThread({ self.startForMe(myProfile) })
-            return
-        }
-        self.finish(NSError.code(.NotFoundUser))
-    }
 
-    private func startForMe(pfMyProfile: PFUser) {
+    private func startForMe() {
         FBRequestConnection.startForMeWithCompletionHandler({connection, result, error in
             if error != nil {
                 self.finish(NSError.code(.NetworkOffline))
                 return
             }
-            self.dispatchAsyncMultiThread({ self.startForMeWithCompletion(pfMyProfile, fbObject: result as? FBGraphObject, error: error) })
+            self.dispatchAsyncMultiThread({ self.startForMeWithCompletion(result as? FBGraphObject, error: error) })
         })
     }
 
-    private func startForMeWithCompletion(pfMyProfile: PFUser, fbObject: FBGraphObject?, error: NSError?) {
+    private func startForMeWithCompletion(fbObject: FBGraphObject?, error: NSError?) {
         if error != nil {
             finish(NSError.code(.NetworkOffline))
             return
@@ -66,11 +61,12 @@ class LoginToFBOperation: BaseOperation {
             return
         }
 
-        pfMyProfile.username = username
-        pfMyProfile["fbId"] = fbId
-        pfMyProfile["profileImage"] = profileImageFile
-        pfMyProfile["hasPartner"] = false
-        pfMyProfile.save(&error)
+        pfMyProfile!.username = username
+        pfMyProfile!.fbId = fbId
+        pfMyProfile!.profileImage = profileImageFile
+        pfMyProfile!.hasPartner = false
+        pfMyProfile!.save(&error)
+        
 
         if error != nil {
             finish(NSError.code(.NetworkOffline))
@@ -80,12 +76,23 @@ class LoginToFBOperation: BaseOperation {
         let profileImageData = profileImageFile.getData()
         self.dispatchAsyncMainThread({
             let myProfile = MyProfile.read()
-            myProfile.id = pfMyProfile.objectId
+            myProfile.id = self.pfMyProfile!.objectId
             myProfile.image = UIImage(data: profileImageData)!
             myProfile.name = username
             myProfile.isAuthenticated = true
             myProfile.save()
         })
-        self.finish()
+        self.addPartnerIfEixst()
+    }
+    func addPartnerIfEixst() {
+        if !pfMyProfile!.hasPartner {
+            self.finish()
+            return
+        }
+        let op = AddPartnerOperation(candidatePartner: pfMyProfile!.partner)
+        op.completionBlock = {
+            let r: AnyObject? = op.error != nil ? op.error : op.result
+            self.finish(r)
+        }
     }
 }

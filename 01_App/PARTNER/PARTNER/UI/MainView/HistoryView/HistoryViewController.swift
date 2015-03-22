@@ -31,6 +31,13 @@ class HistoryViewController: UIViewController {
         closeButtonImageView.tintColor = UIColor.blackColor()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let p = CGPointMake(0, tableView.contentSize.height - tableView.frame.height)
+        tableView.setContentOffset(p, animated: true)
+    }
+
     @IBAction func didTapCloseButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }

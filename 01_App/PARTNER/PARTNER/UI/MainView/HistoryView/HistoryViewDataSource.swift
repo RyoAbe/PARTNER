@@ -14,7 +14,7 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
         super.init()
         margedStatuses = Statuses()
         var statuses = MyProfile.read().statuses + Partner.read().statuses
-        statuses.sort{ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending }
+        statuses.sort{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending }
         margedStatuses.statuses = statuses
     }
 

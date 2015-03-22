@@ -22,47 +22,43 @@ class SendMyStatusOperation: BaseOperation {
 
             var error: NSError?
             // ???: myProfileはcurrentUserから持ってくればいいのでは
-            if let pfMyProfile = PFUser.currentUser() {
-                assert(pfMyProfile.isAuthenticated() && pfMyProfile["hasPartner"] as Bool, "ログイン出来てないし、パートナーもいない")
+            let pfMyProfile = PFUser.currentMyProfile()
+            assert(pfMyProfile.isAuthenticated && pfMyProfile.hasPartner, "ログイン出来てないし、パートナーもいない")
+            
+            let status = MyStatus(types: statusTypes, date: NSDate())
 
-                let status = MyStatus(types: statusTypes, date: NSDate())
-
-                let pfStatus = PFObject(className: "Status")
-                pfStatus.setObject(NSNumber(integer: status.types.rawValue), forKey: "type")
-                pfStatus.setObject(status.date, forKey: "date")
-                pfStatus.save(&error)
-                if error != nil {
-                    return .Failure(error)
-                }
-
-                pfMyProfile.addObjectsFromArray([pfStatus], forKey: "statuses")
-                pfMyProfile["statusType"] = status.types.rawValue
-                pfMyProfile["statusDate"] = status.date
-                pfMyProfile.save(&error)
-                if error != nil {
-                    return .Failure(error)
-                }
-
-                self.dispatchAsyncMainThread({
-                    let myProfile = MyProfile.read()
-                    myProfile.statusType = status.types.statusType
-                    myProfile.statusDate = status.date
-                    // TODO: MAXを決めたほうがいいと思う
-                    myProfile.statuses.append(status)
-                    myProfile.save()
-                })
-                let data = ["alert"           : "\(pfMyProfile.username):「\(status.types.statusType.name)」",
-                            "notificationType": "Status",
-                            "type"            : status.types.rawValue,
-                            "date"            : "\(status.date.timeIntervalSince1970)"]
-                return self.notify(data)
+            let pfStatus = PFStatus()
+            pfStatus.types = status.types
+            pfStatus.date = status.date
+            pfStatus.save(&error)
+            if error != nil {
+                return .Failure(error)
             }
-            return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
+
+            pfMyProfile.statuses = [pfStatus]
+            pfMyProfile.save(&error)
+            if error != nil {
+                return .Failure(error)
+            }
+            
+            self.dispatchAsyncMainThread({
+                let myProfile = MyProfile.read()
+                myProfile.statusType = status.types.statusType
+                myProfile.statusDate = status.date
+                // TODO: MAXを決めたほうがいいと思う
+                myProfile.statuses.append(status)
+                myProfile.save()
+            })
+            let data = ["alert"           : "\(pfMyProfile.username):「\(status.types.statusType.name)」",
+                        "notificationType": "Status",
+                        "type"            : status.types.rawValue,
+                        "date"            : "\(status.date.timeIntervalSince1970)"]
+            return self.notify(data)
+
         }
     }
 
     func notify(data: [NSObject : AnyObject]!) -> BaseOperationResult {
-
         let userQuery = PFUser.query().whereKey("objectId", equalTo: partnerId)
         let pushQuery = PFInstallation.query().whereKey("user", matchesQuery:userQuery)
         let push = PFPush()
