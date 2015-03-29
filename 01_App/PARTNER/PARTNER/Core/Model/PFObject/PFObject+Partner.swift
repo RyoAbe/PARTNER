@@ -90,15 +90,15 @@ class PFProfile: PFObjectBase {
         get {
             if let statusPointer = pfUser["statuses"] as? NSArray {
                 var statuses: Array<PFStatus> = []
-                for pointer in pfUser["statuses"] as NSArray {
-                    statuses.append(PFStatus(statusId: pointer.objectId))
+                for statusPointer in statusPointer {
+                    statuses.append(PFStatus(statusId: statusPointer.objectId))
                 }
                 return statuses
             }
             return nil
         }
         set {
-            pfUser.addObjectsFromArray(newValue!.map{ $0.pfStatus }, forKey: "statuses")
+            pfUser.addObjectsFromArray(newValue!.map{ $0.pfObject }, forKey: "statuses")
         }
     }
     var isAuthenticated: Bool {
@@ -121,24 +121,21 @@ class PFStatus: PFObjectBase {
     init(statusId: String) {
         super.init(className: "Status", objectId: statusId)
     }
-    var pfStatus: PFObject {
-        return pfObject
-    }
     var types: StatusTypes {
         get {
-            let types = pfStatus["type"] as NSInteger
+            let types = pfObject["type"] as NSInteger
             return StatusTypes(rawValue: types)!
         }
         set {
-            pfStatus.setObject(NSNumber(integer: newValue.rawValue), forKey: "type")
+            pfObject.setObject(NSNumber(integer: newValue.rawValue), forKey: "type")
         }
     }
     var date: NSDate {
         get {
-            return pfStatus["date"] as NSDate
+            return pfObject["date"] as NSDate
         }
         set {
-            pfStatus.setObject(newValue, forKey: "date")
+            pfObject.setObject(newValue, forKey: "date")
         }
     }
 }

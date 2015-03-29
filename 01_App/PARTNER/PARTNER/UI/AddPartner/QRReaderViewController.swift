@@ -182,7 +182,7 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
             let op = AddPartnerOperation(candidatePartner: user)
             op.completionBlock = {
-                // TODO: アラートで友達になったよ的なのを出す。それでからpop
+                // ???: アラートで友達になったよ的なのを出す。それでからpop
                 self.navigationController!.popViewControllerAnimated(true)
                 return
             }

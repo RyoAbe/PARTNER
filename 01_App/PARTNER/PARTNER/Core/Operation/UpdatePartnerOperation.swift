@@ -31,7 +31,7 @@ class UpdatePartnerOperation: BaseOperation {
                     
                     for pfStatus in pfStatuses {
                         let status = PartnersStatus(types: pfStatus.types, date: pfStatus.date)
-                        partner.statuses.append(status)
+                        partner.appendStatuses(status)
                     }
                 }
                 partner.save()

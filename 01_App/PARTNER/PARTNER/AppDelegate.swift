@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
 
-    // TODO: Background Fetchを実装
+    // ???: Background Fetchを実装
     // @see http://www.gaprot.jp/pickup/ios7/vol1/
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         // ???: 【CoreData】受け取ったnotificationをCoreDataに保存（historyが見れるようにいつかやる）
@@ -72,6 +72,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case "Status":
                 if MyProfile.read().hasPartner {
                     dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
+                    
+                    let partner = Partner.read()
+                    // ???: 本当はこんなことしなくていいはず
+                    partner.statusType = StatusTypes(rawValue: userInfo["type"] as NSInteger)!.statusType
+                    partner.statusDate = NSDate(timeIntervalSince1970:(userInfo["date"] as NSString).doubleValue)
+                    partner.save()
                 }
                 break
 

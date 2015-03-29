@@ -51,7 +51,7 @@ class AddPartnerOperation: BaseOperation {
             return .Failure(error)
         }
 
-        // TODO: 仕様で出来ないらしい
+        // ???: 仕様で出来ないらしい
 //        self.candidatePartner.partner = pfMyProfile.pfUser
 //        self.candidatePartner.save(&error)
         if error != nil {

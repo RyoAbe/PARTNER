@@ -92,11 +92,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             return
         }
 
-        // TODO: Locatioで現在地を遅れるように
+        // TODO: Locatioで現在地を送れる
         // ???: 着く時間を設定出来るように
         let myProfile = MyProfile.read()
         if !myProfile.hasPartner {
-            // TODO: まだパートナーがいないことをalertで表示
             return
         }
         let types = StatusTypes(rawValue: indexPath.row)!

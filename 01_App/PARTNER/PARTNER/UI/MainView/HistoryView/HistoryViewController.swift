@@ -34,7 +34,12 @@ class HistoryViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
-        let p = CGPointMake(0, tableView.contentSize.height - tableView.frame.height)
+        let size = tableView.contentSize
+        let f = tableView.frame
+        if f.height > size.height {
+            return
+        }
+        let p = CGPointMake(0, size.height - f.height)
         tableView.setContentOffset(p, animated: true)
     }
 

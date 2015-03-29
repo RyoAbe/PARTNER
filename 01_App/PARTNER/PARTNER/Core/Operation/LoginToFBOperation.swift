@@ -66,7 +66,7 @@ class LoginToFBOperation: BaseOperation {
         pfMyProfile!.profileImage = profileImageFile
         pfMyProfile!.hasPartner = false
 
-        // TODO: ACLは仕様により変更出来ない模様
+        // ???: ACLは仕様により変更出来ない模様
         // https://www.parse.com/questions/cant-update-user-acl-on-the-dashboard-cloud-code-w-master-key
 //        let acl = PFACL()
 //        acl.setPublicWriteAccess(true)
