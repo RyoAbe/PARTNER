@@ -33,6 +33,7 @@
 		323009891997374800B4FE5E /* PARTNER.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 323009871997374800B4FE5E /* PARTNER.xcdatamodeld */; };
 		323009901997374800B4FE5E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3230098F1997374800B4FE5E /* Images.xcassets */; };
 		3230099C1997374800B4FE5E /* PARTNERTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230099B1997374800B4FE5E /* PARTNERTests.swift */; };
+		3245E8D91AC7D72200FD84F3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3245E8D81AC7D72200FD84F3 /* BaseViewController.swift */; };
 		324FE52A19B4CD7F000AF85E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 324FE52019B4CD7F000AF85E /* Main.storyboard */; };
 		3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */; };
 		32592FAB1A2AF918008E7021 /* BlockActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592F9F1A2AF918008E7021 /* BlockActivity.m */; };
@@ -104,6 +105,7 @@
 		323009951997374800B4FE5E /* PARTNERTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PARTNERTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3230099A1997374800B4FE5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3230099B1997374800B4FE5E /* PARTNERTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PARTNERTests.swift; sourceTree = "<group>"; };
+		3245E8D81AC7D72200FD84F3 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = MainView/BaseViewController.swift; sourceTree = "<group>"; };
 		324FE52119B4CD7F000AF85E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginToFBOperation.swift; sourceTree = "<group>"; };
 		32592F9E1A2AF918008E7021 /* BlockActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActivity.h; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				324FE52019B4CD7F000AF85E /* Main.storyboard */,
+				3245E8D81AC7D72200FD84F3 /* BaseViewController.swift */,
 				3222378C1AAAC6260069F0DD /* MainView */,
 				322237A91AAAC6700069F0DD /* AddPartner */,
 				3222379B1AAAC6550069F0DD /* SettingsView */,
@@ -574,6 +577,7 @@
 				322237AD1AAAC6700069F0DD /* QRReaderViewController.swift in Sources */,
 				32F604711ABD74300097BB9A /* StatusType.swift in Sources */,
 				32F604731ABD74300097BB9A /* MyStatuses.swift in Sources */,
+				3245E8D91AC7D72200FD84F3 /* BaseViewController.swift in Sources */,
 				32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */,
 				322237A71AAAC6550069F0DD /* LicenseViewController.m in Sources */,
 				32D162EB1AB532AE00DB48E0 /* PartnersHistoryCell.swift in Sources */,

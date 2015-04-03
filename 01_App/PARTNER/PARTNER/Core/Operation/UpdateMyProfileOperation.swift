@@ -17,7 +17,6 @@ class UpdateMyProfileOperation: BaseOperation {
         assert(myProfile.isAuthenticated, "ログインしていない")
 
         self.executeAsyncBlock = {
-            var error: NSError?
             self.pfMyProfile = PFUser.currentMyProfile()
             self.updateMyProfile()
         }

@@ -126,7 +126,6 @@ class HistoryBaseCell: UITableViewCell {
         let y = endPoint.y - startPoint.y
         let radians = atan2f(Float(y), Float(x))
         let degree = radians * Float(180 / M_PI)
-        Logger.debug("degree=\(degree), radians=\(radians)")
 
         let marginY = CGFloat(Float(iconRadius + iconMargin) * sinf(degree))
         let marginX = CGFloat(Float(iconRadius + iconMargin) * cosf(degree))

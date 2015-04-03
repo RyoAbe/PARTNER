@@ -13,18 +13,21 @@ class UpdatePartnerOperation: BaseOperation {
         super.init()
         self.executeSerialBlock = {
             let pfParter = PFUser.currentPartner(partnerId)
+            if pfParter == nil {
+                return .Failure(NSError.code(.Unknown))
+            }
 
             // ???: なくていいかも
-            let profileImageData = pfParter.profileImage.getData()
-            let pfStatuses = pfParter.statuses
+//            let profileImageData = pfParter!.profileImage.getData()
+            let pfStatuses = pfParter!.statuses
 
-            self.dispatchAsyncMainThread({
+            self.dispatchAsyncMainThread{
                 let partner = Partner.read()
-                partner.name = pfParter.username
-                partner.image = UIImage(data: profileImageData)
+                partner.name = pfParter!.username
+//                partner.image = UIImage(data: profileImageData)
 
                 if let pfStatuses = pfStatuses {
-                    let pfStatus = pfStatuses[0]
+                    let pfStatus = pfStatuses.last!
                     let status = PartnersStatus(types: pfStatus.types, date: pfStatus.date)
                     partner.statusDate = status.date
                     partner.statusType = status.types.statusType
@@ -35,7 +38,7 @@ class UpdatePartnerOperation: BaseOperation {
                     }
                 }
                 partner.save()
-            })
+            }
             return .Success(nil)
 
         }

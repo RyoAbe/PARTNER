@@ -19,7 +19,7 @@ enum StatusViewType {
         }
     }
 }
-
+// ???: 既読が見れるように
 class StatusView: UIView {
 
     @IBOutlet private weak var overlayView: UIView!
@@ -61,7 +61,6 @@ class StatusView: UIView {
             profileImageView.image = profile.image
             statusType = profile.statusType
             statusDate = profile.statusDate
-            Logger.debug("name=\(profile.name)")
             profile.addObserver(self, forKeyPath:"name", options: NSKeyValueObservingOptions.New, context: nil)
             profile.addObserver(self, forKeyPath:"image", options: NSKeyValueObservingOptions.New, context: nil)
             profile.addObserver(self, forKeyPath:"statusType", options: NSKeyValueObservingOptions.New, context: nil)

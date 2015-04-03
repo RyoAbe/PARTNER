@@ -13,7 +13,7 @@ enum PartnerErrorCode: NSInteger {
     case Unknown = 0
     case NetworkOffline = 1009
     case NotFoundUser = 4040
-    var description : NSString {
+    var description: NSString {
         switch self {
         case .Unknown: return "Cccurrence of an unexplained error.";
         case .NetworkOffline: return "Can't connect to Internet.";
@@ -21,13 +21,14 @@ enum PartnerErrorCode: NSInteger {
         }
     }
 }
-
+var PartnerDomain: String {
+    return "com.ryoabe.PARTNER"
+}
 extension NSError {
     class func code(code: PartnerErrorCode) -> NSError {
-        return NSError(domain: "com.ryoabe.partner", code: code.rawValue, userInfo: [NSLocalizedDescriptionKey : code.description])
+        return NSError(domain: PartnerDomain, code: code.rawValue, userInfo: [NSLocalizedDescriptionKey : code.description])
     }
-    func toast(){
+    func toast() {
         toastWithError(self)
     }
 }
-

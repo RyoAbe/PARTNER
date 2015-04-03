@@ -18,7 +18,7 @@ class GetUserOperation: BaseOperation {
             if let user = PFUser.query().getObjectWithId(userId, error: &error) {
                 return .Success(user)
             }
-            return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
+            return .Failure(NSError.code(.NotFoundUser))
         }
     }
 }

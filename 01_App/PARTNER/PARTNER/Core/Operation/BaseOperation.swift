@@ -86,12 +86,12 @@ class BaseOperation: NSOperation {
 
     // ???: executeAsyncBlockとexecuteSerialBlockを分断
     override func main() {
-        Logger.debug("\(NSStringFromClass(self.dynamicType)) - execute operation")
+        LoggerInfo("execute operation")
 
         assert(!NSThread.currentThread().isMainThread, "call from main thread")
 
         if !Reachability.isReachable() {
-            finish(NSError.code(.NetworkOffline))
+            finishWithError(NSError.code(.NetworkOffline))
             return
         }
 
@@ -102,29 +102,29 @@ class BaseOperation: NSOperation {
         }
         switch executeSerialBlock() {
             case .Success(let ret):
-                finish(ret)
+                finishWithResult(ret)
                 return
             case .Failure(let err):
-                finish(err!)
+                finishWithError(err!)
                 return
         }
     }
 
     // MARK: -
-    func finish(error: NSError) {
+    func finishWithError(error: NSError?) {
         self.error = error
-        Logger.debug("\(self.error)")
+        LoggerInfo("\(error)")
         dispatchAsyncMainThread({ self.error!.toast() })
         finish()
     }
 
-    func finish(result: AnyObject?) {
+    func finishWithResult(result: AnyObject?) {
         self.result = result
         finish()
     }
 
     func finish() {
-        Logger.debug("\(NSStringFromClass(self.dynamicType)) - finish")
+        LoggerInfo("finish")
         state = .Finished
     }
 
@@ -135,6 +135,6 @@ class BaseOperation: NSOperation {
     }
 
     deinit {
-        Logger.debug("\(NSStringFromClass(self.dynamicType)) - deinit")
+        LoggerInfo("deinit")
     }
 }

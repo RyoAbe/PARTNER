@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyQRCodePreviewController: UIViewController {
+class MyQRCodePreviewController: BaseViewController {
 
     @IBOutlet weak var qrCodeImageView: UIImageView!
     @IBOutlet weak var qrReaderButton: UIButton!
@@ -19,7 +19,6 @@ class MyQRCodePreviewController: UIViewController {
 
         // ???: 背景がclearColorにならない
         qrCodeImageView.image = qrCodeImageForString(MyProfile.read().id, size: qrCodeImageView.frame.size)
-//        qrCodeImageView.image = UIUtil.createQRImageForString(MyProfile.read().id, backgroundColor: UIColor.clearColor(), foregroundColor: UIColor.whiteColor(), size: qrCodeImageView.frame.size)
     }
 
     @IBAction func didTapCloseButton(sender: AnyObject) {
