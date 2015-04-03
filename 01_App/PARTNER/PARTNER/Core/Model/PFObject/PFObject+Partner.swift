@@ -13,9 +13,11 @@ extension PFUser {
         let currentUser = PFUser.currentUser()
         return PFMyProfile(user: currentUser)
     }
-    class func currentPartner(partnerId: NSString) -> PFPartner {
-        let pfParter = PFUser.query().getObjectWithId(partnerId) as PFUser
-        return PFPartner(user: pfParter)
+    class func currentPartner(partnerId: NSString) -> PFPartner? {
+        if let pfObject = PFUser.query().getObjectWithId(partnerId) as? PFUser {
+            return PFPartner(user: pfObject)
+        }
+        return nil
     }
 }
 
@@ -78,9 +80,9 @@ class PFProfile: PFObjectBase {
             pfUser["fbId"] = newValue
         }
     }
-    var partner: PFUser {
+    var partner: PFUser? {
         get {
-            return pfUser["partner"] as PFUser
+            return pfUser["partner"] as? PFUser
         }
         set {
             pfUser["partner"] = newValue
@@ -99,6 +101,11 @@ class PFProfile: PFObjectBase {
         }
         set {
             pfUser.addObjectsFromArray(newValue!.map{ $0.pfObject }, forKey: "statuses")
+        }
+    }
+    func removeAllStatuses() {
+        if var statusPointer = pfUser["statuses"] as? NSArray {
+            statusPointer = []
         }
     }
     var isAuthenticated: Bool {

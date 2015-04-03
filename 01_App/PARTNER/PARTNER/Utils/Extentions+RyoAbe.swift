@@ -34,6 +34,10 @@ extension NSObject {
     }
 
     func toastWithError(error: NSError) {
+        if error.domain == PartnerDomain {
+            toastWithMessage(PartnerErrorCode.Unknown.description)
+            return
+        }
         if let message = error.userInfo![NSLocalizedDescriptionKey] as? NSString {
             toastWithMessage(message)
             return

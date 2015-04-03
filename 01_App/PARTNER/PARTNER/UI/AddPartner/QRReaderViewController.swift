@@ -42,7 +42,7 @@ class QRCodeReaderMaskView: UIView {
     }
 }
 
-class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     // ???: Locationで友達になるパターンも実装
     var session: AVCaptureSession!
@@ -57,13 +57,7 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             self.navigationController!.popViewControllerAnimated(true)
             return
         }
-
-        if !MyProfile.read().isAuthenticated {
-            showAlert("", okBlock: { () -> Void in
-                
-            })
-            return
-        }
+        assert(MyProfile.read().isAuthenticated)
 
         let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
         switch status {
@@ -126,7 +120,7 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         view.layer.addSublayer(previewLayer)
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         session.startRunning()
-        
+
         output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
 
         return true
@@ -150,35 +144,46 @@ class QRReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         let op = GetUserOperation(userId: id)
         op.completionBlock = {
             if let candidatePartner = op.result as PFUser! {
-
-                // 自分のパートナーと読み取ったidが一致している場合
-                if let partnerId = Partner.read().id {
-                    if candidatePartner.objectId == partnerId {
-                        self.toastWithMessage("Already partner.")
-                        return
-                    }
-                }
-
-                let candidatePartnerHasPartner = candidatePartner["hasPartner"] as Bool
-                let hasPartner = MyProfile.read().hasPartner
-
-                // どちらかにパートナーがいる
-                if candidatePartnerHasPartner || hasPartner {
-                    self.becomePartner(candidatePartner, message: "You or partner already have a partner. Do you swith from \"\(Partner.read().name)\" to \"\(candidatePartner.username)\"?")
-                    return
-                }
-
-                // 両方共パートナーなし
-                self.becomePartner(candidatePartner, message: "Do you become partner with \"\(candidatePartner.username)\"?")
+                self.confirmCandidatePartner(candidatePartner)
+                return
             }
+            // パートナーが見つからなかった場合
+            self.session.startRunning()
         }
         dispatchAsyncOperation(op)
         return true
     }
+    
+    func confirmCandidatePartner(candidatePartner: PFUser) {
+
+        // 自分のパートナーと読み取ったidが一致している場合
+        if let partnerId = Partner.read().id {
+            if candidatePartner.objectId == partnerId {
+                self.toastWithMessage("Already partner.")
+                self.session.startRunning()
+                return
+            }
+        }
+
+        let candidatePartnerHasPartner = candidatePartner["hasPartner"] as Bool
+        let hasPartner = MyProfile.read().hasPartner
+        
+        // どちらかにパートナーがいる
+        if candidatePartnerHasPartner || hasPartner {
+            self.becomePartner(candidatePartner, message: "You or partner already have a partner. Do you swicth to \"\(candidatePartner.username)\"?")
+            return
+        }
+        
+        // 両方共パートナーなし
+        self.becomePartner(candidatePartner, message: "Do you become partner with \"\(candidatePartner.username)\"?")
+        return
+    }
 
     func becomePartner(user: PFUser, message: NSString) {
-        let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+        let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in
+            self.session.startRunning()
+        })
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
             let op = AddPartnerOperation(candidatePartner: user)
             op.completionBlock = {

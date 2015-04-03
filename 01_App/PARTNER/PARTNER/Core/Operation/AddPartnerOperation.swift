@@ -9,7 +9,6 @@
 import UIKit
 
 // ???: ロールバックの仕組みを作りたい
-// TODO: パートナーが変わったらStatuesを削除
 class AddPartnerOperation: BaseOperation {
 
     var candidatePartner: PFPartner!
@@ -45,6 +44,7 @@ class AddPartnerOperation: BaseOperation {
         let pfMyProfile = PFUser.currentMyProfile()
 
         pfMyProfile.partner = self.candidatePartner.pfUser
+        pfMyProfile.removeAllStatuses()
         pfMyProfile.hasPartner = true
         pfMyProfile.save(&error)
         if error != nil {
@@ -69,10 +69,12 @@ class AddPartnerOperation: BaseOperation {
             partner.image = UIImage(data: profileImageData)
             partner.name = self.candidatePartner.username
             partner.isAuthenticated = true
+            partner.removeAllStatuses()
             partner.save()
 
             let myProfile = MyProfile.read()
             myProfile.hasPartner = true
+            myProfile.removeAllStatuses()
             myProfile.save()
         })
 

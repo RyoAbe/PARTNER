@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        NSLog("didFailToRegisterForRemoteNotificationsWithError:\(error)")
+        LoggerDebug("didFailToRegisterForRemoteNotificationsWithError:\(error)")
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func notify(userInfo: [NSObject : AnyObject]) {
-        NSLog("userInfo:\(userInfo)")
+        LoggerInfo("userInfo:\(userInfo)")
 
         switch userInfo["notificationType"] as NSString {
             case "AddedPartner":
@@ -91,6 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
+        FBAppEvents.activateApp()
         FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
         
         let myProfile = MyProfile.read()

@@ -9,7 +9,7 @@
 import UIKit
 
 // TODO: Analytics入れる（tracker）
-class MainViewController: UIViewController, UICollectionViewDelegate {
+class MainViewController: BaseViewController, UICollectionViewDelegate {
 
     enum Menus : Int {
         case First
@@ -28,7 +28,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
         let currentUser = PFUser.currentUser()
-        Logger.debug("\(currentUser),\n\(myProfile),\n\(partner)")
+        LoggerDebug("\(currentUser),\n\(myProfile),\n\(partner)")
         partnersStatusView.profile = partner
         partnersStatusView.statusViewType = .PartnersStatus
         myStatusView.profile = myProfile
@@ -44,7 +44,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             return false
         }
 
-        let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { alertAction in
             self.dispatchAsyncOperation(LoginToFBOperation())
         }))
@@ -99,6 +99,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
             return
         }
         let types = StatusTypes(rawValue: indexPath.row)!
+        FBAppEvents.logEvent("DidTapSendMyStatus - types \(types)")
         dispatchAsyncOperation(SendMyStatusOperation(partnerId: Partner.read().id, statusTypes: types))
     }
 
