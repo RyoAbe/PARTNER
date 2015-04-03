@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Logger{
+extension NSObject {
     
     enum LogLevel {
         case Debug, Info, Warning, Error
@@ -26,31 +26,31 @@ class Logger{
         }
     }
     
-    class func debug(
+    func LoggerDebug(
         message: String,
         function: String = __FUNCTION__,
         file: String = __FILE__,
         line: Int = __LINE__) {
             #if DEBUG
-                Logger.write(.Debug, message: message, function: function, file: file, line: line)
+                LoggerWrite(.Debug, message: message, function: function, file: file, line: line)
             #endif
     };
-    class func info(
+    func LoggerInfo(
         message: String,
         function: String = __FUNCTION__,
         file: String = __FILE__,
-        line: Int = __LINE__) { Logger.write(.Info, message: message, function: function, file: file, line: line) };
-    class func warning(
+        line: Int = __LINE__) { LoggerWrite(.Info, message: message, function: function, file: file, line: line) };
+    func LoggerWarning(
         message: String,
         function: String = __FUNCTION__,
         file: String = __FILE__,
-        line: Int = __LINE__) { Logger.write(.Warning, message: message, function: function, file: file, line: line) };
-    class func error(
+        line: Int = __LINE__) { LoggerWrite(.Warning, message: message, function: function, file: file, line: line) };
+    func LoggerError(
         message: String,
         function: String = __FUNCTION__,
         file: String = __FILE__,
-        line: Int = __LINE__) { Logger.write(.Error, message: message, function: function, file: file, line: line) };
-    class func write(
+        line: Int = __LINE__) { LoggerWrite(.Error, message: message, function: function, file: file, line: line) };
+    func LoggerWrite(
         loglevel: LogLevel,
         message: String,
         function: String,
@@ -69,6 +69,6 @@ class Logger{
             if let match = filename.rangeOfString("[^/]*$", options: .RegularExpressionSearch) {
                 filename = filename.substringWithRange(match)
             }
-            println("[\(loglevel.toString)] \(nowdate) - @\(filename) - L\(line) - \(function) => \"\(message)\" ")
+            println("\(nowdate) - [\(loglevel.toString)] - \(className):l\(line) - \(function) => \"\(message)\" ")
     }
 }

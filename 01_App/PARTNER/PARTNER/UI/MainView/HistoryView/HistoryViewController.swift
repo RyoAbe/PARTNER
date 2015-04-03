@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HistoryViewController: UIViewController {
+class HistoryViewController: BaseViewController {
 
     @IBOutlet weak var closeButtonImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
