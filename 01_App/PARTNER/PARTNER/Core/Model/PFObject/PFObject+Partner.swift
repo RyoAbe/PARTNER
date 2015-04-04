@@ -44,49 +44,27 @@ class PFProfile: PFObjectBase {
     var pfUser: PFUser {
         return pfObject as PFUser
     }
-    var objectId: NSString {
-        return pfUser.objectId
-    }
+    var objectId: NSString { return pfUser.objectId }
     var username: NSString {
-        get {
-            return pfUser.username
-        }
-        set {
-            pfUser.username = newValue
-        }
+        get { return pfUser.username }
+        set { pfUser.username = newValue }
     }
     var hasPartner: Bool {
-        get {
-            return pfUser["hasPartner"] as Bool
-        }
-        set {
-            pfUser["hasPartner"] = newValue
-        }
+        get { return pfUser["hasPartner"] as Bool }
+        set { pfUser["hasPartner"] = newValue }
         
     }
     var profileImage: PFFile {
-        get {
-            return pfUser["profileImage"] as PFFile
-        }
-        set {
-            pfUser["profileImage"] = newValue
-        }
+        get { return pfUser["profileImage"] as PFFile }
+        set { pfUser["profileImage"] = newValue }
     }
     var fbId: String {
-        get {
-            return pfUser["fbId"] as String
-        }
-        set {
-            pfUser["fbId"] = newValue
-        }
+        get { return pfUser["fbId"] as String }
+        set { pfUser["fbId"] = newValue }
     }
     var partner: PFUser? {
-        get {
-            return pfUser["partner"] as? PFUser
-        }
-        set {
-            pfUser["partner"] = newValue
-        }
+        get { return pfUser["partner"] as? PFUser }
+        set { pfUser["partner"] = newValue }
     }
     var statuses: Array<PFStatus>? {
         get {
@@ -99,18 +77,14 @@ class PFProfile: PFObjectBase {
             }
             return nil
         }
-        set {
-            pfUser.addObjectsFromArray(newValue!.map{ $0.pfObject }, forKey: "statuses")
-        }
+        set { pfUser.addObjectsFromArray(newValue!.map{ $0.pfObject }, forKey: "statuses") }
     }
     func removeAllStatuses() {
         if var statusPointer = pfUser["statuses"] as? NSArray {
             statusPointer = []
         }
     }
-    var isAuthenticated: Bool {
-        return pfUser.isAuthenticated()
-    }
+    var isAuthenticated: Bool { return pfUser.isAuthenticated() }
 }
 
 class PFMyProfile: PFProfile {
@@ -129,20 +103,11 @@ class PFStatus: PFObjectBase {
         super.init(className: "Status", objectId: statusId)
     }
     var types: StatusTypes {
-        get {
-            let types = pfObject["type"] as NSInteger
-            return StatusTypes(rawValue: types)!
-        }
-        set {
-            pfObject.setObject(NSNumber(integer: newValue.rawValue), forKey: "type")
-        }
+        get { return StatusTypes(rawValue: pfObject["type"] as NSInteger)! }
+        set { pfObject.setObject(NSNumber(integer: newValue.rawValue), forKey: "type") }
     }
     var date: NSDate {
-        get {
-            return pfObject["date"] as NSDate
-        }
-        set {
-            pfObject.setObject(newValue, forKey: "date")
-        }
+        get { return pfObject["date"] as NSDate }
+        set { pfObject.setObject(newValue, forKey: "date") }
     }
 }
