@@ -31,6 +31,7 @@ typedef NS_ENUM(NSUInteger, PartnerViewTag) {
         [[window viewWithTag:PartnerViewTag_MRProgressOverlayView] removeFromSuperview];
     }
     MRProgressOverlayView *view = [self new];
+    view.tintColor = [UIColor blackColor];
     view.tag = PartnerViewTag_MRProgressOverlayView;
     view.mode = mode;
     if(title){

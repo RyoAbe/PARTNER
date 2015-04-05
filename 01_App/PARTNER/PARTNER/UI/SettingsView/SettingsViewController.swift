@@ -17,7 +17,6 @@ class SettingsViewController: UITableViewController {
     
     enum SettingsSection : Int {
         case First
-        case Second
         case Third
     }
 
@@ -82,13 +81,6 @@ class SettingsViewController: UITableViewController {
                 cell.addSubview(usernameTextField)
                 break
             case .addPartner:
-                break
-            }
-            break
-        case .Second:
-            switch SettingsSecondSection(rawValue: indexPath.row)! {
-            case .pushNotification:
-                cell.accessoryView = self.pushNotificationSwitch
                 break
             }
             break
