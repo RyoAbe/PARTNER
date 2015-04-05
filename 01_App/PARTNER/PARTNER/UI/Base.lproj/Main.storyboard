@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="F7w-78-f5H">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="F7w-78-f5H">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
@@ -92,7 +92,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="PARTNER" id="Wqm-vl-bND">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="h8E-bx-JgH">
+                        <barButtonItem key="leftBarButtonItem" image="add_button" id="h8E-bx-JgH">
                             <connections>
                                 <action selector="didSelectAddPartnerButton:" destination="vXZ-lx-hvc" id="BVf-NL-Xq9"/>
                             </connections>
@@ -248,11 +248,11 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close_button" translatesAutoresizingMaskIntoConstraints="NO" id="oZ2-eW-tKd" userLabel="Close Button Image">
-                                <rect key="frame" x="14" y="32" width="20" height="20"/>
+                                <rect key="frame" x="16" y="34" width="17" height="17"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="Ekh-yb-5Kb"/>
-                                    <constraint firstAttribute="width" constant="20" id="Qo6-Jv-Tgm"/>
+                                    <constraint firstAttribute="height" constant="17" id="Ekh-yb-5Kb"/>
+                                    <constraint firstAttribute="width" constant="17" id="Qo6-Jv-Tgm"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -276,6 +276,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5n6-DG-KXl"/>
                     <connections>
+                        <outlet property="closeButtonImageView" destination="oZ2-eW-tKd" id="Ju9-Ci-k4N"/>
                         <outlet property="qrCodeImageView" destination="Ibx-MW-qIs" id="F09-A6-Rr5"/>
                         <outlet property="qrReaderButton" destination="0zH-dX-j3t" id="JLb-1T-j3Y"/>
                     </connections>
@@ -395,24 +396,6 @@
                                         <connections>
                                             <segue destination="zBG-Fn-9aQ" kind="presentation" id="q5t-1c-mU6"/>
                                         </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="pud-R5-p9d">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="f3w-TX-x2s" style="IBUITableViewCellStyleDefault" id="TXP-ZP-jMl">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TXP-ZP-jMl" id="ZhQ-cw-C3A">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Push notification" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f3w-TX-x2s">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -623,11 +606,11 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close_button" translatesAutoresizingMaskIntoConstraints="NO" id="XPO-uJ-vFQ" userLabel="Close Button Image">
-                                <rect key="frame" x="20" y="32" width="20" height="20"/>
+                                <rect key="frame" x="22" y="34" width="17" height="17"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="BKs-gw-WCe"/>
-                                    <constraint firstAttribute="width" constant="20" id="PJV-GF-ZwD"/>
+                                    <constraint firstAttribute="height" constant="17" id="BKs-gw-WCe"/>
+                                    <constraint firstAttribute="width" constant="17" id="PJV-GF-ZwD"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -702,13 +685,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add_button" width="20" height="20"/>
         <image name="back_button" width="21" height="37"/>
-        <image name="close_button" width="17" height="15"/>
+        <image name="close_button" width="17" height="17"/>
         <image name="dummy_qrcode" width="380" height="380"/>
-        <image name="gear_icon" width="20" height="19"/>
+        <image name="gear_icon" width="20" height="22"/>
         <image name="women" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pQG-yJ-ofT"/>
+        <segue reference="q5t-1c-mU6"/>
     </inferredMetricsTieBreakers>
 </document>

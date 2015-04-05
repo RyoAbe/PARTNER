@@ -12,11 +12,12 @@ class MyQRCodePreviewController: BaseViewController {
 
     @IBOutlet weak var qrCodeImageView: UIImageView!
     @IBOutlet weak var qrReaderButton: UIButton!
+    @IBOutlet weak var closeButtonImageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(white: 0.0, alpha: 0.0);
-
+        closeButtonImageView.tintColor = UIColor.whiteColor()
         // ???: 背景がclearColorにならない
         qrCodeImageView.image = qrCodeImageForString(MyProfile.read().id, size: qrCodeImageView.frame.size)
     }
