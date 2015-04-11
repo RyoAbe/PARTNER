@@ -93,7 +93,7 @@ class SettingsViewController: UITableViewController {
 
         if (SettingsSection(rawValue: indexPath.section) == SettingsSection.Third &&
             SettingsThirdSection(rawValue: indexPath.row) == SettingsThirdSection.ReviewOnAppStore) {
-            // !!!: App StoreのURL
+            UIApplication.sharedApplication().openURL(NSURL(string: "http://appstore.com/partner-one-touch-communication")!)
         }
     }
 }

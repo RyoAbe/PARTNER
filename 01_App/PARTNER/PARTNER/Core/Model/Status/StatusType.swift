@@ -26,7 +26,7 @@ enum StatusTypes : NSInteger {
         case GoingHome:
             return StatusType(iconImageName: "going_home_icon", name: "I'll go home.")
         case ThunkYou:
-            return StatusType(iconImageName: "thank_you_icon", name: "Thank You!")
+            return StatusType(iconImageName: "thank_you_icon", name: "Thank you!")
         case HaveDinner:
             return StatusType(iconImageName: "have_dinner_icon", name: "I will eat out.")
         case There:
@@ -36,7 +36,7 @@ enum StatusTypes : NSInteger {
         case GoodNight:
             return StatusType(iconImageName: "good_night_icon", name: "Good night.")
         case Location:
-            return StatusType(iconImageName: "location_icon", name: "Location")
+            return StatusType(iconImageName: "bow_icon", name: "Sorry.")
         case Love:
             return StatusType(iconImageName: "love_icon", name: "I love you.")
         }
