@@ -11,6 +11,6 @@ import Foundation
 class MyStatuses: Statuses {
     override init(){
         super.init()
-        statuses = MyProfile.read().myStatuses
+        statuses = MyProfile.read().statuses!
     }
 }

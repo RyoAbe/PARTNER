@@ -144,7 +144,7 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
         let op = GetUserOperation(userId: id)
         op.completionBlock = {
             if let candidatePartner = op.result as? PFUser {
-                self.confirmCandidatePartner(candidatePartner)
+                self.confirmCandidatePartner(PFUser.currentPartner(candidatePartner.objectId!)!)
                 return
             }
             // パートナーが見つからなかった場合
@@ -153,8 +153,8 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
         dispatchAsyncOperation(op)
         return true
     }
-    
-    func confirmCandidatePartner(candidatePartner: PFUser) {
+
+    func confirmCandidatePartner(candidatePartner: PFPartner) {
 
         // 自分のパートナーと読み取ったidが一致している場合
         if let partnerId = Partner.read().id {
@@ -164,28 +164,23 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
                 return
             }
         }
-
-        let candidatePartnerHasPartner = candidatePartner["hasPartner"] as! Bool
-        let hasPartner = MyProfile.read().hasPartner
-        
         // どちらかにパートナーがいる
-        if candidatePartnerHasPartner || hasPartner {
+        if candidatePartner.hasPartner || MyProfile.read().hasPartner {
             self.becomePartner(candidatePartner, message: "You or partner already have a partner. Do you swicth to \"\(candidatePartner.username)\"?")
             return
         }
-        
         // 両方共パートナーなし
         self.becomePartner(candidatePartner, message: "Do you become partner with \"\(candidatePartner.username)\"?")
         return
     }
 
-    func becomePartner(user: PFUser, message: String) {
+    func becomePartner(candidatePartner: PFPartner, message: String) {
         let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in
             self.session.startRunning()
         })
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
-            let op = AddPartnerOperation(candidatePartner: user)
+            let op = AddPartnerOperation(candidatePartner: candidatePartner)
             op.completionBlock = {
                 // ???: アラートで友達になったよ的なのを出す。それでからpop
                 self.navigationController!.popViewControllerAnimated(true)

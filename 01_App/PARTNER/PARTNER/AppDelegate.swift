@@ -70,13 +70,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             case "Status":
                 if MyProfile.read().hasPartner {
-                    dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
+                    dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false))
                     
                     let partner = Partner.read()
                     // ???: 本当はこんなことしなくていいはず
-                    partner.statusType = StatusTypes(rawValue: userInfo["type"] as! NSInteger)!.statusType
-                    partner.statusDate = NSDate(timeIntervalSince1970:(userInfo["date"] as! NSString).doubleValue)
-                    partner.save()
+//                    partner.statusType = StatusTypes(rawValue: userInfo["type"] as! NSInteger)!.statusType
+//                    partner.statusDate = NSDate(timeIntervalSince1970:(userInfo["date"] as! NSString).doubleValue)
+//                    partner.save()
                 }
                 break
 
@@ -95,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let myProfile = MyProfile.read()
         if myProfile.hasPartner {
-            dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
+            dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false))
         }
         if myProfile.isAuthenticated {
             dispatchAsyncOperation(UpdateMyProfileOperation().enableHUD(false))

@@ -44,8 +44,8 @@ class SendMyStatusOperation: BaseOperation {
             
             self.dispatchAsyncMainThread({
                 let myProfile = MyProfile.read()
-                myProfile.statusType = status.types.statusType
-                myProfile.statusDate = status.date
+//                myProfile.statusType = status.types.statusType
+//                myProfile.statusDate = status.date
                 myProfile.appendStatuses(status)
                 myProfile.save()
             })

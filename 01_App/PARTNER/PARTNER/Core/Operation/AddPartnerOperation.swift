@@ -16,16 +16,18 @@ class AddPartnerOperation: BaseOperation {
     
     override init() {
         super.init()
-        self.executeSerialBlock = {
+        self.executeAsyncBlock = {
             if self.candidatePartner != nil {
-                return self.becomePartner()
+                self.becomePartner()
             }
             var error: NSError?
             if let candidatePartner = PFUser.query()!.getObjectWithId(self.candidatePartnerId, error: &error) as? PFUser {
                 self.candidatePartner = PFPartner(user: candidatePartner)
-                return self.becomePartner()
+                self.becomePartner()
+                return
             }
-            return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
+//            return .Failure(error == nil ? NSError.code(.NotFoundUser) : error)
+            self.finishWithError(error == nil ? NSError.code(.NotFoundUser) : error)
         }
     }
 
@@ -33,60 +35,54 @@ class AddPartnerOperation: BaseOperation {
         self.init()
         self.candidatePartnerId = candidatePartnerId
     }
-
+    // ???: いらなくなるはず
     convenience init(candidatePartner: PFUser){
         self.init()
         self.candidatePartner = PFPartner(user: candidatePartner)
     }
-    
-    func becomePartner() -> BaseOperationResult {
+    convenience init(candidatePartner: PFPartner){
+        self.init()
+        self.candidatePartner = candidatePartner
+    }
+
+    func becomePartner() {
         var error: NSError?
         let pfMyProfile = PFUser.currentMyProfile()
-
-        pfMyProfile.partner = self.candidatePartner.pfUser
-        pfMyProfile.removeAllStatuses()
-        pfMyProfile.hasPartner = true
-        pfMyProfile.save(&error)
-        if error != nil {
-            return .Failure(error)
-        }
-
-        // ???: 仕様で出来ないらしい
-//        self.candidatePartner.partner = pfMyProfile.pfUser
-//        self.candidatePartner.save(&error)
-        if error != nil {
-            return .Failure(error)
-        }
         
-        return self.savePartner()
+        NSLog("PFUser.currentMyProfile().partner=\(PFUser.currentMyProfile().partner)")
+        pfMyProfile.partner = self.candidatePartner.pfUser
+        NSLog("PFUser.currentMyProfile().partner=\(PFUser.currentMyProfile().partner)")
+        pfMyProfile.saveInBackgroundWithBlock{ saveInBackgroundWithBlock, error in
+            if error != nil {
+                self.finishWithError(error)
+                return
+            }
+            NSLog("PFUser.currentMyProfile().partner=\(PFUser.currentMyProfile().partner)")
+            self.savePartner()
+        }
     }
     
-    func savePartner() -> BaseOperationResult {
+    func savePartner() {
         let profileImageData = self.candidatePartner.profileImage.getData()
+        NSLog("PFUser.currentMyProfile().partner=\(PFUser.currentMyProfile().partner)")
         self.dispatchAsyncMainThread({
-            let partner = Partner.read()
-            partner.id = self.candidatePartner.objectId
-            partner.image = UIImage(data: profileImageData!)
-            partner.name = self.candidatePartner.username
-            partner.isAuthenticated = true
-            partner.removeAllStatuses()
-            partner.save()
-
-            let myProfile = MyProfile.read()
-            myProfile.hasPartner = true
-            myProfile.removeAllStatuses()
-            myProfile.save()
+            self.dispatchAsyncOperation(
+                UpdatePartnerOperation(partnerId: self.candidatePartner.objectId)
+            )
+            NSLog("PFUser.currentMyProfile().partner=\(PFUser.currentMyProfile().partner)")
+            self.dispatchAsyncOperation(
+                UpdateMyProfileOperation()
+            )
         })
 
         if candidatePartner.hasPartner {
-            return .Success(nil)
+            self.finish()
         }
-        return notify()
+        notify()
     }
     
-    func notify() -> BaseOperationResult {
+    func notify() {
         let pfMyProfile = PFUser.currentUser()!
-
         let userQuery = PFUser.query()!.whereKey("objectId", equalTo: candidatePartner.objectId)
         // ???: ponter使えばいいかも
         let pushQuery = PFInstallation.query()!.whereKey("user", matchesQuery:userQuery)
@@ -98,8 +94,9 @@ class AddPartnerOperation: BaseOperation {
         var error: NSError?
         push.sendPush(&error)
         if error != nil {
-            return .Failure(error)
+            self.finishWithError(error)
+            return
         }
-        return .Success(nil)
+        self.finish()
     }
 }

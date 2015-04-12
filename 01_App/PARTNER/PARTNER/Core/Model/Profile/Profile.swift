@@ -13,38 +13,35 @@ let MaxSatuses = 100
 
 class Profile: NSObject, NSCoding{
 
-    dynamic var id: String!
-    dynamic var name: String!
+    dynamic var id: String?
+    dynamic var name: String?
     dynamic var image: UIImage?
     dynamic var isAuthenticated: Bool
-    dynamic var hasPartner: Bool
-    // ???: いらなくなる
-    dynamic var statusType: StatusType?
-    dynamic var statusDate: NSDate?
-    private dynamic var statuses: Array<Status>
-
-    var myStatuses: Array<Status> {
-        return statuses
+    dynamic var partner: Profile?
+    private(set) dynamic var statuses: Array<Status>?
+    var hasPartner: Bool {
+        return self.partner != nil
     }
-    
+
     class var sharedInstance : Profile {
         assert(false, "overrideして下さい")
         return Profile()
     }
 
-    init(id: String?, name: String?, image: UIImage?, isAuthenticated: Bool, hasPartner: Bool, statusType: StatusType?, statusDate: NSDate?, statuses: Array<Status>) {
+    init(id: String?, name: String?, image: UIImage?, isAuthenticated: Bool, partner: Profile?, statuses: Array<Status>) {
         self.id = id
         self.name = name
         self.image = image
         self.isAuthenticated = isAuthenticated
-        self.hasPartner = hasPartner
-        self.statusType = statusType
-        self.statusDate = statusDate
+        self.partner = partner
+//        self.hasPartner = hasPartner
+//        self.statusType = statusType
+//        self.statusDate = statusDate
         self.statuses = statuses
     }
 
     convenience override init(){
-        self.init(id: nil, name: nil, image: nil, isAuthenticated: false, hasPartner: false, statusType: nil, statusDate: nil, statuses: [])
+        self.init(id: nil, name: nil, image: nil, isAuthenticated: false, partner: nil, statuses: [])
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -52,10 +49,11 @@ class Profile: NSObject, NSCoding{
         name = aDecoder.decodeObjectForKey("name") as? String
         image = aDecoder.decodeObjectForKey("image") as? UIImage
         isAuthenticated = aDecoder.decodeObjectForKey("isAuthenticated") as! Bool
-        hasPartner = aDecoder.decodeObjectForKey("hasPartner") as! Bool
-        statusType = aDecoder.decodeObjectForKey("statusType") as! StatusType?
-        statusDate = aDecoder.decodeObjectForKey("statusDate") as! NSDate?
-        statuses = aDecoder.decodeObjectForKey("statuses") as! Array<Status>
+        partner = aDecoder.decodeObjectForKey("partner") as? Profile
+//        hasPartner = aDecoder.decodeObjectForKey("hasPartner") as! Bool
+//        statusType = aDecoder.decodeObjectForKey("statusType") as! StatusType?
+//        statusDate = aDecoder.decodeObjectForKey("statusDate") as! NSDate?
+        statuses = aDecoder.decodeObjectForKey("statuses") as? Array<Status>
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
@@ -63,9 +61,10 @@ class Profile: NSObject, NSCoding{
         aCoder.encodeObject(name, forKey: "name")
         aCoder.encodeObject(image, forKey: "image")
         aCoder.encodeObject(isAuthenticated, forKey: "isAuthenticated")
-        aCoder.encodeObject(hasPartner, forKey: "hasPartner")
-        aCoder.encodeObject(statusType, forKey: "statusType")
-        aCoder.encodeObject(statusDate, forKey: "statusDate")
+        aCoder.encodeObject(partner, forKey: "partner")
+//        aCoder.encodeObject(hasPartner, forKey: "hasPartner")
+//        aCoder.encodeObject(statusType, forKey: "statusType")
+//        aCoder.encodeObject(statusDate, forKey: "statusDate")
         aCoder.encodeObject(statuses, forKey: "statuses")
     }
 
@@ -80,14 +79,14 @@ class Profile: NSObject, NSCoding{
     }
     
     func appendStatuses(status: Status) {
-        if MaxSatuses <= statuses.count {
-            statuses.removeAtIndex(0)
+        if MaxSatuses <= statuses?.count {
+            statuses?.removeAtIndex(0)
         }
-        statuses.append(status)
+        statuses?.append(status)
     }
-    
+
     func removeAllStatuses() {
-        statuses.removeAll(keepCapacity: false)
+        statuses?.removeAll(keepCapacity: false)
     }
 
     class func read() -> Profile! {
@@ -104,23 +103,26 @@ class Profile: NSObject, NSCoding{
 
         let unarchivedProfile = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Profile
         instance.isAuthenticated = unarchivedProfile.isAuthenticated
-        instance.hasPartner = unarchivedProfile.hasPartner
+//        instance.hasPartner = unarchivedProfile.hasPartner
         
-        if unarchivedProfile.id != nil {
+//        if unarchivedProfile.id != nil {
             instance.id = unarchivedProfile.id
-        }
-        if unarchivedProfile.name != nil {
+//        }
+//        if unarchivedProfile.name != nil {
             instance.name = unarchivedProfile.name
-        }
-        if unarchivedProfile.image != nil {
+//        }
+//        if unarchivedProfile.image != nil {
             instance.image = unarchivedProfile.image
-        }
-        if unarchivedProfile.statusType != nil {
-            instance.statusType = unarchivedProfile.statusType
-        }
-        if unarchivedProfile.statusDate != nil {
-            instance.statusDate = unarchivedProfile.statusDate
-        }
+//        }
+//        if unarchivedProfile.partner != nil {
+//        }
+        instance.partner = unarchivedProfile.partner
+//        if unarchivedProfile.statusType != nil {
+//            instance.statusType = unarchivedProfile.statusType
+//        }
+//        if unarchivedProfile.statusDate != nil {
+//            instance.statusDate = unarchivedProfile.statusDate
+//        }
         instance.statuses = unarchivedProfile.statuses
 
         return instance

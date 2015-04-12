@@ -50,8 +50,9 @@ class StatusView: UIView {
             }
             self.profile.removeObserver(self, forKeyPath: "name")
             self.profile.removeObserver(self, forKeyPath: "image")
-            self.profile.removeObserver(self, forKeyPath: "statusType")
-            self.profile.removeObserver(self, forKeyPath: "statusDate")
+//            self.profile.removeObserver(self, forKeyPath: "statusType")
+//            self.profile.removeObserver(self, forKeyPath: "statusDate")
+            self.profile.removeObserver(self, forKeyPath: "statuses")
             self.profile.removeObserver(self, forKeyPath: "isAuthenticated")
         }
         didSet {
@@ -59,12 +60,14 @@ class StatusView: UIView {
             profileIcon.hidden = profile.isAuthenticated
             profileNameLabel.text = profile.isAuthenticated ? profile.name : statusViewType?.namePlaceholder
             profileImageView.image = profile.image
-            statusType = profile.statusType
-            statusDate = profile.statusDate
+            let status = profile.statuses?.last
+            statusType = status?.types.statusType
+            statusDate = status?.date
             profile.addObserver(self, forKeyPath:"name", options: NSKeyValueObservingOptions.New, context: nil)
             profile.addObserver(self, forKeyPath:"image", options: NSKeyValueObservingOptions.New, context: nil)
-            profile.addObserver(self, forKeyPath:"statusType", options: NSKeyValueObservingOptions.New, context: nil)
-            profile.addObserver(self, forKeyPath:"statusDate", options: NSKeyValueObservingOptions.New, context: nil)
+            profile.addObserver(self, forKeyPath:"statuses", options: NSKeyValueObservingOptions.New, context: nil)
+//            profile.addObserver(self, forKeyPath:"statusType", options: NSKeyValueObservingOptions.New, context: nil)
+//            profile.addObserver(self, forKeyPath:"statusDate", options: NSKeyValueObservingOptions.New, context: nil)
             profile.addObserver(self, forKeyPath:"isAuthenticated", options: NSKeyValueObservingOptions.New, context: nil)
         }
     }

@@ -100,7 +100,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         }
         let types = StatusTypes(rawValue: indexPath.row)!
         FBAppEvents.logEvent("DidTapSendMyStatus - types \(types)")
-        dispatchAsyncOperation(SendMyStatusOperation(partnerId: Partner.read().id, statusTypes: types))
+        dispatchAsyncOperation(SendMyStatusOperation(partnerId: Partner.read().id!, statusTypes: types))
     }
 
     // MARK: -
@@ -153,19 +153,12 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
 
     @IBAction func didSelectParterStatusView(sender: AnyObject) {
         #if DEBUG
-        if MyProfile.read().isAuthenticated && UIUtil.isSimulator() {
-            if !MyProfile.read().hasPartner {
-                let userQuery = PFUser.query()!.whereKey("username", equalTo: "Ryo Abe")
-                if let user = userQuery.getFirstObject() as? PFUser {
-                    let op = AddPartnerOperation(candidatePartnerId:user.objectId!)
-                    op.completionBlock = {
-                        self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
-                    }
-                    dispatchAsyncOperation(op)
-                }
-                return
+        let myProfile = MyProfile.read()
+        if myProfile.isAuthenticated && !myProfile.hasPartner && UIUtil.isSimulator() {
+            let userQuery = PFUser.query()!.whereKey("username", equalTo: "Ryo Abe")
+            if let user = userQuery.getFirstObject() as? PFUser {
+                dispatchAsyncOperation(AddPartnerOperation(candidatePartnerId:user.objectId!))
             }
-            dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
             return
         }
         #endif

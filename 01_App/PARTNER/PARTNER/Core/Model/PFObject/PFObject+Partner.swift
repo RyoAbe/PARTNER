@@ -34,6 +34,9 @@ class PFObjectBase {
     func save(error: NSErrorPointer) {
         pfObject!.save(error)
     }
+    func saveInBackgroundWithBlock(block: (Bool, NSError?) -> Void) {
+        pfObject!.saveInBackgroundWithBlock(block)
+    }
 }
 
 class PFProfile: PFObjectBase {
@@ -48,11 +51,7 @@ class PFProfile: PFObjectBase {
         get { return pfUser.username! }
         set { pfUser.username = newValue }
     }
-    var hasPartner: Bool {
-        get { return pfUser["hasPartner"] as! Bool }
-        set { pfUser["hasPartner"] = newValue }
-        
-    }
+    var hasPartner: Bool { return self.partner != nil }
     var profileImage: PFFile {
         get { return pfUser["profileImage"] as! PFFile }
         set { pfUser["profileImage"] = newValue }
@@ -64,8 +63,10 @@ class PFProfile: PFObjectBase {
     var partner: PFUser? {
         get { return pfUser["partner"] as? PFUser }
         set {
-            if pfUser["partner"] != nil {
-                pfUser["partner"] = NSNull()
+            if newValue != nil {
+                pfUser["partner"] = newValue
+            } else {
+                pfUser["partner"] = NSNull()   
             }
         }
     }
@@ -95,7 +96,7 @@ class PFMyProfile: PFProfile {
 }
 
 class PFPartner: PFProfile {
-    
+    override var isAuthenticated: Bool { return true }
 }
 
 class PFStatus: PFObjectBase {

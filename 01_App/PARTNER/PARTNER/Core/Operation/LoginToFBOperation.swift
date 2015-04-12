@@ -61,23 +61,13 @@ class LoginToFBOperation: BaseOperation {
             finishWithError(error)
             return
         }
-        
+        // TODO: UpdateMyProfile使う
         if let pfMyProfile = pfMyProfile {
             pfMyProfile.username = username
             pfMyProfile.fbId = fbId
             pfMyProfile.profileImage = profileImageFile
-            // TODO: もともと存在していた場合、相手方のパートナー（自分）を消さないとpush送信出来てしまう
-            // TODO: clashする
             pfMyProfile.partner = nil
             pfMyProfile.removeAllStatuses()
-            pfMyProfile.hasPartner = false
-            
-            // ???: ACLは仕様により変更出来ない模様
-//            https://www.parse.com/questions/cant-update-user-acl-on-the-dashboard-cloud-code-w-master-key
-//            let acl = PFACL()
-//            acl.setPublicWriteAccess(true)
-//            acl.setPublicReadAccess(true)
-//            pfMyProfile.pfUser.ACL = acl
             
             pfMyProfile.save(&error)
             if error != nil {
@@ -88,12 +78,7 @@ class LoginToFBOperation: BaseOperation {
 
         let profileImageData = profileImageFile.getData()!
         self.dispatchAsyncMainThread({
-            let myProfile = MyProfile.read()
-            myProfile.id = self.pfMyProfile!.objectId
-            myProfile.image = UIImage(data: profileImageData)!
-            myProfile.name = username
-            myProfile.isAuthenticated = true
-            myProfile.save()
+            self.dispatchAsyncOperation(UpdateMyProfileOperation())
         })
         self.addPartnerIfEixst()
     }
