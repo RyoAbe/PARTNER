@@ -62,7 +62,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
 
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as MessageMenuCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! MessageMenuCell
 
         // ???: 【CoreData】Menu項目はCoreDataから取得する
         let type = StatusTypes(rawValue: indexPath.row)!.statusType
@@ -76,12 +76,12 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
 
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MessageMenuCell
         cell.backgroundColor = UIColor(white: 0.9, alpha: 1)
     }
 
     func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as MessageMenuCell
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MessageMenuCell
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             cell.backgroundColor = UIColor.whiteColor()
         })
@@ -155,9 +155,9 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         #if DEBUG
         if MyProfile.read().isAuthenticated && UIUtil.isSimulator() {
             if !MyProfile.read().hasPartner {
-                let userQuery = PFUser.query().whereKey("username", equalTo: "Ryo Abe")
+                let userQuery = PFUser.query()!.whereKey("username", equalTo: "Ryo Abe")
                 if let user = userQuery.getFirstObject() as? PFUser {
-                    let op = AddPartnerOperation(candidatePartnerId:user.objectId)
+                    let op = AddPartnerOperation(candidatePartnerId:user.objectId!)
                     op.completionBlock = {
                         self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id).enableHUD(false))
                     }

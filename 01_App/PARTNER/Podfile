@@ -4,7 +4,7 @@ inhibit_all_warnings!
 
 target :PARTNER, :exclusive => true do
 	pod "AFNetworking", "~> 2.0"
-	pod 'Parse', '~> 1.6.2'
+	pod 'Parse', '~> 1.7.1'
 	pod 'ParseFacebookUtils'
 	pod 'MRProgress', '~> 0.8.1'
 	pod 'Toast', '~> 2.4'

@@ -102,7 +102,7 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
         }
 
         var error: NSErrorPointer = nil
-        var input = AVCaptureDeviceInput.deviceInputWithDevice(device, error: error) as AVCaptureInput
+        var input = AVCaptureDeviceInput.deviceInputWithDevice(device, error: error) as! AVCaptureInput
         if(error != nil){
             showErrorAlert(NSError.code(.Unknown))
             return false
@@ -115,7 +115,7 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
         session.addOutput(output)
         output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
 
-        previewLayer = AVCaptureVideoPreviewLayer.layerWithSession(self.session) as AVCaptureVideoPreviewLayer
+        previewLayer = AVCaptureVideoPreviewLayer.layerWithSession(self.session) as! AVCaptureVideoPreviewLayer
         previewLayer.frame = view.bounds
         view.layer.addSublayer(previewLayer)
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -139,11 +139,11 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
         }
     }
 
-    func verifyPartnersId(id: NSString) -> Bool {
+    func verifyPartnersId(id: String) -> Bool {
         
         let op = GetUserOperation(userId: id)
         op.completionBlock = {
-            if let candidatePartner = op.result as PFUser! {
+            if let candidatePartner = op.result as? PFUser {
                 self.confirmCandidatePartner(candidatePartner)
                 return
             }
@@ -165,7 +165,7 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
             }
         }
 
-        let candidatePartnerHasPartner = candidatePartner["hasPartner"] as Bool
+        let candidatePartnerHasPartner = candidatePartner["hasPartner"] as! Bool
         let hasPartner = MyProfile.read().hasPartner
         
         // どちらかにパートナーがいる
@@ -179,7 +179,7 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
         return
     }
 
-    func becomePartner(user: PFUser, message: NSString) {
+    func becomePartner(user: PFUser, message: String) {
         let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in
             self.session.startRunning()

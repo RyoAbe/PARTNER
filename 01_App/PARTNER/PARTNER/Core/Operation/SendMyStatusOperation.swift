@@ -15,9 +15,9 @@ class SendMyStatusOperation: BaseOperation {
     let statusTypes: StatusTypes!
 
     init(partnerId: NSString, statusTypes: StatusTypes){
-        super.init()
         self.partnerId = partnerId
         self.statusTypes = statusTypes
+        super.init()
         self.executeSerialBlock = {
 
             var error: NSError?
@@ -55,14 +55,14 @@ class SendMyStatusOperation: BaseOperation {
                         "notificationType": "Status",
                         "type"            : status.types.rawValue,
                         "date"            : "\(status.date.timeIntervalSince1970)"]
-            return self.notify(data)
+            return self.notify(data as [NSObject : AnyObject])
 
         }
     }
 
     func notify(data: [NSObject : AnyObject]!) -> BaseOperationResult {
-        let userQuery = PFUser.query().whereKey("objectId", equalTo: partnerId)
-        let pushQuery = PFInstallation.query().whereKey("user", matchesQuery:userQuery)
+        let userQuery = PFUser.query()!.whereKey("objectId", equalTo: partnerId)
+        let pushQuery = PFInstallation.query()!.whereKey("user", matchesQuery:userQuery)
         let push = PFPush()
         push.setQuery(pushQuery)
         push.setData(data)

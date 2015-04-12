@@ -17,9 +17,9 @@ class Status: NSObject, NSCoding {
     }
 
     required init(coder aDecoder: NSCoder) {
-        let typesNumber = aDecoder.decodeObjectForKey("types") as NSNumber
+        let typesNumber = aDecoder.decodeObjectForKey("types") as! NSNumber
         types = StatusTypes(rawValue: typesNumber.integerValue)
-        date = aDecoder.decodeObjectForKey("date") as NSDate
+        date = aDecoder.decodeObjectForKey("date") as! NSDate
         super.init()
     }
 

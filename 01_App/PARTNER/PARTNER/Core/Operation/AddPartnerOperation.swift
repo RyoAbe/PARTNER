@@ -12,7 +12,7 @@ import UIKit
 class AddPartnerOperation: BaseOperation {
 
     var candidatePartner: PFPartner!
-    var candidatePartnerId: NSString!
+    var candidatePartnerId: String!
     
     override init() {
         super.init()
@@ -21,7 +21,7 @@ class AddPartnerOperation: BaseOperation {
                 return self.becomePartner()
             }
             var error: NSError?
-            if let candidatePartner = PFUser.query().getObjectWithId(self.candidatePartnerId, error: &error) as? PFUser {
+            if let candidatePartner = PFUser.query()!.getObjectWithId(self.candidatePartnerId, error: &error) as? PFUser {
                 self.candidatePartner = PFPartner(user: candidatePartner)
                 return self.becomePartner()
             }
@@ -29,7 +29,7 @@ class AddPartnerOperation: BaseOperation {
         }
     }
 
-    convenience init(candidatePartnerId : NSString){
+    convenience init(candidatePartnerId : String){
         self.init()
         self.candidatePartnerId = candidatePartnerId
     }
@@ -66,7 +66,7 @@ class AddPartnerOperation: BaseOperation {
         self.dispatchAsyncMainThread({
             let partner = Partner.read()
             partner.id = self.candidatePartner.objectId
-            partner.image = UIImage(data: profileImageData)
+            partner.image = UIImage(data: profileImageData!)
             partner.name = self.candidatePartner.username
             partner.isAuthenticated = true
             partner.removeAllStatuses()
@@ -85,18 +85,17 @@ class AddPartnerOperation: BaseOperation {
     }
     
     func notify() -> BaseOperationResult {
-        let pfMyProfile = PFUser.currentUser()
+        let pfMyProfile = PFUser.currentUser()!
 
-        let userQuery = PFUser.query().whereKey("objectId", equalTo: candidatePartner.objectId)
+        let userQuery = PFUser.query()!.whereKey("objectId", equalTo: candidatePartner.objectId)
         // ???: ponter使えばいいかも
-        let pushQuery = PFInstallation.query().whereKey("user", matchesQuery:userQuery)
+        let pushQuery = PFInstallation.query()!.whereKey("user", matchesQuery:userQuery)
         let push = PFPush()
         push.setQuery(pushQuery)
-        push.setData(
-            ["alert"            : "Added partner「\(pfMyProfile.username)」",
-             "objectId"         : pfMyProfile.objectId,
-             "notificationType" : "AddedPartner" ]
-        )
+
+        push.setData(["alert"            : "Added partner「\(pfMyProfile.username!)」",
+                      "objectId"         : pfMyProfile.objectId!,
+                      "notificationType" : "AddedPartner" ])
         var error: NSError?
         push.sendPush(&error)
         if error != nil {

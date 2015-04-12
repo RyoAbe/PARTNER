@@ -10,7 +10,7 @@ import UIKit
 
 enum StatusViewType {
     case MyStatus, PartnersStatus
-    var namePlaceholder : NSString {
+    var namePlaceholder : String {
         switch self {
         case .MyStatus:
             return "Not yet sign in."
@@ -99,8 +99,8 @@ class StatusView: UIView {
     }
 
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if object as NSObject == profile {
-            profile = object as Profile
+        if object as! NSObject  == profile {
+            profile = object as! Profile
             return
         }
         super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)

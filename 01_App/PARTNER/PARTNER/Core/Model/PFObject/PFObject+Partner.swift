@@ -10,11 +10,10 @@ import UIKit
 
 extension PFUser {
     class func currentMyProfile() -> PFMyProfile {
-        let currentUser = PFUser.currentUser()
-        return PFMyProfile(user: currentUser)
+        return PFMyProfile(user: PFUser.currentUser()!)
     }
-    class func currentPartner(partnerId: NSString) -> PFPartner? {
-        if let pfObject = PFUser.query().getObjectWithId(partnerId) as? PFUser {
+    class func currentPartner(partnerId: String) -> PFPartner? {
+        if let pfObject = PFUser.query()!.getObjectWithId(partnerId) as? PFUser {
             return PFPartner(user: pfObject)
         }
         return nil
@@ -42,36 +41,40 @@ class PFProfile: PFObjectBase {
         super.init(object: user)
     }
     var pfUser: PFUser {
-        return pfObject as PFUser
+        return pfObject as! PFUser
     }
-    var objectId: NSString { return pfUser.objectId }
-    var username: NSString {
-        get { return pfUser.username }
+    var objectId: String { return pfUser.objectId! }
+    var username: String {
+        get { return pfUser.username! }
         set { pfUser.username = newValue }
     }
     var hasPartner: Bool {
-        get { return pfUser["hasPartner"] as Bool }
+        get { return pfUser["hasPartner"] as! Bool }
         set { pfUser["hasPartner"] = newValue }
         
     }
     var profileImage: PFFile {
-        get { return pfUser["profileImage"] as PFFile }
+        get { return pfUser["profileImage"] as! PFFile }
         set { pfUser["profileImage"] = newValue }
     }
     var fbId: String {
-        get { return pfUser["fbId"] as String }
+        get { return pfUser["fbId"] as! String }
         set { pfUser["fbId"] = newValue }
     }
     var partner: PFUser? {
         get { return pfUser["partner"] as? PFUser }
-        set { pfUser["partner"] = newValue }
+        set {
+            if pfUser["partner"] != nil {
+                pfUser["partner"] = newValue
+            }
+        }
     }
     var statuses: Array<PFStatus>? {
         get {
             if let statusPointer = pfUser["statuses"] as? NSArray {
                 var statuses: Array<PFStatus> = []
                 for statusPointer in statusPointer {
-                    statuses.append(PFStatus(statusId: statusPointer.objectId))
+                    statuses.append(PFStatus(statusId: statusPointer.objectID))
                 }
                 return statuses
             }
@@ -103,11 +106,11 @@ class PFStatus: PFObjectBase {
         super.init(className: "Status", objectId: statusId)
     }
     var types: StatusTypes {
-        get { return StatusTypes(rawValue: pfObject["type"] as NSInteger)! }
+        get { return StatusTypes(rawValue: pfObject["type"] as! NSInteger)! }
         set { pfObject.setObject(NSNumber(integer: newValue.rawValue), forKey: "type") }
     }
     var date: NSDate {
-        get { return pfObject["date"] as NSDate }
+        get { return pfObject["date"] as! NSDate }
         set { pfObject.setObject(newValue, forKey: "date") }
     }
 }

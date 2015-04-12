@@ -21,7 +21,7 @@ public class StatusBaseView: UIButton {
 
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        statusView = NSBundle.mainBundle().loadNibNamed("StatusView", owner: nil, options: nil)[0] as StatusView;
+        statusView = NSBundle.mainBundle().loadNibNamed("StatusView", owner: nil, options: nil)[0] as! StatusView;
         statusView.frame = self.bounds
         addSubview(self.statusView)
     }

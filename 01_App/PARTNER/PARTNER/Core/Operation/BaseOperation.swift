@@ -18,7 +18,7 @@ class BaseOperation: NSOperation {
 
     enum BaseOperationState {
         case Ready, Executing, Finished
-        var keyPath : NSString {
+        var keyPath : String {
             switch self {
             case Ready:
                 return "isReady"

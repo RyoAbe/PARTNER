@@ -27,7 +27,7 @@ class UpdateMyProfileOperation: BaseOperation {
         self.dispatchAsyncMainThread({
             let myProfile = MyProfile.read()
             myProfile.id = self.pfMyProfile.objectId
-            myProfile.image = UIImage(data: profileImageData)!
+            myProfile.image = UIImage(data: profileImageData!)!
             myProfile.name = self.pfMyProfile.username
             myProfile.hasPartner = self.pfMyProfile.hasPartner
             myProfile.save()

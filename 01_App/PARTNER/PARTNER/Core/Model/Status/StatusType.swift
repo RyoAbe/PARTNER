@@ -44,17 +44,17 @@ enum StatusTypes : NSInteger {
 }
 
 class StatusType: NSObject, NSCoding {
-    var iconImageName : NSString!
-    var name : NSString!
+    var iconImageName : String!
+    var name : String!
 
-    init(iconImageName: NSString, name: NSString) {
+    init(iconImageName: String, name: String) {
         self.iconImageName = iconImageName
         self.name = name
     }
 
     required init(coder aDecoder: NSCoder) {
-        iconImageName = aDecoder.decodeObjectForKey("iconImageName") as NSString
-        name = aDecoder.decodeObjectForKey("name") as NSString
+        iconImageName = aDecoder.decodeObjectForKey("iconImageName") as! String
+        name = aDecoder.decodeObjectForKey("name") as! String
         super.init()
     }
 

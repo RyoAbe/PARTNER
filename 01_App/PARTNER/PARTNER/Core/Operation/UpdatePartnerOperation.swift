@@ -9,7 +9,7 @@
 import UIKit
 
 class UpdatePartnerOperation: BaseOperation {
-    init(partnerId: NSString) {
+    init(partnerId: String) {
         super.init()
         self.executeSerialBlock = {
             let pfParter = PFUser.currentPartner(partnerId)

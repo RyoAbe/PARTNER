@@ -9,13 +9,13 @@
 import UIKit
 
 class GetUserOperation: BaseOperation {
-    var userId: NSString!
-    init(userId : NSString){
+    var userId: String!
+    init(userId : String){
         super.init()
         self.userId = userId
         self.executeSerialBlock = {
             var error: NSError?
-            if let user = PFUser.query().getObjectWithId(userId, error: &error) {
+            if let user = PFUser.query()!.getObjectWithId(userId, error: &error) {
                 return .Success(user)
             }
             return .Failure(NSError.code(.NotFoundUser))

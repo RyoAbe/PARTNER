@@ -11,11 +11,11 @@ import UIKit
 class HistoryViewDataSource: NSObject, UITableViewDataSource {
     let margedStatuses: Statuses!
     override init() {
-        super.init()
         margedStatuses = Statuses()
         var statuses = MyProfile.read().myStatuses + Partner.read().myStatuses
         statuses.sort{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending }
         margedStatuses.statuses = statuses
+        super.init()
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -30,8 +30,8 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
         let row = indexPath.row
         let currentStatus = margedStatuses.objectAtRow(row) as Status!
 
-        let cell = currentStatus is MyStatus ? tableView.dequeueReusableCellWithIdentifier("MyHistoryCell") as MyHistoryCell
-                                             : tableView.dequeueReusableCellWithIdentifier("PartnersHistoryCell") as PartnersHistoryCell
+        let cell = currentStatus is MyStatus ? tableView.dequeueReusableCellWithIdentifier("MyHistoryCell") as! MyHistoryCell
+                                             : tableView.dequeueReusableCellWithIdentifier("PartnersHistoryCell") as! PartnersHistoryCell
         cell.currentStatus = currentStatus
         cell.prevStatus = row == 0 ? nil : margedStatuses.objectAtRow(row - 1) as Status!
         cell.nextStatus = row + 1 == margedStatuses.numberOfRows ? nil : margedStatuses.objectAtRow(row + 1) as Status!
