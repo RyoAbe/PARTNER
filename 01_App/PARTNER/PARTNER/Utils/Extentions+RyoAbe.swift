@@ -23,13 +23,15 @@ extension NSObject {
         dispatchAsyncMultiThread({op.start()})
     }
 
-    var className: NSString {
-        var className = NSStringFromClass(self.dynamicType)
-        var range = className.rangeOfString(".")
-        return className.substringFromIndex(range!.endIndex)
+    var className: String {
+        return NSStringFromClass(self.dynamicType).componentsSeparatedByString(".").last!
+    }
+    
+    class var className : String {
+        return NSStringFromClass(self).componentsSeparatedByString(".").last!
     }
 
-    func toastWithMessage(message: NSString) {
+    func toastWithMessage(message: String) {
         UIApplication.sharedApplication().keyWindow!.makeToast(message)
     }
 
@@ -38,7 +40,7 @@ extension NSObject {
             toastWithMessage(PartnerErrorCode.Unknown.description)
             return
         }
-        if let message = error.userInfo![NSLocalizedDescriptionKey] as? NSString {
+        if let message = error.userInfo![NSLocalizedDescriptionKey] as? String {
             toastWithMessage(message)
             return
         }
@@ -54,8 +56,8 @@ extension Reachability {
 }
 
 extension UIViewController {
-    func showAlert(message: NSString, okBlock: (() -> Void)!) {
-        let alert = UIAlertController(title: "Confirm", message: message as NSString, preferredStyle: UIAlertControllerStyle.Alert)
+    func showAlert(message: String, okBlock: (() -> Void)!) {
+        let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
             okBlock()
         }))
@@ -63,7 +65,7 @@ extension UIViewController {
     }
 
     func showErrorAlert(error: NSError) {
-        let alert = UIAlertController(title: "Confirm", message: error.userInfo![NSLocalizedDescriptionKey] as NSString, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Confirm", message: error.userInfo![NSLocalizedDescriptionKey] as? String, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))

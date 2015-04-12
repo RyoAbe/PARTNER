@@ -92,8 +92,7 @@ class AddPartnerOperation: BaseOperation {
         let pushQuery = PFInstallation.query()!.whereKey("user", matchesQuery:userQuery)
         let push = PFPush()
         push.setQuery(pushQuery)
-
-        push.setData(["alert"            : "Added partner「\(pfMyProfile.username!)」",
+        push.setData(["alert"            : "Added Partner「\(pfMyProfile.username!)」",
                       "objectId"         : pfMyProfile.objectId!,
                       "notificationType" : "AddedPartner" ])
         var error: NSError?

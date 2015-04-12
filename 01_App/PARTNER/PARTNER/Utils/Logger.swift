@@ -12,7 +12,7 @@ extension NSObject {
     
     enum LogLevel {
         case Debug, Info, Warning, Error
-        var toString: NSString {
+        var toString: String {
             switch self {
             case .Debug:
                 return "DEBUG"
@@ -69,6 +69,6 @@ extension NSObject {
             if let match = filename.rangeOfString("[^/]*$", options: .RegularExpressionSearch) {
                 filename = filename.substringWithRange(match)
             }
-            println("\(nowdate) - [\(loglevel.toString)] - \(className):l\(line) - \(function) => \"\(message)\" ")
+            println("\(nowdate) - [\(loglevel.toString)] - \(self.className):l\(line) - \(function) => \"\(message)\" ")
     }
 }
