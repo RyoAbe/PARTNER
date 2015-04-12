@@ -21,7 +21,7 @@ extension PFUser {
 }
 
 class PFObjectBase {
-    var pfObject: PFObject!
+    var pfObject: PFObject?
     init(object: PFObject) {
         self.pfObject = object
     }
@@ -32,7 +32,7 @@ class PFObjectBase {
         self.pfObject = PFQuery.getObjectOfClass(className, objectId: objectId)
     }
     func save(error: NSErrorPointer) {
-        pfObject.save(error)
+        pfObject!.save(error)
     }
 }
 
@@ -65,26 +65,26 @@ class PFProfile: PFObjectBase {
         get { return pfUser["partner"] as? PFUser }
         set {
             if pfUser["partner"] != nil {
-                pfUser["partner"] = newValue
+                pfUser["partner"] = NSNull()
             }
         }
     }
     var statuses: Array<PFStatus>? {
         get {
-            if let statusPointer = pfUser["statuses"] as? NSArray {
+            if let statusPointers = pfUser["statuses"] as? Array<PFObject> {
                 var statuses: Array<PFStatus> = []
-                for statusPointer in statusPointer {
-                    statuses.append(PFStatus(statusId: statusPointer.objectID))
+                for statusPointer in statusPointers {
+                    statuses.append(PFStatus(statusId: statusPointer.objectId!))
                 }
                 return statuses
             }
             return nil
         }
-        set { pfUser.addObjectsFromArray(newValue!.map{ $0.pfObject }, forKey: "statuses") }
+        set { pfUser.addObjectsFromArray(newValue!.map{ $0.pfObject! }, forKey: "statuses") }
     }
     func removeAllStatuses() {
-        if var statusPointer = pfUser["statuses"] as? NSArray {
-            statusPointer = []
+        if var statusPointers = pfUser["statuses"] as? Array<PFObject> {
+            statusPointers = []
         }
     }
     var isAuthenticated: Bool { return pfUser.isAuthenticated() }
@@ -105,12 +105,34 @@ class PFStatus: PFObjectBase {
     init(statusId: String) {
         super.init(className: "Status", objectId: statusId)
     }
-    var types: StatusTypes {
-        get { return StatusTypes(rawValue: pfObject["type"] as! NSInteger)! }
-        set { pfObject.setObject(NSNumber(integer: newValue.rawValue), forKey: "type") }
+    var types: StatusTypes? {
+        get {
+            if let type = pfObject?["type"] as? NSInteger {
+                return StatusTypes(rawValue: type)
+            }
+            return nil
+            }
+        set {
+            if let newValue = newValue {
+                pfObject?.setObject(NSNumber(integer: newValue.rawValue), forKey: "type")
+                return
+            }
+            pfObject?.setObject(NSNull(), forKey: "type")
+        }
     }
-    var date: NSDate {
-        get { return pfObject["date"] as! NSDate }
-        set { pfObject.setObject(newValue, forKey: "date") }
+    var date: NSDate? {
+        get {
+            if let date = pfObject?["date"] as? NSDate {
+                return date
+            }
+            return nil
+        }
+        set {
+            if let newValue = newValue {
+                pfObject?.setObject(newValue, forKey: "date")
+                return
+            }
+            pfObject?.setObject(NSNull(), forKey: "date")
+        }
     }
 }

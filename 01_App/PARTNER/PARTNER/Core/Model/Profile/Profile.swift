@@ -15,7 +15,7 @@ class Profile: NSObject, NSCoding{
 
     dynamic var id: String!
     dynamic var name: String!
-    dynamic var image: UIImage!
+    dynamic var image: UIImage?
     dynamic var isAuthenticated: Bool
     dynamic var hasPartner: Bool
     // ???: いらなくなる
