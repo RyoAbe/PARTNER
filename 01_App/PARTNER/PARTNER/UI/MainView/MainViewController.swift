@@ -16,7 +16,6 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         case Second
         case Third
     }
-    // ???: 【保留】初回のパートナーがいない状態のとき、即座にモーダルかかんかでパートナーの追加画面を表示する
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var myStatusView: StatusBaseView!
     @IBOutlet weak var partnersStatusView: StatusBaseView!

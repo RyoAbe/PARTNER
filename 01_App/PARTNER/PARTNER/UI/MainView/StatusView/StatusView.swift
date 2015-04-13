@@ -50,8 +50,6 @@ class StatusView: UIView {
             }
             self.profile.removeObserver(self, forKeyPath: "name")
             self.profile.removeObserver(self, forKeyPath: "image")
-//            self.profile.removeObserver(self, forKeyPath: "statusType")
-//            self.profile.removeObserver(self, forKeyPath: "statusDate")
             self.profile.removeObserver(self, forKeyPath: "statuses")
             self.profile.removeObserver(self, forKeyPath: "isAuthenticated")
         }
@@ -66,8 +64,6 @@ class StatusView: UIView {
             profile.addObserver(self, forKeyPath:"name", options: NSKeyValueObservingOptions.New, context: nil)
             profile.addObserver(self, forKeyPath:"image", options: NSKeyValueObservingOptions.New, context: nil)
             profile.addObserver(self, forKeyPath:"statuses", options: NSKeyValueObservingOptions.New, context: nil)
-//            profile.addObserver(self, forKeyPath:"statusType", options: NSKeyValueObservingOptions.New, context: nil)
-//            profile.addObserver(self, forKeyPath:"statusDate", options: NSKeyValueObservingOptions.New, context: nil)
             profile.addObserver(self, forKeyPath:"isAuthenticated", options: NSKeyValueObservingOptions.New, context: nil)
         }
     }

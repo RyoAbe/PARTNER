@@ -34,9 +34,6 @@ class Profile: NSObject, NSCoding{
         self.image = image
         self.isAuthenticated = isAuthenticated
         self.partner = partner
-//        self.hasPartner = hasPartner
-//        self.statusType = statusType
-//        self.statusDate = statusDate
         self.statuses = statuses
     }
 
@@ -50,9 +47,6 @@ class Profile: NSObject, NSCoding{
         image = aDecoder.decodeObjectForKey("image") as? UIImage
         isAuthenticated = aDecoder.decodeObjectForKey("isAuthenticated") as! Bool
         partner = aDecoder.decodeObjectForKey("partner") as? Profile
-//        hasPartner = aDecoder.decodeObjectForKey("hasPartner") as! Bool
-//        statusType = aDecoder.decodeObjectForKey("statusType") as! StatusType?
-//        statusDate = aDecoder.decodeObjectForKey("statusDate") as! NSDate?
         statuses = aDecoder.decodeObjectForKey("statuses") as? Array<Status>
     }
 
@@ -62,9 +56,6 @@ class Profile: NSObject, NSCoding{
         aCoder.encodeObject(image, forKey: "image")
         aCoder.encodeObject(isAuthenticated, forKey: "isAuthenticated")
         aCoder.encodeObject(partner, forKey: "partner")
-//        aCoder.encodeObject(hasPartner, forKey: "hasPartner")
-//        aCoder.encodeObject(statusType, forKey: "statusType")
-//        aCoder.encodeObject(statusDate, forKey: "statusDate")
         aCoder.encodeObject(statuses, forKey: "statuses")
     }
 
@@ -103,32 +94,11 @@ class Profile: NSObject, NSCoding{
 
         let unarchivedProfile = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Profile
         instance.isAuthenticated = unarchivedProfile.isAuthenticated
-//        instance.hasPartner = unarchivedProfile.hasPartner
-        
-//        if unarchivedProfile.id != nil {
-            instance.id = unarchivedProfile.id
-//        }
-//        if unarchivedProfile.name != nil {
-            instance.name = unarchivedProfile.name
-//        }
-//        if unarchivedProfile.image != nil {
-            instance.image = unarchivedProfile.image
-//        }
-//        if unarchivedProfile.partner != nil {
-//        }
+        instance.id = unarchivedProfile.id
+        instance.name = unarchivedProfile.name
+        instance.image = unarchivedProfile.image
         instance.partner = unarchivedProfile.partner
-//        if unarchivedProfile.statusType != nil {
-//            instance.statusType = unarchivedProfile.statusType
-//        }
-//        if unarchivedProfile.statusDate != nil {
-//            instance.statusDate = unarchivedProfile.statusDate
-//        }
         instance.statuses = unarchivedProfile.statuses
-
         return instance
     }
-
-//    func description() -> NSString {
-//        return NSString(format: "-----------------\n class = \(className),\n id = \(id),\n isAuthenticated = \(isAuthenticated),\n hasPartner = \(hasPartner),\n name = \(name),\n image = \(image),\n statusType = \(statusType),\n statusDate = \(statusDate)\n-----------------\n")
-//    }
 }

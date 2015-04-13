@@ -26,13 +26,10 @@ class UpdateProfileOperation: BaseOperation {
         self.dispatchAsyncMainThread{
             self.profile.id = self.pfProfile!.objectId
             self.profile.name = self.pfProfile!.username
-            if let data = profileImageData {
-                self.profile.image = UIImage(data: data)
-            }else{
-                self.profile.image = nil
-            }
+            self.profile.image = profileImageData == nil ? nil : UIImage(data: profileImageData!)
             self.profile.isAuthenticated = self.pfProfile!.isAuthenticated
             self.savePfStatuses(pfStatuses)
+            self.profile.save()
             self.saveMyPartner()
             self.profile.save()
         }
@@ -54,7 +51,7 @@ class UpdateProfileOperation: BaseOperation {
             partner.save()
             return
         }
-        assert(false)
+        return
     }
 
     func savePfStatuses(pfStatuses: Array<PFStatus>?) {
@@ -67,19 +64,5 @@ class UpdateProfileOperation: BaseOperation {
             }
         }
         self.profile.removeAllStatuses()
-        
-//        let pfStatus = pfStatuses.last!
-//        if let types = pfStatus.types, date = pfStatus.date {
-//            let status = PartnersStatus(types: types, date: date)
-////            self.profile.statusDate = status.date
-////            self.profile.statusType = status.types.statusType
-//            for pfStatus in pfStatuses {
-//                self.profile.appendStatuses(PartnersStatus(types: pfStatus.types!, date: pfStatus.date!))
-//            }
-//            return
-//        }
-//        self.profile.statusDate = nil
-//        self.profile.statusType = nil
-//        self.profile.removeAllStatuses()
     }
 }

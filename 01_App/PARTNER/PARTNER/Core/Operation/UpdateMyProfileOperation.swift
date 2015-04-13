@@ -12,7 +12,6 @@ class UpdateMyProfileOperation: UpdateProfileOperation {
     override init() {
         super.init()
         let myProfile = MyProfile.read()
-//        assert(myProfile.isAuthenticated, "ログインしていない")
         pfProfile = PFUser.currentMyProfile()
         profile = MyProfile.read()
     }

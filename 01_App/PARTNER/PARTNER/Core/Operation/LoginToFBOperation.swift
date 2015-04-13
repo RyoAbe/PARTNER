@@ -49,10 +49,6 @@ class LoginToFBOperation: BaseOperation {
             return
         }
 
-        let fbId = fbObject!["id"] as! String
-        let username = fbObject!["name"] as! String
-        let profileImageFile = PFFile(data: NSData(contentsOfURL:NSURL(string: "https://graph.facebook.com/\(fbId)/picture?width=398&height=398")!)!)
-        
         var error: NSError?
         let installation = PFInstallation.currentInstallation()
         installation.setObject(PFUser.currentUser()!, forKey: "user")
@@ -61,22 +57,22 @@ class LoginToFBOperation: BaseOperation {
             finishWithError(error)
             return
         }
-        // TODO: UpdateMyProfile使う
+
+        let fbId = fbObject!["id"] as! String
+        let username = fbObject!["name"] as! String
+        let profileImageFile = PFFile(data: NSData(contentsOfURL:NSURL(string: "https://graph.facebook.com/\(fbId)/picture?width=398&height=398")!)!)
         if let pfMyProfile = pfMyProfile {
             pfMyProfile.username = username
             pfMyProfile.fbId = fbId
             pfMyProfile.profileImage = profileImageFile
             pfMyProfile.partner = nil
             pfMyProfile.removeAllStatuses()
-            
             pfMyProfile.save(&error)
             if error != nil {
                 finishWithError(error)
                 return
             }
         }
-
-        let profileImageData = profileImageFile.getData()!
         self.dispatchAsyncMainThread({
             self.dispatchAsyncOperation(UpdateMyProfileOperation())
         })

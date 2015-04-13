@@ -43,10 +43,9 @@ class PFProfile: PFObjectBase {
     init(user: PFUser) {
         super.init(object: user)
     }
-    var pfUser: PFUser {
-        return pfObject as! PFUser
-    }
+    var pfUser: PFUser { return pfObject as! PFUser }
     var objectId: String { return pfUser.objectId! }
+    var isAuthenticated: Bool { return pfUser.isAuthenticated() }
     var username: String {
         get { return pfUser.username! }
         set { pfUser.username = newValue }
@@ -62,13 +61,7 @@ class PFProfile: PFObjectBase {
     }
     var partner: PFUser? {
         get { return pfUser["partner"] as? PFUser }
-        set {
-            if newValue != nil {
-                pfUser["partner"] = newValue
-            } else {
-                pfUser["partner"] = NSNull()   
-            }
-        }
+        set { pfUser["partner"] = newValue != nil ? newValue : NSNull() }
     }
     var statuses: Array<PFStatus>? {
         get {
@@ -81,14 +74,20 @@ class PFProfile: PFObjectBase {
             }
             return nil
         }
-        set { pfUser.addObjectsFromArray(newValue!.map{ $0.pfObject! }, forKey: "statuses") }
+        set {
+            if let statusPointers = pfUser["statuses"] as? Array<PFObject> {
+                if MaxSatuses <= statusPointers.count {
+                    pfUser.removeObjectsInArray([statusPointers.first!], forKey: "statuses")
+                }
+            }
+            pfUser.addObjectsFromArray(newValue!.map{ $0.pfObject! }, forKey: "statuses")
+        }
     }
     func removeAllStatuses() {
         if var statusPointers = pfUser["statuses"] as? Array<PFObject> {
             statusPointers = []
         }
     }
-    var isAuthenticated: Bool { return pfUser.isAuthenticated() }
 }
 
 class PFMyProfile: PFProfile {
