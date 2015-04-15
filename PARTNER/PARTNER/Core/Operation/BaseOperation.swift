@@ -45,10 +45,18 @@ class BaseOperation: NSOperation {
             case .Ready:
                 break
             case .Executing:
-                if needShowHUD { dispatchAsyncMainThread({ MRProgressOverlayView.show(); return }) }
+                if needShowHUD {
+                    dispatchAsyncMainThread{
+                        MRProgressOverlayView.show()
+                    }
+                }
                 break
             case .Finished:
-                if needShowHUD { dispatchAsyncMainThread({ MRProgressOverlayView.hide()}) }
+                if needHideHUD {
+                    dispatchAsyncMainThread{
+                        MRProgressOverlayView.hide()
+                    }
+                }
                 break
             }
         }
@@ -129,11 +137,20 @@ class BaseOperation: NSOperation {
     }
 
     private var needShowHUD = true
+    private var needHideHUD = true
     func enableHUD(enable: Bool) -> BaseOperation {
         needShowHUD = enable
+        needHideHUD = enable
         return self
     }
-
+    func needShowHUD(need: Bool) -> BaseOperation {
+        needShowHUD = need
+        return self
+    }
+    func needHideHUD(need: Bool) -> BaseOperation {
+        needHideHUD = need
+        return self
+    }
     deinit {
         LoggerInfo("deinit")
     }

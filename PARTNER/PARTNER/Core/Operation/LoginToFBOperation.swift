@@ -34,7 +34,7 @@ class LoginToFBOperation: BaseOperation {
                 self.finishWithError(error)
                 return
             }
-            self.dispatchAsyncMultiThread({ self.startForMeWithCompletion(result as? FBGraphObject, error: error) })
+            self.dispatchAsyncMultiThread{ self.startForMeWithCompletion(result as? FBGraphObject, error: error) }
         })
     }
 
@@ -73,8 +73,9 @@ class LoginToFBOperation: BaseOperation {
                 return
             }
         }
+        self.needHideHUD(false)
         self.dispatchAsyncMainThread({
-            self.dispatchAsyncOperation(UpdateMyProfileOperation())
+            self.dispatchAsyncOperation(UpdateMyProfileOperation().needShowHUD(false))
         })
         self.addPartnerIfEixst()
     }

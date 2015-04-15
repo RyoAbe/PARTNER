@@ -11,7 +11,7 @@ import UIKit
 // TODO: 100に戻す
 let MaxSatuses = 100
 
-class Profile: NSObject, NSCoding{
+class Profile: NSObject, NSCoding {
 
     dynamic var id: String?
     dynamic var name: String?

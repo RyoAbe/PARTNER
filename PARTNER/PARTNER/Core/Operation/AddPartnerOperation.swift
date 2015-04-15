@@ -57,9 +57,10 @@ class AddPartnerOperation: BaseOperation {
     }
     
     func savePartner() {
+        self.needHideHUD(false)
         self.dispatchAsyncMainThread{
             self.dispatchAsyncOperation(UpdateMyProfileOperation().enableHUD(false))
-            self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: self.candidatePartner.objectId).enableHUD(false))
+            self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: self.candidatePartner.objectId).needShowHUD(false))
         }
         if candidatePartner.hasPartner {
             self.finish()
@@ -74,7 +75,7 @@ class AddPartnerOperation: BaseOperation {
         let pushQuery = PFInstallation.query()!.whereKey("user", matchesQuery:userQuery)
         let push = PFPush()
         push.setQuery(pushQuery)
-        push.setData(["alert"            : "Added Partner「\(pfMyProfile.username!)」",
+        push.setData(["alert"            : "Added Partner: \(pfMyProfile.username!)",
                       "objectId"         : pfMyProfile.objectId!,
                       "notificationType" : "AddedPartner" ])
         var error: NSError?
