@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO: 100に戻す
 let MaxSatuses = 100
 
 class Profile: NSObject, NSCoding {
