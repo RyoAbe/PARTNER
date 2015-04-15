@@ -23,7 +23,12 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
-
+        setupStatusView()
+        setupNavigationItem()
+        showSignInFacebookAlertIfNeeded()
+    }
+    
+    func setupStatusView() {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
         let currentUser = PFUser.currentUser()
@@ -32,10 +37,14 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         partnersStatusView.statusViewType = .PartnersStatus
         myStatusView.profile = myProfile
         myStatusView.statusViewType = .MyStatus
+    }
 
-        if showSignInFacebookAlertIfNeeded() {
-            return
-        }
+    func setupNavigationItem() {
+        let addBarButtonItem = UIBarButtonItem(image: UIImage(named:"add_button"), style: .Plain, target: self, action: "didSelectAddPartnerButton:")
+        let reloadBarButtonItem = UIBarButtonItem(image: UIImage(named:"reload_button"), style: .Plain, target: self, action: "didSelectReloadButton:")
+        let insets = reloadBarButtonItem.imageInsets
+        reloadBarButtonItem.imageInsets = UIEdgeInsetsMake(insets.top, insets.left - 15, insets.bottom, insets.right)
+        navigationItem.leftBarButtonItems = [addBarButtonItem, reloadBarButtonItem]
     }
 
     func showSignInFacebookAlertIfNeeded() -> Bool {
@@ -87,7 +96,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if !canSendStatus {
+        if !isReady {
             return
         }
 
@@ -103,7 +112,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
 
     // MARK: -
-    var canSendStatus: Bool {
+    var isReady: Bool {
         if showSignInFacebookAlertIfNeeded() {
             toastWithMessage("Please sign in with Fasebook.")
             return false
@@ -123,8 +132,19 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         return true
     }
     
+    var canSeeHistory: Bool {
+        if MyProfile.read().statuses?.count == 0 && Partner.read().statuses?.count == 0 {
+            toastWithMessage("No message.")
+            return false
+        }
+        return true
+    }
+    
     func performSegueForSendStatus(identifier: String) {
-        if !canSendStatus {
+        if !isReady {
+            return
+        }
+        if !canSeeHistory {
             return
         }
         performSegueWithIdentifier(identifier, sender: self)
@@ -138,6 +158,18 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
     
     // MARK: - IBAction
+    @IBAction func didSelectReloadButton(sender: AnyObject) {
+//        if !isReady {
+//            return
+//        }
+        let myProfile = MyProfile.read()
+        if myProfile.hasPartner {
+            dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id!))
+        }
+        if myProfile.isAuthenticated {
+            dispatchAsyncOperation(UpdateMyProfileOperation())
+        }
+    }
     @IBAction func didSelectSettingsButton(sender: AnyObject) {
         performSegueForNoPartner("SettingViewSegue")
     }

@@ -49,12 +49,11 @@ class SendMyStatusOperation: BaseOperation {
             })
 
             // ???: パートナーを変えても遅れてしまう。
-            let data = ["alert"           : "\(pfMyProfile.username):「\(status.types.statusType.name)」",
-                        "notificationType": "Status",
-                        "type"            : status.types.rawValue,
-                        "date"            : "\(status.date.timeIntervalSince1970)"]
-            return self.notify(data as [NSObject : AnyObject])
-
+            let data:[NSObject : AnyObject] = ["alert"            : "\(pfMyProfile.username): \(status.types.statusType.name)",
+                                               "notificationType" : "Status",
+                                               "type"             : status.types.rawValue,
+                                               "date"             : "\(status.date.timeIntervalSince1970)"]
+            return self.notify(data)
         }
     }
 

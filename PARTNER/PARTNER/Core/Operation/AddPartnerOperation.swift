@@ -58,8 +58,8 @@ class AddPartnerOperation: BaseOperation {
     
     func savePartner() {
         self.dispatchAsyncMainThread{
-            self.dispatchAsyncOperation(UpdateMyProfileOperation())
-            self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: self.candidatePartner.objectId))
+            self.dispatchAsyncOperation(UpdateMyProfileOperation().enableHUD(false))
+            self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: self.candidatePartner.objectId).enableHUD(false))
         }
         if candidatePartner.hasPartner {
             self.finish()

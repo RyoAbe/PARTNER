@@ -28,8 +28,9 @@ class UpdateProfileOperation: BaseOperation {
             self.profile.name = self.pfProfile!.username
             self.profile.image = profileImageData == nil ? nil : UIImage(data: profileImageData!)
             self.profile.isAuthenticated = self.pfProfile!.isAuthenticated
-            self.savePfStatuses(pfStatuses)
+            self.saveStatuses(pfStatuses)
             self.profile.save()
+
             self.saveMyPartner()
             self.profile.save()
         }
@@ -53,16 +54,23 @@ class UpdateProfileOperation: BaseOperation {
         }
         return
     }
+    
+    func status(types: StatusTypes, date: NSDate) -> Status {
+        assert(false)
+        return Status(types: types, date: date)
+    }
 
-    func savePfStatuses(pfStatuses: Array<PFStatus>?) {
+    func saveStatuses(pfStatuses: Array<PFStatus>?) {
+        self.profile.removeAllStatuses()
         if let pfStatuses = pfStatuses {
             if !pfStatuses.isEmpty {
                 for pfStatus in pfStatuses {
-                    self.profile.appendStatuses(PartnersStatus(types: pfStatus.types!, date: pfStatus.date!))
+                    if let types = pfStatus.types, let date = pfStatus.date {
+                        let status = self.status(types, date: date)
+                        self.profile.appendStatuses(status)
+                    }
                 }
-                return
             }
         }
-        self.profile.removeAllStatuses()
     }
 }

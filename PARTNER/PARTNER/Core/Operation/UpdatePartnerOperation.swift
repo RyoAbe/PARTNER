@@ -14,4 +14,7 @@ class UpdatePartnerOperation: UpdateProfileOperation {
         pfProfile = PFUser.currentPartner(partnerId)
         profile = Partner.read()
     }
+    override func status(types: StatusTypes, date: NSDate) -> Status {
+        return PartnersStatus(types: types, date: date)
+    }
 }

@@ -15,4 +15,7 @@ class UpdateMyProfileOperation: UpdateProfileOperation {
         pfProfile = PFUser.currentMyProfile()
         profile = MyProfile.read()
     }
+    override func status(types: StatusTypes, date: NSDate) -> Status {
+        return MyStatus(types: types, date: date)
+    }
 }
