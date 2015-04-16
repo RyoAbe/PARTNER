@@ -21,8 +21,8 @@ class SettingsViewController: UITableViewController {
     }
 
     enum SettingsFirstSection : Int {
-        case username
-        case addPartner
+        case Username
+        case AddPartner
     }
 
     enum SettingsSecondSection : Int {
@@ -31,6 +31,7 @@ class SettingsViewController: UITableViewController {
 
     enum SettingsThirdSection : Int {
         case ReviewOnAppStore
+        case OpinionsRequest
         case About
     }
 
@@ -61,10 +62,7 @@ class SettingsViewController: UITableViewController {
     }
 
     @IBAction func done(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: { () -> Void in
-            // ???: 【保留】自分の名前をUserDefault or CoreDataに保存 http://somtd.hatenablog.com/entry/2013/12/07/230851
-//            UpdateUserOperation(username: self.usernameTextField.text).save()
-        })
+        self.dismissViewControllerAnimated(true){ }
     }
 
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -73,14 +71,14 @@ class SettingsViewController: UITableViewController {
         switch SettingsSection(rawValue: indexPath.section)! {
         case .First:
             switch SettingsFirstSection(rawValue: indexPath.row)! {
-            case .username:
+            case .Username:
                 var frame = usernameTextField.frame
                 frame.size = cell.frame.size
                 usernameTextField.frame = CGRectInset(frame, 16, 0)
                 usernameTextField.enabled = false
                 cell.addSubview(usernameTextField)
                 break
-            case .addPartner:
+            case .AddPartner:
                 break
             }
             break
@@ -91,9 +89,22 @@ class SettingsViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
-        if (SettingsSection(rawValue: indexPath.section) == SettingsSection.Third &&
-            SettingsThirdSection(rawValue: indexPath.row) == SettingsThirdSection.ReviewOnAppStore) {
-            UIApplication.sharedApplication().openURL(NSURL(string: "http://appstore.com/partner-one-touch-communication")!)
+        switch SettingsSection(rawValue: indexPath.section)! {
+            case .First:
+                switch SettingsFirstSection(rawValue: indexPath.row)! {
+                case .Username: break
+                case .AddPartner: break
+                }
+                break
+            case .Third:
+                switch SettingsThirdSection(rawValue: indexPath.row)! {
+                case .ReviewOnAppStore: UIApplication.sharedApplication().openURL(NSURL(string: "http://appstore.com/partner-one-touch-communication")!)
+                    break
+                case .OpinionsRequest: UIApplication.sharedApplication().openURL(NSURL(string: "http://twitter.com/RyoAbe/")!)
+                    break
+                case .About: break
+                }
+                break
         }
     }
 }
