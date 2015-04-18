@@ -10,7 +10,7 @@ import UIKit
 
 class LoginToFBOperation: BaseOperation {
 
-    var pfMyProfile: PFMyProfile?
+    var pfMyProfile: PFMyProfile!
     override init() {
         super.init()
         assert(!MyProfile.read().isAuthenticated, "既にログイン済み")
@@ -85,7 +85,7 @@ class LoginToFBOperation: BaseOperation {
             self.finish()
             return
         }
-        let op = AddPartnerOperation(candidatePartner: pfMyProfile!.partner!)
+        let op = AddPartnerOperation(candidatePartner: PFUser.currentPartner(pfMyProfile.partner!.objectId!)!)
         op.completionBlock = {
             let r: AnyObject? = op.error != nil ? op.error : op.result
             self.finishWithResult(r)

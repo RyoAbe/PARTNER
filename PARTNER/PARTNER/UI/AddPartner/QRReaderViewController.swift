@@ -176,9 +176,6 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
 
     func becomePartner(candidatePartner: PFPartner, message: String) {
         let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in
-            self.session.startRunning()
-        })
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
             let op = AddPartnerOperation(candidatePartner: candidatePartner)
             op.completionBlock = {
@@ -188,6 +185,9 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
             }
             self.dispatchAsyncOperation(op)
         }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default) { action in
+            self.session.startRunning()
+        })
         presentViewController(alert, animated: true, completion: nil)
     }
 

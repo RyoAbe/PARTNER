@@ -19,7 +19,7 @@ class Profile: NSObject, NSCoding {
     dynamic var partner: Profile?
     private(set) dynamic var statuses: Array<Status>?
     var hasPartner: Bool {
-        return self.partner != nil
+        return partner != nil
     }
 
     class var sharedInstance : Profile {

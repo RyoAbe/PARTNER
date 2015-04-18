@@ -52,8 +52,8 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
             return false
         }
 
-        let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { alertAction in
+        let alert = UIAlertController(title: "Login With Facebook?", message: "", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Login", style: UIAlertActionStyle.Default, handler: { alertAction in
             self.dispatchAsyncOperation(LoginToFBOperation())
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
