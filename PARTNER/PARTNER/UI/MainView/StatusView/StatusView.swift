@@ -83,6 +83,9 @@ class StatusView: UIView {
                 overlayView.alpha = 0.6
                 return
             }
+            baseView.hidden = true
+            statusNameLabel.text = nil
+            statusIcon.image = nil
             overlayView.alpha = 0.3
         }
     }
