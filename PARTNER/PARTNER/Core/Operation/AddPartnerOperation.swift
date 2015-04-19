@@ -11,7 +11,7 @@ import UIKit
 // ???: ロールバックの仕組みを作りたい
 class AddPartnerOperation: BaseOperation {
     var candidatePartner: PFPartner!
-
+    
     convenience init(candidatePartnerId : String){
         self.init()
         self.executeAsyncBlock = {

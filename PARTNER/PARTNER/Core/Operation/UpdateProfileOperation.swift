@@ -32,7 +32,6 @@ class UpdateProfileOperation: BaseOperation {
             self.profile.save()
 
             self.saveMyPartner()
-            self.profile.save()
         }
         return .Success(nil)
     }
@@ -65,6 +64,7 @@ class UpdateProfileOperation: BaseOperation {
         if let pfStatuses = pfStatuses {
             if !pfStatuses.isEmpty {
                 for pfStatus in pfStatuses {
+                    // ???: なぜこんなことが必要なのだろうか、、
                     if let types = pfStatus.types, let date = pfStatus.date {
                         let status = self.status(types, date: date)
                         self.profile.appendStatuses(status)

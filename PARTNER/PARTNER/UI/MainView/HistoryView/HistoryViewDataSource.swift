@@ -8,14 +8,33 @@
 
 import UIKit
 
+protocol HistoryViewDataSourceDelegate {
+    func didChangeDataSource(dataSource: HistoryViewDataSource)
+}
+
 class HistoryViewDataSource: NSObject, UITableViewDataSource {
-    let margedStatuses: Statuses!
+    var margedStatuses: Statuses
+    let myProfile: MyProfile
+    let partner: Partner
+    var delegate: HistoryViewDataSourceDelegate?
+
     override init() {
-        margedStatuses = Statuses()
-        var statuses = MyProfile.read().statuses! + Partner.read().statuses!
-        statuses.sort{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending }
-        margedStatuses.statuses = statuses
+        myProfile = MyProfile.read() as! MyProfile
+        partner = Partner.read() as! Partner
+        margedStatuses = Statuses(mixStatuses: (myProfile.statuses! + partner.statuses!).sorted{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
         super.init()
+        myProfile.addObserver(self, forKeyPath:"statuses", options: .New, context: nil)
+        partner.addObserver(self, forKeyPath:"statuses", options: .New, context: nil)
+    }
+    
+    convenience init(delegate: HistoryViewDataSourceDelegate) {
+        self.init()
+        self.delegate = delegate
+    }
+
+    deinit {
+        myProfile.removeObserver(self, forKeyPath: "statuses")
+        partner.removeObserver(self, forKeyPath: "statuses")
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -39,5 +58,16 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
         cell.preservesSuperviewLayoutMargins = false
 
         return cell
+    }
+
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if object as! NSObject == myProfile || object as! NSObject == partner {
+            if margedStatuses.statuses.count != (myProfile.statuses!.count + partner.statuses!.count) {
+                margedStatuses = Statuses(mixStatuses: (myProfile.statuses! + partner.statuses!).sorted{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+                delegate?.didChangeDataSource(self)
+            }
+            return
+        }
+        assert(false)
     }
 }
