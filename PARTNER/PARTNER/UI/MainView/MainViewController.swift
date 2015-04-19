@@ -71,8 +71,6 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
 
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! MessageMenuCell
-
-        // ???: 【CoreData】Menu項目はCoreDataから取得する
         let type = StatusTypes(rawValue: indexPath.row)!.statusType
         cell.menuLabel.text = type.name
         cell.menuIcon.image = UIImage(named: type.iconImageName)

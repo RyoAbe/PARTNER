@@ -8,9 +8,7 @@
 
 import UIKit
 
-// ???: 名前変えたい
 class BaseOperation: NSOperation {
-
     // MARK: - Enums
     enum BaseOperationResult {
         case Success(AnyObject?), Failure(NSError?)

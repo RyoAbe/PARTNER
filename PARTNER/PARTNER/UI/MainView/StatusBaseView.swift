@@ -8,9 +8,7 @@
 
 import UIKit
 
-// ???: 【次にやる！！！】本当は本Viewはいらないはず
 public class StatusBaseView: UIButton {
-
     var statusView: StatusView!
     var profile: Profile! {
         didSet { statusView.profile = profile }

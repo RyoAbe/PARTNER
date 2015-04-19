@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let types = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
-        // ???: 【保留】Menu項目をCoreDataに保存
         return true
     }
 
