@@ -32,7 +32,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
         let currentUser = PFUser.currentUser()
-        LoggerDebug("\(currentUser),\n\(myProfile),\n\(partner)")
+        Logger.debug("\(currentUser),\n\(myProfile),\n\(partner)")
         partnersStatusView.profile = partner
         partnersStatusView.statusViewType = .PartnersStatus
         myStatusView.profile = myProfile

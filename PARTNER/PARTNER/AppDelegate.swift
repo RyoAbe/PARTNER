@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        LoggerDebug("didFailToRegisterForRemoteNotificationsWithError:\(error)")
+        Logger.debug("didFailToRegisterForRemoteNotificationsWithError:\(error)")
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func notify(userInfo: [NSObject : AnyObject]) {
-        LoggerInfo("userInfo:\(userInfo)")
+        Logger.info("userInfo:\(userInfo)")
 
         switch userInfo["notificationType"] as! String {
             case "AddedPartner":

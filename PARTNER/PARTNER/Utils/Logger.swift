@@ -8,7 +8,13 @@
 
 import Foundation
 
-extension NSObject {
+class Logger {
+    class var sharedInstance : Logger {
+        struct Static {
+            static let instance = Logger()
+        }
+        return Static.instance
+    }
     
     enum LogLevel {
         case Debug, Info, Warning, Error
@@ -26,30 +32,30 @@ extension NSObject {
         }
     }
     
-    func LoggerDebug(
+    class func debug (
         message: String,
         function: String = __FUNCTION__,
         file: String = __FILE__,
         line: Int = __LINE__) {
             #if DEBUG
-                LoggerWrite(.Debug, message: message, function: function, file: file, line: line)
+                Logger.sharedInstance.LoggerWrite(.Debug, message: message, function: function, file: file, line: line)
             #endif
     };
-    func LoggerInfo(
+    class func info(
         message: String,
         function: String = __FUNCTION__,
         file: String = __FILE__,
-        line: Int = __LINE__) { LoggerWrite(.Info, message: message, function: function, file: file, line: line) };
-    func LoggerWarning(
+        line: Int = __LINE__) { Logger.sharedInstance.LoggerWrite(.Info, message: message, function: function, file: file, line: line) };
+    class func warning(
         message: String,
         function: String = __FUNCTION__,
         file: String = __FILE__,
-        line: Int = __LINE__) { LoggerWrite(.Warning, message: message, function: function, file: file, line: line) };
-    func LoggerError(
+        line: Int = __LINE__) { Logger.sharedInstance.LoggerWrite(.Warning, message: message, function: function, file: file, line: line) };
+    class func error(
         message: String,
         function: String = __FUNCTION__,
         file: String = __FILE__,
-        line: Int = __LINE__) { LoggerWrite(.Error, message: message, function: function, file: file, line: line) };
+        line: Int = __LINE__) { Logger.sharedInstance.LoggerWrite(.Error, message: message, function: function, file: file, line: line) };
     func LoggerWrite(
         loglevel: LogLevel,
         message: String,
@@ -58,17 +64,14 @@ extension NSObject {
         line: Int) {
             let now = NSDate() // 現在日時の取得
             let dateFormatter = NSDateFormatter()
-            dateFormatter.locale = NSLocale(localeIdentifier: "ja_JP")
             dateFormatter.timeStyle = .MediumStyle
             dateFormatter.dateStyle = .MediumStyle
             //println(dateFormatter.stringFromDate(now)) // => 2014/12/11 15:19:04
             
             var nowdate = dateFormatter.stringFromDate(now)
-            
-            var filename = file
-            if let match = filename.rangeOfString("[^/]*$", options: .RegularExpressionSearch) {
-                filename = filename.substringWithRange(match)
-            }
-            println("\(nowdate) - [\(loglevel.toString)] - \(self.className):l\(line) - \(function) => \"\(message)\" ")
+ 
+            let filename = file.lastPathComponent.componentsSeparatedByString(".")[0]
+//            println("\(nowdate) - [\(loglevel.toString)] - \(self.className):l\(line) - \(function) => \"\(message)\" ")
+            println("\(nowdate) - [\(loglevel.toString)] - l\(line) - \(filename) - \(function) => \"\(message)\" ")
     }
 }

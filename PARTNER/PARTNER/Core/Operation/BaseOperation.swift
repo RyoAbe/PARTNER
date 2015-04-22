@@ -92,7 +92,7 @@ class BaseOperation: NSOperation {
 
     // ???: executeAsyncBlockとexecuteSerialBlockを分断
     override func main() {
-        LoggerInfo("execute operation")
+        Logger.info("execute operation")
 
         assert(!NSThread.currentThread().isMainThread, "call from main thread")
 
@@ -119,7 +119,7 @@ class BaseOperation: NSOperation {
     // MARK: -
     func finishWithError(error: NSError?) {
         self.error = error
-        LoggerInfo("\(error)")
+        Logger.info("\(error)")
         dispatchAsyncMainThread({ self.error!.toast() })
         finish()
     }
@@ -130,7 +130,7 @@ class BaseOperation: NSOperation {
     }
 
     func finish() {
-        LoggerInfo("finish")
+        Logger.info("finish")
         state = .Finished
     }
 
@@ -150,6 +150,6 @@ class BaseOperation: NSOperation {
         return self
     }
     deinit {
-        LoggerInfo("deinit")
+        Logger.info("deinit")
     }
 }
