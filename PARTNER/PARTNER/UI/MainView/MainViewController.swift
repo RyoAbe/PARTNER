@@ -105,7 +105,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
             return
         }
         let types = StatusTypes(rawValue: indexPath.row)!
-        FBAppEvents.logEvent("DidTapSendMyStatus - types \(types)")
+        FBAppEvents.logEvent("DidTapSendMyStatus - types \(types.statusType.name)")
         dispatchAsyncOperation(SendMyStatusOperation(partnerId: Partner.read().id!, statusTypes: types))
     }
 

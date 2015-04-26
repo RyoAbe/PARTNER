@@ -35,7 +35,7 @@ class SendMyStatusOperation: BaseOperation {
                 return .Failure(error)
             }
 
-            pfMyProfile.statuses = [pfStatus]
+            pfMyProfile.appendStatus(pfStatus)
             pfMyProfile.save(&error)
             if error != nil {
                 return .Failure(error)

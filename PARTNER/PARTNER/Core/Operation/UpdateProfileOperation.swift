@@ -60,7 +60,6 @@ class UpdateProfileOperation: BaseOperation {
     }
 
     func saveStatuses(pfStatuses: Array<PFStatus>?) {
-        self.profile.removeAllStatuses()
         if let pfStatuses = pfStatuses {
             if !pfStatuses.isEmpty {
                 for pfStatus in pfStatuses {

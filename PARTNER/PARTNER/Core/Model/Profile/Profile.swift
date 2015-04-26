@@ -100,4 +100,8 @@ class Profile: NSObject, NSCoding {
         instance.statuses = unarchivedProfile.statuses
         return instance
     }
+
+    override var description: String {
+        return "id: \(id), name: \(name), statuses: \(statuses)"
+    }
 }
