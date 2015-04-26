@@ -9,7 +9,7 @@
 import Foundation
 
 class DummyStatuses: Statuses {
-    var dummyStatuses: Array<Status>
+    var dummyStatuses: [Status]
 
     override var numberOfRows: NSInteger {
         return dummyStatuses.count

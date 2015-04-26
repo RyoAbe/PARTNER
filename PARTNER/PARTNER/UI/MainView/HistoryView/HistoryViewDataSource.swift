@@ -22,6 +22,8 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
         myProfile = MyProfile.read() as! MyProfile
         partner = Partner.read() as! Partner
         margedStatuses = Statuses(mixStatuses: (myProfile.statuses! + partner.statuses!).sorted{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+//        margedStatuses = Statuses(mixStatuses: (partner.statuses!).sorted{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+
         super.init()
         myProfile.addObserver(self, forKeyPath:"statuses", options: .New, context: nil)
         partner.addObserver(self, forKeyPath:"statuses", options: .New, context: nil)

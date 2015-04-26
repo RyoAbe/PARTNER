@@ -25,11 +25,13 @@ class UpdateProfileOperation: BaseOperation {
         let profileImageData = pfProfile!.profileImage.getData()
         self.dispatchAsyncMainThread{
             self.profile.id = self.pfProfile!.objectId
+            Logger.debug("self.profile=\(self.profile)")
             self.profile.name = self.pfProfile!.username
             self.profile.image = profileImageData == nil ? nil : UIImage(data: profileImageData!)
             self.profile.isAuthenticated = self.pfProfile!.isAuthenticated
             self.saveStatuses(pfStatuses)
             self.profile.save()
+            Logger.debug("self.profile=\(self.profile)")
 
             self.saveMyPartner()
         }
@@ -37,8 +39,8 @@ class UpdateProfileOperation: BaseOperation {
     }
     
     func saveMyPartner(){
-        if self.pfProfile.partner == nil {
-            self.profile.partner = nil
+        if pfProfile.partner == nil {
+            profile.partner = nil
             return
         }
 
@@ -59,7 +61,9 @@ class UpdateProfileOperation: BaseOperation {
         return Status(types: types, date: date)
     }
 
-    func saveStatuses(pfStatuses: Array<PFStatus>?) {
+    func saveStatuses(pfStatuses: [PFStatus]?) {
+        // 一旦ローカルのデータを消してから再度セット
+        profile.removeAllStatuses()
         if let pfStatuses = pfStatuses {
             if !pfStatuses.isEmpty {
                 for pfStatus in pfStatuses {

@@ -37,6 +37,7 @@ class AddPartnerOperation: BaseOperation {
         var error: NSError?
         let pfMyProfile = PFUser.currentMyProfile()
         pfMyProfile.partner = self.candidatePartner.pfUser
+        pfMyProfile.removeAllStatuses()
         pfMyProfile.saveInBackgroundWithBlock{ success, error in
             if error != nil {
                 self.finishWithError(error)
@@ -49,6 +50,7 @@ class AddPartnerOperation: BaseOperation {
     func savePartner() {
         self.needHideHUD(false)
         self.dispatchAsyncMainThread{
+
             // 取得したcandidatePartnerを使用してパートナーのみの情報を更新
             let op = UpdatePartnerOperation(partnerId: self.candidatePartner.objectId).needShowHUD(false)
             op.completionBlock = {

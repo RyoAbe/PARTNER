@@ -8,7 +8,8 @@
 
 import UIKit
 
-let MaxSatuses = 100
+// TODO: とりあえず20件にした
+let MaxSatuses = 20
 
 class Profile: NSObject, NSCoding {
 
@@ -17,7 +18,7 @@ class Profile: NSObject, NSCoding {
     dynamic var image: UIImage?
     dynamic var isAuthenticated: Bool
     dynamic var partner: Profile?
-    private(set) dynamic var statuses: Array<Status>?
+    private(set) dynamic var statuses: [Status]?
     var hasPartner: Bool {
         return partner != nil
     }
@@ -27,7 +28,7 @@ class Profile: NSObject, NSCoding {
         return Profile()
     }
 
-    init(id: String?, name: String?, image: UIImage?, isAuthenticated: Bool, partner: Profile?, statuses: Array<Status>) {
+    init(id: String?, name: String?, image: UIImage?, isAuthenticated: Bool, partner: Profile?, statuses: [Status]) {
         self.id = id
         self.name = name
         self.image = image
@@ -46,7 +47,7 @@ class Profile: NSObject, NSCoding {
         image = aDecoder.decodeObjectForKey("image") as? UIImage
         isAuthenticated = aDecoder.decodeObjectForKey("isAuthenticated") as! Bool
         partner = aDecoder.decodeObjectForKey("partner") as? Profile
-        statuses = aDecoder.decodeObjectForKey("statuses") as? Array<Status>
+        statuses = aDecoder.decodeObjectForKey("statuses") as? [Status]
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
@@ -102,6 +103,7 @@ class Profile: NSObject, NSCoding {
     }
 
     override var description: String {
-        return "id: \(id), name: \(name), statuses: \(statuses)"
+        let statusesString = join(", ", (statuses?.map{ "types=\($0.types), date=\($0.date)" })! )
+        return "id: \(id), name: \(name), statuses: [\(statusesString)], statuses.count:\(statuses?.count)"
     }
 }

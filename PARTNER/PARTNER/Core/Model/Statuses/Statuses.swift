@@ -9,11 +9,11 @@
 import Foundation
 
 class Statuses: NSObject {
-    var statuses: Array<Status> = []
+    var statuses: [Status] = []
     var numberOfSections: NSInteger { return 1 }
     var numberOfRows: NSInteger { return statuses.count }
 
-    convenience init (mixStatuses: Array<Status>){
+    convenience init (mixStatuses: [Status]){
         self.init()
         statuses = mixStatuses
     }

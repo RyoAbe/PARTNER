@@ -86,9 +86,10 @@ class PFProfile: PFObjectBase {
                 if let firstPointer = pfPointerStatuses.first {
                     pfUser.removeObject(firstPointer, forKey: "statuses")
                     pfUser.save()
-                    let pfStatus = PFQuery(className: "Status").getObjectWithId(firstPointer.objectId!)!
-                    Logger.debug("RemoveTargetPFObject = \(pfStatus)")
-                    pfStatus.delete()
+
+                    let pfStatus = PFStatus(statusId: firstPointer.objectId!)
+                    Logger.debug("RemoveTargetPFObject = \(pfStatus.pfObject!)")
+                    pfStatus.pfObject!.delete()
                 }
             }
         }
@@ -105,8 +106,8 @@ class PFProfile: PFObjectBase {
                 pfUser.removeObjectsInArray(pfStatusPointers, forKey: "statuses")
                 for statusPointer in pfStatusPointers {
                     Logger.debug("remove target statusPointer=\(statusPointer)")
-                    let pfStatus = PFQuery(className: "Status").getObjectWithId(statusPointer.objectId!)
-                    pfStatus?.delete()
+                    let pfStatus = PFStatus(statusId: statusPointer.objectId!)
+                    pfStatus.pfObject!.delete()
                 }
             }
         }
