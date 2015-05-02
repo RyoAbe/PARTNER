@@ -31,8 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func setupParse() {
-        // TODO: クラッシュレポート有効にする　https://www.parse.com/docs/ios_guide#crashreporting-enabling/iOS
-//        ParseCrashReporting.enable();
         Parse.setApplicationId("Wq5i73uv70sYS1tI9anCe4WE9Iz5YVQtWof988EJ", clientKey: "9o1GdrDNpDfCN0eTkWYEsENAoftTkZgC7EQpeghc")
         PFFacebookUtils.initializeFacebook()
     }

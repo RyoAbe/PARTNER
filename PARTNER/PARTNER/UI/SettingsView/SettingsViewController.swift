@@ -11,7 +11,7 @@ import UIKit
 class SettingsViewController: UITableViewController {
 
     // ???: 電話かける機能を追加
-    // TODO: リセット or ログアウト and 再認証
+    // ???: リセット or ログアウト and 再認証
     
     enum SettingsSection : Int {
         case First

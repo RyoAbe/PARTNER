@@ -19,7 +19,10 @@ class LoginToFBOperation: BaseOperation {
             PFFacebookUtils.logInWithPermissions(["public_profile"], block: {pfMyProfile , error in
                 if error != nil {
                     let alert = UIAlertController(title: "Please allow PARTNER app to use your acount.", message: "Settings App > [Facebook] > [PARTNER]", preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                    let action = UIAlertAction(title: "Ok", style: .Default, handler: { action in
+                        UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root=General")!)
+                    })
+                    alert.addAction(action)
                     let vc = (UIApplication.sharedApplication().delegate as! AppDelegate).window!.rootViewController!
                     vc.presentViewController(alert, animated: true, completion: nil)
                     self.finishWithError(error)
