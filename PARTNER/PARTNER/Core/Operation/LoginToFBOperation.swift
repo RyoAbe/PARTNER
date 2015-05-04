@@ -10,7 +10,7 @@ import UIKit
 
 class LoginToFBOperation: BaseOperation {
 
-    var pfMyProfile: PFMyProfile?
+    var pfMyProfile: PFMyProfile!
     override init() {
         super.init()
         assert(!MyProfile.read().isAuthenticated, "既にログイン済み")
@@ -18,7 +18,13 @@ class LoginToFBOperation: BaseOperation {
         self.executeAsyncBlock = {
             PFFacebookUtils.logInWithPermissions(["public_profile"], block: {pfMyProfile , error in
                 if error != nil {
-                    // TODO: 設定からonにしてくださいアラート表示
+                    let alert = UIAlertController(title: "Please allow PARTNER app to use your acount.", message: "Settings App > [Facebook] > [PARTNER]", preferredStyle: .Alert)
+                    let action = UIAlertAction(title: "Ok", style: .Default, handler: { action in
+                        UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root=General")!)
+                    })
+                    alert.addAction(action)
+                    let vc = (UIApplication.sharedApplication().delegate as! AppDelegate).window!.rootViewController!
+                    vc.presentViewController(alert, animated: true, completion: nil)
                     self.finishWithError(error)
                     return
                 }
@@ -85,7 +91,7 @@ class LoginToFBOperation: BaseOperation {
             self.finish()
             return
         }
-        let op = AddPartnerOperation(candidatePartner: pfMyProfile!.partner!)
+        let op = AddPartnerOperation(candidatePartner: PFUser.currentPartner(pfMyProfile.partner!.objectId!)!)
         op.completionBlock = {
             let r: AnyObject? = op.error != nil ? op.error : op.result
             self.finishWithResult(r)

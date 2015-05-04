@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let types = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
-        // ???: 【保留】Menu項目をCoreDataに保存
         return true
     }
 
@@ -37,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        LoggerDebug("didFailToRegisterForRemoteNotificationsWithError:\(error)")
+        Logger.debug("didFailToRegisterForRemoteNotificationsWithError:\(error)")
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -60,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func notify(userInfo: [NSObject : AnyObject]) {
-        LoggerInfo("userInfo:\(userInfo)")
+        Logger.info("userInfo:\(userInfo)")
 
         switch userInfo["notificationType"] as! String {
             case "AddedPartner":

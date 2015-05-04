@@ -63,29 +63,53 @@ class PFProfile: PFObjectBase {
         get { return pfUser["partner"] as? PFUser }
         set { pfUser["partner"] = newValue != nil ? newValue : NSNull() }
     }
-    var statuses: Array<PFStatus>? {
-        get {
-            if let statusPointers = pfUser["statuses"] as? Array<PFObject> {
-                var statuses: Array<PFStatus> = []
-                for statusPointer in statusPointers {
-                    statuses.append(PFStatus(statusId: statusPointer.objectId!))
-                }
-                return statuses
-            }
-            return nil
-        }
-        set {
-            if let statusPointers = pfUser["statuses"] as? Array<PFObject> {
-                if MaxSatuses <= statusPointers.count {
-                    pfUser.removeObjectsInArray([statusPointers.first!], forKey: "statuses")
-                }
-            }
-            pfUser.addObjectsFromArray(newValue!.map{ $0.pfObject! }, forKey: "statuses")
-        }
+    var pfStatusPointers: [PFObject]? {
+        return pfUser["statuses"] as? [PFObject]
     }
+    var statuses: [PFStatus]? {
+        if let statusPointers = pfStatusPointers {
+            var statuses = [PFStatus]()
+            for statusPointer in statusPointers {
+                statuses.append(PFStatus(statusId: statusPointer.objectId!))
+            }
+            return statuses
+        }
+        return nil
+    }
+
+    func appendStatus(status: PFStatus) {
+        Logger.debug("pfStatusPointers=\(pfStatusPointers)")
+        Logger.debug("pfStatusPointers.count=\(pfStatusPointers?.count)")
+
+        if let pfPointerStatuses = pfStatusPointers {
+            if MaxSatuses <= pfPointerStatuses.count {
+                if let firstPointer = pfPointerStatuses.first {
+                    pfUser.removeObject(firstPointer, forKey: "statuses")
+                    pfUser.save()
+
+                    let pfStatus = PFStatus(statusId: firstPointer.objectId!)
+                    Logger.debug("RemoveTargetPFObject = \(pfStatus.pfObject!)")
+                    pfStatus.pfObject!.delete()
+                }
+            }
+        }
+        Logger.debug("AddTargetPFObject = \(status.pfObject)")
+        pfUser.addObject(status.pfObject!, forKey: "statuses")
+        pfUser.save()
+    }
+
     func removeAllStatuses() {
-        if var statusPointers = pfUser["statuses"] as? Array<PFObject> {
-            statusPointers = []
+        Logger.debug("pfStatusPointers=\(pfStatusPointers)")
+        Logger.debug("pfStatusPointers.count=\(pfStatusPointers?.count)")
+        if let pfStatusPointers = pfStatusPointers {
+            if pfStatusPointers.count > 0 {
+                pfUser.removeObjectsInArray(pfStatusPointers, forKey: "statuses")
+                for statusPointer in pfStatusPointers {
+                    Logger.debug("remove target statusPointer=\(statusPointer)")
+                    let pfStatus = PFStatus(statusId: statusPointer.objectId!)
+                    pfStatus.pfObject!.delete()
+                }
+            }
         }
     }
 }

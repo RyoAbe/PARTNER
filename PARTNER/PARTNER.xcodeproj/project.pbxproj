@@ -83,7 +83,7 @@
 		3222378D1AAAC6260069F0DD /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3222378F1AAAC6260069F0DD /* MessageMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageMenuCell.swift; sourceTree = "<group>"; };
 		322237901AAAC6260069F0DD /* MessageMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageMenuCell.xib; sourceTree = "<group>"; };
-		322237911AAAC6260069F0DD /* StatusBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBaseView.swift; sourceTree = "<group>"; };
+		322237911AAAC6260069F0DD /* StatusBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatusBaseView.swift; path = ../StatusBaseView.swift; sourceTree = "<group>"; };
 		322237931AAAC6260069F0DD /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		322237941AAAC6260069F0DD /* StatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusView.xib; sourceTree = "<group>"; };
 		3222379C1AAAC6550069F0DD /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -183,7 +183,6 @@
 			isa = PBXGroup;
 			children = (
 				3222378D1AAAC6260069F0DD /* MainViewController.swift */,
-				322237911AAAC6260069F0DD /* StatusBaseView.swift */,
 				3210A3231AAADF870081C0C0 /* HistoryView */,
 				3222378E1AAAC6260069F0DD /* MessageMenuCell */,
 				322237921AAAC6260069F0DD /* StatusView */,
@@ -203,6 +202,7 @@
 		322237921AAAC6260069F0DD /* StatusView */ = {
 			isa = PBXGroup;
 			children = (
+				322237911AAAC6260069F0DD /* StatusBaseView.swift */,
 				322237931AAAC6260069F0DD /* StatusView.swift */,
 				322237941AAAC6260069F0DD /* StatusView.xib */,
 			);

@@ -8,12 +8,15 @@
 
 import Foundation
 
-class Statuses {
-    var statuses: Array<Status>
+class Statuses: NSObject {
+    var statuses: [Status] = []
     var numberOfSections: NSInteger { return 1 }
     var numberOfRows: NSInteger { return statuses.count }
 
-    init (){ statuses = [] }
+    convenience init (mixStatuses: [Status]){
+        self.init()
+        statuses = mixStatuses
+    }
 
     func objectAtRow(row: NSInteger) -> Status? {
         return statuses[row]

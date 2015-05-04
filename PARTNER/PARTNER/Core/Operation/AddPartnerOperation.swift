@@ -10,18 +10,13 @@ import UIKit
 
 // ???: ロールバックの仕組みを作りたい
 class AddPartnerOperation: BaseOperation {
-
     var candidatePartner: PFPartner!
-    var candidatePartnerId: String!
     
-    override init() {
-        super.init()
+    convenience init(candidatePartnerId : String){
+        self.init()
         self.executeAsyncBlock = {
-            if self.candidatePartner != nil {
-                self.becomePartner()
-            }
             var error: NSError?
-            if let candidatePartner = PFUser.query()!.getObjectWithId(self.candidatePartnerId, error: &error) as? PFUser {
+            if let candidatePartner = PFUser.query()!.getObjectWithId(candidatePartnerId, error: &error) as? PFUser {
                 self.candidatePartner = PFPartner(user: candidatePartner)
                 self.becomePartner()
                 return
@@ -30,23 +25,19 @@ class AddPartnerOperation: BaseOperation {
         }
     }
 
-    convenience init(candidatePartnerId : String){
-        self.init()
-        self.candidatePartnerId = candidatePartnerId
-    }
-    convenience init(candidatePartner: PFUser){
-        self.init()
-        self.candidatePartner = PFPartner(user: candidatePartner)
-    }
     convenience init(candidatePartner: PFPartner){
         self.init()
         self.candidatePartner = candidatePartner
+        self.executeAsyncBlock = {
+            self.becomePartner()
+        }
     }
 
     func becomePartner() {
         var error: NSError?
         let pfMyProfile = PFUser.currentMyProfile()
         pfMyProfile.partner = self.candidatePartner.pfUser
+        pfMyProfile.removeAllStatuses()
         pfMyProfile.saveInBackgroundWithBlock{ success, error in
             if error != nil {
                 self.finishWithError(error)
@@ -59,8 +50,14 @@ class AddPartnerOperation: BaseOperation {
     func savePartner() {
         self.needHideHUD(false)
         self.dispatchAsyncMainThread{
-            self.dispatchAsyncOperation(UpdateMyProfileOperation().enableHUD(false))
-            self.dispatchAsyncOperation(UpdatePartnerOperation(partnerId: self.candidatePartner.objectId).needShowHUD(false))
+
+            // 取得したcandidatePartnerを使用してパートナーのみの情報を更新
+            let op = UpdatePartnerOperation(partnerId: self.candidatePartner.objectId).needShowHUD(false)
+            op.completionBlock = {
+                // パートナーが追加されたので自分の情報を更新
+                self.dispatchAsyncOperation(UpdateMyProfileOperation().enableHUD(false))
+            }
+            self.dispatchAsyncOperation(op)
         }
         if candidatePartner.hasPartner {
             self.finish()

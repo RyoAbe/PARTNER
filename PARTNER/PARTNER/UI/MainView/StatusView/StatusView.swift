@@ -61,11 +61,18 @@ class StatusView: UIView {
             let status = profile.statuses?.last
             statusType = status?.types.statusType
             statusDate = status?.date
-            profile.addObserver(self, forKeyPath:"name", options: NSKeyValueObservingOptions.New, context: nil)
-            profile.addObserver(self, forKeyPath:"image", options: NSKeyValueObservingOptions.New, context: nil)
-            profile.addObserver(self, forKeyPath:"statuses", options: NSKeyValueObservingOptions.New, context: nil)
-            profile.addObserver(self, forKeyPath:"isAuthenticated", options: NSKeyValueObservingOptions.New, context: nil)
+            profile.addObserver(self, forKeyPath:"name", options: .New, context: nil)
+            profile.addObserver(self, forKeyPath:"image", options: .New, context: nil)
+            profile.addObserver(self, forKeyPath:"statuses", options: .New, context: nil)
+            profile.addObserver(self, forKeyPath:"isAuthenticated", options: .New, context: nil)
         }
+    }
+
+    deinit{
+        profile.removeObserver(self, forKeyPath: "name")
+        profile.removeObserver(self, forKeyPath: "image")
+        profile.removeObserver(self, forKeyPath: "statuses")
+        profile.removeObserver(self, forKeyPath: "isAuthenticated")
     }
 
     var statusViewType: StatusViewType! {
@@ -83,6 +90,9 @@ class StatusView: UIView {
                 overlayView.alpha = 0.6
                 return
             }
+            baseView.hidden = true
+            statusNameLabel.text = nil
+            statusIcon.image = nil
             overlayView.alpha = 0.3
         }
     }
@@ -98,10 +108,10 @@ class StatusView: UIView {
     }
 
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if object as! NSObject  == profile {
+        if object as! NSObject == profile {
             profile = object as! Profile
             return
         }
-        super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        assert(false)
     }
 }

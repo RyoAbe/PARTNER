@@ -8,22 +8,23 @@
 
 import UIKit
 
-class HistoryViewController: BaseViewController {
+class HistoryViewController: BaseViewController, HistoryViewDataSourceDelegate {
 
     @IBOutlet weak var closeButtonImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
-    var historyViewDataSource: HistoryViewDataSource?
-    var historyViewDelegate: HistoryViewDelegate?
+    var historyViewDataSource: HistoryViewDataSource!
+    var historyViewDelegate: HistoryViewDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
 
-        historyViewDataSource = HistoryViewDataSource()
+        historyViewDataSource = HistoryViewDataSource(delegate: self)
         historyViewDelegate = HistoryViewDelegate()
 
         tableView.registerNib(UINib(nibName: "MyHistoryCell", bundle: nil), forCellReuseIdentifier: "MyHistoryCell")
         tableView.registerNib(UINib(nibName: "PartnersHistoryCell", bundle: nil), forCellReuseIdentifier: "PartnersHistoryCell")
+
         tableView.dataSource = historyViewDataSource
         tableView.delegate = historyViewDelegate
 
@@ -33,7 +34,10 @@ class HistoryViewController: BaseViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
+        scrollToBottom()
+    }
+    
+    func scrollToBottom() {
         let size = tableView.contentSize
         let f = tableView.frame
         if f.height > size.height {
@@ -43,7 +47,16 @@ class HistoryViewController: BaseViewController {
         tableView.setContentOffset(p, animated: true)
     }
 
+    // MARK: - IBAction
+
     @IBAction func didTapCloseButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    // MARK: - HistoryViewDataSourceDelegate
+
+    func didChangeDataSource(dataSource: HistoryViewDataSource) {
+        tableView.reloadData()
+        scrollToBottom()
     }
 }

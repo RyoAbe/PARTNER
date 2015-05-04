@@ -21,7 +21,6 @@ class SendMyStatusOperation: BaseOperation {
         self.executeSerialBlock = {
 
             var error: NSError?
-            // ???: myProfileはcurrentUserから持ってくればいいのでは
             let pfMyProfile = PFUser.currentMyProfile()
             assert(pfMyProfile.isAuthenticated && pfMyProfile.hasPartner, "ログイン出来てないし、パートナーもいない")
 
@@ -36,7 +35,7 @@ class SendMyStatusOperation: BaseOperation {
                 return .Failure(error)
             }
 
-            pfMyProfile.statuses = [pfStatus]
+            pfMyProfile.appendStatus(pfStatus)
             pfMyProfile.save(&error)
             if error != nil {
                 return .Failure(error)

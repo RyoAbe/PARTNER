@@ -32,7 +32,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
         let currentUser = PFUser.currentUser()
-        LoggerDebug("\(currentUser),\n\(myProfile),\n\(partner)")
+        Logger.debug("currentUser=\(currentUser)")
         partnersStatusView.profile = partner
         partnersStatusView.statusViewType = .PartnersStatus
         myStatusView.profile = myProfile
@@ -52,8 +52,8 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
             return false
         }
 
-        let alert = UIAlertController(title: "Sign in With Facebook?", message: "", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Sign in", style: UIAlertActionStyle.Default, handler: { alertAction in
+        let alert = UIAlertController(title: "Login With Facebook?", message: "", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Login", style: UIAlertActionStyle.Default, handler: { alertAction in
             self.dispatchAsyncOperation(LoginToFBOperation())
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
@@ -71,8 +71,6 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
 
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! MessageMenuCell
-
-        // ???: 【CoreData】Menu項目はCoreDataから取得する
         let type = StatusTypes(rawValue: indexPath.row)!.statusType
         cell.menuLabel.text = type.name
         cell.menuIcon.image = UIImage(named: type.iconImageName)
@@ -107,7 +105,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
             return
         }
         let types = StatusTypes(rawValue: indexPath.row)!
-        FBAppEvents.logEvent("DidTapSendMyStatus - types \(types)")
+        FBAppEvents.logEvent("DidTapSendMyStatus - types \(types.statusType.name)")
         dispatchAsyncOperation(SendMyStatusOperation(partnerId: Partner.read().id!, statusTypes: types))
     }
 
