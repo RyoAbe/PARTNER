@@ -11,14 +11,12 @@ import UIKit
 // TODO: Analytics入れる（tracker）
 class MainViewController: BaseViewController, UICollectionViewDelegate {
 
-    enum Menus : Int {
-        case First
-        case Second
-        case Third
-    }
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var myStatusView: StatusBaseView!
     @IBOutlet weak var partnersStatusView: StatusBaseView!
+    @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
+    let MessageMenuCellColumns: Int = 3
+    let MessageMenuCellLines: Int = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +59,14 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         return true
     }
     
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        if !UIUtil.is4s() {
+            return
+        }
+        collectionViewHeight.constant = view.frame.height - (view.frame.width / 2)
+    }
+    
     func showMyQRCodeViewIfNeeded() -> Bool {
         if MyProfile.read().hasPartner {
            return false
@@ -74,11 +80,17 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         let type = StatusTypes(rawValue: indexPath.row)!.statusType
         cell.menuLabel.text = type.name
         cell.menuIcon.image = UIImage(named: type.iconImageName)
-        return cell;
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let w = floor(view.frame.width / CGFloat(MessageMenuCellColumns))
+        let h = floor(collectionViewHeight.constant / CGFloat(MessageMenuCellLines))
+        return CGSizeMake(w, h)
     }
 
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return 9;
+        return MessageMenuCellColumns * MessageMenuCellLines
     }
 
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
