@@ -118,9 +118,13 @@ class BaseOperation: NSOperation {
 
     // MARK: -
     func finishWithError(error: NSError?) {
+        if error == nil {
+            finish()
+            return
+        }
         self.error = error
         Logger.info("\(error)")
-        dispatchAsyncMainThread({ self.error!.toast() })
+        dispatchAsyncMainThread{ self.error!.toast() }
         finish()
     }
 

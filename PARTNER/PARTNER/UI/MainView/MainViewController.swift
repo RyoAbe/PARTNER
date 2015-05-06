@@ -23,9 +23,8 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         setupStatusView()
         setupNavigationItem()
-        showSignInFacebookAlertIfNeeded()
     }
-    
+
     func setupStatusView() {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
@@ -43,20 +42,6 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         let insets = reloadBarButtonItem.imageInsets
         reloadBarButtonItem.imageInsets = UIEdgeInsetsMake(insets.top, insets.left - 15, insets.bottom, insets.right)
         navigationItem.leftBarButtonItems = [addBarButtonItem, reloadBarButtonItem]
-    }
-
-    func showSignInFacebookAlertIfNeeded() -> Bool {
-        if MyProfile.read().isAuthenticated {
-            return false
-        }
-
-        let alert = UIAlertController(title: "Login With Facebook?", message: "", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Login", style: UIAlertActionStyle.Default, handler: { alertAction in
-            self.dispatchAsyncOperation(LoginToFBOperation())
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
-        return true
     }
     
     override func updateViewConstraints() {
@@ -123,7 +108,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
 
     // MARK: -
     var isReady: Bool {
-        if showSignInFacebookAlertIfNeeded() {
+        if (UIApplication.sharedApplication().delegate as! AppDelegate).showSignInFacebookAlertIfNeeded() {
             toastWithMessage("Please sign in with Fasebook.")
             return false
         }
@@ -135,7 +120,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
     
     var isAuthenticated: Bool {
-        if showSignInFacebookAlertIfNeeded() {
+        if (UIApplication.sharedApplication().delegate as! AppDelegate).showSignInFacebookAlertIfNeeded() {
             toastWithMessage("Please sign in with Fasebook.")
             return false
         }

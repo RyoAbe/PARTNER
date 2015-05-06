@@ -11,37 +11,66 @@ import UIKit
 class LoginToFBOperation: BaseOperation {
 
     var pfMyProfile: PFMyProfile!
+    var retry: Bool = false
+
     override init() {
         super.init()
-        assert(!MyProfile.read().isAuthenticated, "既にログイン済み")
-
+        let myProfile = MyProfile.read()
         self.executeAsyncBlock = {
-            PFFacebookUtils.logInWithPermissions(["public_profile"], block: {pfMyProfile , error in
-                if error != nil {
-                    let alert = UIAlertController(title: "Please allow PARTNER app to use your acount.", message: "Settings App > [Facebook] > [PARTNER]", preferredStyle: .Alert)
-                    let action = UIAlertAction(title: "Ok", style: .Default, handler: { action in
-                        UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root=General")!)
-                    })
-                    alert.addAction(action)
-                    let vc = (UIApplication.sharedApplication().delegate as! AppDelegate).window!.rootViewController!
-                    vc.presentViewController(alert, animated: true, completion: nil)
-                    self.finishWithError(error)
-                    return
-                }
-                self.pfMyProfile = PFMyProfile(user: pfMyProfile!)
-                self.dispatchAsyncMainThread { self.startForMe() }
-            })
+            assert(!myProfile.isAuthenticated, "既にログイン済み")
+            self.logIn()
         }
     }
 
+    private func logIn() {
+        PFFacebookUtils.logInWithPermissions(["public_profile"]) {pfMyProfile, error in
+            if let error = error {
+                Logger.debug("error >>> \(error)")
+                self.loginError(pfMyProfile, error: error)
+                return
+            }
+            self.pfMyProfile = PFMyProfile(user: pfMyProfile!)
+            self.dispatchAsyncMainThread { self.startForMe() }
+        }
+    }
+
+    private func loginError(pfMyProfile: PFUser?, error: NSError) {
+        if error.domain == FacebookSDKDomain {
+            if error.code == 5 && !retry {
+                logIn()
+                retry = true
+                return
+            }
+            if error.code == 2 {
+                showCheckFacebookSettingAlert()
+                finishWithError(nil)
+                return
+            }
+        }
+        finishWithError(error)
+    }
+    
+    private func showCheckFacebookSettingAlert() {
+        let alert = UIAlertController(title: "Could not login with Facebook", message: "Facebook login failed. Please check your Facebook settings on your phone.", preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default) { action in
+            UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root")!)
+        }
+        alert.addAction(action)
+
+        let vc = (UIApplication.sharedApplication().delegate as! AppDelegate).window!.rootViewController!
+        vc.presentViewController(alert, animated: true, completion: nil)
+    }
+
     private func startForMe() {
-        FBRequestConnection.startForMeWithCompletionHandler({connection, result, error in
+        FBRequestConnection.startForMeWithCompletionHandler{connection, result, error in
             if error != nil {
                 self.finishWithError(error)
                 return
             }
-            self.dispatchAsyncMultiThread{ self.startForMeWithCompletion(result as? FBGraphObject, error: error) }
-        })
+            self.dispatchAsyncMultiThread{
+                self.startForMeWithCompletion(result as? FBGraphObject, error: error)
+            }
+        }
     }
 
     private func startForMeWithCompletion(fbObject: FBGraphObject?, error: NSError?) {
@@ -79,16 +108,16 @@ class LoginToFBOperation: BaseOperation {
                 return
             }
         }
-        self.needHideHUD(false)
-        self.dispatchAsyncMainThread({
+        needHideHUD(false)
+        dispatchAsyncMainThread {
             self.dispatchAsyncOperation(UpdateMyProfileOperation().needShowHUD(false))
-        })
-        self.addPartnerIfEixst()
+        }
+        addPartnerIfEixst()
     }
 
     func addPartnerIfEixst() {
         if !pfMyProfile!.hasPartner {
-            self.finish()
+            finish()
             return
         }
         let op = AddPartnerOperation(candidatePartner: PFUser.currentPartner(pfMyProfile.partner!.objectId!)!)
