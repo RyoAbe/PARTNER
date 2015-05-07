@@ -18,21 +18,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         applayAppearance()
         setupParse()
 
-        let types = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
         application.registerForRemoteNotifications()
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
+        application.registerUserNotificationSettings(createNotificationSettings())
 
         return true
     }
 
-    func applayAppearance() {
+    private func createNotificationSettings() -> UIUserNotificationSettings{
+        var categories = NSMutableSet()
+        
+        var replayAction = UIMutableUserNotificationAction()
+        replayAction.title = "Replay"
+        replayAction.identifier = "replay"
+        replayAction.activationMode = .Background
+        replayAction.authenticationRequired = true
+
+        var replayCategory = UIMutableUserNotificationCategory()
+        replayCategory.identifier = "ReceivedMessage"
+        replayCategory.setActions([replayAction], forContext: .Default)
+
+        categories.addObject(replayCategory)
+        let types = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
+
+        return UIUserNotificationSettings(forTypes: types, categories: categories as Set<NSObject>)
+    }
+
+    private func applayAppearance() {
         UINavigationBar.appearance().tintColor = UIColor.blackColor()
         UISwitch.appearance().onTintColor = UIColor.darkGrayColor()
         UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
         UIBarButtonItem.appearance().tintColor = UIColor(white: 0.15, alpha: 1)
     }
 
-    func setupParse() {
+    private func setupParse() {
         ParseCrashReporting.enable()
         Parse.setApplicationId("Wq5i73uv70sYS1tI9anCe4WE9Iz5YVQtWof988EJ", clientKey: "9o1GdrDNpDfCN0eTkWYEsENAoftTkZgC7EQpeghc")
         PFFacebookUtils.initializeFacebook()
@@ -62,20 +80,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func notify(userInfo: [NSObject : AnyObject]) {
-        Logger.info("userInfo:\(userInfo)")
+        var op: BaseOperation? = nil
 
-        switch userInfo["notificationType"] as! String {
+        // TODO: enum化
+        if let category = userInfo["aps"]?["category"] as? String {
+            switch category {
             case "AddedPartner":
-                dispatchAsyncOperation(AddPartnerOperation(candidatePartnerId: userInfo["objectId"] as! String))
+                op = AddPartnerOperation(candidatePartnerId: userInfo["objectId"] as! String)
                 break
-
-            case "Status":
+            case "ReceivedMessage":
                 if MyProfile.read().hasPartner {
-                    dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false))
+                    op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false)
                 }
                 break
             default:
                 break
+            }
+        }
+        if let op = op {
+            dispatchAsyncOperation(op)
         }
     }
     

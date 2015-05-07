@@ -15,9 +15,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     @IBOutlet weak var myStatusView: StatusBaseView!
     @IBOutlet weak var partnersStatusView: StatusBaseView!
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
-    let MessageMenuCellColumns: Int = 3
-    let MessageMenuCellLines: Int = 3
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
@@ -69,13 +67,13 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let w = floor(view.frame.width / CGFloat(MessageMenuCellColumns))
-        let h = floor(collectionViewHeight.constant / CGFloat(MessageMenuCellLines))
+        let w = floor(view.frame.width / CGFloat(StatusMenuCellColumns))
+        let h = floor(collectionViewHeight.constant / CGFloat(StatusMenuCellLines))
         return CGSizeMake(w, h)
     }
 
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return MessageMenuCellColumns * MessageMenuCellLines
+        return NumberOfTotalStatusMenu
     }
 
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
