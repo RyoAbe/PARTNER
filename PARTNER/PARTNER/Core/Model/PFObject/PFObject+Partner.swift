@@ -107,7 +107,7 @@ class PFProfile: PFObjectBase {
                 for statusPointer in pfStatusPointers {
                     Logger.debug("remove target statusPointer=\(statusPointer)")
                     let pfStatus = PFStatus(statusId: statusPointer.objectId!)
-                    pfStatus.pfObject!.delete()
+                    pfStatus.pfObject?.delete()
                 }
             }
         }

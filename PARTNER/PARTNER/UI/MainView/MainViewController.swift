@@ -11,23 +11,20 @@ import UIKit
 // TODO: Analytics入れる（tracker）
 class MainViewController: BaseViewController, UICollectionViewDelegate {
 
-    enum Menus : Int {
-        case First
-        case Second
-        case Third
-    }
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var myStatusView: StatusBaseView!
     @IBOutlet weak var partnersStatusView: StatusBaseView!
+    @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
+    let MessageMenuCellColumns: Int = 3
+    let MessageMenuCellLines: Int = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         setupStatusView()
         setupNavigationItem()
-        showSignInFacebookAlertIfNeeded()
     }
-    
+
     func setupStatusView() {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
@@ -46,19 +43,13 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         reloadBarButtonItem.imageInsets = UIEdgeInsetsMake(insets.top, insets.left - 15, insets.bottom, insets.right)
         navigationItem.leftBarButtonItems = [addBarButtonItem, reloadBarButtonItem]
     }
-
-    func showSignInFacebookAlertIfNeeded() -> Bool {
-        if MyProfile.read().isAuthenticated {
-            return false
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        if !UIUtil.is4s() {
+            return
         }
-
-        let alert = UIAlertController(title: "Login With Facebook?", message: "", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Login", style: UIAlertActionStyle.Default, handler: { alertAction in
-            self.dispatchAsyncOperation(LoginToFBOperation())
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
-        return true
+        collectionViewHeight.constant = view.frame.height - (view.frame.width / 2)
     }
     
     func showMyQRCodeViewIfNeeded() -> Bool {
@@ -74,11 +65,17 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         let type = StatusTypes(rawValue: indexPath.row)!.statusType
         cell.menuLabel.text = type.name
         cell.menuIcon.image = UIImage(named: type.iconImageName)
-        return cell;
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let w = floor(view.frame.width / CGFloat(MessageMenuCellColumns))
+        let h = floor(collectionViewHeight.constant / CGFloat(MessageMenuCellLines))
+        return CGSizeMake(w, h)
     }
 
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return 9;
+        return MessageMenuCellColumns * MessageMenuCellLines
     }
 
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
@@ -111,7 +108,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
 
     // MARK: -
     var isReady: Bool {
-        if showSignInFacebookAlertIfNeeded() {
+        if (UIApplication.sharedApplication().delegate as! AppDelegate).showSignInFacebookAlertIfNeeded() {
             toastWithMessage("Please sign in with Fasebook.")
             return false
         }
@@ -123,7 +120,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
     
     var isAuthenticated: Bool {
-        if showSignInFacebookAlertIfNeeded() {
+        if (UIApplication.sharedApplication().delegate as! AppDelegate).showSignInFacebookAlertIfNeeded() {
             toastWithMessage("Please sign in with Fasebook.")
             return false
         }

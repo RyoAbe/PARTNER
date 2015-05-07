@@ -15,7 +15,7 @@ enum PartnerErrorCode: NSInteger {
     case NotFoundUser = 4040
     var description: String {
         switch self {
-        case .Unknown: return "Cccurrence of an unexplained error.";
+        case .Unknown: return "Occurrence of an unexplained error.";
         case .NetworkOffline: return "Can't connect to Internet.";
         case .NotFoundUser: return "Not found user.";
         }

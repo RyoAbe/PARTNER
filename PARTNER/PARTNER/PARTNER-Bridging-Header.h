@@ -3,6 +3,7 @@
 //
 
 #import <Parse/Parse.h>
+#import <ParseCrashReporting/ParseCrashReporting.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <MRProgress/MRProgress.h>
 #import "MRProgressOverlayView+RyoAbe.h"
