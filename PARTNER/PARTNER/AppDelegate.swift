@@ -15,11 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        self.applayAppearance();
-        self.setupParse();
+        applayAppearance()
+        setupParse()
+
         let types = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
+
         return true
     }
 
@@ -31,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func setupParse() {
+        ParseCrashReporting.enable()
         Parse.setApplicationId("Wq5i73uv70sYS1tI9anCe4WE9Iz5YVQtWof988EJ", clientKey: "9o1GdrDNpDfCN0eTkWYEsENAoftTkZgC7EQpeghc")
         PFFacebookUtils.initializeFacebook()
     }
@@ -80,18 +83,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session())
     }
 
+    let loginToFBOp: LoginToFBOperation = LoginToFBOperation()
+
     func applicationDidBecomeActive(application: UIApplication) {
         FBAppEvents.activateApp()
         FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
-        
+
         let myProfile = MyProfile.read()
+        if !myProfile.isAuthenticated {
+            showSignInFacebookAlertIfNeeded()
+            return
+        }
+
         if myProfile.hasPartner {
-            dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false))
+            let op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false)
+            dispatchAsyncOperation(op)
         }
-        if myProfile.isAuthenticated {
-            dispatchAsyncOperation(UpdateMyProfileOperation().enableHUD(false))
-        }
+        let op = UpdateMyProfileOperation().enableHUD(false)
+        dispatchAsyncOperation(op)
     }
+    
+    func showSignInFacebookAlertIfNeeded() -> Bool {
+        if MyProfile.read().isAuthenticated {
+            return false
+        }
+        if loginToFBOp.executing {
+            return false
+        }
+        let alert = UIAlertController(title: "Login With Facebook?", message: "", preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Login", style: .Default) { action in
+            self.dispatchAsyncOperation(self.loginToFBOp)
+        }
+        alert.addAction(action)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+        window!.rootViewController!.presentViewController(alert, animated: true, completion: nil)
+        return true
+    }
+
     
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

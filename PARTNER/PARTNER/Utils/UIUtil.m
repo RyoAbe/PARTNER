@@ -130,4 +130,9 @@ static NSString * encodeByAddingPercentEscapes(NSString *input)
     return  [[UIApplication sharedApplication] canOpenURL:simpleURL] || [[UIApplication sharedApplication] canOpenURL:callbackURL];
 }
 
++ (BOOL)is4s
+{
+    return [[[UIApplication sharedApplication] keyWindow] frame].size.height <= 480;
+}
+                      
 @end
