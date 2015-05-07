@@ -15,11 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        self.applayAppearance();
-        self.setupParse();
+        applayAppearance()
+        setupParse()
+
         let types = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
+
         return true
     }
 
@@ -31,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func setupParse() {
+        ParseCrashReporting.enable()
         Parse.setApplicationId("Wq5i73uv70sYS1tI9anCe4WE9Iz5YVQtWof988EJ", clientKey: "9o1GdrDNpDfCN0eTkWYEsENAoftTkZgC7EQpeghc")
         PFFacebookUtils.initializeFacebook()
     }
