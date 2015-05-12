@@ -8,4 +8,3 @@
 
 let StatusMenuCellColumns: Int = 3
 let StatusMenuCellLines: Int = 3
-let NumberOfTotalStatusMenu: Int = StatusMenuCellColumns * StatusMenuCellLines

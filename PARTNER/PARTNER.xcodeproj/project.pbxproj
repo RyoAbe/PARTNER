@@ -26,6 +26,7 @@
 		322237A81AAAC6550069F0DD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322237A31AAAC6550069F0DD /* SettingsViewController.swift */; };
 		322237AC1AAAC6700069F0DD /* MyQRCodePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322237AA1AAAC6700069F0DD /* MyQRCodePreviewController.swift */; };
 		322237AD1AAAC6700069F0DD /* QRReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322237AB1AAAC6700069F0DD /* QRReaderViewController.swift */; };
+		32246C061B024339000B756B /* StatusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F604651ABD74300097BB9A /* StatusType.swift */; };
 		3229B2FD1AA7276200312D60 /* SendMyStatusOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3229B2FC1AA7276200312D60 /* SendMyStatusOperation.swift */; };
 		3229B2FF1AA74B2E00312D60 /* UpdatePartnerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3229B2FE1AA74B2E00312D60 /* UpdatePartnerOperation.swift */; };
 		322A09C61AACBDFF0023CA61 /* NSError+Partner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322A09C51AACBDFF0023CA61 /* NSError+Partner.swift */; };
@@ -36,10 +37,8 @@
 		3245E8D91AC7D72200FD84F3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3245E8D81AC7D72200FD84F3 /* BaseViewController.swift */; };
 		324748751ADA274F00D33F33 /* UpdateProfileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324748741ADA274F00D33F33 /* UpdateProfileOperation.swift */; };
 		324FE52A19B4CD7F000AF85E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 324FE52019B4CD7F000AF85E /* Main.storyboard */; };
-		3252E3711AFBACC1009CCF18 /* StatusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F604651ABD74300097BB9A /* StatusType.swift */; };
 		3252E3721AFBACFD009CCF18 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3230098F1997374800B4FE5E /* Images.xcassets */; };
 		3252E3751AFBADF9009CCF18 /* PARTNERConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252E3741AFBADF9009CCF18 /* PARTNERConstants.swift */; };
-		3252E3761AFBAE69009CCF18 /* PARTNERConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252E3741AFBADF9009CCF18 /* PARTNERConstants.swift */; };
 		3252E37A1AFBC513009CCF18 /* StatusMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252E3791AFBC513009CCF18 /* StatusMenu.swift */; };
 		3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */; };
 		32592FAB1A2AF918008E7021 /* BlockActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592F9F1A2AF918008E7021 /* BlockActivity.m */; };
@@ -818,10 +817,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3252E3711AFBACC1009CCF18 /* StatusType.swift in Sources */,
 				3252E37A1AFBC513009CCF18 /* StatusMenu.swift in Sources */,
+				32246C061B024339000B756B /* StatusType.swift in Sources */,
 				329D2E131AF7B74D00B47A31 /* NotificationController.swift in Sources */,
-				3252E3761AFBAE69009CCF18 /* PARTNERConstants.swift in Sources */,
 				329D2E111AF7B74D00B47A31 /* InterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

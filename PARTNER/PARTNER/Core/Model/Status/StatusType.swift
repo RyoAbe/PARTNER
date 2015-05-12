@@ -8,6 +8,14 @@
 
 import UIKit
 
+func countEnumElements(test: (Int) -> Any?) -> Int {
+    var i = 0
+    while test(i) != nil {
+        i++
+    }
+    return i
+}
+
 enum StatusTypes : NSInteger {
     case GoodMoning = 0
     case GoingHome
@@ -41,24 +49,30 @@ enum StatusTypes : NSInteger {
             return StatusType(iconImageName: "love_icon", name: "I love you.")
         }
     }
+    static let count = countEnumElements({StatusTypes(rawValue: $0)})
 }
 
+
 class StatusType: NSObject, NSCoding {
+    var identifier : String!
     var iconImageName : String!
     var name : String!
 
     init(iconImageName: String, name: String) {
+        self.identifier = iconImageName
         self.iconImageName = iconImageName
         self.name = name
     }
 
     required init(coder aDecoder: NSCoder) {
+        identifier = aDecoder.decodeObjectForKey("iconImageName") as! String
         iconImageName = aDecoder.decodeObjectForKey("iconImageName") as! String
         name = aDecoder.decodeObjectForKey("name") as! String
         super.init()
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(identifier, forKey: "iconImageName")
         aCoder.encodeObject(iconImageName, forKey: "iconImageName")
         aCoder.encodeObject(name, forKey: "name")
     }

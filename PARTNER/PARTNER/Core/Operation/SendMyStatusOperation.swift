@@ -14,8 +14,8 @@ class SendMyStatusOperation: BaseOperation {
     let partnerId: NSString!
     let statusTypes: StatusTypes!
 
-    init(partnerId: NSString, statusTypes: StatusTypes){
-        self.partnerId = partnerId
+    init(statusTypes: StatusTypes){
+        self.partnerId = Partner.read().id
         self.statusTypes = statusTypes
         super.init()
         self.executeSerialBlock = {
@@ -41,11 +41,11 @@ class SendMyStatusOperation: BaseOperation {
                 return .Failure(error)
             }
             
-            self.dispatchAsyncMainThread({
+            self.dispatchAsyncMainThread{
                 let myProfile = MyProfile.read()
                 myProfile.appendStatuses(status)
                 myProfile.save()
-            })
+            }
 
             // ???: パートナーを変えても遅れてしまう。
             let data:[NSObject : AnyObject] = ["alert"            : "\(pfMyProfile.username): \(status.types.statusType.name)",

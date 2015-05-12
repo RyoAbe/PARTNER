@@ -73,7 +73,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
 
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return NumberOfTotalStatusMenu
+        return StatusTypes.count
     }
 
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
@@ -101,7 +101,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         }
         let types = StatusTypes(rawValue: indexPath.row)!
         FBAppEvents.logEvent("DidTapSendMyStatus - types \(types.statusType.name)")
-        dispatchAsyncOperation(SendMyStatusOperation(partnerId: Partner.read().id!, statusTypes: types))
+        dispatchAsyncOperation(SendMyStatusOperation(statusTypes: types))
     }
 
     // MARK: -

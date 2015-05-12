@@ -10,17 +10,24 @@ import WatchKit
 import Foundation
 
 class InterfaceController: WKInterfaceController {
-
     @IBOutlet weak var tableView: WKInterfaceTable!
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
-        tableView.setNumberOfRows(NumberOfTotalStatusMenu, withRowType: "Cell")
-        for i in 0...(NumberOfTotalStatusMenu - 1) {
+        tableView.setNumberOfRows(StatusTypes.count, withRowType: "Cell")
+        for i in 0...(StatusTypes.count - 1) {
             let row = tableView.rowControllerAtIndex(i) as! StatusMenu
             let type = StatusTypes(rawValue: i)!.statusType
             row.textLabel.setText(type.name)
             row.imageView.setImage(UIImage(named: type.iconImageName))
+        }
+    }
+    
+    override func table(table: WKInterfaceTable, didSelectRowAtIndex rowIndex: Int) {
+        if var row = table.rowControllerAtIndex(rowIndex) as? StatusMenu {
+            let types = StatusTypes(rawValue: rowIndex)!
+//            let op = SendMyStatusOperation(statusTypes: types)
+//            dispatchAsyncOperation(op)
         }
     }
 }

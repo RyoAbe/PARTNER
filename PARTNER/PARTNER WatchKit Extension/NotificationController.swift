@@ -11,7 +11,7 @@ import Foundation
 
 
 class NotificationController: WKUserNotificationInterfaceController {
-    override func didReceiveRemoteNotification(remoteNotification: [NSObject : AnyObject], withCompletion completionHandler: ((WKUserNotificationInterfaceType) -> Void)) {
-        completionHandler(.Custom)
-    }
+//    override func didReceiveRemoteNotification(remoteNotification: [NSObject : AnyObject], withCompletion completionHandler: ((WKUserNotificationInterfaceType) -> Void)) {
+//        completionHandler(.Custom)
+//    }
 }
