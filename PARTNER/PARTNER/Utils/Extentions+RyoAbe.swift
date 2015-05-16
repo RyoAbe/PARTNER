@@ -20,7 +20,7 @@ extension NSObject {
 
     // ???: これじゃない感
     func dispatchAsyncOperation(op: BaseOperation) {
-        dispatchAsyncMultiThread({op.start()})
+        dispatchAsyncMultiThread{ op.start() }
     }
 
     var className: String {

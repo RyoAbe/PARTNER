@@ -9,6 +9,11 @@
 import UIKit
 import CoreData
 
+enum APSCategory: String {
+    case AddedPartner = "AddedPartner"
+    case ReceivedMessage = "ReceivedMessage"
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
@@ -63,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func createNotificationSettings() -> UIUserNotificationSettings {
         let replayCategory = UIMutableUserNotificationCategory()
-        replayCategory.identifier = "ReceivedMessage"
+        replayCategory.identifier = APSCategory.ReceivedMessage.rawValue
         replayCategory.setActions([otherAction, godItAction], forContext: .Default)
         var categories = NSMutableSet()
         categories.addObject(replayCategory)
@@ -95,38 +100,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
 
+    var mainViewController: MainViewController {
+        return (self.window!.rootViewController as! UINavigationController).viewControllers[0] as! MainViewController
+    }
+
     // ???: Background Fetchを実装
     // @see http://www.gaprot.jp/pickup/ios7/vol1/
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         PFPush.handlePush(userInfo)
         notify(userInfo)
     }
-    
-    var mainViewController: MainViewController {
-        return (self.window!.rootViewController as! UINavigationController).viewControllers[0] as! MainViewController
-    }
 
     func notify(userInfo: [NSObject : AnyObject]) {
+        let category = userInfo["aps"]?["category"] as? String
         var op: BaseOperation? = nil
-
-        // TODO: enum化
-        if let category = userInfo["aps"]?["category"] as? String {
-            switch category {
-            case "AddedPartner":
-                op = AddPartnerOperation(candidatePartnerId: userInfo["objectId"] as! String)
+        if let c = APSCategory(rawValue: category!) {
+            switch c {
+            case .AddedPartner : op = AddPartnerOperation(candidatePartnerId: userInfo["objectId"] as! String)
                 break
-            case "ReceivedMessage":
-                if MyProfile.read().hasPartner {
-                    op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false)
-                }
-                break
-            default:
+            case .ReceivedMessage :
+                if MyProfile.read().hasPartner { op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false) }
                 break
             }
         }
-        if let op = op {
-            dispatchAsyncOperation(op)
-        }
+        if let op = op { dispatchAsyncOperation(op) }
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
@@ -220,7 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict as [NSObject : AnyObject])
+            error = NSError(domain: "com.ryoabe.PARTNER", code: 9999, userInfo: dict as [NSObject : AnyObject])
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")

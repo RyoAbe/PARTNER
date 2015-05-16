@@ -74,7 +74,7 @@ class AddPartnerOperation: BaseOperation {
         push.setQuery(pushQuery)
         push.setData(["alert"            : "Added Partner: \(pfMyProfile.username!)",
                       "objectId"         : pfMyProfile.objectId!,
-                      "category"         : "AddedPartner" ])
+                      "category"         : APSCategory.AddedPartner.rawValue ])
         var error: NSError?
         push.sendPush(&error)
         if error != nil {

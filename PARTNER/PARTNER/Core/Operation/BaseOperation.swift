@@ -11,7 +11,8 @@ import UIKit
 class BaseOperation: NSOperation {
     // MARK: - Enums
     enum BaseOperationResult {
-        case Success(AnyObject?), Failure(NSError?)
+        case Success(AnyObject?)
+        case Failure(NSError?)
     }
 
     enum BaseOperationState {
