@@ -63,7 +63,7 @@ class BaseOperation: NSOperation {
         }
     }
 
-    // ???: 追加出来るようにする
+    // ???: Filter出来るようにする
     override var completionBlock: (() -> Void)? {
         get { return super.completionBlock }
         set {
@@ -90,7 +90,7 @@ class BaseOperation: NSOperation {
         main()
     }
 
-    // ???: executeAsyncBlockとexecuteSerialBlockを分断
+    // ???: executeAsyncBlockとexecuteSerialBlockを意識しないようにしたい
     override func main() {
         Logger.info("execute operation")
 
