@@ -44,7 +44,7 @@ extension NSObject {
             toastWithMessage(message)
             return
         }
-        toastWithMessage(error.description)
+        toastWithMessage(PartnerErrorCode.Unknown.description)
     }
 }
 
