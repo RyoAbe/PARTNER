@@ -92,7 +92,7 @@ class LoginToFBOperation: BaseOperation {
             finishWithError(error)
             return
         }
-
+        
         let fbId = fbObject!["id"] as! String
         let username = fbObject!["name"] as! String
         let profileImageFile = PFFile(data: NSData(contentsOfURL:NSURL(string: "https://graph.facebook.com/\(fbId)/picture?width=398&height=398")!)!)
