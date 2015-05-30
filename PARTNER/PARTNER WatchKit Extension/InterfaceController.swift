@@ -22,12 +22,13 @@ class InterfaceController: WKInterfaceController {
             row.imageView.setImage(UIImage(named: type.iconImageName))
         }
     }
-    
+
     override func table(table: WKInterfaceTable, didSelectRowAtIndex rowIndex: Int) {
         if var row = table.rowControllerAtIndex(rowIndex) as? StatusMenu {
             let types = StatusTypes(rawValue: rowIndex)!
-//            let op = SendMyStatusOperation(statusTypes: types)
-//            dispatchAsyncOperation(op)
+            WKInterfaceController.openParentApplication(["Statustype": types.statusType.identifier ]) { replay, error in
+                Logger.debug("replay=\(replay)")
+            }
         }
     }
 }

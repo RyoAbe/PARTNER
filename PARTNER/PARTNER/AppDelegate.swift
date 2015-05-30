@@ -29,6 +29,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func identifierToStatusType(identifier: String) -> StatusTypes? {
+        switch identifier {
+        case StatusTypes(rawValue: 0)!.statusType.identifier:
+            return StatusTypes(rawValue: 0)!
+        case StatusTypes(rawValue: 1)!.statusType.identifier:
+            return StatusTypes(rawValue: 1)!
+        case StatusTypes(rawValue: 2)!.statusType.identifier:
+            return StatusTypes(rawValue: 2)!
+        case StatusTypes(rawValue: 3)!.statusType.identifier:
+            return StatusTypes(rawValue: 3)!
+        case StatusTypes(rawValue: 4)!.statusType.identifier:
+            return StatusTypes(rawValue: 4)!
+        case StatusTypes(rawValue: 5)!.statusType.identifier:
+            return StatusTypes(rawValue: 5)!
+        case StatusTypes(rawValue: 6)!.statusType.identifier:
+            return StatusTypes(rawValue: 6)!
+        case StatusTypes(rawValue: 7)!.statusType.identifier:
+            return StatusTypes(rawValue: 7)!
+        case StatusTypes(rawValue: 8)!.statusType.identifier:
+            return StatusTypes(rawValue: 8)!
+        default:
+            fatalError("ありえない")
+        }
+        return nil
+    }
+
     var godItStatusTypes: StatusTypes {
         return StatusTypes(rawValue: 5)!
     }
@@ -36,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var otherNotificationAction:(String, String) {
         return ("Other", "other")
     }
+
     var godItAction: UIMutableUserNotificationAction {
         var action = UIMutableUserNotificationAction()
         action.title = godItStatusTypes.statusType.name
@@ -51,19 +78,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         action.authenticationRequired = true
         return action
     }
+    
+    func sendMyStatus(identifier : String) -> BaseOperation? {
+        if let types = identifierToStatusType(identifier) {
+            let op = SendMyStatusOperation(statusTypes: types)
+            dispatchAsyncOperation(op)
+            return op
+        }
+        return nil
+    }
 
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
-        if let identifier = identifier {
-            switch identifier {
-            case godItStatusTypes.statusType.identifier:
-                let op = SendMyStatusOperation(statusTypes: godItStatusTypes)
-                op.completionBlock = completionHandler
-                dispatchAsyncOperation(op)
-                break
-            default:
-                break
-            }
+        if let identifier = identifier, op = sendMyStatus(identifier) {
+            op.completionBlock = completionHandler
         }
+    }
+
+    var backgroundTaskIdentifier: UIBackgroundTaskIdentifier =
+    UIBackgroundTaskInvalid
+
+    func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
+        Logger.debug("userInfo:\(userInfo)")
+        backgroundTaskIdentifier = application.beginBackgroundTaskWithName("MyTask") {
+            application.endBackgroundTask(self.backgroundTaskIdentifier)
+            self.backgroundTaskIdentifier = UIBackgroundTaskInvalid
+            Logger.debug("expier")
+        }
+        
+        var replayDic = [String: Bool]()
+        if let userInfo = userInfo as? [String: String], identifier = userInfo["Statustype"] {
+            self.sendMyStatus(identifier)
+            replayDic = ["succeed": true]
+        } else {
+            replayDic = ["succeed": false]
+        }
+        reply(replayDic)
+        Logger.debug("replayDic\(replayDic)")
+        application.endBackgroundTask(backgroundTaskIdentifier)
+        backgroundTaskIdentifier = UIBackgroundTaskInvalid
     }
 
     private func createNotificationSettings() -> UIUserNotificationSettings {

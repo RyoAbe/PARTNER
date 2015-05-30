@@ -40,6 +40,7 @@
 		3252E3721AFBACFD009CCF18 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3230098F1997374800B4FE5E /* Images.xcassets */; };
 		3252E3751AFBADF9009CCF18 /* PARTNERConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252E3741AFBADF9009CCF18 /* PARTNERConstants.swift */; };
 		3252E37A1AFBC513009CCF18 /* StatusMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252E3791AFBC513009CCF18 /* StatusMenu.swift */; };
+		32559A391B08C8060009BD43 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3208708F1AAEBAAB009CA2DA /* Logger.swift */; };
 		3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3258C78B19C9DFDC00843022 /* LoginToFBOperation.swift */; };
 		32592FAB1A2AF918008E7021 /* BlockActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592F9F1A2AF918008E7021 /* BlockActivity.m */; };
 		32592FAC1A2AF918008E7021 /* UIActivity+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 32592FA11A2AF918008E7021 /* UIActivity+Blocks.m */; };
@@ -817,6 +818,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32559A391B08C8060009BD43 /* Logger.swift in Sources */,
 				3252E37A1AFBC513009CCF18 /* StatusMenu.swift in Sources */,
 				32246C061B024339000B756B /* StatusType.swift in Sources */,
 				329D2E131AF7B74D00B47A31 /* NotificationController.swift in Sources */,
