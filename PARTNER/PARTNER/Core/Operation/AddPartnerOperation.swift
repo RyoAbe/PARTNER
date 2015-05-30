@@ -11,43 +11,68 @@ import UIKit
 // ???: ロールバックの仕組みを作りたい
 class AddPartnerOperation: BaseOperation {
     var candidatePartner: PFPartner!
-    
+    var candidatePartnerId : String!
+
     convenience init(candidatePartnerId : String){
         self.init()
-        self.executeAsyncBlock = {
-            var error: NSError?
-            if let candidatePartner = PFUser.query()!.getObjectWithId(candidatePartnerId, error: &error) as? PFUser {
-                self.candidatePartner = PFPartner(user: candidatePartner)
-                self.becomePartner()
-                return
-            }
-            self.finishWithError(error == nil ? NSError.code(.NotFoundUser) : error)
-        }
+        self.candidatePartnerId = candidatePartnerId
+        self.executeAsyncBlock = { self.requestCandidatePartner() }
     }
 
     convenience init(candidatePartner: PFPartner){
         self.init()
         self.candidatePartner = candidatePartner
-        self.executeAsyncBlock = {
-            self.becomePartner()
-        }
+        self.executeAsyncBlock = { self.savePartnerForServer() }
     }
 
-    func becomePartner() {
+    func requestCandidatePartner() {
+        var error: NSError?
+        if let pfUser = PFUser.query()!.getObjectWithId(candidatePartnerId, error: &error) as? PFUser {
+            candidatePartner = PFPartner(user: pfUser)
+            savePartnerForServer()
+            return
+        }
+        finishWithError(error == nil ? NSError.code(.NotFoundUser) : error)
+    }
+
+    func savePartnerForServer() {
         var error: NSError?
         let pfMyProfile = PFUser.currentMyProfile()
-        pfMyProfile.partner = self.candidatePartner.pfUser
+
+        /*
+        // TODO: パートナーを変えても過去のパートナーに自分が残ってしまう問題
+        
+        // パートナーのWrite権限に自分を追加
+        candidatePartner.pfUser.ACL?.setWriteAccess(true, forUser: pfMyProfile.pfUser)
+        
+        // 自分のWrite権限にパートナーを追加
+        pfMyProfile.pfUser.ACL?.setWriteAccess(true, forUser: candidatePartner.pfUser)
+
+        // 既にパートナーがいた場合は、そっちから自分を削除する
+        
+        // パートナーのパートナーに自分を追加
+        // [Error]: Caught "NSInternalInconsistencyException" with reason "User cannot be saved unless they have been authenticated via logIn or signUp":
+        // でエラーになる
+        // http://stackoverflow.com/questions/24580413/cant-write-non-current-user-objects-by-pfuser-currentuser を参考にCloudコードを書けば実現出来そう
+        candidatePartner.partner = pfMyProfile.pfUser
+        candidatePartner.saveInBackgroundWithBlock { success, error in
+            Logger.debug("success=\(success), error=\(error)")
+        }
+
+        */
+
+        pfMyProfile.partner = candidatePartner.pfUser
         pfMyProfile.removeAllStatuses()
         pfMyProfile.saveInBackgroundWithBlock{ success, error in
-            if error != nil {
+            if !success {
                 self.finishWithError(error)
                 return
             }
-            self.savePartner()
+            self.savePartnerForLocal()
         }
     }
     
-    func savePartner() {
+    func savePartnerForLocal() {
         self.needHideHUD(false)
         self.dispatchAsyncMainThread{
 
@@ -59,6 +84,8 @@ class AddPartnerOperation: BaseOperation {
             }
             self.dispatchAsyncOperation(op)
         }
+
+        // 既に相手がパートナー追加されてればnotifyしない
         if candidatePartner.hasPartner {
             self.finish()
             return

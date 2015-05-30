@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO: Analytics入れる（tracker）
 class MainViewController: BaseViewController, UICollectionViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
