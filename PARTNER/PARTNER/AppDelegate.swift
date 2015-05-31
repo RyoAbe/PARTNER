@@ -64,23 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     var otherNotificationAction:(String, String) {
-        return ("Other", "other")
-    }
-
-    var godItAction: UIMutableUserNotificationAction {
-        var action = UIMutableUserNotificationAction()
-        action.title = godItStatusTypes.statusType.name
-        action.identifier = godItStatusTypes.statusType.identifier
-        action.activationMode = .Background
-        return action
-    }
-    var otherAction: UIMutableUserNotificationAction {
-        var action = UIMutableUserNotificationAction()
-        action.title = otherNotificationAction.0
-        action.identifier = otherNotificationAction.1
-        action.activationMode = .Foreground
-        action.authenticationRequired = true
-        return action
+        return (LocalizedString.key("NotificationOtherAction") , "other")
     }
     
     func sendMyStatus(identifier : String) -> BaseOperation? {
@@ -110,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         var replayDic = [String: Bool]()
-        if let userInfo = userInfo as? [String: String], identifier = userInfo["Statustype"] {
+        if let userInfo = userInfo as? [String: String], identifier = userInfo["StatusType"] {
             self.sendMyStatus(identifier)
             replayDic = ["succeed": true]
         } else {
@@ -122,12 +106,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         backgroundTaskIdentifier = UIBackgroundTaskInvalid
     }
 
+    private var otherAction: UIMutableUserNotificationAction {
+        var action = UIMutableUserNotificationAction()
+        action.title = otherNotificationAction.0
+        action.identifier = otherNotificationAction.1
+        action.activationMode = .Foreground
+        action.authenticationRequired = true
+        return action
+    }
+    
     private func createNotificationSettings() -> UIUserNotificationSettings {
-        let replayCategory = UIMutableUserNotificationCategory()
-        replayCategory.identifier = APSCategory.ReceivedMessage.rawValue
-        replayCategory.setActions([otherAction, godItAction], forContext: .Default)
+        let category = UIMutableUserNotificationCategory()
+        category.identifier = APSCategory.ReceivedMessage.rawValue
+        
+        var actions = [UIMutableUserNotificationAction]()
+        for types in StatusTypes.notificationActions {
+            var action = UIMutableUserNotificationAction()
+            action.title = types.statusType.name
+            action.identifier = types.statusType.identifier
+            action.activationMode = .Background
+            actions.append(action)
+        }
+        actions.append(otherAction)
+        category.setActions(actions, forContext: .Default)
+
         var categories = NSMutableSet()
-        categories.addObject(replayCategory)
+        categories.addObject(category)
         return UIUserNotificationSettings(forTypes: (.Badge | .Sound | .Alert), categories: categories as Set<NSObject>)
     }
 

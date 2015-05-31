@@ -47,3 +47,16 @@
 "NoPartnerToast" = "You have no partner.";
 "NoMessageToast" = "Once you send message, you can see history.";
 "AlreadyPartnerToast" = "You already become partner with \"%@\".";
+
+/**
+ *  NotificationAction
+ */
+"NotificationOtherAction" = "Other";
+
+
+/**
+ *  Apple Watch
+ */
+"SendMessage" = "Sending...";
+"SucceededSendMessage" = "Succeeded";
+"FailedSendMessage" = "Failed";

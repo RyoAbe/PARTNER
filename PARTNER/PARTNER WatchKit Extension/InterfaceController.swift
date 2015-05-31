@@ -24,11 +24,22 @@ class InterfaceController: WKInterfaceController {
     }
 
     override func table(table: WKInterfaceTable, didSelectRowAtIndex rowIndex: Int) {
-        if var row = table.rowControllerAtIndex(rowIndex) as? StatusMenu {
+        if let row = table.rowControllerAtIndex(rowIndex) as? StatusMenu {
             let types = StatusTypes(rawValue: rowIndex)!
-            WKInterfaceController.openParentApplication(["Statustype": types.statusType.identifier ]) { replay, error in
+
+            setTitle(LocalizedString.key("SendMessage"))
+            WKInterfaceController.openParentApplication(["StatusType": types.statusType.identifier ]) { replay, error in
                 Logger.debug("replay=\(replay)")
+                
+                if let succeed = replay["succeed"] as? Bool {
+                    self.setTitle(LocalizedString.key(succeed ? "SucceededSendMessage" : "FailedSendMessage"))
+                    let when = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+                    dispatch_after(when, dispatch_get_main_queue()){
+                        self.setTitle(nil)
+                    }
+                }
             }
+
         }
     }
 }

@@ -26,7 +26,7 @@ enum StatusTypes : NSInteger {
     case GoodNight
     case Sorry
     case Love
-    
+
     var statusType : StatusType {
         switch self {
         case GoodMorning:
@@ -49,7 +49,9 @@ enum StatusTypes : NSInteger {
             return StatusType(iconImageName: "love_icon", name: LocalizedString.key("Love"))
         }
     }
-    
+
+    // Max4つ。あとの一つはOther
+    static let notificationActions = [GodId, GoingHome, AlmostThere]
     static let count = countEnumElements({StatusTypes(rawValue: $0)})
 }
 

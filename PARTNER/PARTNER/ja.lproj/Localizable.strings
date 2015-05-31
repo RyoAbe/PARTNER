@@ -10,7 +10,7 @@
  *  Statuses
  */
 "GoodMorning" = "おはよう";
-"GoingHome" = "家、帰るよ";
+"GoingHome" = "今から家帰るよ";
 "ThunkYou" = "ありがとう";
 "EatOut" = "夕食、食べて帰る";
 "AlmostThere" = "そろそろ着くよ";
@@ -47,3 +47,15 @@
 "NoPartnerToast" = "パートナーがいません";
 "NoMessageToast" = "メッセージを送信すると、履歴が見れます";
 "AlreadyPartnerToast" = "既に\"%@\"さんと、パートナになっています";
+
+/**
+ *  NotificationAction
+ */
+"NotificationOtherAction" = "その他";
+
+/**
+ *  Apple Watch
+ */
+"SendMessage" = "送信中...";
+"SucceededSendMessage" = "送信成功";
+"FailedSendMessage" = "送信失敗";

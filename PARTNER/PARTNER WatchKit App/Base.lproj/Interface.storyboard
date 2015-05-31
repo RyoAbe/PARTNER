@@ -43,7 +43,7 @@
             <objects>
                 <notificationController id="YCC-NB-fut">
                     <items>
-                        <label alignment="left" text="New Post" id="IdU-wH-bcW"/>
+                        <label alignment="left" text="New Post" numberOfLines="0" id="IdU-wH-bcW"/>
                     </items>
                     <notificationCategory key="notificationCategory" identifier="ReceivedMessage" id="JfB-70-Muf"/>
                     <connections>
@@ -57,7 +57,25 @@
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="PARTNER_WatchKit_App" customModuleProvider="target"/>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="PARTNER_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <imageView width="40" height="40" alignment="center" id="AKr-Xj-CwK">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </imageView>
+                        <label alignment="left" text="New Message" numberOfLines="0" minimumScaleFactor="0.60000000000000009" id="93V-zF-HwX">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <label alignment="left" text="xxxx/xx/xx xx:xx" id="AIl-hr-n66">
+                            <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                        </label>
+                    </items>
+                    <edgeInsets key="margins" left="1" right="1" top="0.0" bottom="0.0"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="AIl-hr-n66" id="JOX-gI-qLI"/>
+                        <outlet property="imageView" destination="AKr-Xj-CwK" id="qLq-3R-hqu"/>
+                        <outlet property="label" destination="93V-zF-HwX" id="NZ4-Rj-ZME"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="468" y="643"/>
         </scene>
