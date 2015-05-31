@@ -6,6 +6,9 @@
   Copyright (c) 2015年 RyoAbe. All rights reserved.
 */
 
+/**
+ *  Statuses
+ */
 "GoodMorning" = "おはよう";
 "GoingHome" = "家、帰るよ";
 "ThunkYou" = "ありがとう";
@@ -15,3 +18,32 @@
 "GoodNight" = "おやすみ";
 "Sorry" = "ごめん";
 "Love" = "好きだよ";
+
+/**
+ *  Alert
+ */
+
+// Common
+"AlertConfirmTitle" = "確認";
+"AlertCancelButton" = "キャンセル";
+"AlertOKButton" = "OK";
+
+// Login
+"LoginFacebookAlertTitle" = "Facebookでログイン";
+"LoginFacebookAlertMessage" = "Facebookアカウントを使用してログインします";
+"LoginFacebookAlertLoginButton" = "ログイン";
+"LoginFacebookFailedAlerrtTitle" = "Facebookにログインできませんでした";
+"LoginFacebookFailedAlerrtMessage" = "Facebookログインに失敗しました。[設定]アプリ -> [Facebook] -> [PARTNER] を有効にしてください";
+
+// AddPartner
+"AlreadyHavePartnerConfirmAlertMessage" = "既にパートナーがいます。パートナー\"%@\"さんに変更しますか？";
+"AddPartnerConfirmAlertMessage" = "\"%@\"さんとパートナーになりますか？";
+"AddPartnerAlertAddButton" = "OK";
+
+/**
+ *  Toast
+ */
+"NeedLoginWithFacebookToast" = "ログインをして下さい";
+"NoPartnerToast" = "パートナーがいません";
+"NoMessageToast" = "メッセージを送信すると、履歴が見れます";
+"AlreadyPartnerToast" = "既に\"%@\"さんと、パートナになっています";

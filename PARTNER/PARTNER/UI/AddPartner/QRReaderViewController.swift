@@ -159,24 +159,29 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
         // 自分のパートナーと読み取ったidが一致している場合
         if let partnerId = Partner.read().id {
             if candidatePartner.objectId == partnerId {
-                self.toastWithMessage("Already partner.")
-                self.session.startRunning()
+                toastWithMessage(String(format: LocalizedString.key("AlreadyPartnerToast"), candidatePartner.username))
+                session.startRunning()
                 return
             }
         }
+
         // どちらかにパートナーがいる
         if candidatePartner.hasPartner || MyProfile.read().hasPartner {
-            self.becomePartner(candidatePartner, message: "You or partner already have a partner. Do you swicth to \"\(candidatePartner.username)\"?")
+            becomePartner(candidatePartner, message: String(format: LocalizedString.key("AlreadyHavePartnerConfirmAlertMessage"), candidatePartner.username))
             return
         }
+
         // 両方共パートナーなし
-        self.becomePartner(candidatePartner, message: "Do you become partner with \"\(candidatePartner.username)\"?")
+        becomePartner(candidatePartner, message: String(format: LocalizedString.key("AddPartnerConfirmAlertMessage"), candidatePartner.username))
         return
     }
 
     func becomePartner(candidatePartner: PFPartner, message: String) {
-        let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
+        let alert = UIAlertController(title: LocalizedString.key("AlertConfirmTitle"), message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: LocalizedString.key("AlertCancelButton"), style: .Default) { action in
+            self.session.startRunning()
+        })
+        alert.addAction(UIAlertAction(title: LocalizedString.key("AddPartnerAlertAddButton"), style: .Default, handler:{ action in
             let op = AddPartnerOperation(candidatePartner: candidatePartner)
             op.completionBlock = {
                 self.navigationController!.popViewControllerAnimated(true)
@@ -184,9 +189,6 @@ class QRReaderViewController: BaseViewController, AVCaptureMetadataOutputObjects
             }
             self.dispatchAsyncOperation(op)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Default) { action in
-            self.session.startRunning()
-        })
         presentViewController(alert, animated: true, completion: nil)
     }
 

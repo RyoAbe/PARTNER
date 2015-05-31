@@ -6,6 +6,9 @@
   Copyright (c) 2015年 RyoAbe. All rights reserved.
 */
 
+/**
+ *  Statuses
+ */
 "GoodMorning" = "Good morning.";
 "GoingHome" = "I'll go home.";
 "ThunkYou" = "Thank you!";
@@ -15,3 +18,32 @@
 "GoodNight" = "Good night.";
 "Sorry" = "Sorry.";
 "Love" = "I love you.";
+
+/**
+ *  Alert
+ */
+
+// Common
+"AlertConfirmTitle" = "Confirm";
+"AlertCancelButton" = "Cancel";
+"AlertOKButton" = "OK";
+
+// Login
+"LoginFacebookAlertTitle" = "Login With Facebook";
+"LoginFacebookAlertMessage" = "Use your acount for login.";
+"LoginFacebookAlertLoginButton" = "Login";
+"LoginFacebookFailedAlerrtTitle" = "Could not login with Facebook";
+"LoginFacebookFailedAlerrtMessage" = "Facebook login failed. Please check your Facebook settings on your phone. [Settings]App -> [Facebook] -> [PARTNER]";
+
+// AddPartner
+"AlreadyHavePartnerConfirmAlertTitle" = "You or partner already have a partner. Do you swicth to \"%@\"";
+"AddPartnerConfirmAlertTitle" = "Do you become partner with \"%@\"?";
+"AddPartnerAlertAddButton" = "OK";
+
+/**
+ *  Toast
+ */
+"NeedLoginWithFacebookToast" = "Please login with Fasebook.";
+"NoPartnerToast" = "You have no partner.";
+"NoMessageToast" = "Once you send message, you can see history.";
+"AlreadyPartnerToast" = "You already become partner with \"%@\".";

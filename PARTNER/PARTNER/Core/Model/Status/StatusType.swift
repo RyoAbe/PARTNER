@@ -30,32 +30,23 @@ enum StatusTypes : NSInteger {
     var statusType : StatusType {
         switch self {
         case GoodMorning:
-            let name = NSLocalizedString("GoodMorning", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
-            return StatusType(iconImageName: "good_morning_icon", name: name)
+            return StatusType(iconImageName: "good_morning_icon", name: LocalizedString.key("GoodMorning"))
         case GoingHome:
-            let name = NSLocalizedString("GoingHome", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
-            return StatusType(iconImageName: "going_home_icon", name: name)
+            return StatusType(iconImageName: "going_home_icon", name: LocalizedString.key("GoingHome"))
         case ThunkYou:
-            let name = NSLocalizedString("ThunkYou", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
-            return StatusType(iconImageName: "thank_you_icon", name: name)
+            return StatusType(iconImageName: "thank_you_icon", name: LocalizedString.key("ThunkYou"))
         case EatOut:
-            let name = NSLocalizedString("EatOut", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
-            return StatusType(iconImageName: "have_dinner_icon", name: name)
+            return StatusType(iconImageName: "have_dinner_icon", name: LocalizedString.key("EatOut"))
         case AlmostThere:
-            let name = NSLocalizedString("There", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
-            return StatusType(iconImageName: "there_icon", name: name)
+            return StatusType(iconImageName: "there_icon", name: LocalizedString.key("AlmostThere"))
         case GodId:
-            let name = NSLocalizedString("GodId", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
-            return StatusType(iconImageName: "god_it_icon", name: name)
+            return StatusType(iconImageName: "god_it_icon", name: LocalizedString.key("GodId"))
         case GoodNight:
-            let name = NSLocalizedString("GoodNight", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
-            return StatusType(iconImageName: "good_night_icon", name: name)
+            return StatusType(iconImageName: "good_night_icon", name: LocalizedString.key("GoodNight"))
         case Sorry:
-            let name = NSLocalizedString("Sorry", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
-            return StatusType(iconImageName: "bow_icon", name: name)
+            return StatusType(iconImageName: "bow_icon", name: LocalizedString.key("Sorry"))
         case Love:
-            let name = NSLocalizedString("Love", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
-            return StatusType(iconImageName: "love_icon", name: name)
+            return StatusType(iconImageName: "love_icon", name: LocalizedString.key("Love"))
         }
     }
     
@@ -75,6 +66,7 @@ class StatusType: NSObject, NSCoding {
     }
 
     required init(coder aDecoder: NSCoder) {
+        
         identifier = aDecoder.decodeObjectForKey("iconImageName") as! String
         iconImageName = aDecoder.decodeObjectForKey("iconImageName") as! String
         name = aDecoder.decodeObjectForKey("name") as! String

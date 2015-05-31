@@ -51,7 +51,7 @@ class LoginToFBOperation: BaseOperation {
     }
     
     private func showCheckFacebookSettingAlert() {
-        let alert = UIAlertController(title: "Could not login with Facebook", message: "Facebook login failed. Please check your Facebook settings on your phone.", preferredStyle: .Alert)
+        let alert = UIAlertController(title: LocalizedString.key("LoginFacebookFailedAlerrtTitle"), message: LocalizedString.key("LoginFacebookFailedAlerrtMessage"), preferredStyle: .Alert)
         let action = UIAlertAction(title: "Ok", style: .Default) { action in
             UIApplication.sharedApplication().openURL(NSURL(string: "prefs:root")!)
         }

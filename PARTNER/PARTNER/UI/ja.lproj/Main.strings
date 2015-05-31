@@ -9,22 +9,22 @@
 "AuC-kp-2er.text" = "App Store";
 
 /* Class = "UILabel"; text = "License"; ObjectID = "D7G-QK-4za"; */
-"D7G-QK-4za.text" = "License";
+"D7G-QK-4za.text" = "ライセンス";
 
 /* Class = "UILabel"; text = "Add Partner"; ObjectID = "EkM-zg-p6B"; */
 "EkM-zg-p6B.text" = "パートナーを追加";
 
 /* Class = "UILabel"; text = "Blog"; ObjectID = "HRl-5h-jq7"; */
-"HRl-5h-jq7.text" = "Blog";
+"HRl-5h-jq7.text" = "開発者ブログ";
 
 /* Class = "UILabel"; text = "ver 1.0.0"; ObjectID = "J9w-RV-n3s"; */
 "J9w-RV-n3s.text" = "ver 1.0.0";
 
 /* Class = "UINavigationItem"; title = "License"; ObjectID = "NFB-jk-ylq"; */
-"NFB-jk-ylq.title" = "License";
+"NFB-jk-ylq.title" = "ライセンス";
 
 /* Class = "UILabel"; text = "About Developper"; ObjectID = "SWF-Il-n4p"; */
-"SWF-Il-n4p.text" = "About Developper";
+"SWF-Il-n4p.text" = "開発者について";
 
 /* Class = "UILabel"; text = "Review"; ObjectID = "Vbo-6t-1Iw"; */
 "Vbo-6t-1Iw.text" = "レビュー";
@@ -33,7 +33,7 @@
 "Wqm-vl-bND.title" = "PARTNER";
 
 /* Class = "UILabel"; text = "Read your QR code from partner."; ObjectID = "Wur-nm-lgT"; */
-"Wur-nm-lgT.text" = "パートナーがこのQRコードを本アプリのQRコードリーダーでスキャンすると、あなたをパートナーとして追加出来ます。";
+"Wur-nm-lgT.text" = "パートナーがこのQRコードを、本アプリのQRコードリーダーで読み取ると、あなたをパートナーとして追加出来ます。";
 
 /* Class = "UILabel"; text = "Opinions request"; ObjectID = "YmA-C2-gnp"; */
 "YmA-C2-gnp.text" = "お問い合わせ";

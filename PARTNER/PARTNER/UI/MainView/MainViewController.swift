@@ -106,11 +106,11 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     // MARK: -
     var isReady: Bool {
         if (UIApplication.sharedApplication().delegate as! AppDelegate).showSignInFacebookAlertIfNeeded() {
-            toastWithMessage("Please sign in with Fasebook.")
+            toastWithKey("NeedLoginWithFacebookToast")
             return false
         }
         if showMyQRCodeViewIfNeeded() {
-            toastWithMessage("You have no partner.")
+            toastWithKey("NoPartnerToast")
             return false
         }
         return true
@@ -118,15 +118,15 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     
     var isAuthenticated: Bool {
         if (UIApplication.sharedApplication().delegate as! AppDelegate).showSignInFacebookAlertIfNeeded() {
-            toastWithMessage("Please sign in with Fasebook.")
+            toastWithKey("NeedLoginWithFacebookToast")
             return false
         }
         return true
     }
-    
+
     var canSeeHistory: Bool {
         if MyProfile.read().statuses?.count == 0 && Partner.read().statuses?.count == 0 {
-            toastWithMessage("No message.")
+            toastWithKey("NoMessageToast")
             return false
         }
         return true

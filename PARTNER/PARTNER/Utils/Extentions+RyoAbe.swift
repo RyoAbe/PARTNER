@@ -31,6 +31,10 @@ extension NSObject {
         return NSStringFromClass(self).componentsSeparatedByString(".").last!
     }
 
+    func toastWithKey(key: String) {
+        toastWithMessage(LocalizedString.key(key))
+    }
+
     func toastWithMessage(message: String) {
         UIApplication.sharedApplication().keyWindow!.makeToast(message)
     }
@@ -50,16 +54,16 @@ extension NSObject {
 
 extension UIViewController {
     func showAlert(message: String, okBlock: (() -> Void)!) {
-        let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
+        let alert = UIAlertController(title: LocalizedString.key("AlertConfirmTitle"), message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: LocalizedString.key("AlertOKButton"), style: .Default, handler:{ action in
             okBlock()
         }))
         presentViewController(alert, animated: true, completion: nil)
     }
 
     func showErrorAlert(error: NSError) {
-        let alert = UIAlertController(title: "Confirm", message: error.userInfo![NSLocalizedDescriptionKey] as? String, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
+        let alert = UIAlertController(title: LocalizedString.key("AlertConfirmTitle"), message: error.userInfo![NSLocalizedDescriptionKey] as? String, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: LocalizedString.key("AlertOKButton"), style: .Default, handler:{ action in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
         self.presentViewController(alert, animated: true, completion: nil)

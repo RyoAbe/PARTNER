@@ -75,6 +75,8 @@
 		32F604731ABD74300097BB9A /* MyStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F604681ABD74300097BB9A /* MyStatuses.swift */; };
 		32F604741ABD74300097BB9A /* PartnersStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F604691ABD74300097BB9A /* PartnersStatuses.swift */; };
 		32F604791ABD74B80097BB9A /* Statuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F604781ABD74B80097BB9A /* Statuses.swift */; };
+		32FFE58D1B1AB4CE009459C2 /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FFE58C1B1AB4CE009459C2 /* LocalizedString.swift */; };
+		32FFE58E1B1AB5CE009459C2 /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FFE58C1B1AB4CE009459C2 /* LocalizedString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +201,7 @@
 		32F604681ABD74300097BB9A /* MyStatuses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStatuses.swift; sourceTree = "<group>"; };
 		32F604691ABD74300097BB9A /* PartnersStatuses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnersStatuses.swift; sourceTree = "<group>"; };
 		32F604781ABD74B80097BB9A /* Statuses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statuses.swift; sourceTree = "<group>"; };
+		32FFE58C1B1AB4CE009459C2 /* LocalizedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		5AEEFDF16C49165167AD0C9C /* Pods-PARTNER.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARTNER.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PARTNER/Pods-PARTNER.debug.xcconfig"; sourceTree = "<group>"; };
 		B40DFF861AFF3EE1B50D737A /* Pods-PARTNER.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PARTNER.release.xcconfig"; path = "Pods/Target Support Files/Pods-PARTNER/Pods-PARTNER.release.xcconfig"; sourceTree = "<group>"; };
 		D9B64D5061C642D792FC3A9A /* libPods-PARTNER.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PARTNER.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -415,6 +418,7 @@
 				32592FAA1A2AF918008E7021 /* UIUtil.m */,
 				320770941AAD45F800AA76BD /* Extentions+RyoAbe.swift */,
 				3208708F1AAEBAAB009CA2DA /* Logger.swift */,
+				32FFE58C1B1AB4CE009459C2 /* LocalizedString.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -780,6 +784,7 @@
 				3258C78C19C9DFDC00843022 /* LoginToFBOperation.swift in Sources */,
 				3252E3751AFBADF9009CCF18 /* PARTNERConstants.swift in Sources */,
 				322237A41AAAC6550069F0DD /* AboutViewController.swift in Sources */,
+				32FFE58D1B1AB4CE009459C2 /* LocalizedString.swift in Sources */,
 				321058C51AAAF59F001EA3D7 /* HistoryViewDelegate.swift in Sources */,
 				324748751ADA274F00D33F33 /* UpdateProfileOperation.swift in Sources */,
 				32592FAF1A2AF918008E7021 /* MRProgressOverlayView+RyoAbe.m in Sources */,
@@ -830,6 +835,7 @@
 			files = (
 				32559A391B08C8060009BD43 /* Logger.swift in Sources */,
 				3252E37A1AFBC513009CCF18 /* StatusMenu.swift in Sources */,
+				32FFE58E1B1AB5CE009459C2 /* LocalizedString.swift in Sources */,
 				32246C061B024339000B756B /* StatusType.swift in Sources */,
 				329D2E131AF7B74D00B47A31 /* NotificationController.swift in Sources */,
 				329D2E111AF7B74D00B47A31 /* InterfaceController.swift in Sources */,

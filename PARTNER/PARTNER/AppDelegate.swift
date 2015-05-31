@@ -217,6 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let loginToFBOp: LoginToFBOperation = LoginToFBOperation()
 
+    // ???: twitter連携も追加
     func showSignInFacebookAlertIfNeeded() -> Bool {
         if MyProfile.read().isAuthenticated {
             return false
@@ -224,13 +225,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if loginToFBOp.executing {
             return false
         }
-        let alert = UIAlertController(title: "Login With Facebook?", message: "", preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Login", style: .Default) { action in
+
+        let alert = UIAlertController(title: LocalizedString.key("LoginFacebookAlertTitle"), message: LocalizedString.key("LoginFacebookAlertMessage"), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: LocalizedString.key("AlertCancelButton"), style: .Default, handler: nil))
+        let action = UIAlertAction(title: LocalizedString.key("LoginFacebookAlertLoginButton"), style: .Default) { action in
             self.dispatchAsyncOperation(self.loginToFBOp)
         }
         alert.addAction(action)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
         window!.rootViewController!.presentViewController(alert, animated: true, completion: nil)
+        
         return true
     }
 
