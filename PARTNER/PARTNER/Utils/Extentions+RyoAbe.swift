@@ -18,7 +18,7 @@ extension NSObject {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block)
     }
 
-    // ???: これじゃない感
+    // ???: もうすこし良い設計に出来ないだろうか。検討
     func dispatchAsyncOperation(op: BaseOperation) {
         dispatchAsyncMultiThread{ op.start() }
     }
@@ -45,13 +45,6 @@ extension NSObject {
             return
         }
         toastWithMessage(PartnerErrorCode.Unknown.description)
-    }
-}
-
-extension Reachability {
-    // ???: こうじゃない感
-    class func isReachable() -> Bool {
-        return Reachability.reachabilityForInternetConnection().isReachable()
     }
 }
 

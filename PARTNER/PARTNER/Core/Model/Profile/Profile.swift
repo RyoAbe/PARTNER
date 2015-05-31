@@ -8,7 +8,7 @@
 
 import UIKit
 
-// ???: とりあえず20件にした
+// ???: いったん20件にしている。（全件取得、全件保存の関係上）
 let MaxSatuses = 20
 
 class Profile: NSObject, NSCoding {

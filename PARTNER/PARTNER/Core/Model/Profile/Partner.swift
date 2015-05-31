@@ -10,7 +10,7 @@ import UIKit
 
 class Partner: Profile {
     override class var sharedInstance : Partner {
-        // ???: Profileクラスでひとまとめに出来るかも
+        // ???: Profileクラスでひとまとめに出来るかもしれない。ジェネリックスを使えばいいのだろうか？
         struct Static {
             static let instance = Partner()
         }

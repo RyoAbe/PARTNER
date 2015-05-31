@@ -8,7 +8,7 @@
 
 import UIKit
 
-// ???: ロールバックの仕組みを作りたい
+// ???: 追加出来なかった場合など、ローカルのみ保存されてしまう可能性がある。ロールバックの仕組みを作りたい
 class AddPartnerOperation: BaseOperation {
     var candidatePartner: PFPartner!
     var candidatePartnerId : String!
@@ -40,7 +40,7 @@ class AddPartnerOperation: BaseOperation {
         let pfMyProfile = PFUser.currentMyProfile()
 
         /*
-        // TODO: パートナーを変えても過去のパートナーに自分が残ってしまう問題
+        // TODO: パートナーを変更しても過去のパートナーに自分が残ってしまい、プッシュ通知が遅れてしまう問題
         
         // パートナーのWrite権限に自分を追加
         candidatePartner.pfUser.ACL?.setWriteAccess(true, forUser: pfMyProfile.pfUser)

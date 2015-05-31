@@ -67,7 +67,7 @@ class UpdateProfileOperation: BaseOperation {
         if let pfStatuses = pfStatuses {
             if !pfStatuses.isEmpty {
                 for pfStatus in pfStatuses {
-                    // ???: なぜこんなことが必要なのだろうか、、
+                    // ???: 不必要な処理をしているようにしか感じない。リファクタリングが必要
                     if let types = pfStatus.types, let date = pfStatus.date {
                         let status = self.status(types, date: date)
                         self.profile.appendStatuses(status)

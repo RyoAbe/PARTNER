@@ -8,7 +8,7 @@
 
 import UIKit
 
-// ???: Parseから返ってくるエラーをちゃんと拾いたいかも
+// ???: Parseから返ってくるエラーをちゃんと拾いたい
 class SendMyStatusOperation: BaseOperation {
 
     let partnerId: NSString!
@@ -26,7 +26,7 @@ class SendMyStatusOperation: BaseOperation {
         let pfMyProfile = PFUser.currentMyProfile()
         assert(pfMyProfile.isAuthenticated && pfMyProfile.hasPartner, "ログイン出来てないし、パートナーもいない")
         
-        // ???: サーバーに自分の情報がなくてもsaveされてしまう
+        // ???: サーバーに自分の情報がなくてもsaveされてしまう問題
         let status = MyStatus(types: statusTypes, date: NSDate())
         
         let pfStatus = PFStatus()
@@ -48,8 +48,6 @@ class SendMyStatusOperation: BaseOperation {
             myProfile.appendStatuses(status)
             myProfile.save()
         }
-        
-        // ???: パートナーを変えても遅れてしまう
 
         return notify(["alert"    : "\(pfMyProfile.username): \(status.types.statusType.name)",
                        "type"     : status.types.rawValue,
