@@ -26,11 +26,10 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
         let currentUser = PFUser.currentUser()
-        Logger.debug("currentUser=\(currentUser)")
-        partnersStatusView.profile = partner
         partnersStatusView.statusViewType = .PartnersStatus
-        myStatusView.profile = myProfile
+        partnersStatusView.profile = partner
         myStatusView.statusViewType = .MyStatus
+        myStatusView.profile = myProfile
     }
 
     func setupNavigationItem() {

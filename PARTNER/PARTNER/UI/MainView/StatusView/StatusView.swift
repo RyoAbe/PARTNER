@@ -13,14 +13,13 @@ enum StatusViewType {
     var namePlaceholder : String {
         switch self {
         case .MyStatus:
-            return "Not yet sign in."
+            return LocalizedString.key("NamePlaceholderNotSignIn")
         case .PartnersStatus:
-            return "No partner."
+            return LocalizedString.key("NamePlaceholderNoPartner")
         }
     }
 }
 // ???: 既読が見れるようにする
-// TODO: 起動直後「Not yet partner」が出る
 class StatusView: UIView {
 
     @IBOutlet private weak var overlayView: UIView!

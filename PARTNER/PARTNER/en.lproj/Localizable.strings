@@ -49,6 +49,12 @@
 "AlreadyPartnerToast" = "You already become partner with \"%@\".";
 
 /**
+ *  StatusView
+ */
+"NamePlaceholderNotSignIn" = "Not yet sign in.";
+"NamePlaceholderNoPartner" = "No partner.";
+
+/**
  *  NotificationAction
  */
 "NotificationOtherAction" = "Other";

@@ -49,6 +49,12 @@
 "AlreadyPartnerToast" = "既に\"%@\"さんと、パートナになっています";
 
 /**
+ *  StatusView
+ */
+"NamePlaceholderNotSignIn" = "サインインして下さい";
+"NamePlaceholderNoPartner" = "まだパートナーがいません";
+
+/**
  *  NotificationAction
  */
 "NotificationOtherAction" = "その他";
