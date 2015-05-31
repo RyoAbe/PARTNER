@@ -96,7 +96,7 @@ class SettingsViewController: UITableViewController {
                 break
             case .Third:
                 switch SettingsThirdSection(rawValue: indexPath.row)! {
-                case .ReviewOnAppStore: UIApplication.sharedApplication().openURL(NSURL(string: "http://appstore.com/partner-one-touch-communication")!)
+                case .ReviewOnAppStore: UIApplication.sharedApplication().openURL(NSURL(string: "https://appsto.re/i6Lb57j")!)
                     break
                 case .OpinionsRequest: UIApplication.sharedApplication().openURL(NSURL(string: "http://twitter.com/RyoAbe/")!)
                     break

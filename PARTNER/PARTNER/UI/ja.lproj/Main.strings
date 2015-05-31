@@ -1,0 +1,51 @@
+
+/* Class = "UIButton"; normalTitle = "Read partner’s QR code"; ObjectID = "0zH-dX-j3t"; */
+"0zH-dX-j3t.normalTitle" = "パートナーのQRコードを読み取る";
+
+/* Class = "UILabel"; text = "PARTNER"; ObjectID = "8gh-HR-2db"; */
+"8gh-HR-2db.text" = "PARTNER";
+
+/* Class = "UILabel"; text = "App Store"; ObjectID = "AuC-kp-2er"; */
+"AuC-kp-2er.text" = "App Store";
+
+/* Class = "UILabel"; text = "License"; ObjectID = "D7G-QK-4za"; */
+"D7G-QK-4za.text" = "License";
+
+/* Class = "UILabel"; text = "Add Partner"; ObjectID = "EkM-zg-p6B"; */
+"EkM-zg-p6B.text" = "パートナーを追加";
+
+/* Class = "UILabel"; text = "Blog"; ObjectID = "HRl-5h-jq7"; */
+"HRl-5h-jq7.text" = "Blog";
+
+/* Class = "UILabel"; text = "ver 1.0.0"; ObjectID = "J9w-RV-n3s"; */
+"J9w-RV-n3s.text" = "ver 1.0.0";
+
+/* Class = "UINavigationItem"; title = "License"; ObjectID = "NFB-jk-ylq"; */
+"NFB-jk-ylq.title" = "License";
+
+/* Class = "UILabel"; text = "About Developper"; ObjectID = "SWF-Il-n4p"; */
+"SWF-Il-n4p.text" = "About Developper";
+
+/* Class = "UILabel"; text = "Review"; ObjectID = "Vbo-6t-1Iw"; */
+"Vbo-6t-1Iw.text" = "レビュー";
+
+/* Class = "UINavigationItem"; title = "PARTNER"; ObjectID = "Wqm-vl-bND"; */
+"Wqm-vl-bND.title" = "PARTNER";
+
+/* Class = "UILabel"; text = "Read your QR code from partner."; ObjectID = "Wur-nm-lgT"; */
+"Wur-nm-lgT.text" = "パートナーがこのQRコードを本アプリのQRコードリーダーでスキャンすると、あなたをパートナーとして追加出来ます。";
+
+/* Class = "UILabel"; text = "Opinions request"; ObjectID = "YmA-C2-gnp"; */
+"YmA-C2-gnp.text" = "お問い合わせ";
+
+/* Class = "UILabel"; text = "About"; ObjectID = "bdg-hI-sGs"; */
+"bdg-hI-sGs.text" = "About";
+
+/* Class = "UILabel"; text = "@RyoAbe"; ObjectID = "gLJ-ze-wnM"; */
+"gLJ-ze-wnM.text" = "@RyoAbe";
+
+/* Class = "UILabel"; text = "Edit"; ObjectID = "kcI-v0-eqA"; */
+"kcI-v0-eqA.text" = "編集";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "mIK-JO-Asz"; */
+"mIK-JO-Asz.title" = "設定";
