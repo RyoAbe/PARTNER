@@ -6,12 +6,12 @@
   Copyright (c) 2015年 RyoAbe. All rights reserved.
 */
 
-"GoodMoning" = "おはよう";
+"GoodMorning" = "おはよう";
 "GoingHome" = "家、帰るよ";
 "ThunkYou" = "ありがとう";
-"HaveDinner" = "夕食、食べる";
-"There" = "そろそろ着くよ";
+"EatOut" = "夕食、食べて帰る";
+"AlmostThere" = "そろそろ着くよ";
 "GodId" = "了解";
 "GoodNight" = "おやすみ";
-"Location" = "ごめん";
+"Sorry" = "ごめん";
 "Love" = "好きだよ";

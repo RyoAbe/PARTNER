@@ -9,9 +9,9 @@
 "GoodMorning" = "Good morning.";
 "GoingHome" = "I'll go home.";
 "ThunkYou" = "Thank you!";
-"HaveDinner" = "I will eat out.";
-"There" = "I’m almost there.";
+"EatOut" = "I will eat out.";
+"AlmostThere" = "I’m almost there.";
 "GodId" = "Got it.";
 "GoodNight" = "Good night.";
-"Location" = "Sorry.";
+"Sorry" = "Sorry.";
 "Love" = "I love you.";

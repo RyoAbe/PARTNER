@@ -17,22 +17,20 @@ func countEnumElements(test: (Int) -> Any?) -> Int {
 }
 
 enum StatusTypes : NSInteger {
-    case GoodMoning = 0
+    case GoodMorning = 0
     case GoingHome
     case ThunkYou
-    // TODO: 命名変更(I will eat out.)
-    case HaveDinner
-    case There
+    case EatOut
+    case AlmostThere
     case GodId
     case GoodNight
-    // TODO: 命名変更(Sorry)
-    case Location
+    case Sorry
     case Love
     
     var statusType : StatusType {
         switch self {
-        case GoodMoning:
-            let name = NSLocalizedString("GoodMoning", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
+        case GoodMorning:
+            let name = NSLocalizedString("GoodMorning", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
             return StatusType(iconImageName: "good_morning_icon", name: name)
         case GoingHome:
             let name = NSLocalizedString("GoingHome", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
@@ -40,10 +38,10 @@ enum StatusTypes : NSInteger {
         case ThunkYou:
             let name = NSLocalizedString("ThunkYou", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
             return StatusType(iconImageName: "thank_you_icon", name: name)
-        case HaveDinner:
-            let name = NSLocalizedString("HaveDinner", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
+        case EatOut:
+            let name = NSLocalizedString("EatOut", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
             return StatusType(iconImageName: "have_dinner_icon", name: name)
-        case There:
+        case AlmostThere:
             let name = NSLocalizedString("There", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
             return StatusType(iconImageName: "there_icon", name: name)
         case GodId:
@@ -52,14 +50,15 @@ enum StatusTypes : NSInteger {
         case GoodNight:
             let name = NSLocalizedString("GoodNight", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
             return StatusType(iconImageName: "good_night_icon", name: name)
-        case Location:
-            let name = NSLocalizedString("Location", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
+        case Sorry:
+            let name = NSLocalizedString("Sorry", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
             return StatusType(iconImageName: "bow_icon", name: name)
         case Love:
             let name = NSLocalizedString("Love", tableName: "Localizable", bundle: NSBundle.mainBundle(), value: "", comment: "")
             return StatusType(iconImageName: "love_icon", name: name)
         }
     }
+    
     static let count = countEnumElements({StatusTypes(rawValue: $0)})
 }
 
