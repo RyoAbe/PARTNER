@@ -15,6 +15,9 @@ enum APSCategory: String {
 }
 
 @UIApplicationMain
+
+// TODO: dsymが遅れられていない
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
@@ -25,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(createNotificationSettings())
+        application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
 
         return true
     }
@@ -156,11 +160,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return (self.window!.rootViewController as! UINavigationController).viewControllers[0] as! MainViewController
     }
 
-    // ???: Background Fetchを実装
-    // @see http://www.gaprot.jp/pickup/ios7/vol1/
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         PFPush.handlePush(userInfo)
         notify(userInfo)
+    }
+    
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        updateProfiles()
+        completionHandler(.NewData)
     }
 
     func notify(userInfo: [NSObject : AnyObject]) {
@@ -168,32 +175,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var op: BaseOperation? = nil
         if let c = APSCategory(rawValue: category!) {
             switch c {
-            case .AddedPartner : op = AddPartnerOperation(candidatePartnerId: userInfo["objectId"] as! String)
+            case .AddedPartner :
+                op = AddPartnerOperation(candidatePartnerId: userInfo["objectId"] as! String)
                 break
             case .ReceivedMessage :
-                if MyProfile.read().hasPartner { op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false) }
+                if MyProfile.read().hasPartner {
+                    op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false)
+                }
                 break
             }
         }
-        if let op = op { dispatchAsyncOperation(op) }
+        if let op = op {
+            dispatchAsyncOperation(op)
+        }
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
         return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session())
     }
 
-    let loginToFBOp: LoginToFBOperation = LoginToFBOperation()
-
     func applicationDidBecomeActive(application: UIApplication) {
         FBAppEvents.activateApp()
         FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
-
+        updateProfiles()
+    }
+    
+    func updateProfiles() {
         let myProfile = MyProfile.read()
         if !myProfile.isAuthenticated {
             showSignInFacebookAlertIfNeeded()
             return
         }
-
+        
         if myProfile.hasPartner {
             let op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false)
             dispatchAsyncOperation(op)
@@ -202,6 +215,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dispatchAsyncOperation(op)
     }
     
+    let loginToFBOp: LoginToFBOperation = LoginToFBOperation()
+
     func showSignInFacebookAlertIfNeeded() -> Bool {
         if MyProfile.read().isAuthenticated {
             return false
