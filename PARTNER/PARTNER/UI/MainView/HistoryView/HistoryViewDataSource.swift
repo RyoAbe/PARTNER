@@ -21,8 +21,8 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
     override init() {
         myProfile = MyProfile.read() as! MyProfile
         partner = Partner.read() as! Partner
-        margedStatuses = Statuses(mixStatuses: (myProfile.statuses! + partner.statuses!).sorted{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
-//        margedStatuses = Statuses(mixStatuses: (partner.statuses!).sorted{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+//        margedStatuses = Statuses(mixStatuses: (myProfile.statuses! + partner.statuses!).sorted{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+        margedStatuses = DummyStatuses()
 
         super.init()
         myProfile.addObserver(self, forKeyPath:"statuses", options: .New, context: nil)
@@ -65,8 +65,8 @@ class HistoryViewDataSource: NSObject, UITableViewDataSource {
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if object as! NSObject == myProfile || object as! NSObject == partner {
             if margedStatuses.statuses.count != (myProfile.statuses!.count + partner.statuses!.count) {
-                margedStatuses = Statuses(mixStatuses: (myProfile.statuses! + partner.statuses!).sorted{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
-                delegate?.didChangeDataSource(self)
+//                margedStatuses = Statuses(mixStatuses: (myProfile.statuses! + partner.statuses!).sorted{ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+//                delegate?.didChangeDataSource(self)
             }
             return
         }
