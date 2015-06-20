@@ -14,9 +14,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     @IBOutlet weak var myStatusView: StatusBaseView!
     @IBOutlet weak var partnersStatusView: StatusBaseView!
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
-    let MessageMenuCellColumns: Int = 3
-    let MessageMenuCellLines: Int = 3
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.registerNib(UINib(nibName: "MessageMenuCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
@@ -28,11 +26,10 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         let myProfile = MyProfile.read()
         let partner = Partner.read()
         let currentUser = PFUser.currentUser()
-        Logger.debug("currentUser=\(currentUser)")
-        partnersStatusView.profile = partner
         partnersStatusView.statusViewType = .PartnersStatus
-        myStatusView.profile = myProfile
+        partnersStatusView.profile = partner
         myStatusView.statusViewType = .MyStatus
+        myStatusView.profile = myProfile
     }
 
     func setupNavigationItem() {
@@ -68,13 +65,13 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let w = floor(view.frame.width / CGFloat(MessageMenuCellColumns))
-        let h = floor(collectionViewHeight.constant / CGFloat(MessageMenuCellLines))
+        let w = floor(view.frame.width / CGFloat(StatusMenuCellColumns))
+        let h = floor(collectionViewHeight.constant / CGFloat(StatusMenuCellLines))
         return CGSizeMake(w, h)
     }
 
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return MessageMenuCellColumns * MessageMenuCellLines
+        return StatusTypes.count
     }
 
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
@@ -102,17 +99,17 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         }
         let types = StatusTypes(rawValue: indexPath.row)!
         FBAppEvents.logEvent("DidTapSendMyStatus - types \(types.statusType.name)")
-        dispatchAsyncOperation(SendMyStatusOperation(partnerId: Partner.read().id!, statusTypes: types))
+        dispatchAsyncOperation(SendMyStatusOperation(statusTypes: types))
     }
 
     // MARK: -
     var isReady: Bool {
         if (UIApplication.sharedApplication().delegate as! AppDelegate).showSignInFacebookAlertIfNeeded() {
-            toastWithMessage("Please sign in with Fasebook.")
+            toastWithKey("NeedLoginWithFacebookToast")
             return false
         }
         if showMyQRCodeViewIfNeeded() {
-            toastWithMessage("You have no partner.")
+            toastWithKey("NoPartnerToast")
             return false
         }
         return true
@@ -120,15 +117,15 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     
     var isAuthenticated: Bool {
         if (UIApplication.sharedApplication().delegate as! AppDelegate).showSignInFacebookAlertIfNeeded() {
-            toastWithMessage("Please sign in with Fasebook.")
+            toastWithKey("NeedLoginWithFacebookToast")
             return false
         }
         return true
     }
-    
+
     var canSeeHistory: Bool {
         if MyProfile.read().statuses?.count == 0 && Partner.read().statuses?.count == 0 {
-            toastWithMessage("No message.")
+            toastWithKey("NoMessageToast")
             return false
         }
         return true

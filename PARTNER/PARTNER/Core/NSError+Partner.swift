@@ -9,7 +9,7 @@
 import UIKit
 
 enum PartnerErrorCode: NSInteger {
-    // ???: なんかもっとないかな。。
+    // ???: ErrorCodeについて、もう少し一般的な付け方はないか調べる
     case Unknown = 0
     case NetworkOffline = 1009
     case NotFoundUser = 4040

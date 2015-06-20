@@ -1,0 +1,67 @@
+/* 
+  Localizable.strings
+  PARTNER
+
+  Created by RyoAbe on 2015/05/31.
+  Copyright (c) 2015年 RyoAbe. All rights reserved.
+*/
+
+/**
+ *  Statuses
+ */
+"GoodMorning" = "おはよう";
+"GoingHome" = "今から家帰るよ";
+"ThunkYou" = "ありがとう";
+"EatOut" = "夕食、食べて帰る";
+"AlmostThere" = "そろそろ着くよ";
+"GodId" = "了解";
+"GoodNight" = "おやすみ";
+"Sorry" = "ごめん";
+"Love" = "好きだよ";
+
+/**
+ *  Alert
+ */
+
+// Common
+"AlertConfirmTitle" = "確認";
+"AlertCancelButton" = "キャンセル";
+"AlertOKButton" = "OK";
+
+// Login
+"LoginFacebookAlertTitle" = "Facebookでログイン";
+"LoginFacebookAlertMessage" = "Facebookアカウントを使用してログインします";
+"LoginFacebookAlertLoginButton" = "ログイン";
+"LoginFacebookFailedAlerrtTitle" = "Facebookにログインできませんでした";
+"LoginFacebookFailedAlerrtMessage" = "Facebookログインに失敗しました。[設定]アプリ -> [Facebook] -> [PARTNER] を有効にしてください";
+
+// AddPartner
+"AlreadyHavePartnerConfirmAlertMessage" = "既にパートナーがいます。パートナー\"%@\"さんに変更しますか？";
+"AddPartnerConfirmAlertMessage" = "\"%@\"さんとパートナーになりますか？";
+"AddPartnerAlertAddButton" = "OK";
+
+/**
+ *  Toast
+ */
+"NeedLoginWithFacebookToast" = "ログインをして下さい";
+"NoPartnerToast" = "パートナーがいません";
+"NoMessageToast" = "メッセージを送信すると、履歴が見れます";
+"AlreadyPartnerToast" = "既に\"%@\"さんと、パートナになっています";
+
+/**
+ *  StatusView
+ */
+"NamePlaceholderNotSignIn" = "サインインして下さい";
+"NamePlaceholderNoPartner" = "まだパートナーがいません";
+
+/**
+ *  NotificationAction
+ */
+"NotificationOtherAction" = "その他";
+
+/**
+ *  Apple Watch
+ */
+"SendMessage" = "送信中...";
+"SucceededSendMessage" = "送信成功";
+"FailedSendMessage" = "送信失敗";

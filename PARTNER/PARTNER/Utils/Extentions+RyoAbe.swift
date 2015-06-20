@@ -18,9 +18,9 @@ extension NSObject {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block)
     }
 
-    // ???: これじゃない感
+    // ???: もうすこし良い設計に出来ないだろうか。検討
     func dispatchAsyncOperation(op: BaseOperation) {
-        dispatchAsyncMultiThread({op.start()})
+        dispatchAsyncMultiThread{ op.start() }
     }
 
     var className: String {
@@ -29,6 +29,10 @@ extension NSObject {
     
     class var className : String {
         return NSStringFromClass(self).componentsSeparatedByString(".").last!
+    }
+
+    func toastWithKey(key: String) {
+        toastWithMessage(LocalizedString.key(key))
     }
 
     func toastWithMessage(message: String) {
@@ -44,29 +48,22 @@ extension NSObject {
             toastWithMessage(message)
             return
         }
-        toastWithMessage(error.description)
-    }
-}
-
-extension Reachability {
-    // ???: こうじゃない感
-    class func isReachable() -> Bool {
-        return Reachability.reachabilityForInternetConnection().isReachable()
+        toastWithMessage(PartnerErrorCode.Unknown.description)
     }
 }
 
 extension UIViewController {
     func showAlert(message: String, okBlock: (() -> Void)!) {
-        let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
+        let alert = UIAlertController(title: LocalizedString.key("AlertConfirmTitle"), message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: LocalizedString.key("AlertOKButton"), style: .Default, handler:{ action in
             okBlock()
         }))
         presentViewController(alert, animated: true, completion: nil)
     }
 
     func showErrorAlert(error: NSError) {
-        let alert = UIAlertController(title: "Confirm", message: error.userInfo![NSLocalizedDescriptionKey] as? String, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler:{ action in
+        let alert = UIAlertController(title: LocalizedString.key("AlertConfirmTitle"), message: error.userInfo![NSLocalizedDescriptionKey] as? String, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: LocalizedString.key("AlertOKButton"), style: .Default, handler:{ action in
             self.dismissViewControllerAnimated(true, completion: nil)
         }))
         self.presentViewController(alert, animated: true, completion: nil)

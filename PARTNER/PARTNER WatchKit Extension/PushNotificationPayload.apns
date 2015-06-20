@@ -1,0 +1,8 @@
+{
+    "aps": {
+        "alert": "Sophia: I'll go home.",
+        "category": "ReceivedMessage",
+    },
+    "type": 1,
+    "date": "1433062227.59565"
+}

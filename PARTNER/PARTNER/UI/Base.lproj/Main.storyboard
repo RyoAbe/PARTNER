@@ -192,25 +192,24 @@
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read your QR code from partner." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wur-nm-lgT">
-                                <rect key="frame" x="150" y="130" width="300" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read your QR code from partner." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wur-nm-lgT">
+                                <rect key="frame" x="160" y="130" width="280" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="Aza-ZL-mPW"/>
-                                    <constraint firstAttribute="width" constant="300" id="Qa9-3W-hzq"/>
+                                    <constraint firstAttribute="width" constant="280" id="Qa9-3W-hzq"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zH-dX-j3t">
-                                <rect key="frame" x="180" y="460" width="240" height="40"/>
+                                <rect key="frame" x="160" y="480" width="280" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="dRc-2L-nAh"/>
-                                    <constraint firstAttribute="width" constant="240" id="doo-vf-frs"/>
+                                    <constraint firstAttribute="width" constant="280" id="doo-vf-frs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Read partner’s QR code ">
+                                <state key="normal" title="Read partner’s QR code">
                                     <color key="titleColor" white="0.20052939967105265" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -224,7 +223,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummy_qrcode" translatesAutoresizingMaskIntoConstraints="NO" id="Ibx-MW-qIs">
-                                <rect key="frame" x="205" y="177" width="190" height="190"/>
+                                <rect key="frame" x="205" y="173" width="190" height="190"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="190" id="KMc-2i-a9g"/>
                                     <constraint firstAttribute="width" constant="190" id="U7k-OD-yKJ"/>
@@ -260,7 +259,7 @@
                             <constraint firstAttribute="centerX" secondItem="Wur-nm-lgT" secondAttribute="centerX" id="FmX-R3-NmH"/>
                             <constraint firstItem="yl6-hz-yUw" firstAttribute="top" secondItem="zaK-tP-vqc" secondAttribute="top" id="MII-EP-gzk"/>
                             <constraint firstItem="yl6-hz-yUw" firstAttribute="leading" secondItem="zaK-tP-vqc" secondAttribute="leading" id="Nr6-fh-dnF"/>
-                            <constraint firstItem="G3H-LU-kJi" firstAttribute="top" secondItem="0zH-dX-j3t" secondAttribute="bottom" constant="100" id="Vp5-MA-D6H"/>
+                            <constraint firstItem="G3H-LU-kJi" firstAttribute="top" secondItem="0zH-dX-j3t" secondAttribute="bottom" constant="80" id="Vp5-MA-D6H"/>
                             <constraint firstAttribute="centerX" secondItem="0zH-dX-j3t" secondAttribute="centerX" id="c1o-dI-3cH"/>
                             <constraint firstItem="fN2-m8-PdG" firstAttribute="centerY" secondItem="oZ2-eW-tKd" secondAttribute="centerY" id="g0g-qF-BTW"/>
                             <constraint firstItem="fN2-m8-PdG" firstAttribute="top" secondItem="j4H-eG-3MS" secondAttribute="bottom" id="iD1-Mt-uE2"/>
@@ -725,6 +724,6 @@
         <image name="women" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pQG-yJ-ofT"/>
+        <segue reference="q5t-1c-mU6"/>
     </inferredMetricsTieBreakers>
 </document>

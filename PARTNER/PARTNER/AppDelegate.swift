@@ -9,7 +9,15 @@
 import UIKit
 import CoreData
 
+enum APSCategory: String {
+    case AddedPartner = "AddedPartner"
+    case ReceivedMessage = "ReceivedMessage"
+}
+
 @UIApplicationMain
+
+// TODO: dsymが遅れられていない
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
@@ -18,21 +26,123 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         applayAppearance()
         setupParse()
 
-        let types = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
         application.registerForRemoteNotifications()
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
+        application.registerUserNotificationSettings(createNotificationSettings())
+        application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
 
         return true
     }
 
-    func applayAppearance() {
+    func identifierToStatusType(identifier: String) -> StatusTypes? {
+        switch identifier {
+        case StatusTypes(rawValue: 0)!.statusType.identifier:
+            return StatusTypes(rawValue: 0)!
+        case StatusTypes(rawValue: 1)!.statusType.identifier:
+            return StatusTypes(rawValue: 1)!
+        case StatusTypes(rawValue: 2)!.statusType.identifier:
+            return StatusTypes(rawValue: 2)!
+        case StatusTypes(rawValue: 3)!.statusType.identifier:
+            return StatusTypes(rawValue: 3)!
+        case StatusTypes(rawValue: 4)!.statusType.identifier:
+            return StatusTypes(rawValue: 4)!
+        case StatusTypes(rawValue: 5)!.statusType.identifier:
+            return StatusTypes(rawValue: 5)!
+        case StatusTypes(rawValue: 6)!.statusType.identifier:
+            return StatusTypes(rawValue: 6)!
+        case StatusTypes(rawValue: 7)!.statusType.identifier:
+            return StatusTypes(rawValue: 7)!
+        case StatusTypes(rawValue: 8)!.statusType.identifier:
+            return StatusTypes(rawValue: 8)!
+        default:
+            fatalError("ありえない")
+        }
+        return nil
+    }
+
+    var godItStatusTypes: StatusTypes {
+        return StatusTypes(rawValue: 5)!
+    }
+    
+    var otherNotificationAction:(String, String) {
+        return (LocalizedString.key("NotificationOtherAction") , "other")
+    }
+    
+    func sendMyStatus(identifier : String) -> BaseOperation? {
+        if let types = identifierToStatusType(identifier) {
+            let op = SendMyStatusOperation(statusTypes: types)
+            dispatchAsyncOperation(op)
+            return op
+        }
+        return nil
+    }
+
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+        if let identifier = identifier, op = sendMyStatus(identifier) {
+            op.completionBlock = completionHandler
+        }
+    }
+
+    var backgroundTaskIdentifier: UIBackgroundTaskIdentifier =
+    UIBackgroundTaskInvalid
+
+    func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
+        Logger.debug("userInfo:\(userInfo)")
+        backgroundTaskIdentifier = application.beginBackgroundTaskWithName("MyTask") {
+            application.endBackgroundTask(self.backgroundTaskIdentifier)
+            self.backgroundTaskIdentifier = UIBackgroundTaskInvalid
+            Logger.debug("expier")
+        }
+        
+        var replayDic = [String: Bool]()
+        if let userInfo = userInfo as? [String: String], identifier = userInfo["StatusType"] {
+            self.sendMyStatus(identifier)
+            replayDic = ["succeed": true]
+        } else {
+            replayDic = ["succeed": false]
+        }
+        reply(replayDic)
+        Logger.debug("replayDic\(replayDic)")
+        application.endBackgroundTask(backgroundTaskIdentifier)
+        backgroundTaskIdentifier = UIBackgroundTaskInvalid
+    }
+
+    private var otherAction: UIMutableUserNotificationAction {
+        var action = UIMutableUserNotificationAction()
+        action.title = otherNotificationAction.0
+        action.identifier = otherNotificationAction.1
+        action.activationMode = .Foreground
+        action.authenticationRequired = true
+        return action
+    }
+    
+    private func createNotificationSettings() -> UIUserNotificationSettings {
+        let category = UIMutableUserNotificationCategory()
+        category.identifier = APSCategory.ReceivedMessage.rawValue
+        
+        var actions = [UIMutableUserNotificationAction]()
+        for types in StatusTypes.notificationActions {
+            var action = UIMutableUserNotificationAction()
+            action.title = types.statusType.name
+            action.identifier = types.statusType.identifier
+            action.activationMode = .Background
+            actions.append(action)
+        }
+        actions.append(otherAction)
+        category.setActions(actions, forContext: .Default)
+
+        var categories = NSMutableSet()
+        categories.addObject(category)
+        return UIUserNotificationSettings(forTypes: (.Badge | .Sound | .Alert), categories: categories as Set<NSObject>)
+    }
+
+    private func applayAppearance() {
         UINavigationBar.appearance().tintColor = UIColor.blackColor()
         UISwitch.appearance().onTintColor = UIColor.darkGrayColor()
         UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
         UIBarButtonItem.appearance().tintColor = UIColor(white: 0.15, alpha: 1)
     }
 
-    func setupParse() {
+    private func setupParse() {
         ParseCrashReporting.enable()
         Parse.setApplicationId("Wq5i73uv70sYS1tI9anCe4WE9Iz5YVQtWof988EJ", clientKey: "9o1GdrDNpDfCN0eTkWYEsENAoftTkZgC7EQpeghc")
         PFFacebookUtils.initializeFacebook()
@@ -50,32 +160,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
 
-    // ???: Background Fetchを実装
-    // @see http://www.gaprot.jp/pickup/ios7/vol1/
+    var mainViewController: MainViewController {
+        return (self.window!.rootViewController as! UINavigationController).viewControllers[0] as! MainViewController
+    }
+
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         PFPush.handlePush(userInfo)
         notify(userInfo)
     }
     
-    var mainViewController: MainViewController {
-        return (self.window!.rootViewController as! UINavigationController).viewControllers[0] as! MainViewController
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        updateProfiles()
+        completionHandler(.NewData)
     }
 
     func notify(userInfo: [NSObject : AnyObject]) {
-        Logger.info("userInfo:\(userInfo)")
-
-        switch userInfo["notificationType"] as! String {
-            case "AddedPartner":
-                dispatchAsyncOperation(AddPartnerOperation(candidatePartnerId: userInfo["objectId"] as! String))
+        let category = userInfo["aps"]?["category"] as? String
+        var op: BaseOperation? = nil
+        if let c = APSCategory(rawValue: category!) {
+            switch c {
+            case .AddedPartner :
+                op = AddPartnerOperation(candidatePartnerId: userInfo["objectId"] as! String)
                 break
-
-            case "Status":
+            case .ReceivedMessage :
                 if MyProfile.read().hasPartner {
-                    dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false))
+                    op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false)
                 }
                 break
-            default:
-                break
+            }
+        }
+        if let op = op {
+            dispatchAsyncOperation(op)
         }
     }
     
@@ -83,18 +198,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session())
     }
 
-    let loginToFBOp: LoginToFBOperation = LoginToFBOperation()
-
     func applicationDidBecomeActive(application: UIApplication) {
         FBAppEvents.activateApp()
         FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
-
+        updateProfiles()
+    }
+    
+    func updateProfiles() {
         let myProfile = MyProfile.read()
         if !myProfile.isAuthenticated {
             showSignInFacebookAlertIfNeeded()
             return
         }
-
+        
         if myProfile.hasPartner {
             let op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false)
             dispatchAsyncOperation(op)
@@ -103,6 +219,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dispatchAsyncOperation(op)
     }
     
+    let loginToFBOp: LoginToFBOperation = LoginToFBOperation()
+
+    // ???: twitter連携も追加
     func showSignInFacebookAlertIfNeeded() -> Bool {
         if MyProfile.read().isAuthenticated {
             return false
@@ -110,13 +229,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if loginToFBOp.executing {
             return false
         }
-        let alert = UIAlertController(title: "Login With Facebook?", message: "", preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Login", style: .Default) { action in
+
+        let alert = UIAlertController(title: LocalizedString.key("LoginFacebookAlertTitle"), message: LocalizedString.key("LoginFacebookAlertMessage"), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: LocalizedString.key("AlertCancelButton"), style: .Default, handler: nil))
+        let action = UIAlertAction(title: LocalizedString.key("LoginFacebookAlertLoginButton"), style: .Default) { action in
             self.dispatchAsyncOperation(self.loginToFBOp)
         }
         alert.addAction(action)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
         window!.rootViewController!.presentViewController(alert, animated: true, completion: nil)
+        
         return true
     }
 
@@ -170,7 +291,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict as [NSObject : AnyObject])
+            error = NSError(domain: "com.ryoabe.PARTNER", code: 9999, userInfo: dict as [NSObject : AnyObject])
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")

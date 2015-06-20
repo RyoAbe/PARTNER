@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="PARTNER_WatchKit_Extension">
+                    <items>
+                        <table alignment="left" id="oEb-RG-Yad">
+                            <items>
+                                <tableRow identifier="Cell" id="5CH-kU-Bfq" customClass="StatusMenu" customModule="PARTNER_WatchKit_Extension">
+                                    <group key="rootItem" width="1" alignment="left" id="eqr-Kf-vIL">
+                                        <items>
+                                            <imageView width="22" height="22" alignment="left" verticalAlignment="center" id="iRc-CY-GfY">
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </imageView>
+                                            <label width="90" alignment="right" verticalAlignment="center" text="Label" numberOfLines="2" id="QTn-5G-hiF">
+                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="imageView" destination="iRc-CY-GfY" id="SHz-Sf-j33"/>
+                                        <outlet property="textLabel" destination="QTn-5G-hiF" id="O2p-nO-Cx6"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="tableView" destination="oEb-RG-Yad" id="KHq-ny-6kV"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="New Post" numberOfLines="0" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="ReceivedMessage" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="PARTNER_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <imageView width="40" height="40" alignment="center" id="AKr-Xj-CwK">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </imageView>
+                        <label alignment="left" text="New Message" numberOfLines="0" minimumScaleFactor="0.60000000000000009" id="93V-zF-HwX">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <label alignment="left" text="xxxx/xx/xx xx:xx" id="AIl-hr-n66">
+                            <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                        </label>
+                    </items>
+                    <edgeInsets key="margins" left="1" right="1" top="0.0" bottom="0.0"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="AIl-hr-n66" id="JOX-gI-qLI"/>
+                        <outlet property="imageView" destination="AKr-Xj-CwK" id="qLq-3R-hqu"/>
+                        <outlet property="label" destination="93V-zF-HwX" id="NZ4-Rj-ZME"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>

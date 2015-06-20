@@ -20,7 +20,7 @@ class HistoryBaseCell: UITableViewCell {
             textLabel!.text = currentStatus.types.statusType.name
             imageView!.image = UIImage(named: currentStatus.types.statusType.iconImageName)
             let fmt = NSDateFormatter()
-            fmt.dateFormat = "yyyy-MM-dd HH:mm"
+            fmt.dateFormat = "yyyy/MM/dd HH:mm"
             detailTextLabel?.text = fmt.stringFromDate(currentStatus.date)
             setNeedsDisplay()
         }

@@ -37,6 +37,9 @@ class PFObjectBase {
     func saveInBackgroundWithBlock(block: (Bool, NSError?) -> Void) {
         pfObject!.saveInBackgroundWithBlock(block)
     }
+    func saveEventually(block: (Bool, NSError?) -> Void) {
+        pfObject!.saveEventually(block)
+    }
 }
 
 class PFProfile: PFObjectBase {

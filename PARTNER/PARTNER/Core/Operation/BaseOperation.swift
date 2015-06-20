@@ -11,7 +11,8 @@ import UIKit
 class BaseOperation: NSOperation {
     // MARK: - Enums
     enum BaseOperationResult {
-        case Success(AnyObject?), Failure(NSError?)
+        case Success(AnyObject?)
+        case Failure(NSError?)
     }
 
     enum BaseOperationState {
@@ -63,7 +64,7 @@ class BaseOperation: NSOperation {
         }
     }
 
-    // ???: Filter出来るようにする
+    // ???: completionBlockをadd出来るようにする
     override var completionBlock: (() -> Void)? {
         get { return super.completionBlock }
         set {
@@ -96,7 +97,7 @@ class BaseOperation: NSOperation {
 
         assert(!NSThread.currentThread().isMainThread, "call from main thread")
 
-        if !Reachability.isReachable() {
+        if !Reachability.reachabilityForInternetConnection().isReachable() {
             finishWithError(NSError.code(.NetworkOffline))
             return
         }
