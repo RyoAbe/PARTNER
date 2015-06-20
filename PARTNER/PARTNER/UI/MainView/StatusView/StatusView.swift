@@ -65,6 +65,22 @@ class StatusView: UIView {
             profile.addObserver(self, forKeyPath:"image", options: .New, context: nil)
             profile.addObserver(self, forKeyPath:"statuses", options: .New, context: nil)
             profile.addObserver(self, forKeyPath:"isAuthenticated", options: .New, context: nil)
+
+            let fmt = NSDateFormatter()
+            fmt.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            if statusViewType == .MyStatus {
+                profileNameLabel.text = "Tsuyoshi"
+                profileImageView.image = UIImage(named: "man_j")
+
+                statusType = StatusTypes.AlmostThere.statusType
+                statusDate = fmt.dateFromString("2015-06-02 11:48:00")
+            } else {
+                profileNameLabel.text = "Lala"
+                profileImageView.image = UIImage(named: "women_j")
+                
+                statusType = StatusTypes.GodId.statusType
+                statusDate = fmt.dateFromString("2015-06-02 11:55:00")
+            }
         }
     }
 
