@@ -210,13 +210,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             showSignInFacebookAlertIfNeeded()
             return
         }
-        
         if myProfile.hasPartner {
             let op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false)
             dispatchAsyncOperation(op)
         }
-        let op = UpdateMyProfileOperation().enableHUD(false)
-        dispatchAsyncOperation(op)
     }
     
     let loginToFBOp: LoginToFBOperation = LoginToFBOperation()

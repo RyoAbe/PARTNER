@@ -23,7 +23,7 @@ class UpdateProfileOperation: BaseOperation {
         }
         let pfStatuses = pfProfile!.statuses
         let profileImageData = pfProfile!.profileImage.getData()
-        self.dispatchAsyncMainThread{
+        self.dispatchAsyncMainThread {
             self.profile.id = self.pfProfile!.objectId
             Logger.debug("self.profile=\(self.profile)")
             self.profile.name = self.pfProfile!.username

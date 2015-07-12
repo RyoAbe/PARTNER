@@ -154,9 +154,6 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         if myProfile.hasPartner {
             dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id!).needHideHUD(!myProfile.isAuthenticated))
         }
-        if myProfile.isAuthenticated {
-            dispatchAsyncOperation(UpdateMyProfileOperation().needShowHUD(!myProfile.hasPartner))
-        }
     }
     @IBAction func didSelectSettingsButton(sender: AnyObject) {
         performSegueForNoPartner("SettingViewSegue")
