@@ -71,8 +71,9 @@ class AddPartnerOperation: BaseOperation {
             self.savePartnerForLocal()
         }
     }
-    
+
     func savePartnerForLocal() {
+        // TODO: キューを使って全体として処理をまとめる
         self.needHideHUD(false)
         self.dispatchAsyncMainThread{
 

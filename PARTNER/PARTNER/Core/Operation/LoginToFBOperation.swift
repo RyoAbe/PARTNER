@@ -108,6 +108,7 @@ class LoginToFBOperation: BaseOperation {
                 return
             }
         }
+        // TODO: キューを使って全体として処理をまとめる
         needHideHUD(false)
         dispatchAsyncMainThread {
             self.dispatchAsyncOperation(UpdateMyProfileOperation().needShowHUD(false))

@@ -9,6 +9,11 @@
 import UIKit
 
 class UpdatePartnerOperation: UpdateProfileOperation {
+    override init() {
+        super.init()
+        pfProfile = PFUser.currentPartner(Partner.read().id!)
+        profile = Partner.read()
+    }
     init(partnerId: String) {
         super.init()
         pfProfile = PFUser.currentPartner(partnerId)

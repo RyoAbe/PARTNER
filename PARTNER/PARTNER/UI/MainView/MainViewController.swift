@@ -150,9 +150,8 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     
     // MARK: - IBAction
     @IBAction func didSelectReloadButton(sender: AnyObject) {
-        let myProfile = MyProfile.read()
-        if myProfile.hasPartner {
-            dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id!).needHideHUD(!myProfile.isAuthenticated))
+        if MyProfile.read().hasPartner {
+            dispatchAsyncOperation(UpdatePartnerOperation())
         }
     }
     @IBAction func didSelectSettingsButton(sender: AnyObject) {

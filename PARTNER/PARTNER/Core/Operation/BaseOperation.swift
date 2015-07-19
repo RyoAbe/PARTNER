@@ -143,13 +143,16 @@ class BaseOperation: NSOperation {
     private var needHideHUD = true
     func enableHUD(enable: Bool) -> BaseOperation {
         needShowHUD = enable
-        needHideHUD = enable
         return self
     }
+
+    // TODO: これだめだ。ちゃんとqueue使わないと
     func needShowHUD(need: Bool) -> BaseOperation {
         needShowHUD = need
         return self
     }
+
+    // TODO: これだめだ。ちゃんとqueue使わないと
     func needHideHUD(need: Bool) -> BaseOperation {
         needHideHUD = need
         return self
