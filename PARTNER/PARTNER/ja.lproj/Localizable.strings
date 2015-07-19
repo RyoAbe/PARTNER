@@ -7,6 +7,13 @@
 */
 
 /**
+ *  Error
+ */
+"OccurrenceError" = "不明なエラーが発生しました";
+"OfflineError" = "インターネットに接続できません。ネットワーク環境をご確認下さい。";
+"NotFoundUserError" = "ユーザーが見つかりませんでした。";
+
+/**
  *  Statuses
  */
 "GoodMorning" = "おはよう";

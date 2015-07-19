@@ -13,12 +13,15 @@ enum PartnerErrorCode: NSInteger {
     case Unknown = 0
     case NetworkOffline = 1009
     case NotFoundUser = 4040
-    var description: String {
+    private var descriptionKey: String {
         switch self {
-        case .Unknown: return "Occurrence of an unexplained error.";
-        case .NetworkOffline: return "Can't connect to Internet.";
-        case .NotFoundUser: return "Not found user.";
+        case .Unknown: return "OccurrenceError";
+        case .NetworkOffline: return "OfflineError";
+        case .NotFoundUser: return "NotFoundUserError";
         }
+    }
+    var description: String {
+        return LocalizedString.key(self.descriptionKey)
     }
 }
 var PartnerDomain: String {
