@@ -7,6 +7,13 @@
 */
 
 /**
+ *  Error
+ */
+"OccurrenceError" = "Occurrence of an unexplained error.";
+"OfflineError" = "Can't connect to Internet.";
+"NotFoundUserError" = "Not found user.";
+
+/**
  *  Statuses
  */
 "GoodMorning" = "Good morning.";
