@@ -82,8 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    var backgroundTaskIdentifier: UIBackgroundTaskIdentifier =
-    UIBackgroundTaskInvalid
+    var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 
     func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
         Logger.debug("userInfo:\(userInfo)")
@@ -93,17 +92,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Logger.debug("expier")
         }
         
-        var replayDic = [String: Bool]()
-        if let userInfo = userInfo as? [String: String], identifier = userInfo["StatusType"] {
-            self.sendMyStatus(identifier)
-            replayDic = ["succeed": true]
-        } else {
-            replayDic = ["succeed": false]
+        if let userInfo = userInfo as? [String: String], identifier = userInfo["StatusType"], op = self.sendMyStatus(identifier) {
+            op.completionBlock = {
+                Logger.debug("send status completion.")
+                application.endBackgroundTask(self.backgroundTaskIdentifier)
+                self.backgroundTaskIdentifier = UIBackgroundTaskInvalid
+                reply(["succeed": true])
+            }
+            return
         }
-        reply(replayDic)
-        Logger.debug("replayDic\(replayDic)")
-        application.endBackgroundTask(backgroundTaskIdentifier)
-        backgroundTaskIdentifier = UIBackgroundTaskInvalid
+        reply(["succeed": false])
     }
 
     private var otherAction: UIMutableUserNotificationAction {
