@@ -68,6 +68,17 @@ class Profile: NSObject, NSCoding {
         userDefaults.synchronize()
         return self
     }
+
+    func remove() {
+        id = nil
+        name = nil
+        image = nil
+        isAuthenticated = false
+        partner = nil
+        statuses = []
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.removeObjectForKey(className)
+    }
     
     func appendStatuses(status: Status) {
         if MaxSatuses <= statuses?.count {

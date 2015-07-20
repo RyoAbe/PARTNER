@@ -63,7 +63,15 @@ class PFProfile: PFObjectBase {
         set { pfUser["fbId"] = newValue }
     }
     var partner: PFUser? {
-        get { return pfUser["partner"] as? PFUser }
+        get {
+            let query = PFUser.query()!
+            query.includeKey("partner")
+            let user = query.getObjectWithId(objectId) as? PFUser
+            if let p = user?["partner"] as? PFUser {
+                return p
+            }
+            return nil
+        }
         set { pfUser["partner"] = newValue != nil ? newValue : NSNull() }
     }
     var pfStatusPointers: [PFObject]? {

@@ -24,7 +24,10 @@ class SendMyStatusOperation: BaseOperation {
     func execute() -> BaseOperationResult {
         var error: NSError?
         let pfMyProfile = PFUser.currentMyProfile()
-        assert(pfMyProfile.isAuthenticated && pfMyProfile.hasPartner, "ログイン出来てないし、パートナーもいない")
+
+        if !pfMyProfile.isAuthenticated || !pfMyProfile.hasPartner {
+            return .Failure(NSError.code(.NotFoundUser))
+        }
         
         // ???: サーバーに自分の情報がなくてもsaveされてしまう問題
         let status = MyStatus(types: statusTypes, date: NSDate())
