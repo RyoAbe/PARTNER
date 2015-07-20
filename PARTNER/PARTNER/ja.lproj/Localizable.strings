@@ -48,8 +48,8 @@
 "LoginFacebookFailedAlerrtMessage" = "Facebookログインに失敗しました。[設定]アプリ -> [Facebook] -> [PARTNER] を有効にしてください";
 
 // AddPartner
-"AlreadyHavePartnerConfirmAlertMessage" = "既にパートナーがいます。パートナー\"%@\"さんに変更しますか？";
-"AddPartnerConfirmAlertMessage" = "\"%@\"さんとパートナーになりますか？";
+"AlreadyHavePartnerConfirmAlertMessage" = "既にパートナーがいます。パートナーを「%@」さんに変更しますか？";
+"AddPartnerConfirmAlertMessage" = "「%@」さんとパートナーになりますか？";
 "AddPartnerAlertAddButton" = "OK";
 
 /**
@@ -58,7 +58,7 @@
 "NeedLoginWithFacebookToast" = "ログインをして下さい";
 "NoPartnerToast" = "パートナーがいません";
 "NoMessageToast" = "メッセージを送信すると、履歴が見れます";
-"AlreadyPartnerToast" = "既に\"%@\"さんと、パートナになっています";
+"AlreadyPartnerToast" = "既に「%@」さんと、パートナーです";
 
 /**
  *  StatusView
