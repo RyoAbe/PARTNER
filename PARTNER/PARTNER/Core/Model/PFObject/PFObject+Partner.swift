@@ -53,7 +53,7 @@ class PFProfile: PFObjectBase {
         get { return pfUser.username! }
         set { pfUser.username = newValue }
     }
-    var hasPartner: Bool { return self.partner != nil }
+    var hasPartner: Bool { return partner != nil }
     var profileImage: PFFile {
         get { return pfUser["profileImage"] as! PFFile }
         set { pfUser["profileImage"] = newValue }
@@ -77,7 +77,7 @@ class PFProfile: PFObjectBase {
             }
             return statuses
         }
-        return nil
+        return []
     }
 
     func appendStatus(status: PFStatus) {

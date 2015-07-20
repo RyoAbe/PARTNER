@@ -112,7 +112,7 @@ class BaseOperation: NSOperation {
                 finishWithResult(ret)
                 return
             case .Failure(let err):
-                finishWithError(err!)
+                finishWithError(err)
                 return
         }
     }

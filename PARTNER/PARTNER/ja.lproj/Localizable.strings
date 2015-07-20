@@ -14,6 +14,11 @@
 "NotFoundUserError" = "ユーザーが見つかりませんでした。";
 
 /**
+ * APNs
+ */
+"AddedPartnerFormat" = "パートナーに「%@」さんが追加されました";
+
+/**
  *  Statuses
  */
 "GoodMorning" = "おはよう";
