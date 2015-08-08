@@ -21,7 +21,7 @@ enum PartnerErrorCode: NSInteger {
         }
     }
     var description: String {
-        return LocalizedString.key(self.descriptionKey)
+        return LocalizedString.key(descriptionKey)
     }
 }
 var PartnerDomain: String {

@@ -182,7 +182,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 break
             case .ReceivedMessage :
                 if MyProfile.read().hasPartner {
-                    op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false)
+                    op = UpdatePartnerOperation().enableHUD(false)
                 }
                 break
             }
@@ -209,8 +209,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         if myProfile.hasPartner {
-            let op = UpdatePartnerOperation(partnerId: Partner.read().id!).enableHUD(false)
-            dispatchAsyncOperation(op)
+            dispatchAsyncOperation(UpdatePartnerOperation().enableHUD(false))
         }
     }
     

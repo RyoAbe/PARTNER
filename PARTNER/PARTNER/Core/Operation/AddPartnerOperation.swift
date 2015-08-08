@@ -39,28 +39,6 @@ class AddPartnerOperation: BaseOperation {
         var error: NSError?
         let pfMyProfile = PFUser.currentMyProfile()
 
-        /*
-        // TODO: パートナーを変更しても過去のパートナーに自分が残ってしまい、プッシュ通知が遅れてしまう問題
-        
-        // パートナーのWrite権限に自分を追加
-        candidatePartner.pfUser.ACL?.setWriteAccess(true, forUser: pfMyProfile.pfUser)
-        
-        // 自分のWrite権限にパートナーを追加
-        pfMyProfile.pfUser.ACL?.setWriteAccess(true, forUser: candidatePartner.pfUser)
-
-        // 既にパートナーがいた場合は、そっちから自分を削除する
-        
-        // パートナーのパートナーに自分を追加
-        // [Error]: Caught "NSInternalInconsistencyException" with reason "User cannot be saved unless they have been authenticated via logIn or signUp":
-        // でエラーになる
-        // http://stackoverflow.com/questions/24580413/cant-write-non-current-user-objects-by-pfuser-currentuser を参考にCloudコードを書けば実現出来そう
-        candidatePartner.partner = pfMyProfile.pfUser
-        candidatePartner.saveInBackgroundWithBlock { success, error in
-            Logger.debug("success=\(success), error=\(error)")
-        }
-
-        */
-
         pfMyProfile.partner = candidatePartner.pfUser
         pfMyProfile.removeAllStatuses()
         pfMyProfile.saveInBackgroundWithBlock{ success, error in
@@ -71,10 +49,11 @@ class AddPartnerOperation: BaseOperation {
             self.savePartnerForLocal()
         }
     }
-    
+
     func savePartnerForLocal() {
+        // TODO: キューを使って全体として処理をまとめる
         self.needHideHUD(false)
-        self.dispatchAsyncMainThread{
+        self.dispatchAsyncMainThread {
 
             // 取得したcandidatePartnerを使用してパートナーのみの情報を更新
             let op = UpdatePartnerOperation(partnerId: self.candidatePartner.objectId).needShowHUD(false)
@@ -85,11 +64,24 @@ class AddPartnerOperation: BaseOperation {
             self.dispatchAsyncOperation(op)
         }
 
-        // 既に相手がパートナー追加されてればnotifyしない
-        if candidatePartner.hasPartner {
+        // パートナーが存在していて、なおかつ自分のobjectIdと一致していればreturn
+        if let partner = candidatePartner.partner where partner.objectId == PFUser.currentMyProfile().objectId {
             self.finish()
             return
         }
+
+        dispatchAsyncMainThread {
+            if let id = Partner.read().id {
+                PFCloud.callFunctionInBackground("removePartner", withParameters: ["partnerId": id]) { response, error in
+                    Logger.debug("response=\(response)")
+                }
+            }
+        }
+        
+        PFCloud.callFunctionInBackground("addPartner", withParameters: ["partnerId": candidatePartner.objectId]) { response, error in
+            Logger.debug("response=\(response)")
+        }
+
         notify()
     }
     
@@ -99,7 +91,7 @@ class AddPartnerOperation: BaseOperation {
         let pushQuery = PFInstallation.query()!.whereKey("user", matchesQuery:userQuery)
         let push = PFPush()
         push.setQuery(pushQuery)
-        push.setData(["alert"            : "Added Partner: \(pfMyProfile.username!)",
+        push.setData(["alert"            : NSString(format: LocalizedString.key("AddedPartnerFormat"), pfMyProfile.username!),
                       "objectId"         : pfMyProfile.objectId!,
                       "category"         : APSCategory.AddedPartner.rawValue ])
         var error: NSError?

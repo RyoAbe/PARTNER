@@ -150,9 +150,13 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     
     // MARK: - IBAction
     @IBAction func didSelectReloadButton(sender: AnyObject) {
+        PFQuery.clearAllCachedResults()
         let myProfile = MyProfile.read()
         if myProfile.hasPartner {
             dispatchAsyncOperation(UpdatePartnerOperation(partnerId: Partner.read().id!).needHideHUD(!myProfile.isAuthenticated))
+        }
+        if myProfile.isAuthenticated {
+            dispatchAsyncOperation(UpdateMyProfileOperation().needShowHUD(!myProfile.hasPartner))
         }
     }
     @IBAction func didSelectSettingsButton(sender: AnyObject) {
