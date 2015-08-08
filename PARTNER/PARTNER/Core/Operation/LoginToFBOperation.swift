@@ -100,7 +100,6 @@ class LoginToFBOperation: BaseOperation {
             pfMyProfile.username = username
             pfMyProfile.fbId = fbId
             pfMyProfile.profileImage = profileImageFile
-            pfMyProfile.partner = nil
             pfMyProfile.removeAllStatuses()
             pfMyProfile.save(&error)
             if error != nil {
@@ -112,19 +111,6 @@ class LoginToFBOperation: BaseOperation {
         needHideHUD(false)
         dispatchAsyncMainThread {
             self.dispatchAsyncOperation(UpdateMyProfileOperation().needShowHUD(false))
-        }
-        addPartnerIfEixst()
-    }
-
-    func addPartnerIfEixst() {
-        if !pfMyProfile!.hasPartner {
-            finish()
-            return
-        }
-        let op = AddPartnerOperation(candidatePartner: PFUser.currentPartner(pfMyProfile.partner!.objectId!)!)
-        op.completionBlock = {
-            let r: AnyObject? = op.error != nil ? op.error : op.result
-            self.finishWithResult(r)
         }
     }
 }

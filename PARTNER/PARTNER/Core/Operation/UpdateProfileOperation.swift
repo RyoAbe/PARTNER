@@ -33,29 +33,48 @@ class UpdateProfileOperation: BaseOperation {
             self.profile.save()
             Logger.debug("self.profile=\(self.profile)")
 
-            self.saveMyPartner()
+            self.saveMyPartnerIfNeeded()
         }
         return .Success(nil)
     }
     
-    func saveMyPartner(){
-        if pfProfile.partner == nil {
-            profile.partner = nil
-            return
+    func saveMyPartnerIfNeeded() -> Bool {
+        if let partner = pfProfile.partner {
+            if MyProfile.read().id != nil && Partner.read().id != nil {
+                // ローカルにある場合
+                savePartnerForLocal()
+            } else {
+                // サーバーにある場合
+                dispatchAddPartnerOperation()
+            }
+            return true
         }
-
-        if let myProfileId = MyProfile.read().id, let partnersId = Partner.read().id {
-            let myProfile = MyProfile.read()
-            let partner = Partner.read()
-            myProfile.partner = partner
-            partner.partner = myProfile
-            myProfile.save()
-            partner.save()
-            return
-        }
-        return
+        return false
     }
-    
+
+    func savePartnerForLocal() {
+        let myProfile = MyProfile.read()
+        let partner = Partner.read()
+
+        myProfile.partner = partner
+        myProfile.save()
+
+        partner.partner = myProfile
+        partner.save()
+    }
+
+    func dispatchAddPartnerOperation() {
+        let op = AddPartnerOperation(candidatePartnerId: pfProfile.partner!.objectId!)
+        op.completionBlock = {
+            if op.error == nil {
+                self.finishWithResult(op.result)
+            } else {
+                self.finishWithError(op.error)
+            }
+        }
+        dispatchAsyncOperation(op)
+    }
+
     func status(types: StatusTypes, date: NSDate) -> Status {
         assert(false)
         return Status(types: types, date: date)

@@ -18,4 +18,13 @@ class UpdateMyProfileOperation: UpdateProfileOperation {
     override func status(types: StatusTypes, date: NSDate) -> Status {
         return MyStatus(types: types, date: date)
     }
+    override func saveMyPartnerIfNeeded() -> Bool {
+        let ret = super.saveMyPartnerIfNeeded()
+        if !ret && profile.hasPartner {
+            profile.partner!.remove()
+            profile.partner = nil
+            profile.save()
+        }
+        return ret
+    }
 }
